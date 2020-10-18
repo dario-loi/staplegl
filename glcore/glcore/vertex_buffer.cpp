@@ -1,4 +1,5 @@
 #include "vertex_buffer.h"
+#include "gl_functions.h"
 
 namespace glcore
 {

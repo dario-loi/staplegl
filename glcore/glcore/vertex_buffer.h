@@ -2,8 +2,6 @@
 
 #include "gl_buffer.h"
 
-#include "gl_function_placeholder.h"
-
 namespace glcore
 {
 	class vertex_buffer : public gl_buffer

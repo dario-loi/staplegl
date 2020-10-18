@@ -24,11 +24,12 @@ project "glcore"
 
 	files { 
 	"%{prj.name}/glcore/**.h", 
-	"%{prj.name}/glcore/**.cpp" 
+	"%{prj.name}/glcore/**.cpp"
 	}
 
 	includedirs { 
 	"%{prj.name}/glcore",
+	"%{prj.name}/glcore/tweakme"
 	}
 
 	defines {
