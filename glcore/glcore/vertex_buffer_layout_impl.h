@@ -1,3 +1,5 @@
+#pragma once
+
 #include "vertex_buffer_layout.h"
 
 namespace glcore
@@ -9,7 +11,7 @@ namespace glcore
 	template<>
 	void vertex_buffer_layout::push_element<float>(std::uint32_t count)
 	{
-		m_elements.push_back({ count, 0x1406 , false});
+		m_elements.push_back({ count, 0x1406 , false });
 		m_stride += count * sizeof(float);
 	}
 
@@ -20,7 +22,12 @@ namespace glcore
 		m_stride += count * sizeof(std::uint32_t);
 	}
 
-	inline std::uint32_t glcore::vertex_buffer_layout::stride() const
+	inline std::vector<element_t>& vertex_buffer_layout::elements()
+	{
+		return m_elements;
+	}
+
+	inline std::uint32_t vertex_buffer_layout::stride() const
 	{
 		return m_stride;
 	}

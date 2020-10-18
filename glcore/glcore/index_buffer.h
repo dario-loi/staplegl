@@ -12,7 +12,7 @@ namespace glcore
 		~index_buffer();
 
 	public:
-		virtual void bind() const override;
-		virtual void unbind() const override;
+		void bind() const override;
+		void unbind() const override;
 	};
 }

@@ -20,6 +20,7 @@ namespace glcore
 		template<> void push_element<std::uint32_t>(std::uint32_t count);
 
 	public:
+		std::vector<element_t>& elements();
 		std::uint32_t stride() const;
 
 	public:

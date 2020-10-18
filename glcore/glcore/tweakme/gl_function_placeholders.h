@@ -55,3 +55,6 @@ static void __glGetShaderInfoLog(std::uint32_t shader, int maxLength, int* lengt
 #define GL_STATIC_DRAW std::uint32_t{}
 #define GL_ARRAY_BUFFER std::uint32_t{}
 #define GL_ELEMENT_ARRAY_BUFFER std::uint32_t{}
+#define GL_FLOAT std::uint32_t{}
+#define GL_UNSIGNED_INT std::uint32_t{}
+#define GL_UNSIGNED_BYTE std::uint32_t{}
