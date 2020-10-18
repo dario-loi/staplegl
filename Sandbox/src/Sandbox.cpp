@@ -3,6 +3,8 @@
 #include "glcore/vertex_buffer.h"
 #include "glcore/vertex_buffer_layout.h"
 #include "glcore/index_buffer.h"
+#include "glcore/vertex_array.h"
+#include "glcore/shader.h"
 
 int main()
 {
@@ -22,7 +24,16 @@ int main()
 	glcore::vertex_buffer_layout layout;
 	layout.push_element<float>(2);
 
+	glcore::vertex_array vao;
+	vao.add_vertex_buffer(vbo, layout);
+
 	glcore::index_buffer ibo(*indices, 2 * 3 * sizeof(unsigned int));
+
+	glcore::shader_program shaders({
+		{ glcore::shader_type::vertex, "res/shaders/vert.shader" },
+		{ glcore::shader_type::fragment, "res/shaders/frag.shader" },
+		});
+	shaders.bind();
 
 	return 0;
 }
