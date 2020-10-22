@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "gl_object.h"
+
 namespace glcore
 {
 	enum class shader_type {
@@ -19,7 +21,7 @@ namespace glcore
 		std::string_view path;
 	};
 
-	class shader_program
+	class shader_program : public gl_object
 	{
 	public:
 		shader_program() = default;
@@ -27,8 +29,8 @@ namespace glcore
 		~shader_program();
 
 	public:
-		void bind() const;
-		void unbind() const;
+		void bind() const override;
+		void unbind() const override;
 		std::uint32_t program();
 
 	public:
@@ -44,7 +46,6 @@ namespace glcore
 		std::string parse_code(std::string_view path);
 
 	private:
-		std::uint32_t m_id{};
 		std::vector<shader_t> m_shaders;
 	};
 }

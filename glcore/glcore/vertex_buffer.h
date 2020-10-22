@@ -1,10 +1,10 @@
 #pragma once
 
-#include "gl_buffer.h"
+#include "gl_object.h"
 
 namespace glcore
 {
-	class vertex_buffer : public gl_buffer
+	class vertex_buffer : public gl_object
 	{
 	public:
 		vertex_buffer() = default;

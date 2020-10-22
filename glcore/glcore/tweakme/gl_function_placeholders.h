@@ -15,8 +15,8 @@ static void __glBindVertexArray(std::uint32_t array) {}
 static void __glEnableVertexAttribArray(std::uint32_t index) {}
 static void __glVertexAttribPointer(std::uint32_t index, int size, std::uint32_t type, unsigned char normalized, int stride, const void* pointer) {}
 
-static std::uint32_t __glCreateProgram() {}
-static std::uint32_t __glCreateShader(std::uint32_t shaderType) {}
+static std::uint32_t __glCreateProgram() { return std::uint32_t{}; }
+static std::uint32_t __glCreateShader(std::uint32_t shaderType) { return std::uint32_t{}; }
 static void __glDeleteProgram(std::uint32_t program) {}
 static void __glUseProgram(std::uint32_t program) {}
 static void __glLinkProgram(std::uint32_t program) {}

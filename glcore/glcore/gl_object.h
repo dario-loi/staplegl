@@ -4,10 +4,10 @@
 
 namespace glcore
 {
-	class gl_buffer
+	class gl_object
 	{
 	protected:
-		virtual ~gl_buffer() = default;
+		virtual ~gl_object() = default;
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;
 

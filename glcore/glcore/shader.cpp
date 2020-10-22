@@ -1,6 +1,7 @@
 #include "shader.h"
 #include "gl_functions.h"
 
+#include <iostream>
 #include <fstream>
 
 namespace glcore
@@ -94,12 +95,12 @@ namespace glcore
 		glGetShaderiv(id, GL_COMPILE_STATUS, &is_compiled);
 		if (is_compiled == GL_FALSE)
 		{
-			int maxLength = 0;
-			std::vector<char> infoLog(maxLength);
-			glGetShaderiv(id, GL_INFO_LOG_LENGTH, &maxLength);
-			glGetShaderInfoLog(id, maxLength, &maxLength, &infoLog[0]);
+			int max_length{ 0 };
+			glGetShaderiv(id, GL_INFO_LOG_LENGTH, &max_length);
+			std::vector<char> error_log(max_length);
+			glGetShaderInfoLog(id, max_length, &max_length, &error_log[0]);
+			//std::cout << error_log.data() << '\n';
 			glDeleteShader(id);
-			std::cout << infoLog.data() << "\n";
 			return false;
 		}
 		return true;
@@ -107,13 +108,6 @@ namespace glcore
 
 	std::string shader_program::parse_code(std::string_view path)
 	{
-		std::ifstream t(path.data());
-		std::string content;
-		t.seekg(0, std::ios::end);
-		content.reserve(t.tellg());
-		t.seekg(0, std::ios::beg);
-		content.assign((std::istreambuf_iterator<char>(t)),
-			std::istreambuf_iterator<char>());
-		return content;
+		return path.data();
 	}
 }

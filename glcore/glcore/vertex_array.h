@@ -1,12 +1,12 @@
 #pragma once
 
-#include "gl_buffer.h"
+#include "gl_object.h"
 #include "vertex_buffer.h"
 #include "vertex_buffer_layout.h"
 
 namespace glcore
 {
-	class vertex_array : public gl_buffer
+	class vertex_array : public gl_object
 	{
 	public:
 		vertex_array();

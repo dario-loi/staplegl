@@ -3,11 +3,12 @@
 
 namespace glcore
 {
-	index_buffer::index_buffer(std::uint32_t* indices, std::uint32_t size)
+	index_buffer::index_buffer(std::uint32_t* indices, std::uint32_t count)
+		: m_count{ count }
 	{
 		glCreateBuffers(1, &m_id);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count, indices, GL_STATIC_DRAW);
 	}
 
 	index_buffer::~index_buffer()
@@ -23,5 +24,10 @@ namespace glcore
 	void index_buffer::unbind() const
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
+
+	std::uint32_t index_buffer::count() const
+	{
+		return m_count;
 	}
 }

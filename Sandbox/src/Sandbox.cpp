@@ -30,8 +30,8 @@ int main()
 	glcore::index_buffer ibo(*indices, 2 * 3 * sizeof(unsigned int));
 
 	glcore::shader_program shaders({
-		{ glcore::shader_type::vertex, "res/shaders/vert.shader" },
-		{ glcore::shader_type::fragment, "res/shaders/frag.shader" },
+		{ glcore::shader_type::vertex, "shaders/vert.shader" },
+		{ glcore::shader_type::fragment, "shaders/frag.shader" }
 		});
 	shaders.bind();
 
