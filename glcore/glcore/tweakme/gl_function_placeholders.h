@@ -27,6 +27,11 @@ static void __glAttachShader(std::uint32_t program, std::uint32_t shader) {}
 static void __glDeleteShader(std::uint32_t shader) {}
 static void __glGetShaderiv(std::uint32_t shader, std::uint32_t pname, int* params) {}
 static void __glGetShaderInfoLog(std::uint32_t shader, int maxLength, int* length, char* infoLog) {}
+static int __glGetUniformLocation(std::uint32_t program, const char* name) { return int{}; }
+static void __glUniform1f(int location, float v0) {}
+static void __glUniform2f(int location, float v0, float v1) {}
+static void __glUniform3f(int location, float v0, float v1, float v2) {}
+static void __glUniform4f(int location, float v0, float v1, float v2, float v3) {}
 
 #define glCreateBuffers(n, buffers) __glCreateBuffers(n, buffers)
 #define glDeleteBuffers(n, buffers) __glDeleteBuffers(n, buffers)
@@ -51,6 +56,11 @@ static void __glGetShaderInfoLog(std::uint32_t shader, int maxLength, int* lengt
 #define glDeleteShader(shader) __glDeleteShader(shader)
 #define glGetShaderiv(shader, pname, params) __glGetShaderiv(shader, pname, params)
 #define glGetShaderInfoLog(shader, maxLength, length, infoLog) __glGetShaderInfoLog(shader, maxLength, length, infoLog)
+#define glGetUniformLocation(program, name) __glGetUniformLocation(program, name)
+#define glUniform1f(location, v0) __glUniform1f(location, v0)
+#define glUniform2f(location, v0, v1) __glUniform2f(location, v0, v1)
+#define glUniform3f(location, v0, v1, v2) __glUniform3f(location, v0, v1, v2)
+#define glUniform4f(location, v0, v1, v2, v3) __glUniform4f(location, v0, v1, v2, v3)
 
 #define GL_STATIC_DRAW std::uint32_t{}
 #define GL_ARRAY_BUFFER std::uint32_t{}

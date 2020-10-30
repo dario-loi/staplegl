@@ -14,7 +14,7 @@ namespace glcore
 
 	public:
 		void add_vertex_buffer(vertex_buffer& vbo, vertex_buffer_layout& layout);
-		void bind() const;
-		void unbind() const;
+		void bind() const override;
+		void unbind() const override;
 	};
 }

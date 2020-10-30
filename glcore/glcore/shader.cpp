@@ -27,6 +27,26 @@ namespace glcore
 		glUseProgram(0);
 	}
 
+	void shader_program::upload_uniform1f(std::string_view name, float val)
+	{
+		glUniform1f(uniform_location(name), val);
+	}
+
+	void shader_program::upload_uniform2f(std::string_view name, float val0, float val1)
+	{
+		glUniform2f(uniform_location(name), val0, val1);
+	}
+
+	void shader_program::upload_uniform3f(std::string_view name, float val0, float val1, float val2)
+	{
+		glUniform3f(uniform_location(name), val0, val1, val2);
+	}
+
+	void shader_program::upload_uniform4f(std::string_view name, float val0, float val1, float val2, float val3)
+	{
+		glUniform4f(uniform_location(name), val0, val1, val2, val3);
+	}
+
 	std::uint32_t shader_program::program()
 	{
 		return m_id;
@@ -81,6 +101,12 @@ namespace glcore
 			return GL_TESS_EVALUATION_SHADER;
 		else if (t_shader_type == shader_type::geometry)
 			return GL_GEOMETRY_SHADER;
+	}
+
+	int shader_program::uniform_location(std::string_view name)
+	{
+		int location = glGetUniformLocation(m_id, name.data());
+		return location;
 	}
 
 	void shader_program::link_and_validate(std::uint32_t program)

@@ -35,5 +35,7 @@ int main()
 		});
 	shaders.bind();
 
+	shaders.upload_uniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
+
 	return 0;
 }
