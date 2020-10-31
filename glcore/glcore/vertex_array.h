@@ -2,7 +2,6 @@
 
 #include "gl_object.h"
 #include "vertex_buffer.h"
-#include "vertex_buffer_layout.h"
 
 namespace glcore
 {
@@ -13,8 +12,11 @@ namespace glcore
 		~vertex_array();
 
 	public:
-		void add_vertex_buffer(vertex_buffer& vbo, vertex_buffer_layout& layout);
 		void bind() const override;
 		void unbind() const override;
+		void add_vertex_buffer(vertex_buffer& vbo);
+
+	private:
+		std::uint32_t m_id{};
 	};
 }

@@ -51,6 +51,7 @@ namespace glcore
 		std::string parse_code(std::string_view path);
 
 	private:
+		std::uint32_t m_id{};
 		std::vector<shader_t> m_shaders;
 	};
 }

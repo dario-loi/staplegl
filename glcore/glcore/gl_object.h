@@ -10,8 +10,5 @@ namespace glcore
 		virtual ~gl_object() = default;
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;
-
-	protected:
-		std::uint32_t m_id{};
 	};
 }

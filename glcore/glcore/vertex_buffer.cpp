@@ -10,6 +10,12 @@ namespace glcore
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 	}
 
+	vertex_buffer::vertex_buffer(float* vertices, std::uint32_t size, vertex_buffer_layout layout)
+		: vertex_buffer{ vertices, size }
+	{
+		m_layout = layout;
+	}
+
 	vertex_buffer::~vertex_buffer()
 	{
 		glDeleteBuffers(1, &m_id);
@@ -23,5 +29,15 @@ namespace glcore
 	void vertex_buffer::unbind() const
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void vertex_buffer::set_layout(vertex_buffer_layout& layout)
+	{
+		m_layout = layout;
+	}
+
+	vertex_buffer_layout& vertex_buffer::layout()
+	{
+		return m_layout;
 	}
 }

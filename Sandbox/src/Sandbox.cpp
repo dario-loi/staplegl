@@ -21,11 +21,14 @@ int main()
 	};
 
 	glcore::vertex_buffer vbo(*vertices, 4 * 2 * sizeof(float));
-	glcore::vertex_buffer_layout layout;
-	layout.push_element<float>(2);
+	glcore::vertex_buffer_layout layout =
+	{
+		{{ glcore::sdt::type::vec3, "position" }}
+	};
+	vbo.set_layout(layout);
 
 	glcore::vertex_array vao;
-	vao.add_vertex_buffer(vbo, layout);
+	vao.add_vertex_buffer(vbo);
 
 	glcore::index_buffer ibo(*indices, 2 * 3 * sizeof(unsigned int));
 

@@ -17,6 +17,7 @@ namespace glcore
 		std::uint32_t count() const;
 
 	private:
-		std::uint32_t m_count;
+		std::uint32_t m_id{};
+		std::uint32_t m_count{};
 	};
 }

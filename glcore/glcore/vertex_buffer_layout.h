@@ -1,36 +1,52 @@
 #pragma once
 
 #include <vector>
+#include <string_view>
 
 namespace glcore
 {
-	struct element_t
+	struct sdt // Shader data type
 	{
-		std::uint32_t count{};
-		std::uint32_t type{};
-		bool normalized{};
+		enum class type { vec2, vec3, vec4 };
+		static std::size_t size(type t_type);
+		static std::uint32_t underlying_type(type t_type);
+		static std::uint32_t component_count(type t_type);
+	};
+}
+
+namespace glcore
+{
+	struct attribute_t
+	{
+		sdt::type type;
+		std::string_view name;
+	};
+
+	struct vb_attribute
+	{
+		vb_attribute(attribute_t attribute);
+		attribute_t data;
+		std::uint32_t offset{};
 	};
 
 	class vertex_buffer_layout
 	{
 	public:
-		template<typename T>
-		void push_element(std::uint32_t count);
-		template<> void push_element<float>(std::uint32_t count);
-		template<> void push_element<std::uint32_t>(std::uint32_t count);
+		vertex_buffer_layout() = default;
+		vertex_buffer_layout(std::initializer_list<vb_attribute> attributes);
 
 	public:
-		std::vector<element_t>& elements();
 		std::uint32_t stride() const;
+		std::vector<vb_attribute>& data();
+		std::vector<vb_attribute>::iterator begin();
+		std::vector<vb_attribute>::iterator end();
 
 	public:
-		element_t& operator[](std::size_t index);
-		const element_t& operator[](std::size_t index) const;
+		vb_attribute& operator[](std::size_t index);
+		const vb_attribute& operator[](std::size_t index) const;
  
 	private:
 		std::uint32_t m_stride{};
-		std::vector<element_t> m_elements;
+		std::vector<vb_attribute> m_attributes;
 	};
 }
-
-#include "vertex_buffer_layout_impl.h"
