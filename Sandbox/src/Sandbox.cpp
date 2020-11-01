@@ -8,11 +8,11 @@
 
 int main()
 {
-	float vertices[4][2] = {
-	{ -0.5f, -0.5f }, // 0
-	{  0.5f, -0.5f }, // 1
-	{  0.5f,  0.5f }, // 2
-	{ -0.5f,  0.5f }  // 3
+	float vertices[4][7] = {
+		{ -0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f }, // 0
+		{  0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f }, // 1
+		{  0.5f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f }, // 2
+		{ -0.5f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f }  // 3
 	};
 
 	unsigned int indices[2][3] = {
@@ -20,17 +20,18 @@ int main()
 		{ 0, 2, 3 }
 	};
 
-	glcore::vertex_buffer vbo(*vertices, 4 * 2 * sizeof(float));
+	glcore::vertex_buffer vbo(*vertices, sizeof(vertices));
 	glcore::vertex_buffer_layout layout =
 	{
-		{{ glcore::sdt::type::vec3, "position" }}
+		{{ glcore::sdt::type::vec3, "position" }},
+		{{ glcore::sdt::type::vec4, "color" }}
 	};
 	vbo.set_layout(layout);
 
 	glcore::vertex_array vao;
 	vao.add_vertex_buffer(vbo);
 
-	glcore::index_buffer ibo(*indices, 2 * 3 * sizeof(unsigned int));
+	glcore::index_buffer ibo(*indices, sizeof(indices));
 
 	glcore::shader_program shaders({
 		{ glcore::shader_type::vertex, "shaders/vert.shader" },

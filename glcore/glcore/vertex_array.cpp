@@ -32,9 +32,14 @@ namespace glcore
 		for (const auto& [data, offset] : vbo.layout())
 		{
 			glEnableVertexAttribArray(attrib_index);
-			glVertexAttribPointer(attrib_index++, sdt::component_count(data.type),
-				sdt::underlying_type(data.type), GL_FALSE, vbo.layout().stride(),
-				reinterpret_cast<const void*>(offset));
+			glVertexAttribPointer(
+				attrib_index++, 
+				sdt::component_count(data.type),
+				sdt::underlying_type(data.type), 
+				GL_FALSE, 
+				vbo.layout().stride(),
+				reinterpret_cast<const void*>(offset)
+			);
 		}
 	}
 }
