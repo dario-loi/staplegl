@@ -25,7 +25,7 @@ namespace glcore
 
 	void vertex_array::add_vertex_buffer(vertex_buffer& vbo)
 	{
-		this->bind();
+		glBindVertexArray(m_id);
 		vbo.bind();
 
 		int attrib_index{};
@@ -41,5 +41,13 @@ namespace glcore
 				reinterpret_cast<const void*>(offset)
 			);
 		}
+		m_vertex_buffers.push_back(vbo);
+	}
+
+	void vertex_array::add_index_buffer(index_buffer& ibo)
+	{
+		glBindVertexArray(m_id);
+		ibo.bind();
+		m_index_buffer = ibo;
 	}
 }

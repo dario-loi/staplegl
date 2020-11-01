@@ -21,6 +21,7 @@ int main()
 	};
 
 	glcore::vertex_buffer vbo(*vertices, sizeof(vertices));
+	glcore::index_buffer ibo(*indices, sizeof(indices));
 	glcore::vertex_buffer_layout layout =
 	{
 		{{ glcore::sdt::type::vec3, "position" }},
@@ -30,8 +31,7 @@ int main()
 
 	glcore::vertex_array vao;
 	vao.add_vertex_buffer(vbo);
-
-	glcore::index_buffer ibo(*indices, sizeof(indices));
+	vao.add_index_buffer(ibo);
 
 	glcore::shader_program shaders({
 		{ glcore::shader_type::vertex, "shaders/vert.shader" },
