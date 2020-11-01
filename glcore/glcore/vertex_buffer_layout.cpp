@@ -5,11 +5,9 @@ namespace glcore
 	vertex_buffer_layout::vertex_buffer_layout(std::initializer_list<vb_attribute> attributes)
 		: m_attributes{ attributes }
 	{
-		std::size_t offset_temp{};
 		for (auto [data, offset] : attributes)
 		{
-			offset = offset_temp;
-			offset_temp += sdt::size(data.type);
+			offset = m_stride;
 			m_stride += sdt::size(data.type);
 		}
 	}
