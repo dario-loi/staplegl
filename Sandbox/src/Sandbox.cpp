@@ -31,7 +31,7 @@ int main()
 
 	glcore::vertex_array vao;
 	vao.add_vertex_buffer(vbo);
-	vao.add_index_buffer(ibo);
+	vao.set_index_buffer(ibo);
 
 	glcore::shader_program shaders({
 		{ glcore::shader_type::vertex, "shaders/vert.shader" },

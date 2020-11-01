@@ -16,7 +16,7 @@ namespace glcore
 		void bind() const override;
 		void unbind() const override;
 		void add_vertex_buffer(vertex_buffer& vbo);
-		void add_index_buffer(index_buffer& ibo);
+		void set_index_buffer(index_buffer& ibo);
 
 	private:
 		std::uint32_t m_id{};

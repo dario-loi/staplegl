@@ -44,7 +44,7 @@ namespace glcore
 		m_vertex_buffers.push_back(vbo);
 	}
 
-	void vertex_array::add_index_buffer(index_buffer& ibo)
+	void vertex_array::set_index_buffer(index_buffer& ibo)
 	{
 		glBindVertexArray(m_id);
 		ibo.bind();
