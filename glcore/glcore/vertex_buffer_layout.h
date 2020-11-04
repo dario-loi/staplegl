@@ -3,22 +3,13 @@
 #include <vector>
 #include <string_view>
 
-namespace glcore
-{
-	struct sdt // Shader data type
-	{
-		enum class type { vec2, vec3, vec4 };
-		static std::size_t size(type t_type);
-		static std::uint32_t underlying_type(type t_type);
-		static std::uint32_t component_count(type t_type);
-	};
-}
+#include "shader_data_type.h"
 
 namespace glcore
 {
 	struct attribute_t
 	{
-		sdt::type type;
+		st::type type;
 		std::string_view name;
 	};
 

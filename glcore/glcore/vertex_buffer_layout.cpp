@@ -8,7 +8,7 @@ namespace glcore
 		for (auto& [data, offset] : m_attributes)
 		{
 			offset = m_stride;
-			m_stride += sdt::size(data.type);
+			m_stride += st::size(data.type);
 		}
 	}
 
@@ -45,37 +45,4 @@ namespace glcore
 	vb_attribute::vb_attribute(attribute_t attribute)
 		: data{ attribute }
 	{}
-}
-
-namespace glcore
-{
-	std::size_t sdt::size(type t_type)
-	{
-		switch (t_type)
-		{
-		case type::vec2: return sizeof(float) * 2; break;
-		case type::vec3: return sizeof(float) * 3; break;
-		case type::vec4: return sizeof(float) * 4; break;
-		}
-	}
-
-	std::uint32_t sdt::underlying_type(type t_type)
-	{
-		switch (t_type)
-		{
-		case type::vec2: return 0x1406; break;
-		case type::vec3: return 0x1406; break;
-		case type::vec4: return 0x1406; break;
-		}
-	}
-
-	std::uint32_t sdt::component_count(type t_type)
-	{
-		switch (t_type)
-		{
-		case type::vec2: return 2; break;
-		case type::vec3: return 3; break;
-		case type::vec4: return 4; break;
-		}
-	}
 }

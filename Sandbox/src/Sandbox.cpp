@@ -24,8 +24,8 @@ int main()
 	glcore::index_buffer ibo(*indices, sizeof(indices));
 	glcore::vertex_buffer_layout layout =
 	{
-		{{ glcore::sdt::type::vec3, "position" }},
-		{{ glcore::sdt::type::vec4, "color" }}
+		{{ glcore::st::type::vec3, "position" }},
+		{{ glcore::st::type::vec4, "color" }}
 	};
 	vbo.set_layout(layout);
 
