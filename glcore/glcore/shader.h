@@ -18,7 +18,6 @@ namespace glcore
 
 	struct shader_t
 	{
-		shader_t(shader_type type, std::string_view str);
 		shader_type type;
 		std::string src;
 	};
@@ -27,8 +26,9 @@ namespace glcore
 	{
 	public:
 		shader_program() = default;
+		shader_program(std::string_view name, std::string_view path);
 		shader_program(std::string_view path);
-		shader_program(std::initializer_list<shader_t> shaders);
+		shader_program(std::string_view name, std::initializer_list<shader_t> shaders);
 		~shader_program();
 
 	public:
@@ -38,7 +38,8 @@ namespace glcore
 		void upload_uniform2f(std::string_view name, float val0, float val1);
 		void upload_uniform3f(std::string_view name, float val0, float val1, float val2);
 		void upload_uniform4f(std::string_view name, float val0, float val1, float val2, float val3);
-		std::uint32_t program();
+		std::uint32_t program_id() const;
+		std::string name() const;
 
 	public:
 		shader_t& operator[](std::size_t index);
@@ -52,10 +53,11 @@ namespace glcore
 		int uniform_location(std::string_view name);
 		void link_and_validate(std::uint32_t program);
 		bool is_valid(std::uint32_t id);
-		static shader_type string_to_shader_type(std::string str);
+		static shader_type string_to_shader_type(const char* str);
 
 	private:
 		std::uint32_t m_id{};
+		std::string m_name;
 		std::vector<shader_t> m_shaders;
 	};
 }

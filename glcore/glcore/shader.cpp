@@ -7,19 +7,20 @@
 
 namespace glcore
 {
-	shader_t::shader_t(shader_type type, std::string_view str)
-		: type{ type }
-		, src{ util::is_path(str.data()) ? util::read_file(str.data()) : str }
-	{}
-
-	shader_program::shader_program(std::string_view path)
-		: m_shaders{ parse_shaders(util::read_file(path.data())) }
+	shader_program::shader_program(std::string_view name, std::string_view path)
+		: m_name{ name }
+		, m_shaders{ parse_shaders(util::read_file(path.data())) }
 	{
 		m_id = create_program();
 	}
 
-	shader_program::shader_program(std::initializer_list<shader_t> shaders)
-		: m_shaders{ shaders }
+	shader_program::shader_program(std::string_view path)
+		: shader_program{ util::get_file_name(path.data()), path }
+	{}
+
+	shader_program::shader_program(std::string_view name, std::initializer_list<shader_t> shaders)
+		: m_name{ name }
+		, m_shaders{ shaders }
 	{
 		m_id = create_program();
 	}
@@ -59,9 +60,14 @@ namespace glcore
 		glUniform4f(uniform_location(name), val0, val1, val2, val3);
 	}
 
-	std::uint32_t shader_program::program()
+	std::uint32_t shader_program::program_id() const
 	{
 		return m_id;
+	}
+
+	std::string shader_program::name() const
+	{
+		return m_name;
 	}
 
 	shader_t& shader_program::operator[](std::size_t index)
@@ -80,7 +86,8 @@ namespace glcore
 		std::vector<std::uint32_t> shader_id;
 		for (const auto& [type, src] : m_shaders) 
 		{
-			shader_id.push_back(compile(type, src));
+			shader_id.push_back(compile(type,
+				util::is_path(src.data()) ? util::read_file(src.data()) : src));
 		}
 		for (const auto& id : shader_id) 
 		{
@@ -132,11 +139,11 @@ namespace glcore
 			std::string type = source.substr(begin, eol - begin);
 			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
 			pos = source.find(type_token, nextLinePos);
-			shader_sources[string_to_shader_type(type)] = (pos == std::string::npos)
+			shader_sources[string_to_shader_type(type.data())] = (pos == std::string::npos)
 				? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos);
 		}
 		for (const auto& [type, src] : shader_sources)
-			shaders.emplace_back(type, src);
+			shaders.push_back({ type, src });
 
 		return shaders;
 	}
@@ -170,7 +177,7 @@ namespace glcore
 		return true;
 	}
 
-	shader_type shader_program::string_to_shader_type(std::string str)
+	shader_type shader_program::string_to_shader_type(const char* str)
 	{
 		if (str == "vertex")						return shader_type::vertex;
 		else if (str == "fragment")					return shader_type::fragment;

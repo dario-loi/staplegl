@@ -25,4 +25,14 @@ namespace glcore::util
 		}
 		return result;
 	}
+
+	static std::string get_file_name(const char* path)
+	{
+		std::string filepath = path;
+		auto last_slash = filepath.find_last_of("/\\");
+		last_slash = last_slash == std::string::npos ? 0 : last_slash + 1;
+		auto last_dot = filepath.rfind('.');
+		auto count = last_dot == std::string::npos ? filepath.size() - last_slash : last_dot - last_slash;
+		return filepath.substr(last_slash, count);
+	}
 }
