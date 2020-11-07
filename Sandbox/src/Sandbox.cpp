@@ -1,10 +1,6 @@
 #include <iostream>
 
-#include "glcore/vertex_buffer.h"
-#include "glcore/vertex_buffer_layout.h"
-#include "glcore/index_buffer.h"
-#include "glcore/vertex_array.h"
-#include "glcore/shader.h"
+#include "glcore.h"
 
 int main()
 {
@@ -34,7 +30,7 @@ int main()
 	vao.set_index_buffer(ibo);
 
 	/*
-	glcore::shader_program shaders({
+	glcore::shader_program shaders("Basic", {
 		{ glcore::shader_type::vertex, "shader_examples/vert.glsl" },
 		{ glcore::shader_type::fragment, "shader_examples/frag.glsl" }
 		});
