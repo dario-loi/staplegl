@@ -137,10 +137,10 @@ namespace glcore
 			size_t eol = source.find_first_of("\r\n", pos);
 			size_t begin = pos + strlen(type_token) + 1;
 			std::string type = source.substr(begin, eol - begin);
-			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
-			pos = source.find(type_token, nextLinePos);
+			size_t next_line_pos = source.find_first_not_of("\r\n", eol);
+			pos = source.find(type_token, next_line_pos);
 			shader_sources[string_to_shader_type(type.data())] = (pos == std::string::npos)
-				? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos);
+				? source.substr(next_line_pos) : source.substr(next_line_pos, pos - next_line_pos);
 		}
 		for (const auto& [type, src] : shader_sources)
 			shaders.push_back({ type, src });
