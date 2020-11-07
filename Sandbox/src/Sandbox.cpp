@@ -33,10 +33,13 @@ int main()
 	vao.add_vertex_buffer(vbo);
 	vao.set_index_buffer(ibo);
 
+	/*
 	glcore::shader_program shaders({
-		{ glcore::shader_type::vertex, "shaders/vert.shader" },
-		{ glcore::shader_type::fragment, "shaders/frag.shader" }
+		{ glcore::shader_type::vertex, "shader_examples/vert.glsl" },
+		{ glcore::shader_type::fragment, "shader_examples/frag.glsl" }
 		});
+	*/
+	glcore::shader_program shaders("shader_examples/basic.glsl");
 	shaders.bind();
 
 	shaders.upload_uniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);

@@ -3,9 +3,21 @@
 
 #include <iostream>
 #include <fstream>
+#include <unordered_map>
 
 namespace glcore
 {
+	shader_t::shader_t(shader_type type, std::string_view str)
+		: type{ type }
+		, src{ util::is_path(str.data()) ? util::read_file(str.data()) : str }
+	{}
+
+	shader_program::shader_program(std::string_view path)
+		: m_shaders{ parse_shaders(util::read_file(path.data())) }
+	{
+		m_id = create_program();
+	}
+
 	shader_program::shader_program(std::initializer_list<shader_t> shaders)
 		: m_shaders{ shaders }
 	{
@@ -66,14 +78,17 @@ namespace glcore
 	{
 		std::uint32_t program = glCreateProgram();
 		std::vector<std::uint32_t> shader_id;
-		for (const auto& [type, path] : m_shaders) {
-			shader_id.push_back(compile(type, parse_code(path).data()));
+		for (const auto& [type, src] : m_shaders) 
+		{
+			shader_id.push_back(compile(type, src));
 		}
-		for (const auto& id : shader_id) {
+		for (const auto& id : shader_id) 
+		{
 			glAttachShader(program, id);
 		}
 		link_and_validate(program);
-		for (const auto& id : shader_id) {
+		for (const auto& id : shader_id) 
+		{
 			glDeleteShader(id);
 		}
 		return program;
@@ -103,6 +118,29 @@ namespace glcore
 			return GL_GEOMETRY_SHADER;
 	}
 
+	std::vector<shader_t> shader_program::parse_shaders(std::string source)
+	{
+		const char* type_token = "#type";
+		std::vector<shader_t> shaders;
+		std::unordered_map<shader_type, std::string> shader_sources;
+
+		size_t pos = source.find(type_token, 0);
+		while (pos != std::string::npos)
+		{
+			size_t eol = source.find_first_of("\r\n", pos);
+			size_t begin = pos + strlen(type_token) + 1;
+			std::string type = source.substr(begin, eol - begin);
+			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
+			pos = source.find(type_token, nextLinePos);
+			shader_sources[string_to_shader_type(type)] = (pos == std::string::npos)
+				? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos);
+		}
+		for (const auto& [type, src] : shader_sources)
+			shaders.emplace_back(type, src);
+
+		return shaders;
+	}
+
 	int shader_program::uniform_location(std::string_view name)
 	{
 		int location = glGetUniformLocation(m_id, name.data());
@@ -119,7 +157,7 @@ namespace glcore
 	{
 		int is_compiled{};
 		glGetShaderiv(id, GL_COMPILE_STATUS, &is_compiled);
-		if (is_compiled == GL_FALSE)
+		if (is_compiled == GL_FALSE) 
 		{
 			int max_length{ 0 };
 			glGetShaderiv(id, GL_INFO_LOG_LENGTH, &max_length);
@@ -132,8 +170,12 @@ namespace glcore
 		return true;
 	}
 
-	std::string shader_program::parse_code(std::string_view path)
+	shader_type shader_program::string_to_shader_type(std::string str)
 	{
-		return path.data();
+		if (str == "vertex")						return shader_type::vertex;
+		else if (str == "fragment")					return shader_type::fragment;
+		else if (str == "tesselation_control")		return shader_type::tesselation_control;
+		else if (str == "tesselation_evaluation")	return shader_type::tesselation_evaluation;
+		else if (str == "geometry")					return shader_type::geometry;
 	}
 }

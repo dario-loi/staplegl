@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "gl_object.h"
+#include "utility.h"
 
 namespace glcore
 {
@@ -17,14 +18,16 @@ namespace glcore
 
 	struct shader_t
 	{
+		shader_t(shader_type type, std::string_view str);
 		shader_type type;
-		std::string_view path;
+		std::string src;
 	};
 
 	class shader_program : public gl_object
 	{
 	public:
 		shader_program() = default;
+		shader_program(std::string_view path);
 		shader_program(std::initializer_list<shader_t> shaders);
 		~shader_program();
 
@@ -45,10 +48,11 @@ namespace glcore
 		std::uint32_t create_program();
 		std::uint32_t compile(shader_type t_shader_type, std::string_view source);
 		std::uint32_t to_gl_type(shader_type t_shader_type);
+		std::vector<shader_t> parse_shaders(std::string source);
 		int uniform_location(std::string_view name);
 		void link_and_validate(std::uint32_t program);
 		bool is_valid(std::uint32_t id);
-		std::string parse_code(std::string_view path);
+		static shader_type string_to_shader_type(std::string str);
 
 	private:
 		std::uint32_t m_id{};

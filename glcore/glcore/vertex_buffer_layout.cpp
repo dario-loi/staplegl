@@ -42,7 +42,7 @@ namespace glcore
 		return m_attributes[index];
 	}
 
-	vb_attribute::vb_attribute(attribute_t attribute)
+	vb_attribute::vb_attribute(vb_attribute_t attribute)
 		: data{ attribute }
 	{}
 }

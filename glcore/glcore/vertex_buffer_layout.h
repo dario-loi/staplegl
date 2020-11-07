@@ -7,7 +7,7 @@
 
 namespace glcore
 {
-	struct attribute_t
+	struct vb_attribute_t
 	{
 		st::type type;
 		std::string_view name;
@@ -15,8 +15,8 @@ namespace glcore
 
 	struct vb_attribute
 	{
-		vb_attribute(attribute_t attribute);
-		attribute_t data;
+		vb_attribute(vb_attribute_t attribute);
+		vb_attribute_t data;
 		std::uint32_t offset{};
 	};
 
