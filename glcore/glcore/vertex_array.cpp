@@ -33,8 +33,8 @@ namespace glcore
 			glEnableVertexAttribArray(attrib_index);
 			glVertexAttribPointer(
 				attrib_index++, 
-				st::component_count(data.type),
-				st::underlying_type(data.type),
+				shader_data_type::component_count(data.type),
+				shader_data_type::underlying_type(data.type),
 				GL_FALSE, 
 				vbo.layout().stride(),
 				reinterpret_cast<const void*>(offset)
