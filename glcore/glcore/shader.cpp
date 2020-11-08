@@ -1,7 +1,6 @@
 #include "shader.h"
 #include "gl_functions.h"
 
-#include <iostream>
 #include <fstream>
 #include <unordered_map>
 
@@ -113,16 +112,14 @@ namespace glcore
 
 	std::uint32_t shader_program::to_gl_type(shader_type t_shader_type)
 	{
-		if (t_shader_type == shader_type::vertex)
-			return GL_VERTEX_SHADER;
-		else if (t_shader_type == shader_type::fragment)
-			return GL_FRAGMENT_SHADER;
-		else if (t_shader_type == shader_type::tesselation_control)
-			return GL_TESS_CONTROL_SHADER;
-		else if (t_shader_type == shader_type::tesselation_evaluation)
-			return GL_TESS_EVALUATION_SHADER;
-		else if (t_shader_type == shader_type::geometry)
-			return GL_GEOMETRY_SHADER;
+		switch (t_shader_type)
+		{
+		case shader_type::vertex:			return GL_VERTEX_SHADER;			break;
+		case shader_type::fragment:			return GL_FRAGMENT_SHADER;			break;
+		case shader_type::tess_control:		return GL_TESS_CONTROL_SHADER;		break;
+		case shader_type::tess_evaluation:	return GL_TESS_EVALUATION_SHADER;	break;
+		case shader_type::geometry:			return GL_GEOMETRY_SHADER;			break;
+		}
 	}
 
 	std::vector<shader_t> shader_program::parse_shaders(std::string source)
@@ -143,15 +140,16 @@ namespace glcore
 				? source.substr(next_line_pos) : source.substr(next_line_pos, pos - next_line_pos);
 		}
 		for (const auto& [type, src] : shader_sources)
+		{
 			shaders.push_back({ type, src });
+		}
 
 		return shaders;
 	}
 
 	int shader_program::uniform_location(std::string_view name)
 	{
-		int location = glGetUniformLocation(m_id, name.data());
-		return location;
+		return glGetUniformLocation(m_id, name.data());
 	}
 
 	void shader_program::link_and_validate(std::uint32_t program)
@@ -166,11 +164,11 @@ namespace glcore
 		glGetShaderiv(id, GL_COMPILE_STATUS, &is_compiled);
 		if (is_compiled == GL_FALSE) 
 		{
-			int max_length{ 0 };
+			int max_length{};
 			glGetShaderiv(id, GL_INFO_LOG_LENGTH, &max_length);
 			std::vector<char> error_log(max_length);
 			glGetShaderInfoLog(id, max_length, &max_length, &error_log[0]);
-			//std::cout << error_log.data() << '\n';
+			printf(error_log.data() + '\n');
 			glDeleteShader(id);
 			return false;
 		}
@@ -179,10 +177,10 @@ namespace glcore
 
 	shader_type shader_program::string_to_shader_type(const char* str)
 	{
-		if (str == "vertex")						return shader_type::vertex;
-		else if (str == "fragment")					return shader_type::fragment;
-		else if (str == "tesselation_control")		return shader_type::tesselation_control;
-		else if (str == "tesselation_evaluation")	return shader_type::tesselation_evaluation;
-		else if (str == "geometry")					return shader_type::geometry;
+		if (str == "vertex")			return shader_type::vertex;
+		else if (str == "fragment")		return shader_type::fragment;
+		else if (str == "tess_control")	return shader_type::tess_control;
+		else if (str == "tess_eval")	return shader_type::tess_evaluation;
+		else if (str == "geometry")		return shader_type::geometry;
 	}
 }

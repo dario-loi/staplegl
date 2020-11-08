@@ -17,7 +17,7 @@ int main()
 	};
 
 	glcore::vertex_buffer vbo(*vertices, sizeof(vertices));
-	glcore::index_buffer ibo(*indices, sizeof(indices));
+	glcore::index_buffer ibo(*indices, 6);
 	glcore::vertex_buffer_layout layout =
 	{
 		{{ glcore::st::type::vec3, "position" }},

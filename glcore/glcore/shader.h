@@ -11,8 +11,8 @@ namespace glcore
 	enum class shader_type {
 		vertex,
 		fragment,
-		tesselation_control,
-		tesselation_evaluation,
+		tess_control,
+		tess_evaluation,
 		geometry
 	};
 
