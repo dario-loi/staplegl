@@ -2,7 +2,7 @@
 
 namespace glcore
 {
-	std::size_t st::size(type t_type)
+	std::size_t shader_data_type::size(type t_type)
 	{
 		switch (t_type)
 		{
@@ -12,7 +12,7 @@ namespace glcore
 		}
 	}
 
-	std::uint32_t st::underlying_type(type t_type)
+	std::uint32_t shader_data_type::underlying_type(type t_type)
 	{
 		switch (t_type)
 		{
@@ -22,7 +22,7 @@ namespace glcore
 		}
 	}
 
-	std::uint32_t st::component_count(type t_type)
+	std::uint32_t shader_data_type::component_count(type t_type)
 	{
 		switch (t_type)
 		{

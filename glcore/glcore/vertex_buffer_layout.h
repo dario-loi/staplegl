@@ -9,7 +9,7 @@ namespace glcore
 {
 	struct vb_attribute_t
 	{
-		st::type type;
+		shader_data_type::type type;
 		std::string_view name;
 	};
 

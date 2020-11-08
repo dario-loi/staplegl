@@ -8,7 +8,7 @@ namespace glcore
 		for (auto& [data, offset] : m_attributes)
 		{
 			offset = m_stride;
-			m_stride += st::size(data.type);
+			m_stride += shader_data_type::size(data.type);
 		}
 	}
 
