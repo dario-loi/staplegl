@@ -85,18 +85,13 @@ namespace glcore
 		std::vector<std::uint32_t> shader_id;
 		for (const auto& [type, src] : m_shaders) 
 		{
-			shader_id.push_back(compile(type,
-				util::is_path(src.data()) ? util::read_file(src.data()) : src));
+			auto& source = util::is_path(src.data()) ? util::read_file(src.data()) : src;
+			shader_id.push_back(compile(type, source));
 		}
-		for (const auto& id : shader_id) 
-		{
-			glAttachShader(program, id);
-		}
+		for (const auto& id : shader_id) glAttachShader(program, id);
 		link_and_validate(program);
-		for (const auto& id : shader_id) 
-		{
-			glDeleteShader(id);
-		}
+		for (const auto& id : shader_id) glDetachShader(program, id);
+		for (const auto& id : shader_id) glDeleteShader(id);
 		return program;
 	}
 

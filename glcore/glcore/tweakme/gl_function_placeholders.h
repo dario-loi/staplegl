@@ -24,6 +24,7 @@ static void __glValidateProgram(std::uint32_t program) {}
 static void __glShaderSource(std::uint32_t shader, int count, const char** string, const int* length) {}
 static void __glCompileShader(std::uint32_t shader) {}
 static void __glAttachShader(std::uint32_t program, std::uint32_t shader) {}
+static void __glDetachShader(std::uint32_t program, std::uint32_t shader) {}
 static void __glDeleteShader(std::uint32_t shader) {}
 static void __glGetShaderiv(std::uint32_t shader, std::uint32_t pname, int* params) {}
 static void __glGetShaderInfoLog(std::uint32_t shader, int maxLength, int* length, char* infoLog) {}
@@ -53,6 +54,7 @@ static void __glUniform4f(int location, float v0, float v1, float v2, float v3) 
 #define glShaderSource(shader, count, string, length) __glShaderSource(shader, count, string, length)
 #define glCompileShader(shader) __glCompileShader(shader)
 #define glAttachShader(program, shader) __glAttachShader(program, shader)
+#define glDetachShader(program, shader) __glDetachShader(program, shader)
 #define glDeleteShader(shader) __glDeleteShader(shader)
 #define glGetShaderiv(shader, pname, params) __glGetShaderiv(shader, pname, params)
 #define glGetShaderInfoLog(shader, maxLength, length, infoLog) __glGetShaderInfoLog(shader, maxLength, length, infoLog)
