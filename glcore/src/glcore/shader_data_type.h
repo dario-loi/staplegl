@@ -5,7 +5,7 @@
 
 namespace glcore
 {
-	struct shader_data_type // Shader data type
+	struct shader_data_type
 	{
 		enum class type { vec2, vec3, vec4 };
 		static std::size_t size(type t_type);

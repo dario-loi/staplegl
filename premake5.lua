@@ -3,11 +3,11 @@ workspace "glcore"
 	startproject "Sandbox"
 
 	configurations { 
-	"Debug", "Release" 
+		"Debug", "Release" 
 	}
 
 	flags { 
-	"MultiProcessorCompile" 
+		"MultiProcessorCompile" 
 	}
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
@@ -22,14 +22,14 @@ project "glcore"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	files { 
-	"%{prj.name}/glcore/**.h", 
-	"%{prj.name}/glcore/**.cpp"
+	files {
+		"%{prj.name}/src/**.h", 
+		"%{prj.name}/src/**.cpp"
 	}
 
 	includedirs { 
-	"%{prj.name}/glcore",
-	"%{prj.name}/glcore/tweakme"
+		"%{prj.name}/src",
+		"%{prj.name}/src/glcore/tweakme"
 	}
 
 	defines {
@@ -65,7 +65,7 @@ project "Sandbox"
 	}
 
 	includedirs {
-		"glcore"
+		"glcore/src"
 	}
 
 	links {

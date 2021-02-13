@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "glcore.h"
 
 int main()
