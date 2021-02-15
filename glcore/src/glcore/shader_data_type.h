@@ -32,7 +32,7 @@ namespace glcore::shader_data_type
 		}
 	}
 
-	static std::uint32_t component_count(type t_type)
+	static std::uint16_t component_count(type t_type)
 	{
 		switch (t_type)
 		{
