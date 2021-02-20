@@ -53,7 +53,7 @@ namespace glcore
 		int uniform_location(std::string_view name);
 		void link_and_validate(std::uint32_t program);
 		bool is_valid(std::uint32_t id);
-		static shader_type string_to_shader_type(const char* str);
+		static shader_type string_to_shader_type(std::string_view str);
 
 	private:
 		std::uint32_t m_id{};

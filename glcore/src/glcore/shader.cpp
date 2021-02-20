@@ -131,7 +131,7 @@ namespace glcore
 			std::string type = source.substr(begin, eol - begin);
 			size_t next_line_pos = source.find_first_not_of("\r\n", eol);
 			pos = source.find(type_token, next_line_pos);
-			shader_sources[string_to_shader_type(type.data())] = (pos == std::string::npos)
+			shader_sources[string_to_shader_type(type)] = (pos == std::string::npos)
 				? source.substr(next_line_pos) : source.substr(next_line_pos, pos - next_line_pos);
 		}
 		for (const auto& [type, src] : shader_sources)
@@ -170,7 +170,7 @@ namespace glcore
 		return true;
 	}
 
-	shader_type shader_program::string_to_shader_type(const char* str)
+	shader_type shader_program::string_to_shader_type(std::string_view str)
 	{
 		if (str == "vertex")			return shader_type::vertex;
 		else if (str == "fragment")		return shader_type::fragment;
