@@ -2,13 +2,18 @@
 
 namespace glcore
 {
+	vb_attribute::vb_attribute(shader_data_type::type type, std::string_view name)
+		: type{ type }
+		, name{ name }
+	{}
+
 	vertex_buffer_layout::vertex_buffer_layout(std::initializer_list<vb_attribute> attributes)
 		: m_attributes{ attributes }
 	{
-		for (auto& [data, offset] : m_attributes)
+		for (auto& [type, name, offset] : m_attributes)
 		{
 			offset = m_stride;
-			m_stride += shader_data_type::size(data.type);
+			m_stride += shader_data_type::size(type);
 		}
 	}
 
@@ -51,8 +56,4 @@ namespace glcore
 	{
 		return m_attributes[index];
 	}
-
-	vb_attribute::vb_attribute(vb_attribute_t attribute)
-		: data{ attribute }
-	{}
 }

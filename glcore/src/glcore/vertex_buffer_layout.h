@@ -7,16 +7,11 @@
 
 namespace glcore
 {
-	struct vb_attribute_t
-	{
-		shader_data_type::type type;
-		std::string_view name;
-	};
-
 	struct vb_attribute
 	{
-		vb_attribute(vb_attribute_t attribute);
-		vb_attribute_t data;
+		vb_attribute(shader_data_type::type type, std::string_view name);
+		shader_data_type::type type;
+		std::string_view name;
 		std::uint32_t offset{};
 	};
 
