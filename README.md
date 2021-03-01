@@ -14,7 +14,9 @@ git clone --recursive https://github.com/ChristianPanov/glcore
 - Vertex arrays
 - Shaders
 # Setup
-Because of the no-dependency nature of glcore, you will need to provide the OpenGL function loader. To do that, you will need to locate the ```src/glcore/tweakme``` folder, and open the ```gl_functions.h``` header file. From there on, it is pretty self explanatory with the comments that are provided in the file.
+Because of the no-dependency nature of glcore, you will need to provide the OpenGL function loader.\
+To do that, you will need to locate the ```src/glcore/tweakme``` folder, and open the ```gl_functions.h``` header file.\
+From there on, it is pretty self explanatory with the comments that are provided in the file.
 # Usage
 ## Basic Usage
 ```cpp
