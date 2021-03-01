@@ -12,7 +12,7 @@ namespace glcore
 		vertex,
 		fragment,
 		tess_control,
-		tess_evaluation,
+		tess_eval,
 		geometry
 	};
 

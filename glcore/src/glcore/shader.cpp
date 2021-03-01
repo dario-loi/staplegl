@@ -109,11 +109,11 @@ namespace glcore
 	{
 		switch (t_shader_type)
 		{
-		case shader_type::vertex:			return GL_VERTEX_SHADER;			break;
-		case shader_type::fragment:			return GL_FRAGMENT_SHADER;			break;
-		case shader_type::tess_control:		return GL_TESS_CONTROL_SHADER;		break;
-		case shader_type::tess_evaluation:	return GL_TESS_EVALUATION_SHADER;	break;
-		case shader_type::geometry:			return GL_GEOMETRY_SHADER;			break;
+		case shader_type::vertex:		return GL_VERTEX_SHADER;			break;
+		case shader_type::fragment:		return GL_FRAGMENT_SHADER;			break;
+		case shader_type::tess_control:	return GL_TESS_CONTROL_SHADER;		break;
+		case shader_type::tess_eval:	return GL_TESS_EVALUATION_SHADER;	break;
+		case shader_type::geometry:		return GL_GEOMETRY_SHADER;			break;
 		}
 	}
 
@@ -175,7 +175,7 @@ namespace glcore
 		if (str == "vertex")			return shader_type::vertex;
 		else if (str == "fragment")		return shader_type::fragment;
 		else if (str == "tess_control")	return shader_type::tess_control;
-		else if (str == "tess_eval")	return shader_type::tess_evaluation;
+		else if (str == "tess_eval")	return shader_type::tess_eval;
 		else if (str == "geometry")		return shader_type::geometry;
 	}
 }
