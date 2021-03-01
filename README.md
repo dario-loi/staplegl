@@ -117,8 +117,10 @@ glcore::shader_program shaders("Basic", {
 		});
 ```
 ### Supported types of shaders
-- Vertex shader - ```#type vertex```
-- Fragment shader - ```#type fragment```
-- Tessellation Control shader - ```#type tess_control```
-- Tessellation Evaluation shader - ```#type tess_eval```
-- Geometry shader - ```#type geometry```
+Shader Type | Enum Value | GLSL Command
+------------ | ------------- | -------------
+Vertex | ```glcore::shader_type::vertex``` | ```#type vertex```
+Fragment | ```glcore::shader_type::fragment``` | ```#type fragment```
+Tessellation Control | ```glcore::shader_type::tess_control``` | ```#type tess_control```
+Tessellation Evaluation | ```glcore::shader_type::tess_eval``` | ```#type tess_eval```
+Geometry | ```glcore::shader_type::geometry``` | ```#type geometry```
