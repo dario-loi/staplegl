@@ -86,7 +86,7 @@ glcore::shader_program shaders_single("Basic", "shader_examples/basic.glsl");
 // the name of the shader program will be set to 'basic'
 glcore::shader_program shader_single_noname("shader_examples/basic.glsl");
 ```
-For the shader parser to differentiate between the different shaders in the file, the start of the shader code needs to start with a specific command line - ```#type [shader type]```
+For the shader parser to differentiate between the different shaders in the file, the shader code needs to start with a specific command line - ```#type [shader type]```
 #### Example
 ```glsl
 #type vertex
