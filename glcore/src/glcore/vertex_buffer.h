@@ -1,11 +1,10 @@
 #pragma once
 
-#include "gl_object.h"
 #include "vertex_buffer_layout.h"
 
 namespace glcore
 {
-	class vertex_buffer : public gl_object
+	class vertex_buffer
 	{
 	public:
 		vertex_buffer() = default;
@@ -14,8 +13,8 @@ namespace glcore
 		~vertex_buffer();
 
 	public:
-		void bind() const override;
-		void unbind() const override;
+		void bind() const;
+		void unbind() const;
 		void set_layout(vertex_buffer_layout& layout);
 		vertex_buffer_layout& layout();
 

@@ -1,20 +1,19 @@
 #pragma once
 
-#include "gl_object.h"
 #include "vertex_buffer.h"
 #include "index_buffer.h"
 
 namespace glcore
 {
-	class vertex_array : public gl_object
+	class vertex_array
 	{
 	public:
 		vertex_array();
 		~vertex_array();
 
 	public:
-		void bind() const override;
-		void unbind() const override;
+		void bind() const;
+		void unbind() const;
 		void add_vertex_buffer(vertex_buffer& vbo);
 		void set_index_buffer(index_buffer& ibo);
 

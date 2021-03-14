@@ -3,12 +3,12 @@
 #include <string>
 #include <vector>
 
-#include "gl_object.h"
 #include "utility.h"
 
 namespace glcore
 {
-	enum class shader_type {
+	enum class shader_type 
+	{
 		vertex,
 		fragment,
 		tess_control,
@@ -22,7 +22,7 @@ namespace glcore
 		std::string src;
 	};
 
-	class shader_program : public gl_object
+	class shader_program
 	{
 	public:
 		shader_program() = default;
@@ -32,8 +32,8 @@ namespace glcore
 		~shader_program();
 
 	public:
-		void bind() const override;
-		void unbind() const override;
+		void bind() const;
+		void unbind() const;
 		void upload_uniform1f(std::string_view name, float val);
 		void upload_uniform2f(std::string_view name, float val0, float val1);
 		void upload_uniform3f(std::string_view name, float val0, float val1, float val2);

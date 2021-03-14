@@ -1,10 +1,10 @@
 #pragma once
 
-#include "gl_object.h"
+#include <cstdint>
 
 namespace glcore
 {
-	class index_buffer : public gl_object
+	class index_buffer
 	{
 	public:
 		index_buffer() = default;
@@ -12,8 +12,8 @@ namespace glcore
 		~index_buffer();
 
 	public:
-		void bind() const override;
-		void unbind() const override;
+		void bind() const;
+		void unbind() const;
 		std::uint32_t count() const;
 
 	private:
