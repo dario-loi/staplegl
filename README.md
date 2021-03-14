@@ -13,6 +13,10 @@ git clone --recursive https://github.com/ChristianPanov/glcore
 - Index buffers
 - Vertex arrays
 - Shaders
+# Setup
+Because of the no-dependency nature of glcore, you will need to provide the OpenGL function loader.\
+To do that, you will need to locate the ```src/glcore/tweakme``` folder, and open the ```gl_functions.h``` header file.\
+From there on, it is pretty self explanatory with the comments that are provided in the file.
 # Usage
 ## Basic Usage
 ```cpp
@@ -78,9 +82,11 @@ A shader program can be handled in two different ways. You can have separate sha
 With the single file approach, you only need to provide the file path and a name for the shader program. If you don't provide a name for the shader program, glcore will automatically set the name to be the name of the file.
 ```cpp
 glcore::shader_program shaders_single("Basic", "shader_examples/basic.glsl");
-glcore::shader_program shader_single_noname("shader_examples/basic.glsl"); // the name of the shader program will be set to 'basic'
+
+// the name of the shader program will be set to 'basic'
+glcore::shader_program shader_single_noname("shader_examples/basic.glsl");
 ```
-For the shader parser to differentiate between the different shaders in the file, one must start writing a shader with a specific line - ```#type [shader type]```
+For the shader parser to differentiate between the different shaders in the file, the shader code needs to start with a specific command line - ```#type [shader type]```
 #### Example
 ```glsl
 #type vertex
