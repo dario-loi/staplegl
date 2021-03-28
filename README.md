@@ -1,4 +1,3 @@
-# glcore
 No-dependency OpenGL support library, which abstracts the processes of creating buffers and shaders
 # Install
 ```
