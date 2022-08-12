@@ -99,7 +99,7 @@ namespace glcore
 
 	std::uint32_t shader_program::compile(shader_type t_shader_type, std::string_view source) const
 	{
-		std::uint32_t id = glCreateShader(to_gl_type(t_shader_type));
+		const std::uint32_t id = glCreateShader(to_gl_type(t_shader_type));
 		const char* src = source.data();
 		glShaderSource(id, 1, &src, nullptr);
 		glCompileShader(id);
