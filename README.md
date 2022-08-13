@@ -4,8 +4,8 @@ No-dependency OpenGL support library, which abstracts the processes of creating 
 git clone --recursive https://github.com/ChristianPanov/glcore
 ```
 # Design Highlights
-- Very lightweight - glcore is merely a thin wrapper around the OpenGL functions, except the shader class, which is more than a wrapper. It may be thin, but it's very useful for abstracting the OpenGL state machine logic to a more object-oriented logic
-- No dependencies - glcore does not enforce any dependencies such as function loaders, by using placeholder functions, which can be replaced with the function loader of choice simply by putting the needed includes in a specific file
+- Very lightweight - ***glcore*** is merely a thin wrapper around the OpenGL functions, except the shader class, which is more than a wrapper. It may be thin, but it's very useful for abstracting the OpenGL state machine logic to a more object-oriented logic
+- No dependencies - ***glcore*** does not enforce any dependencies such as function loaders, by using placeholder functions, which can be replaced with the function loader of choice simply by putting the needed includes in a specific file
 # Features
 - Vertex buffers
 - Vertex buffer layout
@@ -13,7 +13,7 @@ git clone --recursive https://github.com/ChristianPanov/glcore
 - Vertex arrays
 - Shaders
 # Setup
-Because of the no-dependency nature of glcore, you will need to provide the OpenGL function loader.\
+Because of the no-dependency nature of ***glcore***, you will need to provide the OpenGL function loader.\
 To do that, you will need to locate the ```src/glcore/tweakme``` folder, and open the ```gl_functions.h``` header file.\
 From there on, it is pretty self explanatory with the comments that are provided in the file.
 # Usage
@@ -78,7 +78,7 @@ glcore::vertex_buffer vbo(*vertices, sizeof(vertices), {
 ## Shaders
 A shader program can be handled in two different ways. You can have separate shader files for each type of shader, or you can have one single shader file.
 ### Single file
-With the single file approach, you only need to provide the file path and a name for the shader program. If you don't provide a name for the shader program, glcore will automatically set the name to be the name of the file.
+With the single file approach, you only need to provide the file path and a name for the shader program. If you don't provide a name for the shader program, ***glcore*** will automatically set the name to be the name of the file.
 ```cpp
 glcore::shader_program shaders_single("Basic", "shader_examples/basic.glsl");
 
