@@ -50,7 +50,6 @@ namespace glcore
 
 	private:
 		int uniform_location(std::string_view name) const;
-		void link_and_validate(std::uint32_t program) const;
 		bool is_valid(std::uint32_t id) const;
 
 	private:

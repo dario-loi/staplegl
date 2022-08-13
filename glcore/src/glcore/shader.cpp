@@ -90,7 +90,8 @@ namespace glcore
 				util::is_path(source) ? util::read_file(source) : source));
 		}
 		for (const auto& id : shader_id) glAttachShader(program, id);
-		link_and_validate(program);
+		glLinkProgram(program);
+		glValidateProgram(program);
 		for (const auto& id : shader_id) glDetachShader(program, id);
 		for (const auto& id : shader_id) glDeleteShader(id);
 
@@ -133,12 +134,6 @@ namespace glcore
 	int shader_program::uniform_location(std::string_view name) const
 	{
 		return glGetUniformLocation(m_id, name.data());
-	}
-
-	void shader_program::link_and_validate(std::uint32_t program) const
-	{
-		glLinkProgram(program);
-		glValidateProgram(program);
 	}
 
 	bool shader_program::is_valid(std::uint32_t id) const
