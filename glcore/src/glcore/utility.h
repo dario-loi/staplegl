@@ -5,12 +5,6 @@
 
 namespace glcore::util
 {
-	static bool is_path(std::string_view path)
-	{
-		std::ifstream file(path.data());
-		return (file) ? true : false;
-	}
-
 	static std::string_view read_file(std::string_view path)
 	{
 		std::string result;
