@@ -17,7 +17,7 @@ namespace glcore
 	struct shader
 	{
 		shader_type type;
-		std::string_view source;
+		std::string_view path;
 	};
 
 	class shader_program
@@ -46,7 +46,7 @@ namespace glcore
 	private:
 		std::uint32_t create_program() const;
 		std::uint32_t compile(shader_type t_shader_type, std::string_view source) const;
-		std::vector<shader> parse_shaders(std::string_view source) const;
+		std::vector<shader> parse_shaders(std::string_view path) const;
 
 	private:
 		int uniform_location(std::string_view name) const;

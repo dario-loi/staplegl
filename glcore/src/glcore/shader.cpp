@@ -2,13 +2,11 @@
 #include "gl_functions.h"
 #include "utility.h"
 
-#include <unordered_map>
-
 namespace glcore
 {
 	shader_program::shader_program(std::string_view name, std::string_view path)
 		: m_name{ name }
-		, m_shaders{ parse_shaders(util::read_file(path)) }
+		, m_shaders{ parse_shaders(path) }
 	{
 		m_id = create_program();
 	}
@@ -82,18 +80,17 @@ namespace glcore
 	std::uint32_t shader_program::create_program() const
 	{
 		const std::uint32_t program = glCreateProgram();
-		std::vector<std::uint32_t> shader_id;
+		std::vector<std::uint32_t> shader_ids;
 
-		for (const auto& [type, source] : m_shaders)
-		{
-			shader_id.push_back(compile(type,
-				util::is_path(source) ? util::read_file(source) : source));
-		}
-		for (const auto& id : shader_id) glAttachShader(program, id);
+		for (const auto& [type, path] : m_shaders)
+			shader_ids.push_back(compile(type, util::read_file(path)));
+
+		for (const auto& id : shader_ids) glAttachShader(program, id);
 		glLinkProgram(program);
 		glValidateProgram(program);
-		for (const auto& id : shader_id) glDetachShader(program, id);
-		for (const auto& id : shader_id) glDeleteShader(id);
+
+		for (const auto& id : shader_ids) glDetachShader(program, id);
+		for (const auto& id : shader_ids) glDeleteShader(id);
 
 		return program;
 	}
@@ -102,16 +99,18 @@ namespace glcore
 	{
 		const std::uint32_t id = glCreateShader(to_gl_type(t_shader_type));
 		const char* src = source.data();
+
 		glShaderSource(id, 1, &src, nullptr);
 		glCompileShader(id);
+
 		return is_valid(id) ? id : 0;
 	}
 
-	std::vector<shader> shader_program::parse_shaders(std::string_view source) const
+	std::vector<shader> shader_program::parse_shaders(std::string_view path) const
 	{
-		std::string_view type_token = "#type";
 		std::vector<shader> shaders;
-		std::unordered_map<shader_type, std::string_view> shader_sources;
+		std::string_view type_token = "#type";
+		std::string_view source = util::read_file(path);
 
 		std::size_t pos = source.find(type_token, 0);
 		while (pos != std::string::npos)
@@ -122,11 +121,9 @@ namespace glcore
 			const std::size_t next_line_pos = source.find_first_not_of("\r\n", eol);
 
 			pos = source.find(type_token, next_line_pos);
-			shader_sources[string_to_shader_type(type)] = (pos == std::string::npos)
-				? source.substr(next_line_pos) : source.substr(next_line_pos, pos - next_line_pos);
+			shaders.push_back({ string_to_shader_type(type), (pos == std::string::npos)
+				? source.substr(next_line_pos) : source.substr(next_line_pos, pos - next_line_pos) });
 		}
-
-		for (const auto& [type, source] : shader_sources) shaders.push_back({ type, source });
 
 		return shaders;
 	}
