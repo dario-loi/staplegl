@@ -2,7 +2,7 @@
 
 namespace glcore
 {
-	vertex_buffer_layout::vertex_buffer_layout(std::initializer_list<vb_attribute> attributes)
+	vertex_buffer_layout::vertex_buffer_layout(std::initializer_list<vertex_attribute> attributes)
 		: m_attributes{ attributes }
 	{
 		for (auto& [type, name, offset] : m_attributes)
@@ -17,7 +17,7 @@ namespace glcore
 		return m_stride;
 	}
 
-	std::vector<vb_attribute>& vertex_buffer_layout::data()
+	std::vector<vertex_attribute>& vertex_buffer_layout::data()
 	{
 		return m_attributes;
 	}

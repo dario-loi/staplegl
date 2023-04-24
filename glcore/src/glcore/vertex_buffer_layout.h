@@ -7,7 +7,7 @@
 
 namespace glcore
 {
-	struct vb_attribute
+	struct vertex_attribute
 	{
 		shader_data_type::type_t type;
 		std::string_view name;
@@ -18,14 +18,14 @@ namespace glcore
 	{
 	public:
 		vertex_buffer_layout() = default;
-		vertex_buffer_layout(std::initializer_list<vb_attribute> attributes);
+		vertex_buffer_layout(std::initializer_list<vertex_attribute> attributes);
 
 	public:
 		std::uint32_t stride() const;
-		std::vector<vb_attribute>& data();
+		std::vector<vertex_attribute>& data();
  
 	private:
 		std::uint32_t m_stride{};
-		std::vector<vb_attribute> m_attributes;
+		std::vector<vertex_attribute> m_attributes;
 	};
 }
