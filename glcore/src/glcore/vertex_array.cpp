@@ -34,7 +34,7 @@ namespace glcore
 			glVertexAttribPointer(
 				attrib_index++, 
 				shader_data_type::component_count(type),
-				shader_data_type::underlying_type(type),
+				shader_data_type::to_opengl_type(type),
 				GL_FALSE, 
 				vbo.layout().stride(),
 				reinterpret_cast<const void*>(offset)

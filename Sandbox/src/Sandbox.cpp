@@ -18,8 +18,8 @@ int main()
 	glcore::index_buffer ibo(*indices, 6);
 	glcore::vertex_buffer_layout layout =
 	{
-		{ glcore::shader_data_type::type::vec3, "position" },
-		{ glcore::shader_data_type::type::vec4, "color" }
+		{ glcore::shader_data_type::vec3, "position" },
+		{ glcore::shader_data_type::vec4, "color" }
 	};
 	vbo.set_layout(layout);
 

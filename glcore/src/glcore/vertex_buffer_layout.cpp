@@ -2,7 +2,7 @@
 
 namespace glcore
 {
-	vb_attribute::vb_attribute(shader_data_type::type type, std::string_view name)
+	vb_attribute::vb_attribute(shader_data_type::type_t type, std::string_view name)
 		: type{ type }
 		, name{ name }
 	{}

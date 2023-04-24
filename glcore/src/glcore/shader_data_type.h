@@ -5,40 +5,40 @@
 
 namespace glcore::shader_data_type
 {
-	enum class type
-	{ 
-		vec2, 
-		vec3, 
-		vec4 
+	enum type_t : std::uint8_t
+	{
+		vec2,
+		vec3,
+		vec4
 	};
 
-	static std::size_t size(type t_type)
+	static std::size_t size(type_t type)
 	{
-		switch (t_type)
+		switch (type)
 		{
-		case type::vec2: return sizeof(float) * 2; break;
-		case type::vec3: return sizeof(float) * 3; break;
-		case type::vec4: return sizeof(float) * 4; break;
+		case type_t::vec2: return sizeof(float) * 2;
+		case type_t::vec3: return sizeof(float) * 3;
+		case type_t::vec4: return sizeof(float) * 4;
 		}
 	}
 
-	static std::uint32_t underlying_type(type t_type)
+	static std::uint32_t to_opengl_type(type_t type)
 	{
-		switch (t_type)
+		switch (type)
 		{
-		case type::vec2: return 0x1406; break;
-		case type::vec3: return 0x1406; break;
-		case type::vec4: return 0x1406; break;
+		case type_t::vec2: return 0x1406;
+		case type_t::vec3: return 0x1406; 
+		case type_t::vec4: return 0x1406;
 		}
 	}
 
-	static std::uint16_t component_count(type t_type)
+	static std::uint16_t component_count(type_t type)
 	{
-		switch (t_type)
+		switch (type)
 		{
-		case type::vec2: return 2; break;
-		case type::vec3: return 3; break;
-		case type::vec4: return 4; break;
+		case type_t::vec2: return 2;
+		case type_t::vec3: return 3;
+		case type_t::vec4: return 4;
 		}
 	}
-}
+};
