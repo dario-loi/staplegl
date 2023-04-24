@@ -39,8 +39,8 @@ int main()
 	glcore::index_buffer ibo(*indices, sizeof(indices) / sizeof(int));
 	glcore::vertex_buffer_layout layout =
 	{
-		{ glcore::shader_data_type::type::vec3, "position" },
-		{ glcore::shader_data_type::type::vec4, "color" }
+		{ glcore::shader_data_type::vec3, "position" },
+		{ glcore::shader_data_type::vec4, "color" }
 	};
 	vbo.set_layout(layout);
 
@@ -64,8 +64,8 @@ The vertex buffer layout is declared in a very intuitive way. You provide a shad
 ```cpp
 glcore::vertex_buffer_layout layout =
 {
-	{ glcore::shader_data_type::type::vec3, "position" },
-	{ glcore::shader_data_type::type::vec4, "color" }
+	{ glcore::shader_data_type::vec3, "position" },
+	{ glcore::shader_data_type::vec4, "color" }
 };
 ```
 A vertex buffer layout can either be declared on it's own like in the example above, or can be created as an rvalue directly in the constructor of ```glcore::vertex_buffer```
