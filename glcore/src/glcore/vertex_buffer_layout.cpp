@@ -21,34 +21,4 @@ namespace glcore
 	{
 		return m_attributes;
 	}
-
-	std::vector<vb_attribute>::iterator vertex_buffer_layout::begin()
-	{
-		return m_attributes.begin();
-	}
-
-	std::vector<vb_attribute>::iterator vertex_buffer_layout::end()
-	{
-		return m_attributes.end();
-	}
-
-	std::vector<vb_attribute>::const_iterator vertex_buffer_layout::cbegin()
-	{
-		return m_attributes.cbegin();
-	}
-
-	std::vector<vb_attribute>::const_iterator vertex_buffer_layout::cend()
-	{
-		return m_attributes.cend();
-	}
-
-	vb_attribute& vertex_buffer_layout::operator[](std::size_t index)
-	{
-		return m_attributes[index];
-	}
-
-	const vb_attribute& vertex_buffer_layout::operator[](std::size_t index) const
-	{
-		return m_attributes[index];
-	}
 }

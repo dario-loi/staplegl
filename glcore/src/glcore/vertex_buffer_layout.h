@@ -23,14 +23,6 @@ namespace glcore
 	public:
 		std::uint32_t stride() const;
 		std::vector<vb_attribute>& data();
-		std::vector<vb_attribute>::iterator begin();
-		std::vector<vb_attribute>::iterator end();
-		std::vector<vb_attribute>::const_iterator cbegin();
-		std::vector<vb_attribute>::const_iterator cend();
-
-	public:
-		vb_attribute& operator[](std::size_t index);
-		const vb_attribute& operator[](std::size_t index) const;
  
 	private:
 		std::uint32_t m_stride{};

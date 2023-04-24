@@ -28,7 +28,7 @@ namespace glcore
 		glBindVertexArray(m_id);
 		vbo.bind();
 		int attrib_index{};
-		for (const auto& [type, name, offset] : vbo.layout())
+		for (const auto& [type, name, offset] : vbo.layout().data())
 		{
 			glEnableVertexAttribArray(attrib_index);
 			glVertexAttribPointer(
