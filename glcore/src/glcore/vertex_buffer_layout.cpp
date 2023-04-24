@@ -2,11 +2,6 @@
 
 namespace glcore
 {
-	vb_attribute::vb_attribute(shader_data_type::type_t type, std::string_view name)
-		: type{ type }
-		, name{ name }
-	{}
-
 	vertex_buffer_layout::vertex_buffer_layout(std::initializer_list<vb_attribute> attributes)
 		: m_attributes{ attributes }
 	{
