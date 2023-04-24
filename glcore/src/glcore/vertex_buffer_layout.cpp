@@ -17,7 +17,7 @@ namespace glcore
 		return m_stride;
 	}
 
-	std::vector<vertex_attribute>& vertex_buffer_layout::data()
+	const std::vector<vertex_attribute>& vertex_buffer_layout::data() const
 	{
 		return m_attributes;
 	}

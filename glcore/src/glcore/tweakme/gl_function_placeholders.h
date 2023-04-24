@@ -2,7 +2,6 @@
 #pragma warning(error:4002)
 
 #include <cstdint>
-#include <iostream>
 
 static void __glCreateBuffers(int n, std::uint32_t* buffers) {}
 static void __glDeleteBuffers(int n, const std::uint32_t* buffers) {}

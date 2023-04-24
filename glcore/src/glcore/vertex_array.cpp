@@ -23,10 +23,11 @@ namespace glcore
 		glBindVertexArray(0);
 	}
 
-	void vertex_array::add_vertex_buffer(vertex_buffer& vbo)
+	void vertex_array::add_vertex_buffer(const vertex_buffer& vbo)
 	{
 		glBindVertexArray(m_id);
 		vbo.bind();
+
 		int attrib_index{};
 		for (const auto& [type, name, offset] : vbo.layout().data())
 		{
@@ -40,13 +41,15 @@ namespace glcore
 				reinterpret_cast<const void*>(offset)
 			);
 		}
+
 		m_vertex_buffers.push_back(vbo);
 	}
 
-	void vertex_array::set_index_buffer(index_buffer& ibo)
+	void vertex_array::set_index_buffer(const index_buffer& ibo)
 	{
 		glBindVertexArray(m_id);
 		ibo.bind();
+
 		m_index_buffer = ibo;
 	}
 }

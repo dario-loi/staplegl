@@ -22,7 +22,7 @@ namespace glcore
 
 	public:
 		std::uint32_t stride() const;
-		std::vector<vertex_attribute>& data();
+		const std::vector<vertex_attribute>& data() const;
  
 	private:
 		std::uint32_t m_stride{};

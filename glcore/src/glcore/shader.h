@@ -17,7 +17,7 @@ namespace glcore
 	struct shader
 	{
 		shader_type type;
-		std::string_view path;
+		std::string source;
 	};
 
 	class shader_program
@@ -25,7 +25,7 @@ namespace glcore
 	public:
 		shader_program() = default;
 		shader_program(std::string_view name, std::string_view path);
-		shader_program(std::string_view name, std::initializer_list<shader> shaders);
+		shader_program(std::string_view name, std::initializer_list<std::pair<shader_type, std::string_view>> shaders);
 		shader_program(std::string_view path);
 		~shader_program();
 
@@ -45,15 +45,15 @@ namespace glcore
 
 	private:
 		std::uint32_t create_program() const;
-		std::uint32_t compile(shader_type t_shader_type, std::string_view source) const;
-		std::vector<shader> parse_shaders(std::string_view path) const;
+		std::uint32_t compile(shader_type shader_type, std::string_view source) const;
+		std::vector<shader> parse_shaders(const std::string& source) const;
 
 	private:
 		int uniform_location(std::string_view name) const;
 		bool is_valid(std::uint32_t id) const;
 
 	private:
-		static std::uint32_t to_gl_type(shader_type t_shader_type);
+		static std::uint32_t to_gl_type(shader_type shader_type);
 		static shader_type string_to_shader_type(std::string_view str);
 
 	private:

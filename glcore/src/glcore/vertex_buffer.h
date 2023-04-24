@@ -9,14 +9,14 @@ namespace glcore
 	public:
 		vertex_buffer() = default;
 		vertex_buffer(float* vertices, std::uint32_t size);
-		vertex_buffer(float* vertices, std::uint32_t size, vertex_buffer_layout layout);
+		vertex_buffer(float* vertices, std::uint32_t size, const vertex_buffer_layout& layout);
 		~vertex_buffer();
 
 	public:
 		void bind() const;
 		void unbind() const;
-		void set_layout(vertex_buffer_layout& layout);
-		vertex_buffer_layout& layout();
+		void set_layout(const vertex_buffer_layout& layout);
+		const vertex_buffer_layout& layout() const;
 
 	private:
 		std::uint32_t m_id{};

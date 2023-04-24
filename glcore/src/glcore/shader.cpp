@@ -6,15 +6,18 @@ namespace glcore
 {
 	shader_program::shader_program(std::string_view name, std::string_view path)
 		: m_name{ name }
-		, m_shaders{ parse_shaders(path) }
+		, m_shaders{ parse_shaders(util::read_file(path)) }
 	{
 		m_id = create_program();
 	}
 
-	shader_program::shader_program(std::string_view name, std::initializer_list<shader> shaders)
+	shader_program::shader_program(std::string_view name,
+		std::initializer_list<std::pair<shader_type, std::string_view>> shaders)
 		: m_name{ name }
-		, m_shaders{ shaders }
 	{
+		for (const auto& [type, path] : shaders)
+			m_shaders.push_back({ type, util::read_file(path) });
+
 		m_id = create_program();
 	}
 
@@ -79,11 +82,13 @@ namespace glcore
 
 	std::uint32_t shader_program::create_program() const
 	{
-		const std::uint32_t program = glCreateProgram();
-		std::vector<std::uint32_t> shader_ids;
+		const std::uint32_t program{ glCreateProgram() };
 
-		for (const auto& [type, path] : m_shaders)
-			shader_ids.push_back(compile(type, util::read_file(path)));
+		std::vector<std::uint32_t> shader_ids;
+		shader_ids.reserve(m_shaders.size());
+
+		for (const auto& [type, src] : m_shaders)
+			shader_ids.push_back(compile(type, src));
 
 		for (const auto& id : shader_ids) glAttachShader(program, id);
 		glLinkProgram(program);
@@ -95,10 +100,10 @@ namespace glcore
 		return program;
 	}
 
-	std::uint32_t shader_program::compile(shader_type t_shader_type, std::string_view source) const
+	std::uint32_t shader_program::compile(shader_type shader_type, std::string_view source) const
 	{
-		const std::uint32_t id = glCreateShader(to_gl_type(t_shader_type));
-		const char* src = source.data();
+		const std::uint32_t id{ glCreateShader(to_gl_type(shader_type)) };
+		const char* src{ source.data() };
 
 		glShaderSource(id, 1, &src, nullptr);
 		glCompileShader(id);
@@ -106,22 +111,21 @@ namespace glcore
 		return is_valid(id) ? id : 0;
 	}
 
-	std::vector<shader> shader_program::parse_shaders(std::string_view path) const
+	std::vector<shader> shader_program::parse_shaders(const std::string& source) const
 	{
 		std::vector<shader> shaders;
-		std::string_view type_token = "#type";
-		std::string_view source = util::read_file(path);
+		std::string_view type_token{ "#type" };
 
-		std::size_t pos = source.find(type_token, 0);
+		std::size_t pos{ source.find(type_token, 0) };
 		while (pos != std::string::npos)
 		{
-			const std::size_t eol = source.find_first_of("\r\n", pos);
-			const std::size_t begin = pos + type_token.size() + 1;
-			std::string_view type = source.substr(begin, eol - begin);
-			const std::size_t next_line_pos = source.find_first_not_of("\r\n", eol);
+			const std::size_t eol{ source.find_first_of("\r\n", pos) };
+			const std::size_t begin{ pos + type_token.size() + 1 };
+			const std::size_t next_line_pos{ source.find_first_not_of("\r\n", eol) };
 
+			std::string_view type{ source.substr(begin, eol - begin).data() };
 			pos = source.find(type_token, next_line_pos);
-			shaders.push_back({ string_to_shader_type(type), (pos == std::string::npos)
+			shaders.push_back({ string_to_shader_type(type), pos == std::string::npos
 				? source.substr(next_line_pos) : source.substr(next_line_pos, pos - next_line_pos) });
 		}
 
@@ -153,9 +157,9 @@ namespace glcore
 		return true;
 	}
 
-	std::uint32_t shader_program::to_gl_type(shader_type t_shader_type)
+	std::uint32_t shader_program::to_gl_type(shader_type shader_type)
 	{
-		switch (t_shader_type)
+		switch (shader_type)
 		{
 		case shader_type::vertex:		return GL_VERTEX_SHADER;
 		case shader_type::fragment:		return GL_FRAGMENT_SHADER;

@@ -14,8 +14,8 @@ namespace glcore
 	public:
 		void bind() const;
 		void unbind() const;
-		void add_vertex_buffer(vertex_buffer& vbo);
-		void set_index_buffer(index_buffer& ibo);
+		void add_vertex_buffer(const vertex_buffer& vbo);
+		void set_index_buffer(const index_buffer& ibo);
 
 	private:
 		std::uint32_t m_id{};
