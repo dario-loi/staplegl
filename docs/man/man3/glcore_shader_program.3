@@ -1,0 +1,118 @@
+.TH "glcore::shader_program" 3 "Fri Apr 28 2023" "GLCore" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+glcore::shader_program
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBshader_program\fP (std::string_view name, std::string_view path)"
+.br
+.ti -1c
+.RI "\fBshader_program\fP (std::string_view name, std::initializer_list< std::pair< shader_type, std::string_view > > shaders)"
+.br
+.ti -1c
+.RI "\fBshader_program\fP (std::string_view path)"
+.br
+.ti -1c
+.RI "void \fBbind\fP () const"
+.br
+.ti -1c
+.RI "void \fBunbind\fP () const"
+.br
+.ti -1c
+.RI "void \fBupload_uniform1f\fP (std::string_view name, float val) const"
+.br
+.ti -1c
+.RI "void \fBupload_uniform2f\fP (std::string_view name, float val0, float val1) const"
+.br
+.ti -1c
+.RI "void \fBupload_uniform3f\fP (std::string_view name, float val0, float val1, float val2) const"
+.br
+.ti -1c
+.RI "void \fBupload_uniform4f\fP (std::string_view name, float val0, float val1, float val2, float val3) const"
+.br
+.ti -1c
+.RI "std::uint32_t \fBprogram_id\fP () const"
+.br
+.ti -1c
+.RI "std::string_view \fBname\fP () const"
+.br
+.ti -1c
+.RI "\fBshader\fP & \fBoperator[]\fP (std::size_t index)"
+.br
+.ti -1c
+.RI "const \fBshader\fP & \fBoperator[]\fP (std::size_t index) const"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line \fB37\fP of file \fBshader\&.h\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "glcore::shader_program::shader_program (std::string_view name, std::string_view path)"
+
+.PP
+Definition at line \fB84\fP of file \fBshader\&.h\fP\&.
+.SS "glcore::shader_program::shader_program (std::string_view name, std::initializer_list< std::pair< shader_type, std::string_view > > shaders)"
+
+.PP
+Definition at line \fB91\fP of file \fBshader\&.h\fP\&.
+.SS "glcore::shader_program::shader_program (std::string_view path)"
+
+.PP
+Definition at line \fB101\fP of file \fBshader\&.h\fP\&.
+.SS "glcore::shader_program::~shader_program ()"
+
+.PP
+Definition at line \fB106\fP of file \fBshader\&.h\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void glcore::shader_program::bind () const"
+
+.PP
+Definition at line \fB111\fP of file \fBshader\&.h\fP\&.
+.SS "std::string_view glcore::shader_program::name () const"
+
+.PP
+Definition at line \fB146\fP of file \fBshader\&.h\fP\&.
+.SS "\fBshader\fP & glcore::shader_program::operator[] (std::size_t index)"
+
+.PP
+Definition at line \fB151\fP of file \fBshader\&.h\fP\&.
+.SS "const \fBshader\fP & glcore::shader_program::operator[] (std::size_t index) const"
+
+.PP
+Definition at line \fB156\fP of file \fBshader\&.h\fP\&.
+.SS "std::uint32_t glcore::shader_program::program_id () const"
+
+.PP
+Definition at line \fB141\fP of file \fBshader\&.h\fP\&.
+.SS "void glcore::shader_program::unbind () const"
+
+.PP
+Definition at line \fB116\fP of file \fBshader\&.h\fP\&.
+.SS "void glcore::shader_program::upload_uniform1f (std::string_view name, float val) const"
+
+.PP
+Definition at line \fB121\fP of file \fBshader\&.h\fP\&.
+.SS "void glcore::shader_program::upload_uniform2f (std::string_view name, float val0, float val1) const"
+
+.PP
+Definition at line \fB126\fP of file \fBshader\&.h\fP\&.
+.SS "void glcore::shader_program::upload_uniform3f (std::string_view name, float val0, float val1, float val2) const"
+
+.PP
+Definition at line \fB131\fP of file \fBshader\&.h\fP\&.
+.SS "void glcore::shader_program::upload_uniform4f (std::string_view name, float val0, float val1, float val2, float val3) const"
+
+.PP
+Definition at line \fB136\fP of file \fBshader\&.h\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for GLCore from the source code\&.

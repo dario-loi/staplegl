@@ -1,0 +1,53 @@
+.TH "include/glcore/modules/gl_functions.h" 3 "Fri Apr 28 2023" "GLCore" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+include/glcore/modules/gl_functions.h \- Loads OpenGL functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'gl_function_placeholders\&.h'\fP
+.br
+
+.SH "Detailed Description"
+.PP 
+Loads OpenGL functions\&. 
+
+
+.PP
+\fBAuthor\fP
+.RS 4
+Christian Panov 
+.RE
+.PP
+\fBVersion\fP
+.RS 4
+0\&.1 
+.RE
+.PP
+\fBDate\fP
+.RS 4
+2023-04-28
+.RE
+.PP
+One of the main philosophies of GLCore is to be as lightweight as possible\&. This means that we \fIdo not\fP provide an OpenGL loader, instead, we provide a placeholder header file that you can modify according to your own needs!
+.PP
+In order to do so, just substitute the include directive below with your own OpenGL loader (GLAD, GLEW, etc\&.\&.\&.)\&.
+.PP
+\fBNote\fP
+.RS 4
+the placeholder header file is just to prevent errors from showing up on your IDE\&. It does nothing and once you replace it with your own loader, you can delete it if you want\&. 
+.RE
+.PP
+\fBCopyright\fP
+.RS 4
+MIT License 
+.RE
+.PP
+
+.PP
+Definition in file \fBgl_functions\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for GLCore from the source code\&.
