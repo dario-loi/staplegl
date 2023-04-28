@@ -146,4 +146,3 @@ foreach(shader ${SANDBOX_GLSL_SHADERS})
     get_filename_component(shader_name ${shader} NAME)
     configure_file(${shader} ${CMAKE_CURRENT_BINARY_DIR}/shaders/${shader_name} COPYONLY)
 endforeach(shader)
-

@@ -1,8 +1,15 @@
-
 #include "glad.h"
 #include "glcore.hpp"
 #include <GLFW/glfw3.h>
 #include <iostream>
+
+/*
+
+        IMPORTANT: in order for the program to correctly compile, go to
+        include/glcore/modules/gl_functions.hpp and replace the placeholder
+        with the provided OpenGL loader ("glad.h").
+
+*/
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);

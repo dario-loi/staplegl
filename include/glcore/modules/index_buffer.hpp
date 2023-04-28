@@ -15,14 +15,44 @@
 #include <cstdint>
 
 namespace glcore {
+
+/**
+ * @brief Element Buffer Object (EBO) wrapper.
+ *
+ * @details Element Buffer Objects are OpenGL objects that store indices that OpenGL uses to
+ * render primitives.
+ *
+ */
 class index_buffer {
 public:
     index_buffer() = default;
+
+    /**
+     * @brief Construct a new index buffer object
+     *
+     * @param indices a pointer to the indices array, can be any contiguous container of std::uint32_t.
+     * @param count the number of indices in the array.
+     */
     index_buffer(std::uint32_t* indices, std::uint32_t count);
     ~index_buffer();
 
+    /**
+     * @brief Bind the index buffer object.
+     *
+     */
     void bind() const;
+
+    /**
+     * @brief Unbind the index buffer object.
+     *
+     */
     void unbind() const;
+
+    /**
+     * @brief Get the number of indices in the index buffer object.
+     *
+     * @return std::uint32_t, the number of indices.
+     */
     std::uint32_t count() const;
 
 private:

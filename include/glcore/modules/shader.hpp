@@ -19,9 +19,17 @@
 #include "gl_functions.hpp"
 #include "utility.hpp"
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 namespace glcore {
+
+/**
+ * @brief The type of the shader.
+ *
+ * @details used to differentiate between shader types.
+ *
+ */
 enum class shader_type {
     vertex,
     fragment,
@@ -30,44 +38,219 @@ enum class shader_type {
     geometry
 };
 
+/**
+ * @brief The shader struct.
+ *
+ * @details The shader struct is effectively nothing more that a string that is
+ * tagged with a shader type.
+ *
+ * @see glcore::shader_type
+ *
+ */
 struct shader {
     shader_type type;
     std::string source;
 };
 
+/**
+ * @brief The shader program class.
+ *
+ * @details The shader program class is used to load and compile shaders, after compilation,
+ * it can also be used as an interface to each contained shader, for actions such as uploading
+ * uniforms.
+ *
+ * It is important that uniform names are unique across all shaders in the program, otherwise
+ * we risk ambiguity.
+ *
+ * @note if utilizing paths to load the shaders, it is important to note that they
+ * will be relative to the current working directory when running the program, as an advice,
+ * it is best to design your build system so that your shaders are packaged with the executable.
+ *
+ */
 class shader_program {
 public:
     shader_program() = default;
+
+    /**
+     * @brief Construct a new shader program object from a name and a path.
+     *
+     * @details This constructor is to be used when the shader program is to be loaded from a file
+     * which contains a set of GLSL shaders, separated by the #type tag.
+     *
+     * @param name Shader program name, for debugging purposes.
+     * @param path Shader program path, currently it must be relative to the current working directory.
+     */
     shader_program(std::string_view name, std::string_view path);
+
+    /**
+     * @brief Construct a new shader program object from a name and a list of shaders sources.
+     *
+     * @details This constructor is to be used when the shader program is to be loaded from a list
+     * of shader sources available at compile time, with the sources present as strings in the code.
+     *
+     * @param name Shader name, for debugging purposes.
+     * @param shaders A list of shader sources, each shader source is a pair of shader type and shader source.
+     */
     shader_program(std::string_view name, std::initializer_list<std::pair<shader_type, std::string_view>> shaders);
+
+    /**
+     * @brief Construct a new shader program object from a path.
+     *
+     * @details This constructor is to be used when the shader program is to be loaded from a file
+     * and we do not care about the name of the shader program.
+     *
+     * @note This constructor automatically generates a name for the shader program by
+     * obtaining it from its path.
+     *
+     * @param path Shader program path, currently it must be relative to the current working directory.
+     */
     shader_program(std::string_view path);
     ~shader_program();
 
 public:
+    /**
+     * @brief Bind the shader program.
+     *
+     */
     void bind() const;
+
+    /**
+     * @brief Unbind the shader program.
+     *
+     */
     void unbind() const;
+
+    /**
+     * @brief Upload a float uniform to the shader program.
+     *
+     * @param name Uniform name.
+     * @param val Uniform value.
+     */
     void upload_uniform1f(std::string_view name, float val) const;
+
+    /**
+     * @brief Upload a 2D float uniform to the shader program.
+     *
+     * @param name Uniform name.
+     * @param val0 Uniform value.
+     * @param val1 Uniform value.
+     */
     void upload_uniform2f(std::string_view name, float val0, float val1) const;
+
+    /**
+     * @brief Upload a 3D float uniform to the shader program.
+     *
+     * @param name Uniform name.
+     * @param val0 Uniform value.
+     * @param val1 Uniform value.
+     * @param val2 Uniform value.
+     */
     void upload_uniform3f(std::string_view name, float val0, float val1, float val2) const;
+
+    /**
+     * @brief Upload a 4D float uniform to the shader program.
+     *
+     * @param name Uniform name.
+     * @param val0 Uniform value.
+     * @param val1 Uniform value.
+     * @param val2 Uniform value.
+     * @param val3 Uniform value.
+     */
+
     void upload_uniform4f(std::string_view name, float val0, float val1, float val2, float val3) const;
+
+    /**
+     * @brief Obtain the shader program id.
+     *
+     * @return std::uint32_t, the shader program id in the OpenGL context.
+     */
     std::uint32_t program_id() const;
     std::string_view name() const;
 
 public:
+    /**
+     * @brief Obtain a reference to a shader in the shader program.
+     *
+     * @param index Shader index.
+     * @see glcore::shader
+     * @return shader&, a reference to the shader.
+     */
     shader& operator[](std::size_t index);
+
+    /**
+     * @brief Obtain a const reference to a shader in the shader program.
+     *
+     * @param index Shader index.
+     * @see glcore::shader
+     * @return const shader&, a const reference to the shader.
+     */
     const shader& operator[](std::size_t index) const;
 
 private:
+    /**
+     * @brief Create a program object.
+     *
+     * @return std::uint32_t, the program object id.
+     */
     std::uint32_t create_program() const;
+
+    /**
+     * @brief Create a shader object.
+     *
+     * @param shader_type The shader type.
+     * @see glcore::shader_type
+     * @param source The shader source.
+     * @return std::uint32_t, the shader object id.
+     */
     std::uint32_t compile(shader_type shader_type, std::string_view source) const;
+
+    /**
+     * @brief Link the shader program.
+     * @details This method acts on the provided source of shaders, it will pre-process the source,
+     * splitting the monolithic source into individual shader sources by scanning for the #type tag.
+     *
+     * @param source The shader program source.
+     * @see glcore::shader_type
+     *
+     * @return std::vector<shader>. A vector of shaders.
+     */
     std::vector<shader> parse_shaders(const std::string& source) const;
 
 private:
+    /**
+     * @brief Obtain the location of a uniform in the shader program.
+     *
+     * @param name Uniform name.
+     * @return int, the uniform location.
+     */
     int uniform_location(std::string_view name) const;
+
+    /**
+     * @brief Check if a shader program is valid.
+     *
+     * @param id Shader program id.
+     * @return true, if the shader program is valid.
+     * @return false, if the shader program is not valid.
+     */
     bool is_valid(std::uint32_t id) const;
 
 private:
+    /**
+     * @brief Convert a shader type to its OpenGL equivalent.
+     *
+     * @see glcore::shader_type
+     * @param shader_type the shader type.
+     * @return std::uint32_t, the OpenGL equivalent of the shader type, as an OpenGL enum.
+     */
     static std::uint32_t to_gl_type(shader_type shader_type);
+
+    /**
+     * @brief Convert a string to a shader type.
+     *
+     * @param str The string to convert.
+     *
+     * @return shader_type, the shader type.
+     */
     static shader_type string_to_shader_type(std::string_view str);
 
 private:
@@ -254,15 +437,15 @@ std::uint32_t shader_program::to_gl_type(shader_type shader_type)
 
 shader_type shader_program::string_to_shader_type(std::string_view str)
 {
-    if (str == "vertex")
-        return shader_type::vertex;
-    else if (str == "fragment")
-        return shader_type::fragment;
-    else if (str == "tess_control")
-        return shader_type::tess_control;
-    else if (str == "tess_eval")
-        return shader_type::tess_eval;
-    else if (str == "geometry")
-        return shader_type::geometry;
-}
+
+    static std::unordered_map<std::string_view, shader_type> map {
+        { "vertex", shader_type::vertex },
+        { "fragment", shader_type::fragment },
+        { "tess_control", shader_type::tess_control },
+        { "tess_eval", shader_type::tess_eval },
+        { "geometry", shader_type::geometry }
+    };
+
+    // TODO: error handling, either add a shader_type::invalid, return a std::optional, throw an exception (hell nah), or std::abort()
+    return map[str];
 }
