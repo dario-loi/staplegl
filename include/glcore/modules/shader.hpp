@@ -39,7 +39,7 @@ enum class shader_type {
 };
 
 /**
- * @brief The shader struct.
+ * @brief Individual shader struct.
  *
  * @details The shader struct is effectively nothing more that a string that is
  * tagged with a shader type.
@@ -53,7 +53,7 @@ struct shader {
 };
 
 /**
- * @brief The shader program class.
+ * @brief Shader program class.
  *
  * @details The shader program class is used to load and compile shaders, after compilation,
  * it can also be used as an interface to each contained shader, for actions such as uploading
@@ -75,7 +75,7 @@ public:
      * @brief Construct a new shader program object from a name and a path.
      *
      * @details This constructor is to be used when the shader program is to be loaded from a file
-     * which contains a set of GLSL shaders, separated by the #type tag.
+     * which contains a set of GLSL shaders, separated by the `#type` tag.
      *
      * @param name Shader program name, for debugging purposes.
      * @param path Shader program path, currently it must be relative to the current working directory.
@@ -446,6 +446,10 @@ shader_type shader_program::string_to_shader_type(std::string_view str)
         { "geometry", shader_type::geometry }
     };
 
-    // TODO: error handling, either add a shader_type::invalid, return a std::optional, throw an exception (hell nah), or std::abort()
+    /*
+    TODO: error handling, either add a shader_type::invalid, return a std::optional,
+    throw an exception (hell nah), or std::abort()
+     */
     return map[str];
+}
 }

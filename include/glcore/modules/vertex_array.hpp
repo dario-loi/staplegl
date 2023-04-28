@@ -15,14 +15,53 @@
 #include "vertex_buffer.hpp"
 
 namespace glcore {
+
+/**
+ * @brief Vertex Array Object (VAO) wrapper.
+ *
+ * @details Vertex Array Objects are OpenGL objects that store all of the state needed to supply vertex data,
+ * that is, an index buffer (also called an Element Buffer Object) and one or more vertex buffers.
+ *
+ * Rendering using VAOs is advised as it simplifies the process of rendering multiple objects with different
+ * vertex data and different rendering modes.
+ *
+ * @see https://www.khronos.org/opengl/wiki/Vertex_Specification#Vertex_Array_Object
+ * @see vertex_buffer.hpp
+ * @see index_buffer.hpp
+ * @see vertex_buffer_layout.hpp
+ */
 class vertex_array {
 public:
     vertex_array();
     ~vertex_array();
 
+    /**
+     * @brief Bind the vertex array object.
+     *
+     */
     void bind() const;
+
+    /**
+     * @brief Unbind the vertex array object.
+     *
+     */
     void unbind() const;
+
+    /**
+     * @brief Add a vertex buffer to the vertex array object.
+     *
+     *
+     * @param vbo the vertex buffer object to add.
+     * @see vertex_buffer.hpp
+     */
     void add_vertex_buffer(const vertex_buffer& vbo);
+
+    /**
+     * @brief Set the index buffer object
+     *
+     * @param ibo the index buffer object to set.
+     * @see index_buffer.hpp
+     */
     void set_index_buffer(const index_buffer& ibo);
 
 private:

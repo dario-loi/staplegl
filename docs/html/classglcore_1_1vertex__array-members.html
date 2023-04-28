@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -23,7 +27,7 @@
   <td id="projectalign">
    <div id="projectname">GLCore
    </div>
-   <div id="projectbrief">Header only C++17 OpenGL wrapper</div>
+   <div id="projectbrief">Header-only C++17 OpenGL wrapper</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +51,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('classglcore_1_1vertex__array.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -68,11 +89,6 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>glcore</b></li><li class="navelem"><a class="el" href="classglcore_1_1vertex__array.html">vertex_array</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">glcore::vertex_array Member List</div></div>
 </div><!--header-->
@@ -80,16 +96,19 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a>, including all inherited members.</p>
 <table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>add_vertex_buffer</b>(const vertex_buffer &amp;vbo) (defined in <a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a>)</td><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>bind</b>() const (defined in <a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a>)</td><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>set_index_buffer</b>(const index_buffer &amp;ibo) (defined in <a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a>)</td><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>unbind</b>() const (defined in <a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a>)</td><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>vertex_array</b>() (defined in <a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a>)</td><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>~vertex_array</b>() (defined in <a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a>)</td><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html#aa9637ebf468fa0227c7fe821c47c1cae">add_vertex_buffer</a>(const vertex_buffer &amp;vbo)</td><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html#a2f0e712d016b90ba89c371f5d965f42c">bind</a>() const</td><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html#ab369ac8e99a84cc63c676d72c7d715b7">set_index_buffer</a>(const index_buffer &amp;ibo)</td><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html#a9b0051f64330de53f719e30777105d08">unbind</a>() const</td><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html#acbe298f6cf1c0861bee5ec473dc720f5">vertex_array</a>()</td><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html#a8c5f35cfab1ec398b271d7b8234f087e">~vertex_array</a>()</td><td class="entry"><a class="el" href="classglcore_1_1vertex__array.html">glcore::vertex_array</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
+  </ul>
+</div>
 </body>
 </html>

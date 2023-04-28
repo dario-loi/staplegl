@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -23,7 +27,7 @@
   <td id="projectalign">
    <div id="projectname">GLCore
    </div>
-   <div id="projectbrief">Header only C++17 OpenGL wrapper</div>
+   <div id="projectbrief">Header-only C++17 OpenGL wrapper</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +51,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('classglcore_1_1index__buffer.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -68,11 +89,6 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>glcore</b></li><li class="navelem"><a class="el" href="classglcore_1_1index__buffer.html">index_buffer</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -80,24 +96,66 @@ $(function() {
   <div class="headertitle"><div class="title">glcore::index_buffer Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Element Buffer Object (EBO) wrapper.  
+ <a href="classglcore_1_1index__buffer.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="index__buffer_8hpp_source.html">index_buffer.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afc87425205d31cd408de7c22f557ecc2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1index__buffer.html#afc87425205d31cd408de7c22f557ecc2">index_buffer</a> (std::uint32_t *indices, std::uint32_t count)</td></tr>
+<tr class="memitem:a5db51b55fdc5040d4f211065ea238fb1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1index__buffer.html#a5db51b55fdc5040d4f211065ea238fb1">index_buffer</a> ()=default</td></tr>
+<tr class="separator:a5db51b55fdc5040d4f211065ea238fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc87425205d31cd408de7c22f557ecc2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1index__buffer.html#afc87425205d31cd408de7c22f557ecc2">index_buffer</a> (std::uint32_t *indices, std::uint32_t <a class="el" href="classglcore_1_1index__buffer.html#a379a7b22c99d8ec621e086c94bef7b81">count</a>)</td></tr>
+<tr class="memdesc:afc87425205d31cd408de7c22f557ecc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new index buffer object.  <br /></td></tr>
 <tr class="separator:afc87425205d31cd408de7c22f557ecc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2afc69737cbf88f0d843c1c5d2d565b8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1index__buffer.html#a2afc69737cbf88f0d843c1c5d2d565b8">~index_buffer</a> ()</td></tr>
+<tr class="separator:a2afc69737cbf88f0d843c1c5d2d565b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a6b41570810b773a64ffcbad7567a89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1index__buffer.html#a0a6b41570810b773a64ffcbad7567a89">bind</a> () const</td></tr>
+<tr class="memdesc:a0a6b41570810b773a64ffcbad7567a89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind the index buffer object.  <br /></td></tr>
 <tr class="separator:a0a6b41570810b773a64ffcbad7567a89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a274200fb3303b37e7d3e2b037ea56f7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1index__buffer.html#a274200fb3303b37e7d3e2b037ea56f7b">unbind</a> () const</td></tr>
+<tr class="memdesc:a274200fb3303b37e7d3e2b037ea56f7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unbind the index buffer object.  <br /></td></tr>
 <tr class="separator:a274200fb3303b37e7d3e2b037ea56f7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a379a7b22c99d8ec621e086c94bef7b81"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1index__buffer.html#a379a7b22c99d8ec621e086c94bef7b81">count</a> () const</td></tr>
+<tr class="memdesc:a379a7b22c99d8ec621e086c94bef7b81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of indices in the index buffer object.  <br /></td></tr>
 <tr class="separator:a379a7b22c99d8ec621e086c94bef7b81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="index__buffer_8h_source.html#l00018">18</a> of file <a class="el" href="index__buffer_8h_source.html">index_buffer.h</a>.</p>
+<div class="textblock"><p>Element Buffer Object (EBO) wrapper. </p>
+<p>Element Buffer Objects are OpenGL objects that store indices that OpenGL uses to render primitives, they are used in conjunction with Vertex Array Objects. <br  />
+ EBOs are used to reduce the amount of data that needs to be sent to the GPU, by allowing the reuse of vertices.</p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://www.khronos.org/opengl/wiki/Vertex_Specification#Element_Buffer_Object">https://www.khronos.org/opengl/wiki/Vertex_Specification#Element_Buffer_Object</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="index__buffer_8hpp_source.html#l00030">30</a> of file <a class="el" href="index__buffer_8hpp_source.html">index_buffer.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a5db51b55fdc5040d4f211065ea238fb1" name="a5db51b55fdc5040d4f211065ea238fb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5db51b55fdc5040d4f211065ea238fb1">&#9670;&#160;</a></span>index_buffer() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glcore::index_buffer::index_buffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="afc87425205d31cd408de7c22f557ecc2" name="afc87425205d31cd408de7c22f557ecc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc87425205d31cd408de7c22f557ecc2">&#9670;&#160;</a></span>index_buffer()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afc87425205d31cd408de7c22f557ecc2">&#9670;&#160;</a></span>index_buffer() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -122,7 +180,16 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="index__buffer_8h_source.html#l00033">33</a> of file <a class="el" href="index__buffer_8h_source.html">index_buffer.h</a>.</p>
+<p>Construct a new index buffer object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">indices</td><td>a pointer to the indices array, can be any contiguous container of std::uint32_t. </td></tr>
+    <tr><td class="paramname">count</td><td>the number of indices in the array. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="index__buffer_8hpp_source.html#l00067">67</a> of file <a class="el" href="index__buffer_8hpp_source.html">index_buffer.hpp</a>.</p>
 
 </div>
 </div>
@@ -141,7 +208,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="index__buffer_8h_source.html#l00041">41</a> of file <a class="el" href="index__buffer_8h_source.html">index_buffer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="index__buffer_8hpp_source.html#l00075">75</a> of file <a class="el" href="index__buffer_8hpp_source.html">index_buffer.hpp</a>.</p>
 
 </div>
 </div>
@@ -161,7 +228,9 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="index__buffer_8h_source.html#l00046">46</a> of file <a class="el" href="index__buffer_8h_source.html">index_buffer.h</a>.</p>
+<p>Bind the index buffer object. </p>
+
+<p class="definition">Definition at line <a class="el" href="index__buffer_8hpp_source.html#l00080">80</a> of file <a class="el" href="index__buffer_8hpp_source.html">index_buffer.hpp</a>.</p>
 
 </div>
 </div>
@@ -180,7 +249,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="index__buffer_8h_source.html#l00056">56</a> of file <a class="el" href="index__buffer_8h_source.html">index_buffer.h</a>.</p>
+<p>Get the number of indices in the index buffer object. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::uint32_t, the number of indices. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="index__buffer_8hpp_source.html#l00090">90</a> of file <a class="el" href="index__buffer_8hpp_source.html">index_buffer.hpp</a>.</p>
 
 </div>
 </div>
@@ -199,17 +271,23 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="index__buffer_8h_source.html#l00051">51</a> of file <a class="el" href="index__buffer_8h_source.html">index_buffer.h</a>.</p>
+<p>Unbind the index buffer object. </p>
+
+<p class="definition">Definition at line <a class="el" href="index__buffer_8hpp_source.html#l00085">85</a> of file <a class="el" href="index__buffer_8hpp_source.html">index_buffer.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/glcore/modules/<a class="el" href="index__buffer_8h_source.html">index_buffer.h</a></li>
+<li>include/glcore/modules/<a class="el" href="index__buffer_8hpp_source.html">index_buffer.hpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceglcore.html">glcore</a></li><li class="navelem"><a class="el" href="classglcore_1_1index__buffer.html">index_buffer</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
+  </ul>
+</div>
 </body>
 </html>

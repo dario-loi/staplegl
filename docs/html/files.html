@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -23,7 +27,7 @@
   <td id="projectalign">
    <div id="projectname">GLCore
    </div>
-   <div id="projectbrief">Header only C++17 OpenGL wrapper</div>
+   <div id="projectbrief">Header-only C++17 OpenGL wrapper</div>
   </td>
  </tr>
  </tbody>
@@ -48,6 +52,22 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('files.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -73,30 +93,30 @@ $(function() {
   <div class="headertitle"><div class="title">File List</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all documented files with brief descriptions:</div><div class="directory">
+<div class="textblock">Here is a list of all files with brief descriptions:</div><div class="directory">
 <div class="levels">[detail level <span onclick="javascript:toggleLevel(1);">1</span><span onclick="javascript:toggleLevel(2);">2</span><span onclick="javascript:toggleLevel(3);">3</span><span onclick="javascript:toggleLevel(4);">4</span>]</div><table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_0_" class="arrow" onclick="toggleFolder('0_')">&#9660;</span><span id="img_0_" class="iconfopen" onclick="toggleFolder('0_')">&#160;</span><a class="el" href="dir_d28a4824dc47e487b107a5db32ef43c4.html" target="_self">examples</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_0_0_" class="arrow" onclick="toggleFolder('0_0_')">&#9660;</span><span id="img_0_0_" class="iconfopen" onclick="toggleFolder('0_0_')">&#160;</span><a class="el" href="dir_95b57effb8038f90624a8a5b60361b2e.html" target="_self">src</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_0_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="Sandbox_8cpp_source.html"><span class="icondoc"></span></a><b>Sandbox.cpp</b></td><td class="desc"></td></tr>
-<tr id="row_1_" class="odd"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_1_" class="arrow" onclick="toggleFolder('1_')">&#9660;</span><span id="img_1_" class="iconfopen" onclick="toggleFolder('1_')">&#160;</span><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html" target="_self">include</a></td><td class="desc"></td></tr>
-<tr id="row_1_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_1_0_" class="arrow" onclick="toggleFolder('1_0_')">&#9660;</span><span id="img_1_0_" class="iconfopen" onclick="toggleFolder('1_0_')">&#160;</span><a class="el" href="dir_1ea7ce71088ff1fb52392aadabbf9d70.html" target="_self">glcore</a></td><td class="desc"></td></tr>
-<tr id="row_1_0_0_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span id="arr_1_0_0_" class="arrow" onclick="toggleFolder('1_0_0_')">&#9660;</span><span id="img_1_0_0_" class="iconfopen" onclick="toggleFolder('1_0_0_')">&#160;</span><a class="el" href="dir_889567892d493f794045c6f3343921ab.html" target="_self">modules</a></td><td class="desc"></td></tr>
-<tr id="row_1_0_0_0_" class="even"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="gl__function__placeholders_8h_source.html"><span class="icondoc"></span></a><a class="el" href="gl__function__placeholders_8h.html" target="_self">gl_function_placeholders.h</a></td><td class="desc">OpenGL function placeholders </td></tr>
-<tr id="row_1_0_0_1_" class="odd"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="gl__functions_8h_source.html"><span class="icondoc"></span></a><a class="el" href="gl__functions_8h.html" target="_self">gl_functions.h</a></td><td class="desc">Loads OpenGL functions </td></tr>
-<tr id="row_1_0_0_2_" class="even"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="index__buffer_8h_source.html"><span class="icondoc"></span></a><a class="el" href="index__buffer_8h.html" target="_self">index_buffer.h</a></td><td class="desc">Element Buffer Object (EBO) wrapper </td></tr>
-<tr id="row_1_0_0_3_" class="odd"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="shader_8h_source.html"><span class="icondoc"></span></a><a class="el" href="shader_8h.html" target="_self">shader.h</a></td><td class="desc">Shader program wrapper </td></tr>
-<tr id="row_1_0_0_4_" class="even"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="shader__data__type_8h_source.html"><span class="icondoc"></span></a><a class="el" href="shader__data__type_8h.html" target="_self">shader_data_type.h</a></td><td class="desc">Shader data type definitions </td></tr>
-<tr id="row_1_0_0_5_" class="odd"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="utility_8h_source.html"><span class="icondoc"></span></a><a class="el" href="utility_8h.html" target="_self">utility.h</a></td><td class="desc">Utility functions for parsing files </td></tr>
-<tr id="row_1_0_0_6_" class="even"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="vertex__array_8h_source.html"><span class="icondoc"></span></a><a class="el" href="vertex__array_8h.html" target="_self">vertex_array.h</a></td><td class="desc">Vertex Array Object (VAO) wrapper </td></tr>
-<tr id="row_1_0_0_7_" class="odd"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="vertex__buffer_8h_source.html"><span class="icondoc"></span></a><a class="el" href="vertex__buffer_8h.html" target="_self">vertex_buffer.h</a></td><td class="desc">Vertex Buffer Object (VBO) wrapper </td></tr>
-<tr id="row_1_0_0_8_" class="even"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="vertex__buffer__layout_8h_source.html"><span class="icondoc"></span></a><a class="el" href="vertex__buffer__layout_8h.html" target="_self">vertex_buffer_layout.h</a></td><td class="desc">Vertex Buffer Layout abstraction </td></tr>
-<tr id="row_1_0_1_" class="odd"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="glcore_8h_source.html"><span class="icondoc"></span></a><a class="el" href="glcore_8h.html" target="_self">glcore.h</a></td><td class="desc">GLCore, a C++17 wrapper for OpenGL </td></tr>
+<tr id="row_0_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_0_" class="arrow" onclick="toggleFolder('0_')">&#9660;</span><span id="img_0_" class="iconfopen" onclick="toggleFolder('0_')">&#160;</span><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html" target="_self">include</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_0_0_" class="arrow" onclick="toggleFolder('0_0_')">&#9660;</span><span id="img_0_0_" class="iconfopen" onclick="toggleFolder('0_0_')">&#160;</span><a class="el" href="dir_1ea7ce71088ff1fb52392aadabbf9d70.html" target="_self">glcore</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_0_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span id="arr_0_0_0_" class="arrow" onclick="toggleFolder('0_0_0_')">&#9660;</span><span id="img_0_0_0_" class="iconfopen" onclick="toggleFolder('0_0_0_')">&#160;</span><a class="el" href="dir_889567892d493f794045c6f3343921ab.html" target="_self">modules</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_0_0_" class="odd"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="gl__function__placeholders_8hpp_source.html"><span class="icondoc"></span></a><a class="el" href="gl__function__placeholders_8hpp.html" target="_self">gl_function_placeholders.hpp</a></td><td class="desc">OpenGL function placeholders </td></tr>
+<tr id="row_0_0_0_1_" class="even"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="gl__functions_8hpp_source.html"><span class="icondoc"></span></a><a class="el" href="gl__functions_8hpp.html" target="_self">gl_functions.hpp</a></td><td class="desc">Loads OpenGL functions </td></tr>
+<tr id="row_0_0_0_2_" class="odd"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="index__buffer_8hpp_source.html"><span class="icondoc"></span></a><a class="el" href="index__buffer_8hpp.html" target="_self">index_buffer.hpp</a></td><td class="desc">Element Buffer Object (EBO) wrapper </td></tr>
+<tr id="row_0_0_0_3_" class="even"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="shader_8hpp_source.html"><span class="icondoc"></span></a><a class="el" href="shader_8hpp.html" target="_self">shader.hpp</a></td><td class="desc">Shader program wrapper </td></tr>
+<tr id="row_0_0_0_4_" class="odd"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="shader__data__type_8hpp_source.html"><span class="icondoc"></span></a><a class="el" href="shader__data__type_8hpp.html" target="_self">shader_data_type.hpp</a></td><td class="desc">Shader data type definitions </td></tr>
+<tr id="row_0_0_0_5_" class="even"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="utility_8hpp_source.html"><span class="icondoc"></span></a><a class="el" href="utility_8hpp.html" target="_self">utility.hpp</a></td><td class="desc">Utility functions for parsing files </td></tr>
+<tr id="row_0_0_0_6_" class="odd"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="vertex__array_8hpp_source.html"><span class="icondoc"></span></a><a class="el" href="vertex__array_8hpp.html" target="_self">vertex_array.hpp</a></td><td class="desc">Vertex Array Object (VAO) wrapper </td></tr>
+<tr id="row_0_0_0_7_" class="even"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="vertex__buffer_8hpp_source.html"><span class="icondoc"></span></a><a class="el" href="vertex__buffer_8hpp.html" target="_self">vertex_buffer.hpp</a></td><td class="desc">Vertex Buffer Object (VBO) wrapper </td></tr>
+<tr id="row_0_0_0_8_" class="odd"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="vertex__buffer__layout_8hpp_source.html"><span class="icondoc"></span></a><a class="el" href="vertex__buffer__layout_8hpp.html" target="_self">vertex_buffer_layout.hpp</a></td><td class="desc">Vertex Buffer Layout abstraction </td></tr>
+<tr id="row_0_0_1_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="glcore_8hpp_source.html"><span class="icondoc"></span></a><a class="el" href="glcore_8hpp.html" target="_self">glcore.hpp</a></td><td class="desc"></td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
+  </ul>
+</div>
 </body>
 </html>

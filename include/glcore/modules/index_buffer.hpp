@@ -20,7 +20,11 @@ namespace glcore {
  * @brief Element Buffer Object (EBO) wrapper.
  *
  * @details Element Buffer Objects are OpenGL objects that store indices that OpenGL uses to
- * render primitives.
+ * render primitives, they are used in conjunction with Vertex Array Objects. <br>
+ * EBOs are used to reduce the amount of data that needs to be sent to the GPU, by allowing
+ * the reuse of vertices.
+ *
+ * @see https://www.khronos.org/opengl/wiki/Vertex_Specification#Element_Buffer_Object
  *
  */
 class index_buffer {

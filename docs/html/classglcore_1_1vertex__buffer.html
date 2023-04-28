@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -23,7 +27,7 @@
   <td id="projectalign">
    <div id="projectname">GLCore
    </div>
-   <div id="projectbrief">Header only C++17 OpenGL wrapper</div>
+   <div id="projectbrief">Header-only C++17 OpenGL wrapper</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +51,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('classglcore_1_1vertex__buffer.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -68,11 +89,6 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>glcore</b></li><li class="navelem"><a class="el" href="classglcore_1_1vertex__buffer.html">vertex_buffer</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -80,28 +96,71 @@ $(function() {
   <div class="headertitle"><div class="title">glcore::vertex_buffer Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Vertex Buffer Object (VBO) wrapper.  
+ <a href="classglcore_1_1vertex__buffer.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="vertex__buffer_8hpp_source.html">vertex_buffer.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a34c6ed47d2dbe8c9b004f3e1286349de"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1vertex__buffer.html#a34c6ed47d2dbe8c9b004f3e1286349de">vertex_buffer</a> ()=default</td></tr>
+<tr class="separator:a34c6ed47d2dbe8c9b004f3e1286349de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2eb86aba64099ecc4adc0d5b0756a08"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1vertex__buffer.html#ab2eb86aba64099ecc4adc0d5b0756a08">vertex_buffer</a> (float *vertices, std::uint32_t size)</td></tr>
+<tr class="memdesc:ab2eb86aba64099ecc4adc0d5b0756a08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new vertex buffer object.  <br /></td></tr>
 <tr class="separator:ab2eb86aba64099ecc4adc0d5b0756a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7eefe85572d84193d1cdb64564ee0c60"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1vertex__buffer.html#a7eefe85572d84193d1cdb64564ee0c60">vertex_buffer</a> (float *vertices, std::uint32_t size, const <a class="el" href="classglcore_1_1vertex__buffer__layout.html">vertex_buffer_layout</a> &amp;layout)</td></tr>
+<tr class="memitem:a7eefe85572d84193d1cdb64564ee0c60"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1vertex__buffer.html#a7eefe85572d84193d1cdb64564ee0c60">vertex_buffer</a> (float *vertices, std::uint32_t size, const <a class="el" href="classglcore_1_1vertex__buffer__layout.html">vertex_buffer_layout</a> &amp;<a class="el" href="classglcore_1_1vertex__buffer.html#a5c6a17de85dbe881e295605d2ab968bf">layout</a>)</td></tr>
 <tr class="separator:a7eefe85572d84193d1cdb64564ee0c60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a2aa8d7a60d623e52092a98cd7e5f0f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1vertex__buffer.html#a0a2aa8d7a60d623e52092a98cd7e5f0f">~vertex_buffer</a> ()</td></tr>
+<tr class="separator:a0a2aa8d7a60d623e52092a98cd7e5f0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fb5ba81082ae453295b32ef0b0ded3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1vertex__buffer.html#a2fb5ba81082ae453295b32ef0b0ded3f">bind</a> () const</td></tr>
+<tr class="memdesc:a2fb5ba81082ae453295b32ef0b0ded3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind the vertex buffer object.  <br /></td></tr>
 <tr class="separator:a2fb5ba81082ae453295b32ef0b0ded3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a146472e0c7795f29fb5a1a81399150e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1vertex__buffer.html#a146472e0c7795f29fb5a1a81399150e6">unbind</a> () const</td></tr>
+<tr class="memdesc:a146472e0c7795f29fb5a1a81399150e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unbind the vertex buffer object.  <br /></td></tr>
 <tr class="separator:a146472e0c7795f29fb5a1a81399150e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d147675d6bb8bf39af3eb66e53c5fec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1vertex__buffer.html#a4d147675d6bb8bf39af3eb66e53c5fec">set_layout</a> (const <a class="el" href="classglcore_1_1vertex__buffer__layout.html">vertex_buffer_layout</a> &amp;layout)</td></tr>
+<tr class="memitem:a4d147675d6bb8bf39af3eb66e53c5fec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1vertex__buffer.html#a4d147675d6bb8bf39af3eb66e53c5fec">set_layout</a> (const <a class="el" href="classglcore_1_1vertex__buffer__layout.html">vertex_buffer_layout</a> &amp;<a class="el" href="classglcore_1_1vertex__buffer.html#a5c6a17de85dbe881e295605d2ab968bf">layout</a>)</td></tr>
+<tr class="memdesc:a4d147675d6bb8bf39af3eb66e53c5fec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the layout object.  <br /></td></tr>
 <tr class="separator:a4d147675d6bb8bf39af3eb66e53c5fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c6a17de85dbe881e295605d2ab968bf"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classglcore_1_1vertex__buffer__layout.html">vertex_buffer_layout</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classglcore_1_1vertex__buffer.html#a5c6a17de85dbe881e295605d2ab968bf">layout</a> () const</td></tr>
 <tr class="separator:a5c6a17de85dbe881e295605d2ab968bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="vertex__buffer_8h_source.html#l00017">17</a> of file <a class="el" href="vertex__buffer_8h_source.html">vertex_buffer.h</a>.</p>
+<div class="textblock"><p>Vertex Buffer Object (VBO) wrapper. </p>
+<p>Vertex Buffer Objects are OpenGL objects that store an array of data in the GPU's memory, the data is passed as a pointer and is then accessed through a user-specified layout.</p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://www.khronos.org/opengl/wiki/Vertex_Specification#Vertex_Buffer_Object">https://www.khronos.org/opengl/wiki/Vertex_Specification#Vertex_Buffer_Object</a> </dd>
+<dd>
+<a class="el" href="vertex__buffer__layout_8hpp.html" title="Vertex Buffer Layout abstraction.">vertex_buffer_layout.hpp</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="vertex__buffer_8hpp_source.html#l00027">27</a> of file <a class="el" href="vertex__buffer_8hpp_source.html">vertex_buffer.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a34c6ed47d2dbe8c9b004f3e1286349de" name="a34c6ed47d2dbe8c9b004f3e1286349de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34c6ed47d2dbe8c9b004f3e1286349de">&#9670;&#160;</a></span>vertex_buffer() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glcore::vertex_buffer::vertex_buffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ab2eb86aba64099ecc4adc0d5b0756a08" name="ab2eb86aba64099ecc4adc0d5b0756a08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2eb86aba64099ecc4adc0d5b0756a08">&#9670;&#160;</a></span>vertex_buffer() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2eb86aba64099ecc4adc0d5b0756a08">&#9670;&#160;</a></span>vertex_buffer() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -126,12 +185,21 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer_8h_source.html#l00040">40</a> of file <a class="el" href="vertex__buffer_8h_source.html">vertex_buffer.h</a>.</p>
+<p>Construct a new vertex buffer object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vertices</td><td>a pointer to the vertices array, can be any contiguous container of floats. </td></tr>
+    <tr><td class="paramname">size</td><td>the size of the vertices array in bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="vertex__buffer_8hpp_source.html#l00072">72</a> of file <a class="el" href="vertex__buffer_8hpp_source.html">vertex_buffer.hpp</a>.</p>
 
 </div>
 </div>
 <a id="a7eefe85572d84193d1cdb64564ee0c60" name="a7eefe85572d84193d1cdb64564ee0c60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7eefe85572d84193d1cdb64564ee0c60">&#9670;&#160;</a></span>vertex_buffer() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7eefe85572d84193d1cdb64564ee0c60">&#9670;&#160;</a></span>vertex_buffer() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -162,7 +230,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer_8h_source.html#l00047">47</a> of file <a class="el" href="vertex__buffer_8h_source.html">vertex_buffer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer_8hpp_source.html#l00079">79</a> of file <a class="el" href="vertex__buffer_8hpp_source.html">vertex_buffer.hpp</a>.</p>
 
 </div>
 </div>
@@ -181,7 +249,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer_8h_source.html#l00053">53</a> of file <a class="el" href="vertex__buffer_8h_source.html">vertex_buffer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer_8hpp_source.html#l00085">85</a> of file <a class="el" href="vertex__buffer_8hpp_source.html">vertex_buffer.hpp</a>.</p>
 
 </div>
 </div>
@@ -201,7 +269,9 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer_8h_source.html#l00058">58</a> of file <a class="el" href="vertex__buffer_8h_source.html">vertex_buffer.h</a>.</p>
+<p>Bind the vertex buffer object. </p>
+
+<p class="definition">Definition at line <a class="el" href="vertex__buffer_8hpp_source.html#l00090">90</a> of file <a class="el" href="vertex__buffer_8hpp_source.html">vertex_buffer.hpp</a>.</p>
 
 </div>
 </div>
@@ -220,7 +290,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer_8h_source.html#l00073">73</a> of file <a class="el" href="vertex__buffer_8h_source.html">vertex_buffer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer_8hpp_source.html#l00105">105</a> of file <a class="el" href="vertex__buffer_8hpp_source.html">vertex_buffer.hpp</a>.</p>
 
 </div>
 </div>
@@ -240,7 +310,16 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer_8h_source.html#l00068">68</a> of file <a class="el" href="vertex__buffer_8h_source.html">vertex_buffer.h</a>.</p>
+<p>Set the layout object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layout</td><td>the layout to be set. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="vertex__buffer__layout_8hpp.html" title="Vertex Buffer Layout abstraction.">vertex_buffer_layout.hpp</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="vertex__buffer_8hpp_source.html#l00100">100</a> of file <a class="el" href="vertex__buffer_8hpp_source.html">vertex_buffer.hpp</a>.</p>
 
 </div>
 </div>
@@ -259,17 +338,23 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer_8h_source.html#l00063">63</a> of file <a class="el" href="vertex__buffer_8h_source.html">vertex_buffer.h</a>.</p>
+<p>Unbind the vertex buffer object. </p>
+
+<p class="definition">Definition at line <a class="el" href="vertex__buffer_8hpp_source.html#l00095">95</a> of file <a class="el" href="vertex__buffer_8hpp_source.html">vertex_buffer.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/glcore/modules/<a class="el" href="vertex__buffer_8h_source.html">vertex_buffer.h</a></li>
+<li>include/glcore/modules/<a class="el" href="vertex__buffer_8hpp_source.html">vertex_buffer.hpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceglcore.html">glcore</a></li><li class="navelem"><a class="el" href="classglcore_1_1vertex__buffer.html">vertex_buffer</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
+  </ul>
+</div>
 </body>
 </html>

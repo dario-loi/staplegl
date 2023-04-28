@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -23,7 +27,7 @@
   <td id="projectalign">
    <div id="projectname">GLCore
    </div>
-   <div id="projectbrief">Header only C++17 OpenGL wrapper</div>
+   <div id="projectbrief">Header-only C++17 OpenGL wrapper</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +51,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structglcore_1_1vertex__attribute.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -68,11 +89,6 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>glcore</b></li><li class="navelem"><a class="el" href="structglcore_1_1vertex__attribute.html">vertex_attribute</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Public Attributes</a> &#124;
@@ -80,10 +96,15 @@ $(function() {
   <div class="headertitle"><div class="title">glcore::vertex_attribute Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Vertex attribute.  
+ <a href="structglcore_1_1vertex__attribute.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="vertex__buffer__layout_8hpp_source.html">vertex_buffer_layout.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a83ca6be3eb4dd45d8f85836ac504c461"><td class="memItemLeft" align="right" valign="top">shader_data_type::type_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structglcore_1_1vertex__attribute.html#a83ca6be3eb4dd45d8f85836ac504c461">type</a></td></tr>
+<tr class="memitem:a83ca6be3eb4dd45d8f85836ac504c461"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceglcore_1_1shader__data__type.html#afc68a2321ec9f4b7e5fc125ee66439cc">shader_data_type::type_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structglcore_1_1vertex__attribute.html#a83ca6be3eb4dd45d8f85836ac504c461">type</a></td></tr>
 <tr class="separator:a83ca6be3eb4dd45d8f85836ac504c461"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaaed78f04c361d9a662311910c1e8472"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structglcore_1_1vertex__attribute.html#aaaed78f04c361d9a662311910c1e8472">name</a></td></tr>
 <tr class="separator:aaaed78f04c361d9a662311910c1e8472"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -91,8 +112,11 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ad9b27f44f6bb79f6b099006b1e17f948"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__layout_8h_source.html#l00022">22</a> of file <a class="el" href="vertex__buffer__layout_8h_source.html">vertex_buffer_layout.h</a>.</p>
+<div class="textblock"><p>Vertex attribute. </p>
+<p>Represents a single vertex attribute, that is, a type that is used to compose a vertex buffer layout, the struct contains the type of the attribute, the name of the attribute (for debugging purposes) and the offset of the attribute in the vertex buffer.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="shader__data__type_8hpp.html" title="Shader data type definitions.">shader_data_type.hpp</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__layout_8hpp_source.html#l00031">31</a> of file <a class="el" href="vertex__buffer__layout_8hpp_source.html">vertex_buffer_layout.hpp</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="aaaed78f04c361d9a662311910c1e8472" name="aaaed78f04c361d9a662311910c1e8472"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaaed78f04c361d9a662311910c1e8472">&#9670;&#160;</a></span>name</h2>
@@ -106,7 +130,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__layout_8h_source.html#l00024">24</a> of file <a class="el" href="vertex__buffer__layout_8h_source.html">vertex_buffer_layout.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__layout_8hpp_source.html#l00033">33</a> of file <a class="el" href="vertex__buffer__layout_8hpp_source.html">vertex_buffer_layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -122,7 +146,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__layout_8h_source.html#l00025">25</a> of file <a class="el" href="vertex__buffer__layout_8h_source.html">vertex_buffer_layout.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__layout_8hpp_source.html#l00034">34</a> of file <a class="el" href="vertex__buffer__layout_8hpp_source.html">vertex_buffer_layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -133,22 +157,26 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">shader_data_type::type_t glcore::vertex_attribute::type</td>
+          <td class="memname"><a class="el" href="namespaceglcore_1_1shader__data__type.html#afc68a2321ec9f4b7e5fc125ee66439cc">shader_data_type::type_t</a> glcore::vertex_attribute::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__layout_8h_source.html#l00023">23</a> of file <a class="el" href="vertex__buffer__layout_8h_source.html">vertex_buffer_layout.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__layout_8hpp_source.html#l00032">32</a> of file <a class="el" href="vertex__buffer__layout_8hpp_source.html">vertex_buffer_layout.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/glcore/modules/<a class="el" href="vertex__buffer__layout_8h_source.html">vertex_buffer_layout.h</a></li>
+<li>include/glcore/modules/<a class="el" href="vertex__buffer__layout_8hpp_source.html">vertex_buffer_layout.hpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceglcore.html">glcore</a></li><li class="navelem"><a class="el" href="structglcore_1_1vertex__attribute.html">vertex_attribute</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
+  </ul>
+</div>
 </body>
 </html>
