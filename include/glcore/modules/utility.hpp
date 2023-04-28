@@ -23,7 +23,7 @@ static std::string read_file(std::string_view path)
         in.seekg(0, std::ios::end);
         result.resize(in.tellg());
         in.seekg(0, std::ios::beg);
-        in.read(&result[0], result.size());
+        in.read(result.data(), result.size());
         in.close();
     }
 

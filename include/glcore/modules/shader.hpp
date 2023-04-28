@@ -17,6 +17,7 @@
 #pragma once
 
 #include "gl_functions.hpp"
+#include "utility.hpp"
 #include <string>
 #include <vector>
 
