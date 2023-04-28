@@ -1,10 +1,54 @@
+##
+# Project Specific
+##
+
 # Directories
 **/bin
 **/bin-int
+/build
 
 # Visual Studio
 .vs/
+.vscode/
 **.sln
 **.vcxproj
 **.vcxproj.filters
-**.vcxproj.user
+**.vcxproj.user.vscode/
+
+##
+# Generic C++ Ignores
+##
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
