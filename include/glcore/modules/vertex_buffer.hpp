@@ -40,8 +40,8 @@ public:
     vertex_buffer(const vertex_buffer&) = delete;
     vertex_buffer& operator=(const vertex_buffer&) = delete;
 
-    vertex_buffer(vertex_buffer&&) = default;
-    vertex_buffer& operator=(vertex_buffer&&) = default;
+    vertex_buffer(vertex_buffer&&) noexcept;
+    vertex_buffer& operator=(vertex_buffer&&) noexcept;
 
 
     /**
@@ -91,8 +91,32 @@ vertex_buffer::vertex_buffer(float* vertices, std::uint32_t size, const vertex_b
 
 vertex_buffer::~vertex_buffer()
 {
-    glDeleteBuffers(1, &m_id);
+    if (m_id != 0) {    
+        glDeleteBuffers(1, &m_id);
+    }
 }
+
+vertex_buffer::vertex_buffer(vertex_buffer&& other) noexcept
+    : m_id { other.m_id }
+    , m_layout { other.m_layout }
+{
+    other.m_id = 0;
+}
+
+vertex_buffer& vertex_buffer::operator=(vertex_buffer&& other) noexcept
+{
+    if (this != &other) {
+        glDeleteBuffers(1, &m_id);
+        m_id = other.m_id;
+        m_layout = other.m_layout;
+
+        other.m_id = 0;
+    }
+
+    return *this;
+}
+
+
 
 void vertex_buffer::bind() const
 {

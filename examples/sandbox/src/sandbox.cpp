@@ -60,7 +60,6 @@ auto main() -> int
         -0.5F, 0.5F, 0.0F // top left
     };
     unsigned int indices[] = {
-        // note that we start from 0!
         0, 1, 3, // first Triangle
         1, 2, 3 // second Triangle
     };

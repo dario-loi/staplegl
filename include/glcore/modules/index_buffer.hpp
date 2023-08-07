@@ -44,8 +44,8 @@ public:
     index_buffer(const index_buffer&) = delete;
     index_buffer& operator=(const index_buffer&) = delete;
 
-    index_buffer(index_buffer&&) = default;
-    index_buffer& operator=(index_buffer&&) = default;
+    index_buffer(index_buffer&&) noexcept;
+    index_buffer& operator=(index_buffer&&) noexcept;
 
     /**
      * @brief Bind the index buffer object.
@@ -76,14 +76,34 @@ index_buffer::index_buffer(std::uint32_t* indices, std::uint32_t count) noexcept
 {
     glGenBuffers(1, &m_id);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
-    
+
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(std::uint32_t) * count, indices, GL_STATIC_DRAW);
 }
 
 index_buffer::~index_buffer()
 {
-    std::cout << "deleting index buffer" << std::endl;
-    glDeleteBuffers(1, &m_id);
+    if (m_id != 0) {
+        glDeleteBuffers(1, &m_id);
+    }
+}
+
+index_buffer::index_buffer(index_buffer&& other) noexcept
+    : m_id { other.m_id }
+    , m_count { other.m_count }
+{
+    other.m_id = 0;
+}
+
+index_buffer& index_buffer::operator=(index_buffer&& other) noexcept
+{
+    if (this != &other) {
+        m_id = other.m_id;
+        m_count = other.m_count;
+
+        other.m_id = 0;
+    }
+
+    return *this;
 }
 
 void index_buffer::bind() const

@@ -53,8 +53,8 @@ private:
     instanced_vbo(const instanced_vbo&) = delete;
     instanced_vbo& operator=(const instanced_vbo&) = delete;
 
-    instanced_vbo(instanced_vbo&&) = default;
-    instanced_vbo& operator=(instanced_vbo&&) = default;
+    instanced_vbo(instanced_vbo&&) noexcept;
+    instanced_vbo& operator=(instanced_vbo&&) noexcept;
 
     void bind() const;
     void unbind() const;
@@ -95,7 +95,34 @@ private:
 
     instanced_vbo::~instanced_vbo()
     {
-        glDeleteBuffers(1, &m_id);
+        if (m_id != 0) {
+            glDeleteBuffers(1, &m_id);
+        }
+    }
+
+    instanced_vbo::instanced_vbo(instanced_vbo&& other) noexcept
+        : m_id{ other.m_id }, capacity{ other.capacity }, model_size{ other.model_size },
+        inst_size{ other.inst_size }, inst_count{ other.inst_count },
+        m_model_layout{ other.m_model_layout }, m_instance_layout{ other.m_instance_layout }
+    {
+        other.m_id = 0;
+    }
+
+    instanced_vbo& instanced_vbo::operator=(instanced_vbo&& other) noexcept
+    {
+        if (this != &other) {
+            glDeleteBuffers(1, &m_id);
+            m_id = other.m_id;
+            capacity = other.capacity;
+            model_size = other.model_size;
+            inst_size = other.inst_size;
+            inst_count = other.inst_count;
+            m_model_layout = other.m_model_layout;
+            m_instance_layout = other.m_instance_layout;
+
+            other.m_id = 0;
+        }
+        return *this;
     }
 
     void instanced_vbo::bind() const
