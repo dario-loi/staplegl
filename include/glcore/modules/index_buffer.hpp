@@ -38,8 +38,14 @@ public:
      * @param indices a pointer to the indices array, can be any contiguous container of std::uint32_t.
      * @param count the number of indices in the array.
      */
-    index_buffer(std::uint32_t* indices, std::uint32_t count);
+    index_buffer(std::uint32_t* indices, std::uint32_t count) noexcept;
     ~index_buffer();
+
+    index_buffer(const index_buffer&) = delete;
+    index_buffer& operator=(const index_buffer&) = delete;
+
+    index_buffer(index_buffer&&) = default;
+    index_buffer& operator=(index_buffer&&) = default;
 
     /**
      * @brief Bind the index buffer object.
@@ -65,11 +71,12 @@ private:
     std::uint32_t m_count {};
 };
 
-index_buffer::index_buffer(std::uint32_t* indices, std::uint32_t count)
+index_buffer::index_buffer(std::uint32_t* indices, std::uint32_t count) noexcept
     : m_count { count }
 {
-    glCreateBuffers(1, &m_id);
+    glGenBuffers(1, &m_id);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
+    
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(std::uint32_t) * count, indices, GL_STATIC_DRAW);
 }
 

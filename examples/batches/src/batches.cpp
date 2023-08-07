@@ -84,8 +84,8 @@ auto main() -> int
 
     glcore::instanced_vao VAO;
 
-    VAO.set_vertex_buffer(VBO);
-    VAO.set_index_buffer(EBO);
+    VAO.set_vertex_buffer(std::move(VBO));
+    VAO.set_index_buffer(std::move(EBO));
 
     float offsets[] = {
         // four triangles, four translat

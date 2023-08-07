@@ -35,8 +35,8 @@ public:
     void bind() const;
     void unbind() const;
 
-    void set_vertex_buffer(const instanced_vbo& vbo);
-    void set_index_buffer(const index_buffer& ibo);
+    void set_vertex_buffer(instanced_vbo&& vbo);
+    void set_index_buffer(index_buffer&& ibo);
 
 };
 
@@ -65,42 +65,43 @@ void instanced_vao::unbind() const
     glBindVertexArray(0);
 }
 
-void instanced_vao::set_vertex_buffer(const instanced_vbo& vbo) {
+void instanced_vao::set_vertex_buffer(instanced_vbo&& vbo) {
+
+    m_vbo = std::move(vbo);
+
     glBindVertexArray(m_id);
-    vbo.bind();
+    m_vbo.bind();
 
     int attrib_index {};
-    for (const auto& [type, name, offset] : vbo.model_layout().data()) {
+    for (const auto& [type, name, offset] : m_vbo.model_layout().data()) {
         glEnableVertexAttribArray(attrib_index);
         glVertexAttribPointer(
             attrib_index++,
             shader_data_type::component_count(type),
             shader_data_type::to_opengl_type(type),
             GL_FALSE,
-            vbo.model_layout().stride(),
+            m_vbo.model_layout().stride(),
             reinterpret_cast<const void*>(offset));
     }
 
-    for (const auto& [type, name, offset] : vbo.instance_layout().data()) {
+    for (const auto& [type, name, offset] : m_vbo.instance_layout().data()) {
         glEnableVertexAttribArray(attrib_index);
         glVertexAttribPointer(
             attrib_index++,
             shader_data_type::component_count(type),
             shader_data_type::to_opengl_type(type),
             GL_FALSE,
-            vbo.instance_layout().stride(),
+            m_vbo.instance_layout().stride(),
             reinterpret_cast<const void*>(offset));
         glVertexAttribDivisor(attrib_index - 1, 1);
     }
-
-    m_vbo = vbo;
 }
 
-void instanced_vao::set_index_buffer(const index_buffer& ibo) {
+void instanced_vao::set_index_buffer(index_buffer&& ibo) {
     glBindVertexArray(m_id);
     ibo.bind();
 
-    m_ibo = ibo;
+    m_ibo = std::move(ibo);
 
 }
 

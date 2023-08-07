@@ -54,7 +54,7 @@ public:
      * @param vbo the vertex buffer object to add.
      * @see vertex_buffer.hpp
      */
-    void add_vertex_buffer(const vertex_buffer& vbo);
+    void add_vertex_buffer(vertex_buffer&& vbo);
 
     /**
      * @brief Set the index buffer object
@@ -62,7 +62,7 @@ public:
      * @param ibo the index buffer object to set.
      * @see index_buffer.hpp
      */
-    void set_index_buffer(const index_buffer& ibo);
+    void set_index_buffer(index_buffer&& ibo);
 
 private:
     std::uint32_t m_id {};
@@ -96,31 +96,34 @@ void vertex_array::unbind() const
     glBindVertexArray(0);
 }
 
-void vertex_array::add_vertex_buffer(const vertex_buffer& vbo)
+void vertex_array::add_vertex_buffer(vertex_buffer&& vbo)
 {
+    m_vertex_buffers.push_back(std::move(vbo));
+
+    vertex_buffer& vbo_ref = m_vertex_buffers.back();
+
     glBindVertexArray(m_id);
-    vbo.bind();
+    vbo_ref.bind();
 
     int attrib_index {};
-    for (const auto& [type, name, offset] : vbo.layout().data()) {
+    for (const auto& [type, name, offset] : vbo_ref.layout().data()) {
         glEnableVertexAttribArray(attrib_index);
         glVertexAttribPointer(
             attrib_index++,
             shader_data_type::component_count(type),
             shader_data_type::to_opengl_type(type),
             GL_FALSE,
-            vbo.layout().stride(),
+            vbo_ref.layout().stride(),
             reinterpret_cast<const void*>(offset));
     }
 
-    m_vertex_buffers.push_back(vbo);
 }
 
-void vertex_array::set_index_buffer(const index_buffer& ibo)
+void vertex_array::set_index_buffer(index_buffer&& ibo)
 {
-    glBindVertexArray(m_id);
-    ibo.bind();
+    m_index_buffer = std::move(ibo);
 
-    m_index_buffer = ibo;
+    glBindVertexArray(m_id);
+    m_index_buffer.bind();
 }
 }

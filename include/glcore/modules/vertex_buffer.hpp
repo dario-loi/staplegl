@@ -36,6 +36,14 @@ public:
     vertex_buffer(float* vertices, std::uint32_t size, const vertex_buffer_layout& layout);
     ~vertex_buffer();
 
+    // delete copy and assignment, only move is allowed
+    vertex_buffer(const vertex_buffer&) = delete;
+    vertex_buffer& operator=(const vertex_buffer&) = delete;
+
+    vertex_buffer(vertex_buffer&&) = default;
+    vertex_buffer& operator=(vertex_buffer&&) = default;
+
+
     /**
      * @brief Bind the vertex buffer object.
      *
@@ -70,7 +78,7 @@ private:
 
 vertex_buffer::vertex_buffer(float* vertices, std::uint32_t size)
 {
-    glCreateBuffers(1, &m_id);
+    glGenBuffers(1, &m_id);
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
     glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }

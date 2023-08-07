@@ -76,8 +76,8 @@ auto main() -> int
 
     glcore::vertex_array VAO;
 
-    VAO.add_vertex_buffer(VBO);
-    VAO.set_index_buffer(EBO);
+    VAO.add_vertex_buffer(std::move(VBO));
+    VAO.set_index_buffer(std::move(EBO));
 
     basic.bind();
 

@@ -50,6 +50,12 @@ private:
     layout_t model_layout) noexcept;
     ~instanced_vbo();
 
+    instanced_vbo(const instanced_vbo&) = delete;
+    instanced_vbo& operator=(const instanced_vbo&) = delete;
+
+    instanced_vbo(instanced_vbo&&) = default;
+    instanced_vbo& operator=(instanced_vbo&&) = default;
+
     void bind() const;
     void unbind() const;
 
