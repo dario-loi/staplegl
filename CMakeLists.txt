@@ -14,6 +14,12 @@ set(SANDBOX_SOURCES
     ${SANDBOX_DIR}/src/sandbox.cpp
 )
 
+set(BATCHES_DIR "${PROJECT_SOURCE_DIR}/examples/batches")
+
+set(BATCHES_SOURCES
+    ${BATCHES_DIR}/src/batches.cpp
+)
+
 set(GLCORE_HEADERS
     "include/glcore/glcore.hpp"
     "include/glcore/modules/gl_functions.hpp"
@@ -25,6 +31,9 @@ set(GLCORE_HEADERS
     "include/glcore/modules/vertex_buffer.hpp"
     "include/glcore/modules/index_buffer.hpp"
     "include/glcore/modules/shader_data_type.hpp"
+    "include/glcore/extensions/instanced_vbo.hpp"
+    "include/glcore/extensions/buffer_utility.hpp"
+    "include/glcore/extensions/instanced_vao.hpp"
 )
 
 set(GLAD_INCLUDE_DIR "${SANDBOX_DIR}/external/glad/include/glad" "${SANDBOX_DIR}/external/glad/include/KHR")
@@ -38,6 +47,15 @@ set(GLAD_HEADERS
 add_executable(sandbox ${SANDBOX_SOURCES} ${GLCORE_HEADERS} ${GLAD_HEADERS})
 
 target_include_directories(sandbox PUBLIC
+    "${PROJECT_SOURCE_DIR}/include/glcore/modules"
+    "${PROJECT_SOURCE_DIR}/include/glcore"
+    ${GLAD_INCLUDE_DIR}
+)
+
+
+add_executable(batches ${BATCHES_SOURCES} ${GLCORE_HEADERS} ${GLAD_HEADERS})
+
+target_include_directories(batches PUBLIC
     "${PROJECT_SOURCE_DIR}/include/glcore/modules"
     "${PROJECT_SOURCE_DIR}/include/glcore"
     ${GLAD_INCLUDE_DIR}
@@ -133,16 +151,33 @@ target_include_directories(sandbox PUBLIC ${GLFW3_INCLUDE_DIR}
     ${OPENGL_INCLUDE_DIR} 
 )
 
+target_link_libraries(batches ${LIBS})
+target_include_directories(batches PUBLIC ${GLFW3_INCLUDE_DIR}
+    ${OPENGL_INCLUDE_DIR} 
+)
+
+
 # Copy the glsl shaders to the build directory
 # and add the file as a dependency to the target
 
 set(SANDBOX_GLSL_SHADER_DIR "${SANDBOX_DIR}/shaders")
 
+set(BATCHES_GLSL_SHADER_DIR "${BATCHES_DIR}/shaders")
+
 set(SANDBOX_GLSL_SHADERS
     ${SANDBOX_GLSL_SHADER_DIR}/basic_shader.glsl
 )
 
+set(BATCHES_GLSL_SHADERS
+    ${BATCHES_GLSL_SHADER_DIR}/batched_shader.glsl
+)
+
 foreach(shader ${SANDBOX_GLSL_SHADERS})
+    get_filename_component(shader_name ${shader} NAME)
+    configure_file(${shader} ${CMAKE_CURRENT_BINARY_DIR}/shaders/${shader_name} COPYONLY)
+endforeach(shader)
+
+foreach(shader ${BATCHES_GLSL_SHADERS})
     get_filename_component(shader_name ${shader} NAME)
     configure_file(${shader} ${CMAKE_CURRENT_BINARY_DIR}/shaders/${shader_name} COPYONLY)
 endforeach(shader)

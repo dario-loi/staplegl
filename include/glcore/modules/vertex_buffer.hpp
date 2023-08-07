@@ -26,7 +26,6 @@ namespace glcore {
  */
 class vertex_buffer {
 public:
-    vertex_buffer() = default;
     /**
      * @brief Construct a new vertex buffer object
      *
@@ -55,7 +54,7 @@ public:
      * @param layout the layout to be set.
      * @see vertex_buffer_layout.hpp
      */
-    void set_layout(const vertex_buffer_layout& layout);
+    void set_layout(const vertex_buffer_layout& layout); // TODO: move layout to VAO
     const vertex_buffer_layout& layout() const;
 
 private:

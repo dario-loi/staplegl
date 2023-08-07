@@ -21,6 +21,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <exception>
 
 namespace glcore {
 
@@ -432,6 +433,8 @@ std::uint32_t shader_program::to_gl_type(shader_type shader_type)
         return GL_TESS_EVALUATION_SHADER;
     case shader_type::geometry:
         return GL_GEOMETRY_SHADER;
+    default:
+        std::terminate();
     }
 }
 

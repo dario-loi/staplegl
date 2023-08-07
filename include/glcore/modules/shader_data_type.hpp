@@ -15,6 +15,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <exception>
 
 namespace glcore::shader_data_type {
 
@@ -52,6 +53,8 @@ static std::size_t size(type_t type)
         return sizeof(float) * 3;
     case type_t::vec4:
         return sizeof(float) * 4;
+    default:
+        std::terminate();
     }
 }
 
@@ -71,6 +74,8 @@ static std::uint32_t to_opengl_type(type_t type)
         return 0x1406;
     case type_t::vec4:
         return 0x1406;
+    default:
+        std::terminate();
     }
 }
 
@@ -91,6 +96,8 @@ static std::uint16_t component_count(type_t type)
         return 3;
     case type_t::vec4:
         return 4;
+    default:
+        std::terminate();
     }
 }
 };

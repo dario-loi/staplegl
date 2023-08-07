@@ -13,6 +13,7 @@
 
 #include "gl_functions.hpp"
 #include <cstdint>
+#include <iostream>
 
 namespace glcore {
 
@@ -74,6 +75,7 @@ index_buffer::index_buffer(std::uint32_t* indices, std::uint32_t count)
 
 index_buffer::~index_buffer()
 {
+    std::cout << "deleting index buffer" << std::endl;
     glDeleteBuffers(1, &m_id);
 }
 
