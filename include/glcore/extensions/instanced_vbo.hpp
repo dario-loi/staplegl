@@ -14,7 +14,6 @@
 #include "gl_functions.hpp"
 #include "vertex_buffer_layout.hpp"
 #include "buffer_utility.hpp"
-#include "instanced_vao.hpp"
 #include <cstring> //memmove
 #include <iostream>
 
@@ -37,14 +36,13 @@ private:
 
     uint32_t m_id{};
     size_t capacity{};
+    uint32_t m_model_size{};
     size_t inst_count{};
 
     layout_t m_model_layout{};
     layout_t m_instance_layout{};
 
-    ver
-
-  public:
+public:
 
     instanced_vbo() = default;
 
@@ -73,7 +71,7 @@ private:
     const layout_t& model_layout() const { return m_model_layout; }
     const layout_t& instance_layout() const { return m_instance_layout; }
 
-    uint32_t get_model_size() const { return m_model_layout.stride(); }
+    uint32_t get_model_size() const { return m_model_size; }
     uint32_t get_instance_size() const { return m_instance_layout.stride(); }
     size_t get_capacity() const { return capacity; }
 
@@ -85,16 +83,20 @@ private:
 
 */
 
-    instanced_vbo::instanced_vbo(float* model_vertices, uint32_t model_size, layout_t inst_layout,
-        layout_t model_layout) noexcept : capacity{ model_size + 4096 }, inst_count{ 0 }, 
-        m_model_layout{ model_layout }, m_instance_layout{ inst_layout }
-    {
-        glCreateBuffers(1, &m_id);
-        glBindBuffer(GL_ARRAY_BUFFER, m_id);
-        glBufferData(GL_ARRAY_BUFFER, capacity, nullptr, GL_DYNAMIC_DRAW);
+instanced_vbo::instanced_vbo(float* model_vertices, uint32_t model_size, layout_t inst_layout,
+    layout_t model_layout) noexcept
+    : capacity { model_size + 4096 }
+    , m_model_size { model_size }
+    , inst_count { 0 }
+    , m_model_layout { model_layout }
+    , m_instance_layout { inst_layout }
+{
+    glCreateBuffers(1, &m_id);
+    glBindBuffer(GL_ARRAY_BUFFER, m_id);
+    glBufferData(GL_ARRAY_BUFFER, capacity, nullptr, GL_DYNAMIC_DRAW);
 
-        // copy model data
-        glBufferSubData(GL_ARRAY_BUFFER, 0, model_size, model_vertices);
+    // copy model data
+    glBufferSubData(GL_ARRAY_BUFFER, 0, model_size, model_vertices);
 
     }
 
@@ -106,7 +108,7 @@ private:
     }
 
     instanced_vbo::instanced_vbo(instanced_vbo&& other) noexcept
-        : m_id{ other.m_id }, capacity{ other.capacity }, inst_count{ other.inst_count },
+        : m_id{ other.m_id }, capacity{ other.capacity }, m_model_size{ other.m_model_size}, inst_count{ other.inst_count },
         m_model_layout{ other.m_model_layout }, m_instance_layout{ other.m_instance_layout }
     {
         other.m_id = 0;
@@ -118,6 +120,7 @@ private:
             glDeleteBuffers(1, &m_id);
             m_id = other.m_id;
             capacity = other.capacity;
+            m_model_size = other.m_model_size;
             inst_count = other.inst_count;
             m_model_layout = other.m_model_layout;
             m_instance_layout = other.m_instance_layout;
@@ -155,7 +158,33 @@ private:
             glDeleteBuffers(1, &m_id);
             m_id = new_id;
             glBindBuffer(GL_ARRAY_BUFFER, m_id);
+
+            int attrib_index {};
+            for (const auto& [type, name, offset] : model_layout().data()) {
+                glEnableVertexAttribArray(attrib_index);
+                glVertexAttribPointer(
+                    attrib_index++,
+                    shader_data_type::component_count(type),
+                    shader_data_type::to_opengl_type(type),
+                    GL_FALSE,
+                    model_layout().stride(),
+                    reinterpret_cast<const void*>(offset));
+            }
+
+            // all instance attributes come after the model attributes
+            for (const auto& [type, name, offset] : instance_layout().data()) {
+                glEnableVertexAttribArray(attrib_index);
+                glVertexAttribPointer(
+                    attrib_index++,
+                    shader_data_type::component_count(type),
+                    shader_data_type::to_opengl_type(type),
+                    GL_FALSE,
+                    instance_layout().stride(),
+                    reinterpret_cast<const void*>(get_model_size() + offset));
+                glVertexAttribDivisor(attrib_index - 1, 1);
+            }
         }
+
         glBufferSubData(GL_ARRAY_BUFFER, get_model_size() + (inst_count++ * get_instance_size()), size, instance_data);
     }
 

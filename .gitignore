@@ -2,11 +2,12 @@
 # Project Specific
 ##
 
+
 # Directories
 **/bin
 **/bin-int
 /build
-
+/.cache
 # Visual Studio
 .vs/
 .vscode/

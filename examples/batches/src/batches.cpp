@@ -81,10 +81,10 @@ auto main() -> int
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
     float vertices[] = {
-        0.001F, 0.001F, 0.0F, // top right
-        0.001F, -0.001F, 0.0F, // bottom right
-        -0.001F, -0.001F, 0.0F, // bottom left
-        -0.001F, 0.001F, 0.0F, // top left
+        0.005F, 0.005F, 0.0F, // top right
+        0.005F, -0.005F, 0.0F, // bottom right
+        -0.005F, -0.005F, 0.0F, // bottom left
+        -0.005F, 0.005F, 0.0F, // top left
     };
     
     unsigned int indices[] = {
@@ -115,15 +115,14 @@ auto main() -> int
     float end = 0.9F;
 
     VAO.bind();
-    for(int i = 0; i < 2000; ++i)
+    for(int i = 0; i < 65535; ++i)
     {
         float offset[3] = {
             lerp(start, end,
                  static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
             lerp(start, end,
                  static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
-            lerp(start, end,
-                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX))};
+            0.0F};
 
         
         VAO.m_vbo.add_instance(offset, 3 * sizeof(float));
@@ -152,13 +151,7 @@ auto main() -> int
                     // so to keep things a bit more organized
 
         // map vbo so I can use the debug output
-
-        float* data { static_cast<float*>(glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE)) };
-
-        std::cout << "data: " << data << std::endl;
-
-
-        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, 3);
+        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, VAO.m_vbo.instance_count());
 
         // glBindVertexArray(0); // no need to unbind it every time
 
