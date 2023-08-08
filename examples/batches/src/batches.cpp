@@ -17,9 +17,29 @@
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
+void GLAPIENTRY
+MessageCallback(GLenum source,
+    GLenum type,
+    GLuint id,
+    GLenum severity,
+    GLsizei length,
+    const GLchar* message,
+    const void* userParam)
+{
+    if (type == GL_DEBUG_TYPE_OTHER)
+        return;
+    fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n",
+        (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
+        type, severity, message);
+}
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+
+float lerp(float a, float b, float f)
+{
+    return a + f * (b - a);
+}
 
 auto main() -> int
 {
@@ -52,15 +72,19 @@ auto main() -> int
         return -1;
     }
 
+    // During init, enable debug output
+    glEnable(GL_DEBUG_OUTPUT);
+    glDebugMessageCallback(MessageCallback, 0);
+
     glcore::shader_program basic { "batched_shader", "./shaders/batched_shader.glsl" };
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
     float vertices[] = {
-        0.5F, 0.5F, 0.0F, // top right
-        0.5F, -0.5F, 0.0F, // bottom right
-        -0.5F, -0.5F, 0.0F, // bottom left
-        -0.5F, 0.5F, 0.0F, // top left
+        0.001F, 0.001F, 0.0F, // top right
+        0.001F, -0.001F, 0.0F, // bottom right
+        -0.001F, -0.001F, 0.0F, // bottom left
+        -0.001F, 0.001F, 0.0F, // top left
     };
     
     unsigned int indices[] = {
@@ -87,15 +111,28 @@ auto main() -> int
     VAO.set_vertex_buffer(std::move(VBO));
     VAO.set_index_buffer(std::move(EBO));
 
-    float offsets[] = {
-        // four triangles, four translat
-        0.0F, 0.0F, 0.0F, // top right
-    };
+    float start = -0.9F;
+    float end = 0.9F;
 
-    for(int i = 0; i < 1; ++i)
+    VAO.bind();
+    for(int i = 0; i < 2000; ++i)
     {
-        VBO.add_instance(offsets + i * 3, 3 * sizeof(float));
+        float offset[3] = {
+            lerp(start, end,
+                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
+            lerp(start, end,
+                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
+            lerp(start, end,
+                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX))};
+
+        
+        VAO.m_vbo.add_instance(offset, 3 * sizeof(float));
+
+        // print current VAO state
+
+
     }
+    VAO.unbind();
 
     basic.bind();
 
@@ -113,8 +150,16 @@ auto main() -> int
         VAO.bind(); // seeing as we only have a single VAO there's
                     // no need to bind it every time, but we'll do
                     // so to keep things a bit more organized
-        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, 4);
-        // glDrawArraysInstanced(GL_TRIANGLES, 0, 6, 1);
+
+        // map vbo so I can use the debug output
+
+        float* data { static_cast<float*>(glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE)) };
+
+        std::cout << "data: " << data << std::endl;
+
+
+        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, 3);
+
         // glBindVertexArray(0); // no need to unbind it every time
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse

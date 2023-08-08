@@ -19,12 +19,9 @@
 
 namespace glcore {
 
-class instanced_vao {
+struct instanced_vao {
 
-private:
     uint32_t m_id{};
-
-public:
 
     instanced_vbo m_vbo; // accessible to reduce boilerplate/overhead
     index_buffer m_ibo;
@@ -84,7 +81,8 @@ void instanced_vao::set_vertex_buffer(instanced_vbo&& vbo) {
             reinterpret_cast<const void*>(offset));
     }
 
-    for (const auto& [type, name, offset] : m_vbo.instance_layout().data()) {
+    // all instance attributes come after the model attributes
+    for (const auto &[type, name, offset] : m_vbo.instance_layout().data()) {
         glEnableVertexAttribArray(attrib_index);
         glVertexAttribPointer(
             attrib_index++,
@@ -92,7 +90,7 @@ void instanced_vao::set_vertex_buffer(instanced_vbo&& vbo) {
             shader_data_type::to_opengl_type(type),
             GL_FALSE,
             m_vbo.instance_layout().stride(),
-            reinterpret_cast<const void*>(offset));
+            reinterpret_cast<const void*>(m_vbo.get_model_size() + offset));
         glVertexAttribDivisor(attrib_index - 1, 1);
     }
 }
