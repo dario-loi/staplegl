@@ -6,14 +6,22 @@ layout(location = 0) in vec3 aPos;
 layout(location = 1) in vec3 instancePos;
 void main()
 {
-    gl_Position = vec4(aPos.x + instancePos.x, aPos.y + instancePos.y, aPos.z + instancePos.z, 1.0);
+    float z = aPos.z + instancePos.z;
+    float x = (aPos.x + instancePos.x);
+    float y = (aPos.y + instancePos.y);
+
+    gl_Position = vec4(x, y, z, z);
 }
 
 #type fragment
 
 #version 330 core
 out vec4 FragColor;
+
+
 void main()
 {
-    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+    vec4 color = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+
+    FragColor = color;
 }

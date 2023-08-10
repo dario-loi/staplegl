@@ -2,7 +2,7 @@
  * @file glcore.h
 
  * @brief GLCore, a C++17 wrapper for OpenGL.
- * @version 0.1
+ *
  * @authors Christian Panov, Dario Loi.
  * @date 2023-04-28
  *

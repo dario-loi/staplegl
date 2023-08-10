@@ -2,7 +2,7 @@
  * @file vertex_array.hpp
  * @author Christian Panov
  * @brief Vertex Array Object (VAO) wrapper.
- * @version 0.1
+ *
  * @date 2023-04-28
  *
  * @copyright MIT License

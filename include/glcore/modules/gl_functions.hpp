@@ -2,7 +2,7 @@
  * @file gl_functions.hpp
  * @author Christian Panov
  * @brief Loads OpenGL functions.
- * @version 0.1
+ *
  * @date 2023-04-28
  *
  * @details One of the main philosophies of GLCore is to be as lightweight as possible. This means that

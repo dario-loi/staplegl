@@ -2,7 +2,7 @@
  * @file shader.hpp
  * @author Christian Panov
  * @brief Shader program wrapper.
- * @version 0.1
+ *
  * @date 2023-04-28
  *
  * @details Shader program wrapper, used to load and compile shaders, also

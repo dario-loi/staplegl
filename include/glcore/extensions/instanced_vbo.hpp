@@ -2,7 +2,7 @@
  * @file instanced_vbo.hpp
  * @author Dario Loi
  * @brief Vertex Buffer Object (VBO) wrapper for batch rendering.
- * @version 0.1
+ *
  * @date 2023-08-07
  * 
  * @copyright Copyright (c) 2023
@@ -46,8 +46,8 @@ public:
 
     instanced_vbo() = default;
 
-    instanced_vbo(float* model_vertices, uint32_t model_size, layout_t inst_layout,
-    layout_t model_layout) noexcept;
+    instanced_vbo(const float* model_vertices, uint32_t model_size, const layout_t& inst_layout,
+    const layout_t& model_layout) noexcept;
     ~instanced_vbo();
 
     instanced_vbo(const instanced_vbo&) = delete;
@@ -59,8 +59,9 @@ public:
     void bind() const;
     void unbind() const;
 
-    void add_instance(float* instance_data, uint32_t size);
+    void add_instance(const float* instance_data);
     size_t delete_instance(uint32_t index);
+    void update_instance(uint32_t index, const float* instance_data);
     void clear_instances();
 
     size_t instance_count() const { return inst_count; }
@@ -83,8 +84,8 @@ public:
 
 */
 
-instanced_vbo::instanced_vbo(float* model_vertices, uint32_t model_size, layout_t inst_layout,
-    layout_t model_layout) noexcept
+instanced_vbo::instanced_vbo(const float* model_vertices, uint32_t model_size, const layout_t& inst_layout,
+    const layout_t& model_layout) noexcept
     : capacity { model_size + 4096 }
     , m_model_size { model_size }
     , inst_count { 0 }
@@ -140,12 +141,14 @@ instanced_vbo::instanced_vbo(float* model_vertices, uint32_t model_size, layout_
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
 
-    void instanced_vbo::add_instance(float* instance_data, uint32_t size)
+    void instanced_vbo::add_instance(const float* instance_data)
     {
         glBindBuffer(GL_ARRAY_BUFFER, m_id);
 
-        if ((get_model_size() + (inst_count * get_instance_size()) + size) > capacity) {
-            capacity += size + 4096;
+        uint32_t inst_size = get_instance_size();
+
+        if ((get_model_size() + (inst_count + 1) * get_instance_size()) > capacity) {
+            capacity += inst_size + 4096;
 
             std::uint32_t new_id{};
 
@@ -185,7 +188,7 @@ instanced_vbo::instanced_vbo(float* model_vertices, uint32_t model_size, layout_
             }
         }
 
-        glBufferSubData(GL_ARRAY_BUFFER, get_model_size() + (inst_count++ * get_instance_size()), size, instance_data);
+        glBufferSubData(GL_ARRAY_BUFFER, get_model_size() + (inst_count++ * get_instance_size()), inst_size, instance_data);
     }
 
     size_t instanced_vbo::delete_instance(uint32_t index)
@@ -212,6 +215,17 @@ instanced_vbo::instanced_vbo(float* model_vertices, uint32_t model_size, layout_
     void instanced_vbo::clear_instances()
     {
         inst_count = 0;
+    }
+
+    void instanced_vbo::update_instance(uint32_t index, const float* instance_data)
+    {
+        if (index >= inst_count) {
+            return;
+        }
+
+        glBindBuffer(GL_ARRAY_BUFFER, m_id);
+        glBufferSubData(GL_ARRAY_BUFFER, get_model_size() + (index * get_instance_size()), get_instance_size(), instance_data);
+        
     }
 
 } // namespace glcore

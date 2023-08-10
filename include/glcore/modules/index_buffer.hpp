@@ -2,7 +2,7 @@
  * @file index_buffer.hpp
  * @author Christian Panov
  * @brief Element Buffer Object (EBO) wrapper.
- * @version 0.1
+ *
  * @date 2023-04-28
  *
  * @copyright MIT License
@@ -38,7 +38,7 @@ public:
      * @param indices a pointer to the indices array, can be any contiguous container of std::uint32_t.
      * @param count the number of indices in the array.
      */
-    index_buffer(std::uint32_t* indices, std::uint32_t count) noexcept;
+    index_buffer(const std::uint32_t* indices, std::size_t count) noexcept;
     ~index_buffer();
 
     index_buffer(const index_buffer&) = delete;
@@ -64,14 +64,14 @@ public:
      *
      * @return std::uint32_t, the number of indices.
      */
-    std::uint32_t count() const;
+    std::size_t count() const;
 
 private:
     std::uint32_t m_id {};
-    std::uint32_t m_count {};
+    std::size_t m_count {};
 };
 
-index_buffer::index_buffer(std::uint32_t* indices, std::uint32_t count) noexcept
+index_buffer::index_buffer(const std::uint32_t* indices, std::size_t count) noexcept
     : m_count { count }
 {
     glGenBuffers(1, &m_id);
@@ -116,7 +116,7 @@ void index_buffer::unbind() const
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-std::uint32_t index_buffer::count() const
+std::size_t index_buffer::count() const
 {
     return m_count;
 }

@@ -2,7 +2,7 @@
  * @file shader_data_type.hpp
  * @author Christian Panov.
  * @brief Shader data type definitions.
- * @version 0.1
+ *
  * @date 2023-04-28
  *
  *

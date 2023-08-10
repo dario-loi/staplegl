@@ -2,7 +2,7 @@
  * @file vertex_buffer_layout.hpp
  * @author Christian Panov
  * @brief Vertex Buffer Layout abstraction.
- * @version 0.1
+ *
  * @date 2023-04-28
  *
  * @details Provides a simple abstraction for vertex buffer layouts,

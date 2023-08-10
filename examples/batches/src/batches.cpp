@@ -2,6 +2,7 @@
 #include "glcore.hpp"
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <algorithm>
 
 #include "extensions/instanced_vbo.hpp"
 #include "extensions/instanced_vao.hpp"
@@ -13,6 +14,18 @@
         with the provided OpenGL loader ("glad.h").
 
 */
+
+float lerp(float a, float b, float f)
+{
+    return a * (1.0F - f) + b * f;
+}
+
+struct vec3
+{
+    float x;
+    float y;
+    float z;
+};
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -26,7 +39,7 @@ MessageCallback(GLenum source,
     const GLchar* message,
     const void* userParam)
 {
-    if (type == GL_DEBUG_TYPE_OTHER)
+    if (type == GL_DEBUG_TYPE_OTHER || type == GL_DEBUG_TYPE_PERFORMANCE)
         return;
     fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n",
         (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
@@ -35,11 +48,6 @@ MessageCallback(GLenum source,
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
-
-float lerp(float a, float b, float f)
-{
-    return a + f * (b - a);
-}
 
 auto main() -> int
 {
@@ -76,18 +84,26 @@ auto main() -> int
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(MessageCallback, 0);
 
+    // antialiasing and other nice things
+    glEnable(GL_MULTISAMPLE);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_LINE_SMOOTH);
+    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+
+
     glcore::shader_program basic { "batched_shader", "./shaders/batched_shader.glsl" };
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-    float vertices[] = {
-        0.005F, 0.005F, 0.0F, // top right
-        0.005F, -0.005F, 0.0F, // bottom right
-        -0.005F, -0.005F, 0.0F, // bottom left
-        -0.005F, 0.005F, 0.0F, // top left
+    const float vertices[] = {
+        0.001F, 0.001F, 0.0F, // top right
+        0.001F, -0.001F, 0.0F, // bottom right
+        -0.001F, -0.001F, 0.0F, // bottom left
+        -0.001F, 0.001F, 0.0F, // top left
     };
     
-    unsigned int indices[] = {
+    const unsigned int indices[] = {
         // note that we start from 0!
         0, 1, 3, // first Triangle
         1, 2, 3 // second Triangle
@@ -101,9 +117,9 @@ auto main() -> int
 
     glcore::vertex_buffer_layout instance_layout{
         {glcore::shader_data_type::vec3, "instancePos"}};
-    
 
-    glcore::instanced_vbo VBO{vertices, sizeof(vertices), instance_layout, layout};
+
+        glcore::instanced_vbo VBO { vertices, sizeof(vertices), instance_layout, layout };
     glcore::index_buffer EBO{indices, 6};
 
     glcore::instanced_vao VAO;
@@ -111,28 +127,29 @@ auto main() -> int
     VAO.set_vertex_buffer(std::move(VBO));
     VAO.set_index_buffer(std::move(EBO));
 
-    float start = -0.9F;
-    float end = 0.9F;
+    const float start = -0.95F;
+    const float end = 0.95F;
+
+    const float z_start = 0.01F;
+    const float z_end = 1.00F;
 
     VAO.bind();
-    for(int i = 0; i < 65535; ++i)
+
+    for(int i = 0; i < 65535; i++)
     {
         float offset[3] = {
-            lerp(start, end,
-                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
-            lerp(start, end,
-                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
-            0.0F};
+          lerp(start, end,
+               static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
+          lerp(start, end,
+               static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
+            lerp(z_start, z_end,
+                    static_cast<float>(rand()) / static_cast<float>(RAND_MAX))
+        };
 
-        
-        VAO.m_vbo.add_instance(offset, 3 * sizeof(float));
-
-        // print current VAO state
-
-
+        VAO.m_vbo.add_instance(offset);
     }
-    VAO.unbind();
 
+    VAO.bind();
     basic.bind();
 
     while (glfwWindowShouldClose(window) == 0) {
@@ -145,31 +162,22 @@ auto main() -> int
         glClearColor(0.2F, 0.3F, 0.3F, 1.0F);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // draw our first triangle
-        VAO.bind(); // seeing as we only have a single VAO there's
-                    // no need to bind it every time, but we'll do
-                    // so to keep things a bit more organized
-
-        // map vbo so I can use the debug output
-        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, VAO.m_vbo.instance_count());
-
-        // glBindVertexArray(0); // no need to unbind it every time
+        // draw all quads in a single draw call
+        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0,
+                                VAO.m_vbo.instance_count());
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse
         // moved etc.)
         // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
         glfwPollEvents();
-        }
-
-        // optional: de-allocate all resources once they've outlived their purpose:
-        // ------------------------------------------------------------------------
-
+    }
         // glfw: terminate, clearing all previously allocated GLFW resources.
         // ------------------------------------------------------------------
         glfwTerminate();
         return 0;
     }
+
 
 // process all input: query GLFW whether relevant keys are pressed/released this
 // frame and react accordingly

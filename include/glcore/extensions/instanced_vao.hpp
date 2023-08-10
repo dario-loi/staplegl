@@ -2,7 +2,7 @@
  * @file instanced_vao.hpp
  * @author Dario Loi
  * @brief Instanced Vertex Array Object (VAO) wrapper.
- * @version 0.1
+ *
  * @date 2023-08-07
  * 
  * @copyright MIT License
@@ -19,6 +19,10 @@
 
 namespace glcore {
 
+/**
+ * @brief Vertex 
+ * 
+ */
 struct instanced_vao {
 
     uint32_t m_id{};

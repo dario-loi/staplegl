@@ -2,7 +2,7 @@
  * @file vertex_buffer.hpp
  * @author Christian Panov
  * @brief Vertex Buffer Object (VBO) wrapper.
- * @version 0.1
+ *
  * @date 2023-04-28
  *
  * @copyright Copyright (c) 2023
@@ -32,8 +32,8 @@ public:
      * @param vertices a pointer to the vertices array, can be any contiguous container of floats.
      * @param size the size of the vertices array in bytes.
      */
-    vertex_buffer(float* vertices, std::uint32_t size);
-    vertex_buffer(float* vertices, std::uint32_t size, const vertex_buffer_layout& layout);
+    vertex_buffer(const float* vertices, std::uint32_t size);
+    vertex_buffer(const float* vertices, std::uint32_t size, const vertex_buffer_layout& layout);
     ~vertex_buffer();
 
     // delete copy and assignment, only move is allowed
@@ -76,14 +76,14 @@ private:
 
 */
 
-vertex_buffer::vertex_buffer(float* vertices, std::uint32_t size)
+vertex_buffer::vertex_buffer(const float* vertices, std::uint32_t size)
 {
     glGenBuffers(1, &m_id);
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
     glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }
 
-vertex_buffer::vertex_buffer(float* vertices, std::uint32_t size, const vertex_buffer_layout& layout)
+vertex_buffer::vertex_buffer(const float* vertices, std::uint32_t size, const vertex_buffer_layout& layout)
     : vertex_buffer { vertices, size }
 {
     m_layout = layout;

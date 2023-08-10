@@ -2,7 +2,7 @@
  * @file utility.hpp
  * @author Christian Panov
  * @brief Utility functions for parsing files.
- * @version 0.1
+ *
  * @date 2023-04-28
  *
  * @copyright MIT License

@@ -2,7 +2,7 @@
  * @file gl_function_placeholders.hpp
  * @author Christian Panov
  * @brief OpenGL function placeholders.
- * @version 0.1
+ *
  * @date 2023-04-28
  *
  * @details in order for the header only library to not throw a large number of errors,
