@@ -77,7 +77,6 @@ private:
             new_cap = instance_size() * 32;
         } else [[likely]] {
             new_cap = capacity * std::numbers::phi;
-            // ceil it to the next multiple of instance_size()
         }
 
         return new_cap;
@@ -119,8 +118,6 @@ private:
 
         glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, m_count * m_layout.stride());
 
-        std::cout << "Resized buffer from " << old_capacity << " to " << new_capacity << std::endl;
-
         glDeleteBuffers(1, &new_id);
         glBindBuffer(GL_ARRAY_BUFFER, m_id);
     }
@@ -161,7 +158,7 @@ public:
 
 inline void vertex_buffer_inst::add_instance(std::span<const float> instance_data) noexcept
 {
-    if ((m_count + 1) * m_layout.stride() > m_capacity) {
+    if ((m_count + 1) * m_layout.stride() > m_capacity) [[unlikely]] {
         auto new_capacity = calc_capacity(m_capacity);
         resize_buffer(m_capacity, new_capacity);
         m_capacity = new_capacity;
@@ -181,7 +178,7 @@ void vertex_buffer_inst::update_instance(std::size_t index, std::span<const floa
 
 inline size_t vertex_buffer_inst::delete_instance(std::size_t index) noexcept
 {
-    if (index >= m_count || m_count < 0) {
+    if (index >= m_count || m_count < 0) [[unlikely]] {
         return m_count;
     } // pretend we did something
 

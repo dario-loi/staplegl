@@ -86,10 +86,10 @@ auto main() -> int
 
     // antialiasing and other nice things
     glEnable(GL_MULTISAMPLE);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_LINE_SMOOTH);
     glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+    glEnable(GL_POLYGON_SMOOTH);
+    glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 
     glcore::shader_program basic { "batched_shader", "./shaders/batched_shader.glsl" };
 
@@ -98,10 +98,10 @@ auto main() -> int
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
     const float vertices[12] = {
-        0.1F, 0.1F, 0.0F, // top right
-        0.1F, -0.1F, 0.0F, // bottom right
-        -0.1F, -0.1F, 0.0F, // bottom left
-        -0.1F, 0.1F, 0.0F, // top left
+        0.001F, 0.001F, 0.0F, // top right
+        0.001F, -0.001F, 0.0F, // bottom right
+        -0.001F, -0.001F, 0.0F, // bottom left
+        -0.001F, 0.001F, 0.0F, // top left
     };
 
     const unsigned int indices[6] = {
@@ -119,7 +119,6 @@ auto main() -> int
     };
 
     glcore::vertex_buffer VBO(std::span<const float>(vertices, 12), glcore::driver_draw_hint::STATIC_DRAW);
-
     glcore::vertex_buffer_inst VBO_inst(std::span<const float> {});
 
     VBO_inst.set_layout(instance_layout);
@@ -130,9 +129,7 @@ auto main() -> int
     glcore::vertex_array VAO;
 
     VAO.add_vertex_buffer(std::move(VBO));
-
-    auto inst_it = VAO.add_vertex_buffer(std::move(VBO_inst));
-
+    VAO.set_instance_buffer(std::move(VBO_inst));
     VAO.set_index_buffer(std::move(EBO));
 
     const float START = -0.95F;
@@ -145,7 +142,7 @@ auto main() -> int
 
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
-    for (int i = 0; i < 65535; i++) {
+    for (int i = 0; i < 2048; i++) {
         float offset[3] = {
             lerp(START, END,
                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
@@ -155,36 +152,28 @@ auto main() -> int
                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX))
         };
 
-        std::get<glcore::vertex_buffer_inst>(*inst_it).add_instance(offset);
+        // I know the instance is set since it is in the optional.
+        VAO.instanced_data()->add_instance(offset);
     }
 
     while (glfwWindowShouldClose(window) == 0) {
-        // input
-        // -----
+
         processInput(window);
 
-        // render
-        // ------
         glClearColor(0.2F, 0.3F, 0.3F, 1.0F);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, 5);
+        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0,
+            VAO.instanced_data()->instance_count());
 
-        // glfw: swap buffers and poll IO events (keys pressed/released, mouse
-        // moved etc.)
-        // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-    // glfw: terminate, clearing all previously allocated GLFW resources.
-    // ------------------------------------------------------------------
+
     glfwTerminate();
     return 0;
 }
 
-// process all input: query GLFW whether relevant keys are pressed/released this
-// frame and react accordingly
-// ---------------------------------------------------------------------------------------------------------
 void processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
@@ -192,12 +181,7 @@ void processInput(GLFWwindow* window)
     }
 }
 
-// glfw: whenever the window size changed (by OS or user resize) this callback
-// function executes
-// ---------------------------------------------------------------------------------------------
 void framebuffer_size_callback(GLFWwindow* /*window*/, int width, int height)
 {
-    // make sure the viewport matches the new window dimensions; note that width
-    // and height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
 }
