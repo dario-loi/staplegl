@@ -18,10 +18,10 @@
 
 #include "gl_functions.hpp"
 #include "utility.hpp"
+#include <exception>
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <exception>
 
 namespace glcore {
 
@@ -388,7 +388,7 @@ std::vector<shader> shader_program::parse_shaders(const std::string& source) con
         const std::size_t begin { pos + type_token.size() + 1 };
         const std::size_t next_line_pos { source.find_first_not_of("\r\n", eol) };
 
-        std::string_view type { source.substr(begin, eol - begin).data() };
+        std::string_view type { source.substr(begin, eol - begin) };
         pos = source.find(type_token, next_line_pos);
         shaders.push_back({ string_to_shader_type(type), pos == std::string::npos ? source.substr(next_line_pos) : source.substr(next_line_pos, pos - next_line_pos) });
     }
