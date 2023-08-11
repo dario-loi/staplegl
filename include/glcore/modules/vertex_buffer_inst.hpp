@@ -15,6 +15,7 @@
 #include "vertex_buffer_layout.hpp"
 
 #include <cassert>
+#include <numbers>
 #include <span>
 
 namespace glcore {
@@ -75,7 +76,8 @@ private:
         } else if (capacity == instance_size()) [[unlikely]] {
             new_cap = instance_size() * 32;
         } else [[likely]] {
-            new_cap = capacity + capacity / 2;
+            new_cap = capacity * std::numbers::phi;
+            // ceil it to the next multiple of instance_size()
         }
 
         return new_cap;
@@ -90,26 +92,37 @@ private:
      *
      * @param capacity the new capacity of the buffer, in bytes.
      */
-    void resize_buffer(std::size_t capacity) noexcept
+    void resize_buffer(std::size_t old_capacity, std::size_t new_capacity) noexcept
     {
-        // we create a new buffer to avoid losing the original data
+        // 1. create new buffer as big as old buffer
+        // 2. copy old buffer to new buffer
+        // 3. grow old buffer to new size
+        // 4. copy new buffer to old buffer
+        // 5. delete new buffer
 
         std::uint32_t new_id {};
         glGenBuffers(1, &new_id);
-        glBindBuffer(GL_ARRAY_BUFFER, new_id);
+
+        glBindBuffer(GL_COPY_WRITE_BUFFER, new_id);
+        glBufferData(GL_COPY_WRITE_BUFFER, old_capacity, nullptr, GL_DYNAMIC_DRAW);
+
+        glBindBuffer(GL_COPY_READ_BUFFER, m_id);
 
         // copy the data from the old buffer to the new one
 
-        glBufferData(GL_ARRAY_BUFFER, capacity, nullptr, GL_DYNAMIC_DRAW);
+        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, m_count * m_layout.stride());
 
-        glBindBuffer(GL_COPY_READ_BUFFER, m_id);
-        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_ARRAY_BUFFER, 0, 0, m_count * m_layout.stride());
+        glBindBuffer(GL_COPY_WRITE_BUFFER, m_id);
+        glBufferData(GL_COPY_WRITE_BUFFER, new_capacity, nullptr, GL_DYNAMIC_DRAW);
 
-        // delete the old buffer and replace it with the new one
-        glDeleteBuffers(1, &m_id);
-        m_id = new_id;
+        glBindBuffer(GL_COPY_READ_BUFFER, new_id);
 
-        glBindBuffer(GL_ARRAY_BUFFER, new_id);
+        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, m_count * m_layout.stride());
+
+        std::cout << "Resized buffer from " << old_capacity << " to " << new_capacity << std::endl;
+
+        glDeleteBuffers(1, &new_id);
+        glBindBuffer(GL_ARRAY_BUFFER, m_id);
     }
 
 public:
@@ -149,8 +162,9 @@ public:
 inline void vertex_buffer_inst::add_instance(std::span<const float> instance_data) noexcept
 {
     if ((m_count + 1) * m_layout.stride() > m_capacity) {
-        m_capacity = calc_capacity(m_capacity);
-        resize_buffer(m_capacity);
+        auto new_capacity = calc_capacity(m_capacity);
+        resize_buffer(m_capacity, new_capacity);
+        m_capacity = new_capacity;
     }
 
     update_instance(m_count, instance_data);

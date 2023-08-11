@@ -3,6 +3,7 @@
 
 #include <GLFW/glfw3.h>
 #include <algorithm>
+#include <filesystem>
 #include <iostream>
 #include <span>
 #include <utility>
@@ -92,29 +93,21 @@ auto main() -> int
 
     glcore::shader_program basic { "batched_shader", "./shaders/batched_shader.glsl" };
 
+    basic.bind();
+
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-    const float vertices[] = {
+    const float vertices[12] = {
         0.1F, 0.1F, 0.0F, // top right
         0.1F, -0.1F, 0.0F, // bottom right
         -0.1F, -0.1F, 0.0F, // bottom left
         -0.1F, 0.1F, 0.0F, // top left
     };
 
-    const unsigned int indices[] = {
+    const unsigned int indices[6] = {
         // note that we start from 0!
         0, 1, 3, // first Triangle
         1, 2, 3 // second Triangle
-    };
-
-    //----- INSTANCE DATA -----
-
-    float offsets[15] = {
-        .5F, .5F, .0F, // top right
-        .5F, -.5F, .0F, // bottom right
-        -.5F, -.5F, .0F, // bottom left
-        -.5F, .5F, .0F, // top left
-        .0F, .0F, .0F // center
     };
 
     glcore::vertex_buffer_layout layout {
@@ -127,7 +120,7 @@ auto main() -> int
 
     glcore::vertex_buffer VBO(std::span<const float>(vertices, 12), glcore::driver_draw_hint::STATIC_DRAW);
 
-    glcore::vertex_buffer_inst VBO_inst(std::span<const float>(offsets, 15));
+    glcore::vertex_buffer_inst VBO_inst(std::span<const float> {});
 
     VBO_inst.set_layout(instance_layout);
     VBO.set_layout(layout);
@@ -142,28 +135,28 @@ auto main() -> int
 
     VAO.set_index_buffer(std::move(EBO));
 
-    const float start = -0.95F;
-    const float end = 0.95F;
+    const float START = -0.95F;
+    const float END = 0.95F;
 
-    const float z_start = 0.01F;
-    const float z_end = 1.00F;
+    const float Z_START = 0.01F;
+    const float Z_END = 1.00F;
 
     VAO.bind();
-    /*
-    for (int i = 0; i < 1; i++) {
+
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+    for (int i = 0; i < 65535; i++) {
         float offset[3] = {
-            lerp(start, end,
+            lerp(START, END,
                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
-            lerp(start, end,
+            lerp(START, END,
                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
-            lerp(z_start, z_end,
+            lerp(Z_START, Z_END,
                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX))
         };
 
-
-    }*/
-
-    basic.bind();
+        std::get<glcore::vertex_buffer_inst>(*inst_it).add_instance(offset);
+    }
 
     while (glfwWindowShouldClose(window) == 0) {
         // input
@@ -175,7 +168,6 @@ auto main() -> int
         glClearColor(0.2F, 0.3F, 0.3F, 1.0F);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // draw all quads in a single draw call
         glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, 5);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse
