@@ -1,11 +1,11 @@
 #include "glad.h"
 #include "glcore.hpp"
-#include <GLFW/glfw3.h>
-#include <iostream>
-#include <algorithm>
 
-#include "extensions/instanced_vbo.hpp"
-#include "extensions/instanced_vao.hpp"
+#include <GLFW/glfw3.h>
+#include <algorithm>
+#include <iostream>
+#include <span>
+#include <utility>
 
 /*
 
@@ -20,8 +20,7 @@ float lerp(float a, float b, float f)
     return a * (1.0F - f) + b * f;
 }
 
-struct vec3
-{
+struct vec3 {
     float x;
     float y;
     float z;
@@ -91,18 +90,17 @@ auto main() -> int
     glEnable(GL_LINE_SMOOTH);
     glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 
-
     glcore::shader_program basic { "batched_shader", "./shaders/batched_shader.glsl" };
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
     const float vertices[] = {
-        0.001F, 0.001F, 0.0F, // top right
-        0.001F, -0.001F, 0.0F, // bottom right
-        -0.001F, -0.001F, 0.0F, // bottom left
-        -0.001F, 0.001F, 0.0F, // top left
+        0.1F, 0.1F, 0.0F, // top right
+        0.1F, -0.1F, 0.0F, // bottom right
+        -0.1F, -0.1F, 0.0F, // bottom left
+        -0.1F, 0.1F, 0.0F, // top left
     };
-    
+
     const unsigned int indices[] = {
         // note that we start from 0!
         0, 1, 3, // first Triangle
@@ -111,20 +109,37 @@ auto main() -> int
 
     //----- INSTANCE DATA -----
 
+    float offsets[15] = {
+        .5F, .5F, .0F, // top right
+        .5F, -.5F, .0F, // bottom right
+        -.5F, -.5F, .0F, // bottom left
+        -.5F, .5F, .0F, // top left
+        .0F, .0F, .0F // center
+    };
 
-    glcore::vertex_buffer_layout layout{
-        {glcore::shader_data_type::vec3, "aPos"}};
+    glcore::vertex_buffer_layout layout {
+        { glcore::shader_data_type::vec3, "aPos" }
+    };
 
-    glcore::vertex_buffer_layout instance_layout{
-        {glcore::shader_data_type::vec3, "instancePos"}};
+    glcore::vertex_buffer_layout instance_layout {
+        { glcore::shader_data_type::vec3, "instancePos" }
+    };
 
+    glcore::vertex_buffer VBO(std::span<const float>(vertices, 12), glcore::driver_draw_hint::STATIC_DRAW);
 
-        glcore::instanced_vbo VBO { vertices, sizeof(vertices), instance_layout, layout };
-    glcore::index_buffer EBO{indices, 6};
+    glcore::vertex_buffer_inst VBO_inst(std::span<const float>(offsets, 15));
 
-    glcore::instanced_vao VAO;
+    VBO_inst.set_layout(instance_layout);
+    VBO.set_layout(layout);
 
-    VAO.set_vertex_buffer(std::move(VBO));
+    glcore::index_buffer EBO { indices, 6 };
+
+    glcore::vertex_array VAO;
+
+    VAO.add_vertex_buffer(std::move(VBO));
+
+    auto inst_it = VAO.add_vertex_buffer(std::move(VBO_inst));
+
     VAO.set_index_buffer(std::move(EBO));
 
     const float start = -0.95F;
@@ -134,22 +149,20 @@ auto main() -> int
     const float z_end = 1.00F;
 
     VAO.bind();
-
-    for(int i = 0; i < 65535; i++)
-    {
+    /*
+    for (int i = 0; i < 1; i++) {
         float offset[3] = {
-          lerp(start, end,
-               static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
-          lerp(start, end,
-               static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
+            lerp(start, end,
+                static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
+            lerp(start, end,
+                static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
             lerp(z_start, z_end,
-                    static_cast<float>(rand()) / static_cast<float>(RAND_MAX))
+                static_cast<float>(rand()) / static_cast<float>(RAND_MAX))
         };
 
-        VAO.m_vbo.add_instance(offset);
-    }
 
-    VAO.bind();
+    }*/
+
     basic.bind();
 
     while (glfwWindowShouldClose(window) == 0) {
@@ -163,8 +176,7 @@ auto main() -> int
         glClear(GL_COLOR_BUFFER_BIT);
 
         // draw all quads in a single draw call
-        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0,
-                                VAO.m_vbo.instance_count());
+        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, 5);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse
         // moved etc.)
@@ -172,12 +184,11 @@ auto main() -> int
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-        // glfw: terminate, clearing all previously allocated GLFW resources.
-        // ------------------------------------------------------------------
-        glfwTerminate();
-        return 0;
-    }
-
+    // glfw: terminate, clearing all previously allocated GLFW resources.
+    // ------------------------------------------------------------------
+    glfwTerminate();
+    return 0;
+}
 
 // process all input: query GLFW whether relevant keys are pressed/released this
 // frame and react accordingly

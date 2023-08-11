@@ -60,19 +60,22 @@ public:
     /**
      * @brief Get the stride of the vertex buffer layout.
      *
-     * @return std::uint32_t, the stride of the vertex buffer layout.
+     * @return std::size_t, the stride of the vertex buffer layout.
      */
-    std::uint32_t stride() const;
+    constexpr std::size_t stride() const noexcept { return m_stride; }
 
     /**
      * @brief Get the data of the vertex buffer layout.
      *
      * @return const std::vector<vertex_attribute>&, a reference to the vertex buffer layout data.
      */
-    const std::vector<vertex_attribute>& data() const;
+    [[nodiscard]] const std::vector<vertex_attribute>& data() const noexcept
+    {
+        return m_attributes;
+    }
 
 private:
-    std::uint32_t m_stride {};
+    std::size_t m_stride {};
     std::vector<vertex_attribute> m_attributes;
 };
 
@@ -84,14 +87,4 @@ vertex_buffer_layout::vertex_buffer_layout(std::initializer_list<vertex_attribut
         m_stride += shader_data_type::size(type);
     }
 }
-
-std::uint32_t vertex_buffer_layout::stride() const
-{
-    return m_stride;
-}
-
-const std::vector<vertex_attribute>& vertex_buffer_layout::data() const
-{
-    return m_attributes;
-}
-}
+} // namespace glcore

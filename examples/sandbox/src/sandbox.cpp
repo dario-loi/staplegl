@@ -2,6 +2,8 @@
 #include "glcore.hpp"
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <span>
+#include <utility>
 
 /*
 
@@ -64,7 +66,7 @@ auto main() -> int
         1, 2, 3 // second Triangle
     };
 
-    glcore::vertex_buffer VBO { vertices, sizeof(vertices) };
+    glcore::vertex_buffer VBO { std::span<const float>(vertices, 12), glcore::driver_draw_hint::STATIC_DRAW };
     glcore::index_buffer EBO { indices, 6 };
 
     glcore::vertex_buffer_layout layout {

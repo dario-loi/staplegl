@@ -24,6 +24,7 @@
 #include "modules/shader.hpp"
 #include "modules/vertex_array.hpp"
 #include "modules/vertex_buffer.hpp"
+#include "modules/vertex_buffer_inst.hpp"
 #include "modules/vertex_buffer_layout.hpp"
 
 /*

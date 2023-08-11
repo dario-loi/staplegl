@@ -10,14 +10,13 @@ void main()
     float x = (aPos.x + instancePos.x);
     float y = (aPos.y + instancePos.y);
 
-    gl_Position = vec4(x, y, z, z);
+    gl_Position = vec4(x, y, z, 1.);
 }
 
 #type fragment
 
 #version 330 core
 out vec4 FragColor;
-
 
 void main()
 {

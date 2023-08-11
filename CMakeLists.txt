@@ -37,18 +37,15 @@ set(GLCORE_HEADERS
     "include/glcore/modules/vertex_buffer.hpp"
     "include/glcore/modules/index_buffer.hpp"
     "include/glcore/modules/shader_data_type.hpp"
-    "include/glcore/extensions/instanced_vbo.hpp"
-    "include/glcore/extensions/buffer_utility.hpp"
-    "include/glcore/extensions/instanced_vao.hpp"
+    "include/glcore/modules/vertex_buffer_inst.hpp"
 )
 
 set(GLAD_INCLUDE_DIR "${SANDBOX_DIR}/external/glad/include/glad" "${SANDBOX_DIR}/external/glad/include/KHR")
 set(GLAD_SOURCE ${SANDBOX_DIR}/external/glad/src/glad.c)
-set(GLAD_HEADERS 
+set(GLAD_HEADERS
     ${SANDBOX_DIR}/external/glad/include/glad/glad.h
     ${SANDBOX_DIR}/external/glad/include/KHR/khrplatform.h
 )
-
 
 add_executable(sandbox ${SANDBOX_SOURCES} ${GLCORE_HEADERS} ${GLAD_HEADERS})
 
@@ -57,7 +54,6 @@ target_include_directories(sandbox PUBLIC
     "${PROJECT_SOURCE_DIR}/include/glcore"
     ${GLAD_INCLUDE_DIR}
 )
-
 
 add_executable(batches ${BATCHES_SOURCES} ${GLCORE_HEADERS} ${GLAD_HEADERS})
 
@@ -138,8 +134,7 @@ if(UNIX AND NOT APPLE)
         message(STATUS " XRANDR found at: ${XRANDR_LIBRARY}")
     endif(NOT XRANDR_LIBRARY)
 
-        list(APPEND LIBS ${X11_LIBRARIES} ${XRANDR_LIBRARY} ${CMAKE_DL_LIBS} Threads::Threads)
-
+    list(APPEND LIBS ${X11_LIBRARIES} ${XRANDR_LIBRARY} ${CMAKE_DL_LIBS} Threads::Threads)
 endif(UNIX AND NOT APPLE)
 
 # windows just needs the opengl32 library, which should have already been fetched.
@@ -154,18 +149,16 @@ endif(NOT GLFW3_FOUND)
 
 target_link_libraries(sandbox ${LIBS})
 target_include_directories(sandbox PUBLIC ${GLFW3_INCLUDE_DIR}
-    ${OPENGL_INCLUDE_DIR} 
+    ${OPENGL_INCLUDE_DIR}
 )
 
 target_link_libraries(batches ${LIBS})
 target_include_directories(batches PUBLIC ${GLFW3_INCLUDE_DIR}
-    ${OPENGL_INCLUDE_DIR} 
+    ${OPENGL_INCLUDE_DIR}
 )
-
 
 # Copy the glsl shaders to the build directory
 # and add the file as a dependency to the target
-
 set(SANDBOX_GLSL_SHADER_DIR "${SANDBOX_DIR}/shaders")
 
 set(BATCHES_GLSL_SHADER_DIR "${BATCHES_DIR}/shaders")
