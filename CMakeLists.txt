@@ -26,18 +26,21 @@ set(BATCHES_SOURCES
     ${BATCHES_DIR}/src/batches.cpp
 )
 
+set(GLCORE_DIR "${PROJECT_SOURCE_DIR}/include/glcore")
+set(GLCORE_MODULES_DIR "${GLCORE_DIR}/modules")
+
 set(GLCORE_HEADERS
-    "include/glcore/glcore.hpp"
-    "include/glcore/modules/gl_functions.hpp"
-    "include/glcore/modules/gl_function_placeholders.hpp"
-    "include/glcore/modules/shader.hpp"
-    "include/glcore/modules/utility.hpp"
-    "include/glcore/modules/vertex_array.hpp"
-    "include/glcore/modules/vertex_buffer_layout.hpp"
-    "include/glcore/modules/vertex_buffer.hpp"
-    "include/glcore/modules/index_buffer.hpp"
-    "include/glcore/modules/shader_data_type.hpp"
-    "include/glcore/modules/vertex_buffer_inst.hpp"
+    ${GLCORE_DIR}/glcore.hpp
+    ${GLCORE_MODULES_DIR}/gl_functions.hpp
+    ${GLCORE_MODULES_DIR}/gl_function_placeholders.hpp
+    ${GLCORE_MODULES_DIR}/shader.hpp
+    ${GLCORE_MODULES_DIR}/utility.hpp
+    ${GLCORE_MODULES_DIR}/vertex_array.hpp
+    ${GLCORE_MODULES_DIR}/vertex_buffer_layout.hpp
+    ${GLCORE_MODULES_DIR}/vertex_buffer.hpp
+    ${GLCORE_MODULES_DIR}/index_buffer.hpp
+    ${GLCORE_MODULES_DIR}/shader_data_type.hpp
+    ${GLCORE_MODULES_DIR}/vertex_buffer_inst.hpp
 )
 
 set(GLAD_INCLUDE_DIR "${SANDBOX_DIR}/external/glad/include/glad" "${SANDBOX_DIR}/external/glad/include/KHR")
@@ -50,16 +53,16 @@ set(GLAD_HEADERS
 add_executable(sandbox ${SANDBOX_SOURCES} ${GLCORE_HEADERS} ${GLAD_HEADERS})
 
 target_include_directories(sandbox PUBLIC
-    "${PROJECT_SOURCE_DIR}/include/glcore/modules"
-    "${PROJECT_SOURCE_DIR}/include/glcore"
+    ${GLCORE_DIR}
+    ${GLCORE_MODULES_DIR}
     ${GLAD_INCLUDE_DIR}
 )
 
 add_executable(batches ${BATCHES_SOURCES} ${GLCORE_HEADERS} ${GLAD_HEADERS})
 
 target_include_directories(batches PUBLIC
-    "${PROJECT_SOURCE_DIR}/include/glcore/modules"
-    "${PROJECT_SOURCE_DIR}/include/glcore"
+    ${GLCORE_DIR}
+    ${GLCORE_MODULES_DIR}
     ${GLAD_INCLUDE_DIR}
 )
 
@@ -180,3 +183,32 @@ foreach(shader ${BATCHES_GLSL_SHADERS})
     get_filename_component(shader_name ${shader} NAME)
     configure_file(${shader} ${CMAKE_CURRENT_BINARY_DIR}/shaders/${shader_name} COPYONLY)
 endforeach(shader)
+
+# add warnings to executable targets
+if(MSVC)
+    target_compile_options(sandbox PRIVATE /W4 /WX)
+    target_compile_options(batches PRIVATE /W4 /WX)
+else()
+    target_compile_options(sandbox PRIVATE -Wall -Wextra -pedantic -Werror)
+    target_compile_options(batches PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
+
+set(CLANG_TIDY_CHECKS
+    "-*,modernize-*,performance-*,bugprone-*,clang-analyzer-*,-bugprone-easily-swappable-parameters,-bugprone-unchecked-optional-access")
+
+# Define a custom target for clang-tidy
+add_custom_target(clang-tidy-sandbox
+    COMMAND clang-tidy --fix -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${SANDBOX_SOURCES}
+    ${SANDBOX_HEADERS} -- -I${SANDBOX_DIR}/include -I${GLAD_INCLUDE_DIR} -I${GLFW3_INCLUDE_DIR}
+    -I${GLCORE_DIR} -I${GLCORE_MODULES_DIR}/include -std=c++20
+    COMMENT "Running clang-tidy on sandbox"
+    VERBATIM
+)
+
+add_custom_target(clang-tidy-batches
+    COMMAND clang-tidy --fix -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${BATCHES_SOURCES}
+    ${BATCHES_HEADERS} -- -I${BATCHES_DIR}/include -I${GLAD_INCLUDE_DIR} -I${GLFW3_INCLUDE_DIR}
+    -I${GLCORE_DIR} -I${GLCORE_MODULES_DIR}/include -std=c++20
+    COMMENT "Running clang-tidy on batches"
+    VERBATIM
+)

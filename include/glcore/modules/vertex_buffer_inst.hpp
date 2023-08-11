@@ -178,7 +178,7 @@ void vertex_buffer_inst::update_instance(std::size_t index, std::span<const floa
 
 inline size_t vertex_buffer_inst::delete_instance(std::size_t index) noexcept
 {
-    if (index >= m_count || m_count < 0) [[unlikely]] {
+    if (index >= m_count) [[unlikely]] {
         return m_count;
     } // pretend we did something
 

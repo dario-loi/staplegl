@@ -3,6 +3,7 @@
 
 #include <GLFW/glfw3.h>
 #include <algorithm>
+#include <array>
 #include <filesystem>
 #include <iostream>
 #include <span>
@@ -16,7 +17,7 @@
 
 */
 
-float lerp(float a, float b, float f)
+auto lerp(float a, float b, float f) -> float
 {
     return a * (1.0F - f) + b * f;
 }
@@ -31,13 +32,13 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
 void GLAPIENTRY
-MessageCallback(GLenum source,
+MessageCallback(GLenum source [[maybe_unused]],
     GLenum type,
-    GLuint id,
+    GLuint id [[maybe_unused]],
     GLenum severity,
-    GLsizei length,
+    GLsizei length [[maybe_unused]],
     const GLchar* message,
-    const void* userParam)
+    const void* userParam [[maybe_unused]])
 {
     if (type == GL_DEBUG_TYPE_OTHER || type == GL_DEBUG_TYPE_PERFORMANCE)
         return;
@@ -82,7 +83,7 @@ auto main() -> int
 
     // During init, enable debug output
     glEnable(GL_DEBUG_OUTPUT);
-    glDebugMessageCallback(MessageCallback, 0);
+    glDebugMessageCallback(MessageCallback, nullptr);
 
     // antialiasing and other nice things
     glEnable(GL_MULTISAMPLE);
@@ -97,14 +98,14 @@ auto main() -> int
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-    const float vertices[12] = {
+    std::array<float, 12> vertices {
         0.001F, 0.001F, 0.0F, // top right
         0.001F, -0.001F, 0.0F, // bottom right
         -0.001F, -0.001F, 0.0F, // bottom left
         -0.001F, 0.001F, 0.0F, // top left
     };
 
-    const unsigned int indices[6] = {
+    std::array<unsigned int, 6> indices {
         // note that we start from 0!
         0, 1, 3, // first Triangle
         1, 2, 3 // second Triangle
@@ -118,13 +119,13 @@ auto main() -> int
         { glcore::shader_data_type::vec3, "instancePos" }
     };
 
-    glcore::vertex_buffer VBO(std::span<const float>(vertices, 12), glcore::driver_draw_hint::STATIC_DRAW);
-    glcore::vertex_buffer_inst VBO_inst(std::span<const float> {});
+    glcore::vertex_buffer VBO(vertices, glcore::driver_draw_hint::STATIC_DRAW);
+    glcore::vertex_buffer_inst VBO_inst({}); // empty for now
 
     VBO_inst.set_layout(instance_layout);
     VBO.set_layout(layout);
 
-    glcore::index_buffer EBO { indices, 6 };
+    glcore::index_buffer EBO { indices };
 
     glcore::vertex_array VAO;
 
@@ -132,18 +133,18 @@ auto main() -> int
     VAO.set_instance_buffer(std::move(VBO_inst));
     VAO.set_index_buffer(std::move(EBO));
 
+    VAO.bind();
+
     const float START = -0.95F;
     const float END = 0.95F;
 
     const float Z_START = 0.01F;
     const float Z_END = 1.00F;
 
-    VAO.bind();
-
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
     for (int i = 0; i < 2048; i++) {
-        float offset[3] = {
+        std::array<float, 3> offset = {
             lerp(START, END,
                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
             lerp(START, END,
@@ -152,7 +153,7 @@ auto main() -> int
                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX))
         };
 
-        // I know the instance is set since it is in the optional.
+        // I know the instance is set since it is in the optional, so I go for direct access
         VAO.instanced_data()->add_instance(offset);
     }
 
@@ -163,7 +164,7 @@ auto main() -> int
         glClearColor(0.2F, 0.3F, 0.3F, 1.0F);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0,
+        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr,
             VAO.instanced_data()->instance_count());
 
         glfwSwapBuffers(window);

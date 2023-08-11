@@ -1,6 +1,6 @@
 /**
  * @file index_buffer.hpp
- * @author Christian Panov
+ * @author sChristian Panov, Dario Loi
  * @brief Element Buffer Object (EBO) wrapper.
  *
  * @date 2023-04-28
@@ -14,6 +14,7 @@
 #include "gl_functions.hpp"
 #include <cstdint>
 #include <iostream>
+#include <span>
 
 namespace glcore {
 
@@ -38,7 +39,7 @@ public:
      * @param indices a pointer to the indices array, can be any contiguous container of std::uint32_t.
      * @param count the number of indices in the array.
      */
-    index_buffer(const std::uint32_t* indices, std::size_t count) noexcept;
+    index_buffer(std::span<const std::uint32_t> indices) noexcept;
     ~index_buffer();
 
     index_buffer(const index_buffer&) = delete;
@@ -71,13 +72,13 @@ private:
     std::size_t m_count {};
 };
 
-index_buffer::index_buffer(const std::uint32_t* indices, std::size_t count) noexcept
-    : m_count { count }
+index_buffer::index_buffer(std::span<const std::uint32_t> indices) noexcept
+    : m_count { indices.size() }
 {
     glGenBuffers(1, &m_id);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
 
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(std::uint32_t) * count, indices, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size_bytes(), indices.data(), GL_STATIC_DRAW);
 }
 
 index_buffer::~index_buffer()

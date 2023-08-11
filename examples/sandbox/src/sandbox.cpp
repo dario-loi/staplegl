@@ -1,6 +1,7 @@
 #include "glad.h"
 #include "glcore.hpp"
 #include <GLFW/glfw3.h>
+#include <array>
 #include <iostream>
 #include <span>
 #include <utility>
@@ -55,19 +56,20 @@ auto main() -> int
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-    float vertices[] = {
+    std::array<float, 12> vertices = {
         0.5F, 0.5F, 0.0F, // top right
         0.5F, -0.5F, 0.0F, // bottom right
         -0.5F, -0.5F, 0.0F, // bottom left
         -0.5F, 0.5F, 0.0F // top left
     };
-    unsigned int indices[] = {
+
+    std::array<unsigned int, 6> indices = {
         0, 1, 3, // first Triangle
         1, 2, 3 // second Triangle
     };
 
-    glcore::vertex_buffer VBO { std::span<const float>(vertices, 12), glcore::driver_draw_hint::STATIC_DRAW };
-    glcore::index_buffer EBO { indices, 6 };
+    glcore::vertex_buffer VBO { vertices, glcore::driver_draw_hint::STATIC_DRAW };
+    glcore::index_buffer EBO { indices };
 
     glcore::vertex_buffer_layout layout {
         { glcore::shader_data_type::vec3, "aPos" }
