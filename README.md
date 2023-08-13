@@ -1,8 +1,12 @@
 No-dependency OpenGL support library, which abstracts the processes of creating buffers and shaders
 # Install
 ```
-git clone --recursive https://github.com/ChristianPanov/glcore
+git clone --recursive https://github.com/dario-loi/glcore.git
 ```
+
+> [!WARNING]  
+> DOCUMENTATION IS OUTDATED AND WILL BE UPDATED TO REFLECT THE CHANGES IN THE LIBRARY SOON
+
 # Design Highlights
 - Very lightweight - ***glcore*** is merely a thin wrapper around the OpenGL functions, except the shader class, which is more than a wrapper. It may be thin, but it's very useful for abstracting the OpenGL state machine logic to a more object-oriented logic
 - No dependencies - ***glcore*** does not enforce any dependencies such as function loaders, by using placeholder functions, which can be replaced with the function loader of choice simply by putting the needed includes in a specific file
@@ -122,10 +126,10 @@ glcore::shader_program shaders("Basic", {
 		});
 ```
 ### Supported types of shaders
-Shader Type | Enum Value | GLSL Command
------------- | ------------- | -------------
-Vertex | ```glcore::shader_type::vertex``` | ```#type vertex```
-Fragment | ```glcore::shader_type::fragment``` | ```#type fragment```
-Tessellation Control | ```glcore::shader_type::tess_control``` | ```#type tess_control```
-Tessellation Evaluation | ```glcore::shader_type::tess_eval``` | ```#type tess_eval```
-Geometry | ```glcore::shader_type::geometry``` | ```#type geometry```
+| Shader Type             | Enum Value                              | GLSL Command             |
+| ----------------------- | --------------------------------------- | ------------------------ |
+| Vertex                  | ```glcore::shader_type::vertex```       | ```#type vertex```       |
+| Fragment                | ```glcore::shader_type::fragment```     | ```#type fragment```     |
+| Tessellation Control    | ```glcore::shader_type::tess_control``` | ```#type tess_control``` |
+| Tessellation Evaluation | ```glcore::shader_type::tess_eval```    | ```#type tess_eval```    |
+| Geometry                | ```glcore::shader_type::geometry```     | ```#type geometry```     |
