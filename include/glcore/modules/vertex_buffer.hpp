@@ -12,6 +12,7 @@
 #pragma once
 #include "gl_functions.hpp"
 #include "vertex_buffer_layout.hpp"
+#include <functional>
 #include <span>
 
 namespace glcore {
@@ -97,6 +98,24 @@ public:
      *
      */
     constexpr std::size_t size() const noexcept { return m_layout.stride(); }
+
+    /**
+     * @brief Applies a function to the vertices of the vertex buffer object.
+     *
+     * @note See documentation for an explanation of how this works internally.
+     *
+     * @details This function provides an API for low-level manipulation of the vertices of the vertex buffer object,
+     * this can be useful to perform a number of modifications to the vertices without issuing multiple API calls, for
+     * example in the case of an instanced vertex buffer, one can update the whole buffer with a single call.
+     *
+     * Internally, this works by obtaining a pointer to the vertices of the vertex buffer object, and then passing it
+     * to the user-provided function along with the layout of the vertex buffer object, so that the user has all the
+     * information needed to perform the desired modifications.
+     *
+     * @param func the function to be applied to the vertices of the vertex buffer object.
+     */
+    void apply(const std::function<void(std::span<float> vertices,
+            const vertex_buffer_layout& layout)>& func) noexcept;
 
 protected:
     std::uint32_t m_id {};
@@ -184,6 +203,23 @@ void vertex_buffer::set_data(std::span<const float> vertices) noexcept
 {
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
     glBufferData(GL_ARRAY_BUFFER, vertices.size_bytes(), vertices.data(), GL_STATIC_DRAW);
+}
+
+void vertex_buffer::apply(const std::function<void(std::span<float> vertices,
+        const vertex_buffer_layout& layout)>& func) noexcept
+{
+    glBindBuffer(GL_ARRAY_BUFFER, m_id);
+
+    // get the pointer to the vertices
+    float* vertices = static_cast<float*>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
+    int32_t buffer_size {};
+    glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &buffer_size);
+
+    // apply the function
+    func(std::span { vertices, buffer_size / sizeof(float) }, m_layout);
+
+    // unmap the buffer
+    glUnmapBuffer(GL_ARRAY_BUFFER);
 }
 
 } // namespace glcore

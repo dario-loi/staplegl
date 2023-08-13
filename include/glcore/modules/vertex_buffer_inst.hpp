@@ -190,7 +190,7 @@ inline size_t vertex_buffer_inst::delete_instance(std::size_t index) noexcept
 
     // write the last instance to the position of the deleted instance (overwriting it)
 
-    auto last_instance = std::span<const float> { last_instance_ptr, m_layout.stride() / sizeof(float) };
+    auto last_instance = std::span<const float> { last_instance_ptr, m_layout.stride_elements() };
 
     update_instance(index, last_instance);
 

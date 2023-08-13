@@ -4,6 +4,8 @@
 #include <GLFW/glfw3.h>
 #include <algorithm>
 #include <array>
+#include <ctime>
+#include <execution>
 #include <filesystem>
 #include <iostream>
 #include <span>
@@ -143,7 +145,7 @@ auto main() -> int
 
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
-    for (int i = 0; i < 2048; i++) {
+    for (int i = 0; i < 65535; i++) {
         std::array<float, 3> offset = {
             lerp(START, END,
                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
@@ -163,6 +165,28 @@ auto main() -> int
 
         glClearColor(0.2F, 0.3F, 0.3F, 1.0F);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        VAO.instanced_data()->apply(
+            [](std::span<float> data,
+                glcore::vertex_buffer_layout const& layout [[maybe_unused]]) {
+                constexpr float SPEED = 0.001F;
+
+                // reinterpret the data as a 3D vector
+                struct vec3 {
+                    float x;
+                    float y;
+                    float z;
+                };
+
+                static_assert(sizeof(vec3) == 3 * sizeof(float));
+                std::span<vec3> vec_data { reinterpret_cast<vec3*>(data.data()),
+                    data.size() / 3 };
+
+                std::for_each(std::execution::par_unseq, vec_data.begin(), vec_data.end(),
+                    [](vec3& v) {
+                        v.x += SPEED;
+                    });
+            });
 
         glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr,
             VAO.instanced_data()->instance_count());

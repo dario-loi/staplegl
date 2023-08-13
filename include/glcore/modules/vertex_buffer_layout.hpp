@@ -65,6 +65,13 @@ public:
     constexpr std::size_t stride() const noexcept { return m_stride; }
 
     /**
+     * @brief Get the stride of the vertex buffer layout in elements.
+     *
+     * @return std::size_t, the number of elements in a vertex.
+     */
+    constexpr std::size_t stride_elements() const noexcept { return m_stride / sizeof(float); }
+
+    /**
      * @brief Get the data of the vertex buffer layout.
      *
      * @return const std::vector<vertex_attribute>&, a reference to the vertex buffer layout data.

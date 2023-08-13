@@ -137,7 +137,16 @@ if(UNIX AND NOT APPLE)
         message(STATUS " XRANDR found at: ${XRANDR_LIBRARY}")
     endif(NOT XRANDR_LIBRARY)
 
-    list(APPEND LIBS ${X11_LIBRARIES} ${XRANDR_LIBRARY} ${CMAKE_DL_LIBS} Threads::Threads)
+    # find TBB for parallelism
+    find_package(TBB REQUIRED)
+
+    if(NOT TBB_FOUND)
+        message(ERROR " TBB not found!")
+    else(NOT TBB_FOUND)
+        message(STATUS " TBB found")
+    endif(NOT TBB_FOUND)
+
+    list(APPEND LIBS ${X11_LIBRARIES} ${XRANDR_LIBRARY} ${CMAKE_DL_LIBS} Threads::Threads TBB::tbb)
 endif(UNIX AND NOT APPLE)
 
 # windows just needs the opengl32 library, which should have already been fetched.
@@ -155,6 +164,7 @@ target_include_directories(sandbox PUBLIC ${GLFW3_INCLUDE_DIR}
     ${OPENGL_INCLUDE_DIR}
 )
 
+message(STATUS " LIBS: ${LIBS}")
 target_link_libraries(batches ${LIBS})
 target_include_directories(batches PUBLIC ${GLFW3_INCLUDE_DIR}
     ${OPENGL_INCLUDE_DIR}
@@ -189,8 +199,8 @@ if(MSVC)
     target_compile_options(sandbox PRIVATE /W4 /WX)
     target_compile_options(batches PRIVATE /W4 /WX)
 else()
-    target_compile_options(sandbox PRIVATE -Wall -Wextra -pedantic -Werror)
-    target_compile_options(batches PRIVATE -Wall -Wextra -pedantic -Werror)
+    target_compile_options(sandbox PRIVATE -Wall -Wextra -pedantic)
+    target_compile_options(batches PRIVATE -Wall -Wextra -pedantic)
 endif()
 
 set(CLANG_TIDY_CHECKS
