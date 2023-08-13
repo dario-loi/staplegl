@@ -137,16 +137,7 @@ if(UNIX AND NOT APPLE)
         message(STATUS " XRANDR found at: ${XRANDR_LIBRARY}")
     endif(NOT XRANDR_LIBRARY)
 
-    # find TBB for parallelism
-    find_package(TBB REQUIRED)
-
-    if(NOT TBB_FOUND)
-        message(ERROR " TBB not found!")
-    else(NOT TBB_FOUND)
-        message(STATUS " TBB found")
-    endif(NOT TBB_FOUND)
-
-    list(APPEND LIBS ${X11_LIBRARIES} ${XRANDR_LIBRARY} ${CMAKE_DL_LIBS} Threads::Threads TBB::tbb)
+    list(APPEND LIBS ${X11_LIBRARIES} ${XRANDR_LIBRARY} ${CMAKE_DL_LIBS} Threads::Threads)
 endif(UNIX AND NOT APPLE)
 
 # windows just needs the opengl32 library, which should have already been fetched.
@@ -159,13 +150,22 @@ else(NOT GLFW3_FOUND)
     list(APPEND LIBS ${GLFW3_LIBRARY})
 endif(NOT GLFW3_FOUND)
 
+# find TBB for parallelism
+find_package(TBB REQUIRED)
+
+if(NOT TBB_FOUND)
+    message(ERROR " TBB not found!")
+else(NOT TBB_FOUND)
+    message(STATUS " TBB found")
+endif(NOT TBB_FOUND)
+
 target_link_libraries(sandbox ${LIBS})
 target_include_directories(sandbox PUBLIC ${GLFW3_INCLUDE_DIR}
     ${OPENGL_INCLUDE_DIR}
 )
 
 message(STATUS " LIBS: ${LIBS}")
-target_link_libraries(batches ${LIBS})
+target_link_libraries(batches ${LIBS} TBB::tbb)
 target_include_directories(batches PUBLIC ${GLFW3_INCLUDE_DIR}
     ${OPENGL_INCLUDE_DIR}
 )
