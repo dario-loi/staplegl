@@ -169,8 +169,6 @@ auto main() -> int
         VAO.instanced_data()->apply(
             [](std::span<float> data,
                 glcore::vertex_buffer_layout const& layout [[maybe_unused]]) {
-                constexpr float SPEED = 0.001F;
-
                 // reinterpret the data as a 3D vector
                 struct vec3 {
                     float x;
@@ -184,7 +182,8 @@ auto main() -> int
 
                 std::for_each(std::execution::par_unseq, vec_data.begin(), vec_data.end(),
                     [](vec3& v) {
-                        v.x += SPEED;
+                        const float speed = ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) - 0.5F) / 1000.0F;
+                        v.x += speed;
                     });
             });
 
