@@ -13,7 +13,7 @@
  */
 #pragma once
 
-#include <string_view>
+#include <string>
 #include <vector>
 
 #include "shader_data_type.hpp"
@@ -30,8 +30,10 @@ namespace glcore {
  */
 struct vertex_attribute {
     shader_data_type::type_t type;
-    std::string_view name;
+    std::string name;
     std::uint32_t offset {};
+
+    vertex_attribute() = default;
 };
 
 /**
