@@ -163,11 +163,11 @@ vertex_array::iterator_t vertex_array::add_vertex_buffer(vertex_buffer&& vbo)
 
     vbo_ref.bind();
 
-    for (const auto& [type, name, offset] : vbo_ref.layout().data()) {
+    for (const auto& [type, name, offset, elements] : vbo_ref.layout().data()) {
         glEnableVertexAttribArray(attrib_index);
         glVertexAttribPointer(
             attrib_index++,
-            shader_data_type::component_count(type),
+            shader_data_type::component_count(type) * elements,
             shader_data_type::to_opengl_underlying_type(type),
             GL_FALSE,
             vbo_ref.layout().stride(),
@@ -184,11 +184,11 @@ void vertex_array::set_instance_buffer(vertex_buffer_inst&& vbo)
     glBindVertexArray(m_id);
     m_instanced_vbo->bind();
 
-    for (const auto& [type, name, offset] : m_instanced_vbo->layout().data()) {
+    for (const auto& [type, name, offset, elements] : m_instanced_vbo->layout().data()) {
         glEnableVertexAttribArray(attrib_index);
         glVertexAttribPointer(
             attrib_index++,
-            shader_data_type::component_count(type),
+            shader_data_type::component_count(type) * elements,
             shader_data_type::to_opengl_underlying_type(type),
             GL_FALSE,
             m_instanced_vbo->layout().stride(),

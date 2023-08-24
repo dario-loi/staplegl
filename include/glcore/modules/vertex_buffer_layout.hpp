@@ -14,6 +14,7 @@
 #pragma once
 
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "shader_data_type.hpp"
@@ -32,8 +33,22 @@ struct vertex_attribute {
     shader_data_type::type_t type;
     std::string name;
     std::uint32_t offset {};
+    std::size_t element_count { 1 };
 
-    vertex_attribute() = default;
+    vertex_attribute() = delete;
+    vertex_attribute(shader_data_type::type_t in_type, std::string_view in_name)
+        : type { in_type }
+        , name { in_name }
+    {
+    }
+
+    vertex_attribute(shader_data_type::array_type_t in_type, std::string_view in_name, size_t element_count)
+        : type { static_cast<shader_data_type::type_t>(in_type) }
+        , name { in_name }
+        , offset {}
+        , element_count { element_count }
+    {
+    }
 };
 
 /**
@@ -57,7 +72,14 @@ public:
      * @param attributes a list of vertex attributes.
      * @see vertex_attribute
      */
-    vertex_buffer_layout(std::initializer_list<vertex_attribute> attributes);
+    vertex_buffer_layout(std::initializer_list<vertex_attribute> attributes)
+        : m_attributes { attributes }
+    {
+        for (auto& [type, name, offset, elements] : m_attributes) {
+            offset = m_stride;
+            m_stride += shader_data_type::size(type) * elements;
+        }
+    }
 
     /**
      * @brief Get the stride of the vertex buffer layout.
@@ -67,7 +89,10 @@ public:
     constexpr std::size_t stride() const noexcept { return m_stride; }
 
     /**
-     * @brief Get the stride of the vertex buffer layout in elements.
+     * @brief Get the stride of the vertex buffer layout in elements (assuming float-only data).
+     *
+     * @warning This function assumes that the vertex buffer layout is composed of only float data, if
+     * the vertex buffer layout is composed of other data types, the result of this function will be incorrect.
      *
      * @return std::size_t, the number of elements in a vertex.
      */
@@ -88,12 +113,4 @@ private:
     std::vector<vertex_attribute> m_attributes;
 };
 
-vertex_buffer_layout::vertex_buffer_layout(std::initializer_list<vertex_attribute> attributes)
-    : m_attributes { attributes }
-{
-    for (auto& [type, name, offset] : m_attributes) {
-        offset = m_stride;
-        m_stride += shader_data_type::size(type);
-    }
-}
 } // namespace glcore
