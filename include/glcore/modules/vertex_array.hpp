@@ -168,7 +168,7 @@ vertex_array::iterator_t vertex_array::add_vertex_buffer(vertex_buffer&& vbo)
         glVertexAttribPointer(
             attrib_index++,
             shader_data_type::component_count(type),
-            shader_data_type::to_opengl_type(type),
+            shader_data_type::to_opengl_underlying_type(type),
             GL_FALSE,
             vbo_ref.layout().stride(),
             reinterpret_cast<const void*>(offset));
@@ -189,7 +189,7 @@ void vertex_array::set_instance_buffer(vertex_buffer_inst&& vbo)
         glVertexAttribPointer(
             attrib_index++,
             shader_data_type::component_count(type),
-            shader_data_type::to_opengl_type(type),
+            shader_data_type::to_opengl_underlying_type(type),
             GL_FALSE,
             m_instanced_vbo->layout().stride(),
             reinterpret_cast<const void*>(offset));

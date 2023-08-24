@@ -13,6 +13,8 @@
 
 #pragma once
 
+#include "gl_functions.hpp"
+
 #include <cstddef>
 #include <cstdint>
 #include <exception>
@@ -20,9 +22,28 @@
 namespace glcore::shader_data_type {
 
 /**
- * @brief The type of the shader data.
+ * @brief Enumerator that represents an array of a given data type.
  *
- * @details The type of the shader data. This is used to define the type of the data that is passed
+ * @details Enumerator that represents an array of a given data type. This is used to define the type of the data that is passed
+ * as uniform to the shader, as well as a runtime type to feed as a parameter to other functions.
+ *
+ */
+enum array_type_t : std::uint8_t {
+    float32_arr,
+    int32_arr,
+    uint32_arr,
+    bool8_arr,
+    vec2_arr,
+    vec3_arr,
+    vec4_arr,
+    mat3_arr,
+    mat4_arr,
+};
+
+/**
+ * @brief Enumerator that represents a data type.
+ *
+ * @details Enumerator that represents a data type. This is used to define the type of the data that is passed
  * as a uniform to the shader, as well as a runtime type to feed as a parameter to other functions
  * in this module.
  *
@@ -32,9 +53,15 @@ namespace glcore::shader_data_type {
  *
  */
 enum type_t : std::uint8_t {
+    float32,
+    int32,
+    uint32,
+    bool8,
     vec2,
     vec3,
-    vec4
+    vec4,
+    mat3,
+    mat4,
 };
 
 /**
@@ -44,15 +71,27 @@ enum type_t : std::uint8_t {
  * @see glcore::shader_data_type::type_t
  * @return std::size_t the size of the shader data type in bytes.
  */
-static std::size_t size(type_t type)
+constexpr static std::size_t size(type_t type)
 {
     switch (type) {
+    case type_t::float32:
+        return sizeof(float);
+    case type_t::int32:
+        return sizeof(int32_t);
+    case type_t::uint32:
+        return sizeof(uint32_t);
     case type_t::vec2:
         return sizeof(float) * 2;
     case type_t::vec3:
         return sizeof(float) * 3;
     case type_t::vec4:
         return sizeof(float) * 4;
+    case type_t::mat3: // internally padded to use 3 vec4s
+        return size(type_t::vec4) * 3;
+    case type_t::mat4:
+        return size(type_t::vec4) * 4;
+    case type_t::bool8:
+        return sizeof(bool);
     default:
         std::terminate();
     }
@@ -65,15 +104,58 @@ static std::size_t size(type_t type)
  * @see glcore::shader_data_type::type_t
  * @return std::uint32_t the equivalent OpenGL type, as an enum.
  */
-static std::uint32_t to_opengl_type(type_t type)
+constexpr static std::uint32_t to_opengl_type(type_t type)
 {
     switch (type) {
     case type_t::vec2:
-        return 0x1406;
+        return GL_FLOAT_VEC2;
     case type_t::vec3:
-        return 0x1406;
+        return GL_FLOAT_VEC3;
     case type_t::vec4:
-        return 0x1406;
+        return GL_FLOAT_VEC4;
+    case type_t::mat3:
+        return GL_FLOAT_MAT3;
+    case type_t::mat4:
+        return GL_FLOAT_MAT4;
+    case type_t::float32:
+        return GL_FLOAT;
+    case type_t::int32:
+        return GL_INT;
+    case type_t::uint32:
+        return GL_UNSIGNED_INT;
+    case type_t::bool8:
+        return GL_BOOL;
+    default:
+        std::terminate();
+    }
+}
+
+/**
+ * @brief Obtains the OpenGL type of the underlying type of the shader data type.
+ *
+ * @details This function retrieves the OpenGL type of the underlying type of the shader data type.
+ * For scalar types, this is the same as to_opengl_type, but for vector types, this is the type of the
+ * vector's components.
+ *
+ * @param type
+ * @return constexpr std::uint32_t
+ */
+constexpr static std::uint32_t to_opengl_underlying_type(type_t type)
+{
+    switch (type) {
+    case type_t::vec2:
+    case type_t::vec3:
+    case type_t::vec4:
+    case type_t::mat3:
+    case type_t::mat4:
+    case type_t::float32:
+        return GL_FLOAT;
+    case type_t::int32:
+        return GL_INT;
+    case type_t::uint32:
+        return GL_UNSIGNED_INT;
+    case type_t::bool8:
+        return GL_BOOL;
     default:
         std::terminate();
     }
@@ -87,7 +169,7 @@ static std::uint32_t to_opengl_type(type_t type)
  *
  * @return std::uint16_t the number of components in the shader data type.
  */
-static std::uint16_t component_count(type_t type)
+constexpr static std::uint16_t component_count(type_t type)
 {
     switch (type) {
     case type_t::vec2:
@@ -96,6 +178,15 @@ static std::uint16_t component_count(type_t type)
         return 3;
     case type_t::vec4:
         return 4;
+    case type_t::mat3:
+        return 12;
+    case type_t::mat4:
+        return 16;
+    case type_t::float32:
+    case type_t::int32:
+    case type_t::uint32:
+    case type_t::bool8:
+        return 1;
     default:
         std::terminate();
     }
