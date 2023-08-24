@@ -41,6 +41,7 @@ set(GLCORE_HEADERS
     ${GLCORE_MODULES_DIR}/index_buffer.hpp
     ${GLCORE_MODULES_DIR}/shader_data_type.hpp
     ${GLCORE_MODULES_DIR}/vertex_buffer_inst.hpp
+    ${GLCORE_MODULES_DIR}/uniform_buffer.hpp
 )
 
 set(GLAD_INCLUDE_DIR "${SANDBOX_DIR}/external/glad/include/glad" "${SANDBOX_DIR}/external/glad/include/KHR")

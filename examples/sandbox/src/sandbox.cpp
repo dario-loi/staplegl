@@ -71,9 +71,9 @@ auto main() -> int
     glcore::vertex_buffer VBO { vertices, glcore::driver_draw_hint::STATIC_DRAW };
     glcore::index_buffer EBO { indices };
 
-    glcore::vertex_buffer_layout layout {
-        { glcore::shader_data_type::vec3, "aPos" }
-    };
+    using namespace glcore::shader_data_type;
+
+    glcore::vertex_buffer_layout layout { { shader_type::vec3, "aPos" } };
 
     VBO.set_layout(layout);
 

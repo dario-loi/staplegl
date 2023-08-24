@@ -28,7 +28,7 @@ namespace glcore::shader_data_type {
  * as uniform to the shader, as well as a runtime type to feed as a parameter to other functions.
  *
  */
-enum array_type_t : std::uint8_t {
+enum class shader_array_type : std::uint8_t {
     float32_arr,
     vec2_arr,
     vec3_arr,
@@ -49,7 +49,7 @@ enum array_type_t : std::uint8_t {
  * @see glcore::shader_data_type::component_count
  *
  */
-enum type_t : std::uint8_t {
+enum class shader_type : std::uint8_t {
     float32,
     vec2,
     vec3,
@@ -62,24 +62,24 @@ enum type_t : std::uint8_t {
  * @brief Get the size of the shader data type.
  *
  * @param type the type of the shader data.
- * @see glcore::shader_data_type::type_t
+ * @see glcore::shader_data_type::shader_type
  * @return std::size_t the size of the shader data type in bytes.
  */
-constexpr static std::size_t size(type_t type)
+constexpr static std::size_t size(shader_type type)
 {
     switch (type) {
-    case type_t::float32:
+    case shader_type::float32:
         return sizeof(float);
-    case type_t::vec2:
+    case shader_type::vec2:
         return sizeof(float) * 2;
-    case type_t::vec3:
+    case shader_type::vec3:
         return sizeof(float) * 3;
-    case type_t::vec4:
+    case shader_type::vec4:
         return sizeof(float) * 4;
-    case type_t::mat3: // internally padded to use 3 vec4s
-        return size(type_t::vec4) * 3;
-    case type_t::mat4:
-        return size(type_t::vec4) * 4;
+    case shader_type::mat3: // internally padded to use 3 vec4s
+        return size(shader_type::vec4) * 3;
+    case shader_type::mat4:
+        return size(shader_type::vec4) * 4;
     default:
         std::terminate();
     }
@@ -89,23 +89,23 @@ constexpr static std::size_t size(type_t type)
  * @brief Convert the shader data type to an OpenGL type.
  *
  * @param type the type of the shader data.
- * @see glcore::shader_data_type::type_t
+ * @see glcore::shader_data_type::shader_type
  * @return std::uint32_t the equivalent OpenGL type, as an enum.
  */
-constexpr static std::uint32_t to_opengl_type(type_t type)
+constexpr static std::uint32_t to_opengl_type(shader_type type)
 {
     switch (type) {
-    case type_t::vec2:
+    case shader_type::vec2:
         return GL_FLOAT_VEC2;
-    case type_t::vec3:
+    case shader_type::vec3:
         return GL_FLOAT_VEC3;
-    case type_t::vec4:
+    case shader_type::vec4:
         return GL_FLOAT_VEC4;
-    case type_t::mat3:
+    case shader_type::mat3:
         return GL_FLOAT_MAT3;
-    case type_t::mat4:
+    case shader_type::mat4:
         return GL_FLOAT_MAT4;
-    case type_t::float32:
+    case shader_type::float32:
         return GL_FLOAT;
     default:
         std::terminate();
@@ -122,15 +122,15 @@ constexpr static std::uint32_t to_opengl_type(type_t type)
  * @param type
  * @return constexpr std::uint32_t
  */
-constexpr static std::uint32_t to_opengl_underlying_type(type_t type)
+constexpr static std::uint32_t to_opengl_underlying_type(shader_type type)
 {
     switch (type) {
-    case type_t::vec2:
-    case type_t::vec3:
-    case type_t::vec4:
-    case type_t::mat3:
-    case type_t::mat4:
-    case type_t::float32:
+    case shader_type::vec2:
+    case shader_type::vec3:
+    case shader_type::vec4:
+    case shader_type::mat3:
+    case shader_type::mat4:
+    case shader_type::float32:
         return GL_FLOAT;
     default:
         std::terminate();
@@ -141,24 +141,24 @@ constexpr static std::uint32_t to_opengl_underlying_type(type_t type)
  * @brief Get the number of components in the shader data type, useful for vector types.
  *
  * @param type the type of the shader data.
- * @see glcore::shader_data_type::type_t
+ * @see glcore::shader_data_type::shader_type
  *
  * @return std::uint16_t the number of components in the shader data type.
  */
-constexpr static std::uint16_t component_count(type_t type)
+constexpr static std::uint16_t component_count(shader_type type)
 {
     switch (type) {
-    case type_t::vec2:
+    case shader_type::vec2:
         return 2;
-    case type_t::vec3:
+    case shader_type::vec3:
         return 3;
-    case type_t::vec4:
+    case shader_type::vec4:
         return 4;
-    case type_t::mat3:
+    case shader_type::mat3:
         return 12;
-    case type_t::mat4:
+    case shader_type::mat4:
         return 16;
-    case type_t::float32:
+    case shader_type::float32:
         return 1;
     default:
         std::terminate();

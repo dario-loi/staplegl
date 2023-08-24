@@ -31,20 +31,20 @@ namespace glcore {
  * @see shader_data_type.hpp
  */
 struct vertex_attribute {
-    shader_data_type::type_t type;
+    shader_data_type::shader_type type;
     std::string name;
     std::uint32_t offset {};
     std::size_t element_count { 1 };
 
     vertex_attribute() = delete;
-    vertex_attribute(shader_data_type::type_t in_type, std::string_view in_name)
+    vertex_attribute(shader_data_type::shader_type in_type, std::string_view in_name)
         : type { in_type }
         , name { in_name }
     {
     }
 
-    vertex_attribute(shader_data_type::array_type_t in_type, std::string_view in_name, size_t element_count)
-        : type { static_cast<shader_data_type::type_t>(in_type) }
+    vertex_attribute(shader_data_type::shader_array_type in_type, std::string_view in_name, size_t element_count)
+        : type { static_cast<shader_data_type::shader_type>(in_type) }
         , name { in_name }
         , offset {}
         , element_count { element_count }
@@ -104,7 +104,7 @@ public:
      *
      * @return std::map<std::string_view, vertex_attribute>&, the data of the vertex buffer layout.
      */
-    [[nodiscard]] auto get_map() const noexcept -> std::map<std::string_view, vertex_attribute> const&
+    [[nodiscard]] auto get_map() const noexcept -> std::map<std::string, vertex_attribute> const&
     {
         return m_attributes;
     }
@@ -115,7 +115,7 @@ public:
      * @param name the name of the vertex attribute.
      * @return vertex_attribute the vertex attribute.
      */
-    [[nodiscard]] vertex_attribute operator[](std::string_view name) const noexcept
+    [[nodiscard]] vertex_attribute operator[](std::string const& name) const noexcept
     {
         // crashes if not found, so we're still fast but at least we know if we're wrong
         return m_attributes.at(name);
@@ -123,7 +123,7 @@ public:
 
 private:
     std::size_t m_stride {};
-    std::map<std::string_view, vertex_attribute> m_attributes;
+    std::map<std::string, vertex_attribute> m_attributes;
 };
 
 } // namespace glcore

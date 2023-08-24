@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <algorithm>
 #include <array>
+#include <cmath>
 #include <ctime>
 #include <execution>
 #include <filesystem>
@@ -100,25 +101,27 @@ auto main() -> int
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-    std::array<float, 12> vertices {
+    const std::array<const float, 12> vertices {
         0.001F, 0.001F, 0.0F, // top right
         0.001F, -0.001F, 0.0F, // bottom right
         -0.001F, -0.001F, 0.0F, // bottom left
         -0.001F, 0.001F, 0.0F, // top left
     };
 
-    std::array<unsigned int, 6> indices {
+    const std::array<const unsigned int, 6> indices {
         // note that we start from 0!
         0, 1, 3, // first Triangle
         1, 2, 3 // second Triangle
     };
 
+    using namespace glcore::shader_data_type;
+
     glcore::vertex_buffer_layout layout {
-        { glcore::shader_data_type::vec3, "aPos" }
+        { shader_type::vec3, "aPos" }
     };
 
     glcore::vertex_buffer_layout instance_layout {
-        { glcore::shader_data_type::vec3, "instancePos" }
+        { shader_type::vec3, "instancePos" }
     };
 
     glcore::vertex_buffer VBO(vertices, glcore::driver_draw_hint::STATIC_DRAW);
@@ -128,8 +131,17 @@ auto main() -> int
     VBO.set_layout(layout);
 
     glcore::index_buffer EBO { indices };
-
     glcore::vertex_array VAO;
+
+    glcore::vertex_buffer_layout UBO_block_layout {
+        { shader_array_type::float32_arr, "u_color", 4 }
+    };
+
+    glcore::uniform_buffer UBO_block { UBO_block_layout, 1 };
+
+    UBO_block.bind();
+
+    std::array<float, 4> color {};
 
     VAO.add_vertex_buffer(std::move(VBO));
     VAO.set_instance_buffer(std::move(VBO_inst));
@@ -165,6 +177,17 @@ auto main() -> int
 
         glClearColor(0.2F, 0.3F, 0.3F, 1.0F);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        float timeNow = static_cast<float>(glfwGetTime());
+
+        for (float& col : color) {
+            col = std::sin(timeNow) / 2.0F + 0.5F;
+        }
+        color[3] = 1.0F;
+
+        for (int i = 0; i < 4; ++i) {
+            UBO_block.set_attribute_data(std::span { &color[i], 1 }, "u_color", i);
+        }
 
         VAO.instanced_data()->apply(
             [](std::span<float> data,
