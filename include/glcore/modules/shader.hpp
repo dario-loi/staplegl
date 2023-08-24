@@ -18,8 +18,11 @@
 
 #include "gl_functions.hpp"
 #include "utility.hpp"
+#include <cstdint>
 #include <exception>
+#include <optional>
 #include <string>
+#include <string_view>
 #include <unordered_map>
 #include <vector>
 
@@ -252,7 +255,7 @@ private:
      *
      * @return shader_type, the shader type.
      */
-    static shader_type string_to_shader_type(std::string_view str);
+    static std::optional<shader_type> string_to_shader_type(std::string_view str);
 
 private:
     std::uint32_t m_id {};
@@ -387,10 +390,20 @@ std::vector<shader> shader_program::parse_shaders(const std::string& source) con
         const std::size_t eol { source.find_first_of("\r\n", pos) };
         const std::size_t begin { pos + type_token.size() + 1 };
         const std::size_t next_line_pos { source.find_first_not_of("\r\n", eol) };
-
         std::string_view type { source.substr(begin, eol - begin) };
+
+        auto shader_type { string_to_shader_type(type) };
+
+        // With C++23 we could drastically simplify this thanks to std::optional's monadic operations.
+        if (!shader_type.has_value()) [[unlikely]] {
+            std::fwrite("Invalid shader type: ", 1, 21, stderr);
+            std::fwrite(type.data(), type.size(), 1, stderr);
+            std::fwrite("\n", 1, 1, stderr);
+            std::terminate();
+        }
+
         pos = source.find(type_token, next_line_pos);
-        shaders.push_back({ string_to_shader_type(type), pos == std::string::npos ? source.substr(next_line_pos) : source.substr(next_line_pos, pos - next_line_pos) });
+        shaders.push_back({ shader_type.value(), pos == std::string::npos ? source.substr(next_line_pos) : source.substr(next_line_pos, pos - next_line_pos) });
     }
 
     return shaders;
@@ -438,7 +451,7 @@ std::uint32_t shader_program::to_gl_type(shader_type shader_type)
     }
 }
 
-shader_type shader_program::string_to_shader_type(std::string_view str)
+std::optional<shader_type> shader_program::string_to_shader_type(std::string_view str)
 {
 
     static std::unordered_map<std::string_view, shader_type> map {
@@ -449,10 +462,10 @@ shader_type shader_program::string_to_shader_type(std::string_view str)
         { "geometry", shader_type::geometry }
     };
 
-    /*
-    TODO: error handling, either add a shader_type::invalid, return a std::optional,
-    throw an exception (hell nah), or std::abort()
-     */
-    return map[str];
+    if (map.find(str) != map.end()) [[likely]] {
+        return map[str];
+    }
+
+    return std::nullopt;
 }
 }

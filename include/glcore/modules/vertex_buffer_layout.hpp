@@ -91,9 +91,6 @@ public:
     /**
      * @brief Get the stride of the vertex buffer layout in elements (assuming float-only data).
      *
-     * @warning This function assumes that the vertex buffer layout is composed of only float data, if
-     * the vertex buffer layout is composed of other data types, the result of this function will be incorrect.
-     *
      * @return std::size_t, the number of elements in a vertex.
      */
     constexpr std::size_t stride_elements() const noexcept { return m_stride / sizeof(float); }
