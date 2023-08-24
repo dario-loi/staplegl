@@ -30,9 +30,6 @@ namespace glcore::shader_data_type {
  */
 enum array_type_t : std::uint8_t {
     float32_arr,
-    int32_arr,
-    uint32_arr,
-    bool8_arr,
     vec2_arr,
     vec3_arr,
     vec4_arr,
@@ -54,9 +51,6 @@ enum array_type_t : std::uint8_t {
  */
 enum type_t : std::uint8_t {
     float32,
-    int32,
-    uint32,
-    bool8,
     vec2,
     vec3,
     vec4,
@@ -76,10 +70,6 @@ constexpr static std::size_t size(type_t type)
     switch (type) {
     case type_t::float32:
         return sizeof(float);
-    case type_t::int32:
-        return sizeof(int32_t);
-    case type_t::uint32:
-        return sizeof(uint32_t);
     case type_t::vec2:
         return sizeof(float) * 2;
     case type_t::vec3:
@@ -90,8 +80,6 @@ constexpr static std::size_t size(type_t type)
         return size(type_t::vec4) * 3;
     case type_t::mat4:
         return size(type_t::vec4) * 4;
-    case type_t::bool8:
-        return sizeof(bool);
     default:
         std::terminate();
     }
@@ -119,12 +107,6 @@ constexpr static std::uint32_t to_opengl_type(type_t type)
         return GL_FLOAT_MAT4;
     case type_t::float32:
         return GL_FLOAT;
-    case type_t::int32:
-        return GL_INT;
-    case type_t::uint32:
-        return GL_UNSIGNED_INT;
-    case type_t::bool8:
-        return GL_BOOL;
     default:
         std::terminate();
     }
@@ -150,12 +132,6 @@ constexpr static std::uint32_t to_opengl_underlying_type(type_t type)
     case type_t::mat4:
     case type_t::float32:
         return GL_FLOAT;
-    case type_t::int32:
-        return GL_INT;
-    case type_t::uint32:
-        return GL_UNSIGNED_INT;
-    case type_t::bool8:
-        return GL_BOOL;
     default:
         std::terminate();
     }
@@ -183,9 +159,6 @@ constexpr static std::uint16_t component_count(type_t type)
     case type_t::mat4:
         return 16;
     case type_t::float32:
-    case type_t::int32:
-    case type_t::uint32:
-    case type_t::bool8:
         return 1;
     default:
         std::terminate();
