@@ -259,7 +259,7 @@ private:
 
 private:
     std::uint32_t m_id {};
-    std::string_view m_name;
+    std::string m_name;
     std::vector<shader> m_shaders;
 };
 
