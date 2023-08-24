@@ -3,7 +3,9 @@
 #include "gl_functions.hpp"
 #include "vertex_buffer_layout.hpp"
 
+#include <functional>
 #include <span>
+#include <string_view>
 
 namespace glcore {
 
@@ -20,6 +22,9 @@ class uniform_buffer {
 
     void bind() const;
     void unbind() const;
+
+    void apply(const std::function<void(std::span<float> vertices,
+            const vertex_buffer_layout& layout)>& func) noexcept;
 
     ~uniform_buffer();
 
@@ -81,6 +86,23 @@ uniform_buffer::uniform_buffer(uniform_buffer&& other) noexcept
     }
 
     return *this;
+}
+
+void uniform_buffer::apply(const std::function<void(std::span<float> vertices,
+        const vertex_buffer_layout& layout)>& func) noexcept
+{
+    glBindBuffer(GL_UNIFORM_BUFFER, m_id);
+
+    // get the pointer to the vertices
+    float* vertices = static_cast<float*>(glMapBuffer(GL_UNIFORM_BUFFER, GL_READ_WRITE));
+    int32_t buffer_size {};
+    glGetBufferParameteriv(GL_UNIFORM_BUFFER, GL_BUFFER_SIZE, &buffer_size);
+
+    // apply the function
+    func(std::span { vertices, buffer_size / sizeof(float) }, m_layout);
+
+    // unmap the buffer
+    glUnmapBuffer(GL_UNIFORM_BUFFER);
 }
 
 } // namespace glcore

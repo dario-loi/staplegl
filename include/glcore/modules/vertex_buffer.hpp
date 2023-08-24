@@ -211,7 +211,7 @@ void vertex_buffer::apply(const std::function<void(std::span<float> vertices,
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
 
     // get the pointer to the vertices
-    float* vertices = static_cast<float*>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
+    float* vertices = static_cast<float*>(glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE));
     int32_t buffer_size {};
     glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &buffer_size);
 

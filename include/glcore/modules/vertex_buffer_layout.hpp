@@ -13,9 +13,10 @@
  */
 #pragma once
 
+#include <map>
+#include <ranges>
 #include <string>
 #include <string_view>
-#include <vector>
 
 #include "shader_data_type.hpp"
 
@@ -73,9 +74,12 @@ public:
      * @see vertex_attribute
      */
     vertex_buffer_layout(std::initializer_list<vertex_attribute> attributes)
-        : m_attributes { attributes }
     {
-        for (auto& [type, name, offset, elements] : m_attributes) {
+        for (const auto& attribute : attributes) {
+            m_attributes.emplace(attribute.name, attribute);
+        }
+
+        for (auto& [type, name, offset, elements] : m_attributes | std::views::values) {
             offset = m_stride;
             m_stride += shader_data_type::size(type) * elements;
         }
@@ -98,16 +102,28 @@ public:
     /**
      * @brief Get the data of the vertex buffer layout.
      *
-     * @return const std::vector<vertex_attribute>&, a reference to the vertex buffer layout data.
+     * @return std::map<std::string_view, vertex_attribute>&, the data of the vertex buffer layout.
      */
-    [[nodiscard]] const std::vector<vertex_attribute>& data() const noexcept
+    [[nodiscard]] auto get_map() const noexcept -> std::map<std::string_view, vertex_attribute> const&
     {
         return m_attributes;
     }
 
+    /**
+     * @brief Retrieve a specific vertex attribute by name.
+     *
+     * @param name the name of the vertex attribute.
+     * @return vertex_attribute the vertex attribute.
+     */
+    [[nodiscard]] vertex_attribute operator[](std::string_view name) const noexcept
+    {
+        // crashes if not found, so we're still fast but at least we know if we're wrong
+        return m_attributes.at(name);
+    }
+
 private:
     std::size_t m_stride {};
-    std::vector<vertex_attribute> m_attributes;
+    std::map<std::string_view, vertex_attribute> m_attributes;
 };
 
 } // namespace glcore

@@ -19,6 +19,7 @@
 #include <cstdint>
 #include <list>
 #include <optional>
+#include <ranges>
 
 namespace glcore {
 
@@ -163,7 +164,7 @@ vertex_array::iterator_t vertex_array::add_vertex_buffer(vertex_buffer&& vbo)
 
     vbo_ref.bind();
 
-    for (const auto& [type, name, offset, elements] : vbo_ref.layout().data()) {
+    for (const auto& [type, name, offset, elements] : vbo_ref.layout().get_map() | std::ranges::views::values) {
         glEnableVertexAttribArray(attrib_index);
         glVertexAttribPointer(
             attrib_index++,
@@ -184,7 +185,7 @@ void vertex_array::set_instance_buffer(vertex_buffer_inst&& vbo)
     glBindVertexArray(m_id);
     m_instanced_vbo->bind();
 
-    for (const auto& [type, name, offset, elements] : m_instanced_vbo->layout().data()) {
+    for (const auto& [type, name, offset, elements] : m_instanced_vbo->layout().get_map() | std::ranges::views::values) {
         glEnableVertexAttribArray(attrib_index);
         glVertexAttribPointer(
             attrib_index++,
