@@ -1,6 +1,6 @@
 /**
  * @file utility.hpp
- * @author Christian Panov
+ * @authors Christian Panov, Dario Loi
  * @brief Utility functions for parsing files.
  *
  * @date 2023-04-28

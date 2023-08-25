@@ -1,6 +1,6 @@
 /**
  * @file vertex_array.hpp
- * @author Christian Panov
+ * @authors Christian Panov, Dario Loi
  * @brief Vertex Array Object (VAO) wrapper.
  *
  * @date 2023-04-28

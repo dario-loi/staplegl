@@ -1,3 +1,12 @@
+/**
+ * @file uniform_buffer.hpp
+ * @author Dario Loi
+ * @brief Uniform Buffer Object (UBO) wrapper.
+ * @date 2023-08-24
+ *
+ * @copyright MIT License
+ */
+
 #pragma once
 
 #include "gl_functions.hpp"

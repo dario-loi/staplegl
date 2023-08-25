@@ -1,3 +1,13 @@
+/**
+ * @file texture.hpp
+ * @author Dario Loi
+ * @brief Texture abstraction.
+ * @date 2023-08-25
+ *
+ * @copyright MIT License
+ *
+ */
+
 #pragma once
 
 #include "gl_functions.hpp"

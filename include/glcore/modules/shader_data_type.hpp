@@ -1,11 +1,9 @@
 /**
  * @file shader_data_type.hpp
- * @author Christian Panov.
+ * @authors Christian Panov, Dario Loi
  * @brief Shader data type definitions.
  *
  * @date 2023-04-28
- *
- *
  *
  * @copyright MIT License
  *

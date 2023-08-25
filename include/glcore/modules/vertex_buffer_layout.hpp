@@ -1,6 +1,6 @@
 /**
  * @file vertex_buffer_layout.hpp
- * @author Christian Panov
+ * @authors Christian Panov, Dario Loi
  * @brief Vertex Buffer Layout abstraction.
  *
  * @date 2023-04-28

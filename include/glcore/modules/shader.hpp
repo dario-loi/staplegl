@@ -1,6 +1,6 @@
 /**
  * @file shader.hpp
- * @author Christian Panov
+ * @authors Christian Panov, Dario Loi
  * @brief Shader program wrapper.
  *
  * @date 2023-04-28

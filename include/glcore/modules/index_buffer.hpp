@@ -1,6 +1,6 @@
 /**
  * @file index_buffer.hpp
- * @author sChristian Panov, Dario Loi
+ * @authors Christian Panov, Dario Loi
  * @brief Element Buffer Object (EBO) wrapper.
  *
  * @date 2023-04-28

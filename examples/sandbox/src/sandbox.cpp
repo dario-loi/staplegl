@@ -1,3 +1,12 @@
+/**
+ * @file sandbox.cpp
+ * @author Dario Loi
+ * @brief Minimal example of how to use glcore.
+ *
+ * @copyright MIT License
+ *
+ */
+
 #include "glad.h"
 #include "glcore.hpp"
 #include <GLFW/glfw3.h>

@@ -1,6 +1,6 @@
 /**
  * @file vertex_buffer.hpp
- * @author Christian Panov
+ * @authors Christian Panov, Dario Loi
  * @brief Vertex Buffer Object (VBO) wrapper.
  *
  * @date 2023-04-28

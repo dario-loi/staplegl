@@ -1,3 +1,13 @@
+/**
+ * @file batches.cpp
+ * @author Dario Loi
+ * @brief Batched rendering example.
+ * @date 2023-08-04
+ *
+ * @copyright MIT License
+ *
+ */
+
 #include "glad.h"
 #include "glcore.hpp"
 
