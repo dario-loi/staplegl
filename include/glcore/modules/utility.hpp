@@ -15,24 +15,19 @@
 #include <string>
 
 namespace glcore::util {
-/**
- * @brief Reads a file into a string.
- *
- *
- * @param path Path to the file, relative to the current working directory.
- * @return std::string, the contents of the file.
- */
 static std::string read_file(std::string_view path)
 {
-    std::string result;
+    std::ifstream in(path.data(), std::ios::ate | std::ios::binary);
 
-    if (std::ifstream in(path.data(), std::ios::in); in) {
-        in.seekg(0, std::ios::end);
-        result.resize(in.tellg());
-        in.seekg(0, std::ios::beg);
-        in.read(result.data(), result.size());
-        in.close();
+    if (!in.is_open()) {
+        return {};
     }
+
+    size_t file_size = in.tellg();
+    std::string result(file_size, '\0');
+
+    in.seekg(0);
+    in.read(result.data(), file_size);
 
     return result;
 }
@@ -45,12 +40,12 @@ static std::string read_file(std::string_view path)
  */
 static std::string get_file_name(std::string_view path)
 {
-    auto last_slash = path.find_last_of("/\\");
-    last_slash = last_slash == std::string::npos ? 0 : last_slash + 1;
+    size_t last_slash = path.find_last_of("/\\");
+    last_slash = (last_slash == std::string::npos) ? 0 : last_slash + 1;
 
-    const auto last_dot = path.rfind('.');
-    const auto count = last_dot == std::string::npos ? path.size() - last_slash : last_dot - last_slash;
+    size_t last_dot = path.rfind('.');
+    size_t count = (last_dot == std::string::npos) ? path.size() - last_slash : last_dot - last_slash;
 
-    return path.substr(last_slash, count).data();
+    return std::string(path.substr(last_slash, count));
 }
 }
