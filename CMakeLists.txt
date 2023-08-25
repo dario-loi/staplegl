@@ -14,19 +14,18 @@ SET(CMAKE_COLOR_DIAGNOSTICS ON)
 # And optionally
 SET(CMAKE_VERBOSE_MAKEFILE ON)
 
-set(SANDBOX_DIR "${PROJECT_SOURCE_DIR}/examples/sandbox")
+set(EXAMPLES_DIR "${PROJECT_SOURCE_DIR}/examples")
+set(EXTERNAL_DIR "${PROJECT_SOURCE_DIR}/external")
 
 set(SANDBOX_SOURCES
-    ${SANDBOX_DIR}/src/sandbox.cpp
+    ${EXAMPLES_DIR}/sandbox.cpp
 )
-
-set(BATCHES_DIR "${PROJECT_SOURCE_DIR}/examples/batches")
 
 set(BATCHES_SOURCES
-    ${BATCHES_DIR}/src/batches.cpp
+    ${EXAMPLES_DIR}/batches.cpp
 )
 
-set(GLCORE_DIR "${PROJECT_SOURCE_DIR}/include/glcore")
+set(GLCORE_DIR "${PROJECT_SOURCE_DIR}/include")
 set(GLCORE_MODULES_DIR "${GLCORE_DIR}/modules")
 
 set(GLCORE_HEADERS
@@ -48,11 +47,11 @@ set(GLCORE_HEADERS
     ${GLCORE_MODULES_DIR}/cubemap.hpp
 )
 
-set(GLAD_INCLUDE_DIR "${SANDBOX_DIR}/external/glad/include/glad" "${SANDBOX_DIR}/external/glad/include/KHR")
-set(GLAD_SOURCE ${SANDBOX_DIR}/external/glad/src/glad.c)
+set(GLAD_INCLUDE_DIR "${EXTERNAL_DIR}/glad/include/glad" "${EXTERNAL_DIR}/glad/include/KHR")
+set(GLAD_SOURCE ${EXTERNAL_DIR}/glad/src/glad.c)
 set(GLAD_HEADERS
-    ${SANDBOX_DIR}/external/glad/include/glad/glad.h
-    ${SANDBOX_DIR}/external/glad/include/KHR/khrplatform.h
+    ${EXTERNAL_DIR}/glad/include/glad/glad.h
+    ${EXTERNAL_DIR}/glad/include/KHR/khrplatform.h
 )
 
 add_executable(sandbox ${SANDBOX_SOURCES} ${GLCORE_HEADERS} ${GLAD_HEADERS})
@@ -177,16 +176,14 @@ target_include_directories(batches PUBLIC ${GLFW3_INCLUDE_DIR}
 
 # Copy the glsl shaders to the build directory
 # and add the file as a dependency to the target
-set(SANDBOX_GLSL_SHADER_DIR "${SANDBOX_DIR}/shaders")
-
-set(BATCHES_GLSL_SHADER_DIR "${BATCHES_DIR}/shaders")
+set(SHADER_DIR "${PROJECT_SOURCE_DIR}/shaders")
 
 set(SANDBOX_GLSL_SHADERS
-    ${SANDBOX_GLSL_SHADER_DIR}/basic_shader.glsl
+    ${SHADER_DIR}/basic_shader.glsl
 )
 
 set(BATCHES_GLSL_SHADERS
-    ${BATCHES_GLSL_SHADER_DIR}/batched_shader.glsl
+    ${SHADER_DIR}/batched_shader.glsl
 )
 
 foreach(shader ${SANDBOX_GLSL_SHADERS})
