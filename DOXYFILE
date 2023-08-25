@@ -1,7 +1,7 @@
 # Doxyfile 1.9.6
 
 PROJECT_NAME           = GLCore
-PROJECT_BRIEF          = "Header-only C++17 OpenGL wrapper"
+PROJECT_BRIEF          = "Header-only C++20 OpenGL wrapper"
 OUTPUT_DIRECTORY       = /home/dario/repos/glcore/docs
 EXTRACT_ALL            = YES
 INPUT                  = /home/dario/repos/glcore/include

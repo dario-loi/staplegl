@@ -10,42 +10,39 @@
 
 namespace glcore {
 
-enum glcore_color_format : uint8_t {
-    RGB = 0b001,
-    RGBA = 0b010,
-    GRAYSCALE = 0b011,
+/**
+ * @brief A struct that represents an image's dimensions.
+ *
+ */
+struct resolution {
+
+    std::uint32_t width {};
+    std::uint32_t height {};
 };
-
-enum glcore_color_space : uint8_t {
-    LINEAR = 0b000,
-    SRGB = 0b100,
-};
-
-inline std::array<std::uint8_t, 8> opengl_color_map {
-    GL_RGB, GL_RGBA, GL_RED,
-    0, // invalid
-    GL_SRGB, GL_SRGB_ALPHA, GL_RED,
-    0 // invalid
-};
-
-std::optional<int32_t> to_opengl_color(glcore_color_format format, glcore_color_space space)
-{
-    int32_t color = opengl_color_map[static_cast<std::uint8_t>(format) | static_cast<std::uint8_t>(space)];
-    if (color == 0) {
-        return std::nullopt;
-    }
-
-    return color;
-}
 
 class texture_2d {
 public:
+    /**
+     * @brief OpenGL texture details relating to the color format and data type.
+     *
+     */
     struct texture_info_2d {
-        std::uint32_t width {};
-        std::uint32_t height {};
+        std::uint32_t internal_format {};
+        std::uint32_t format {};
+        std::uint32_t datatype {};
     };
 
-    texture_2d(std::span<const float> data, texture_info_2d info, glcore_color_format format, glcore_color_space space);
+    /**
+     * @brief Construct a new texture 2d object
+     *
+     * @param data span of floats that represent the texture data.
+     * @param res resolution of the texture.
+     * @param info descriptor of the texture's color format and data type.
+     * @param generate_mipmap whether to generate mipmaps for the texture.
+     */
+    texture_2d(std::span<const float> data, resolution res,
+        texture_info_2d info = { GL_RGBA, GL_RGBA, GL_FLOAT }, bool generate_mipmap = true);
+
     ~texture_2d();
 
     // delete copy and copy assignment operators
@@ -93,6 +90,10 @@ public:
         glActiveTexture(GL_TEXTURE0 + unit_offset);
     }
 
+    void set_data(std::span<const float> data, resolution res,
+        texture_info_2d info = { GL_RGBA, GL_RGBA, GL_FLOAT },
+        bool generate_mipmap = true);
+
     /**
      * @brief Bind the texture object.
      *
@@ -138,27 +139,38 @@ public:
         }
     }
 
+    constexpr uint32_t id() const noexcept { return m_id; }
+    constexpr texture_info_2d info() const noexcept { return m_info; }
+
 private:
     uint32_t m_id {};
     texture_info_2d m_info {};
 };
 
-texture_2d::texture_2d(std::span<const float> data, texture_info_2d info, glcore_color_format format, glcore_color_space space)
-    : m_info(info)
+texture_2d::texture_2d(std::span<const float> data, resolution res,
+    texture_info_2d info = { GL_RGBA, GL_RGBA, GL_FLOAT }, bool generate_mipmap = true)
+    : m_info { info }
 {
     glGenTextures(1, &m_id);
     glBindTexture(GL_TEXTURE_2D, m_id);
 
-    auto color = to_opengl_color(format, space);
+    glTexImage2D(GL_TEXTURE_2D, 0, info.internal_format, res.width, res.height, 0, info.format, info.datatype, data.data());
 
-    if (!color) [[unlikely]] {
-        std::terminate();
+    if (generate_mipmap) {
+        glGenerateMipmap(GL_TEXTURE_2D);
     }
 
-    glTexImage2D(GL_TEXTURE_2D, 0, *color, info.width, info.height, 0, *color, GL_FLOAT, data.data());
-    glGenerateMipmap(GL_TEXTURE_2D);
-
     glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void texture_2d::set_data(std::span<const float> data, resolution res, texture_2d::texture_info_2d info = { GL_RGBA, GL_RGBA, GL_FLOAT }, bool generate_mipmap = true)
+{
+    glTexImage2D(GL_TEXTURE_2D, 0, m_info.internal_format, res.width, res.height, 0, m_info.format, m_info.datatype, data.data());
+    m_info = info;
+
+    if (generate_mipmap) {
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
 }
 
 } // namespace glcore
