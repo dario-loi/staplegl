@@ -14,7 +14,6 @@
 #pragma once
 
 #include <map>
-#include <ranges>
 #include <string>
 #include <string_view>
 
@@ -79,9 +78,9 @@ public:
             m_attributes.emplace(attribute.name, attribute);
         }
 
-        for (auto& [type, name, offset, elements] : m_attributes | std::views::values) {
-            offset = m_stride;
-            m_stride += shader_data_type::size(type) * elements;
+        for (auto& [_, attribute] : m_attributes) {
+            attribute.offset = m_stride;
+            m_stride += shader_data_type::size(attribute.type) * attribute.element_count;
         }
     }
 

@@ -14,6 +14,18 @@
 #include <fstream>
 #include <string>
 
+namespace glcore {
+/**
+ * @brief A struct that represents an image's dimensions.
+ *
+ */
+struct resolution {
+
+    std::uint32_t width {};
+    std::uint32_t height {};
+};
+}
+
 namespace glcore::util {
 static std::string read_file(std::string_view path)
 {

@@ -31,18 +31,20 @@ set(GLCORE_MODULES_DIR "${GLCORE_DIR}/modules")
 
 set(GLCORE_HEADERS
     ${GLCORE_DIR}/glcore.hpp
-    ${GLCORE_MODULES_DIR}/gl_functions.hpp
+    ${GLCORE_MODULES_DIR}/framebuffer.hpp
     ${GLCORE_MODULES_DIR}/gl_function_placeholders.hpp
+    ${GLCORE_MODULES_DIR}/gl_functions.hpp
+    ${GLCORE_MODULES_DIR}/index_buffer.hpp
+    ${GLCORE_MODULES_DIR}/renderbuffer.hpp
+    ${GLCORE_MODULES_DIR}/shader_data_type.hpp
     ${GLCORE_MODULES_DIR}/shader.hpp
+    ${GLCORE_MODULES_DIR}/texture.hpp
+    ${GLCORE_MODULES_DIR}/uniform_buffer.hpp
     ${GLCORE_MODULES_DIR}/utility.hpp
     ${GLCORE_MODULES_DIR}/vertex_array.hpp
-    ${GLCORE_MODULES_DIR}/vertex_buffer_layout.hpp
     ${GLCORE_MODULES_DIR}/vertex_buffer.hpp
-    ${GLCORE_MODULES_DIR}/index_buffer.hpp
-    ${GLCORE_MODULES_DIR}/shader_data_type.hpp
     ${GLCORE_MODULES_DIR}/vertex_buffer_inst.hpp
-    ${GLCORE_MODULES_DIR}/uniform_buffer.hpp
-    ${GLCORE_MODULES_DIR}/texture.hpp
+    ${GLCORE_MODULES_DIR}/vertex_buffer_layout.hpp
 )
 
 set(GLAD_INCLUDE_DIR "${SANDBOX_DIR}/external/glad/include/glad" "${SANDBOX_DIR}/external/glad/include/KHR")
@@ -212,7 +214,7 @@ set(CLANG_TIDY_CHECKS
 add_custom_target(clang-tidy-sandbox
     COMMAND clang-tidy --fix -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${SANDBOX_SOURCES}
     ${SANDBOX_HEADERS} -- -I${SANDBOX_DIR}/include -I${GLAD_INCLUDE_DIR} -I${GLFW3_INCLUDE_DIR}
-    -I${GLCORE_DIR} -I${GLCORE_MODULES_DIR}/include -std=c++20
+    -I${GLCORE_DIR} -I${GLCORE_MODULES_DIR}/include -std=c++20 -fexperimental-library
     COMMENT "Running clang-tidy on sandbox"
     VERBATIM
 )
@@ -220,7 +222,7 @@ add_custom_target(clang-tidy-sandbox
 add_custom_target(clang-tidy-batches
     COMMAND clang-tidy --fix -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${BATCHES_SOURCES}
     ${BATCHES_HEADERS} -- -I${BATCHES_DIR}/include -I${GLAD_INCLUDE_DIR} -I${GLFW3_INCLUDE_DIR}
-    -I${GLCORE_DIR} -I${GLCORE_MODULES_DIR}/include -std=c++20
+    -I${GLCORE_DIR} -I${GLCORE_MODULES_DIR}/include -std=c++20 -fexperimental-library
     COMMENT "Running clang-tidy on batches"
     VERBATIM
 )

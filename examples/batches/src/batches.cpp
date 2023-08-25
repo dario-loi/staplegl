@@ -188,7 +188,7 @@ auto main() -> int
         glClearColor(0.2F, 0.3F, 0.3F, 1.0F);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        float timeNow = static_cast<float>(glfwGetTime());
+        auto timeNow = static_cast<float>(glfwGetTime());
 
         for (float& col : color) {
             col = std::sin(timeNow) / 2.0F + 0.5F;

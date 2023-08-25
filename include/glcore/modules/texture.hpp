@@ -11,24 +11,14 @@
 #pragma once
 
 #include "gl_functions.hpp"
+#include "utility.hpp"
 
-#include <array>
 #include <cstdint>
 #include <exception>
 #include <optional>
 #include <span>
 
 namespace glcore {
-
-/**
- * @brief A struct that represents an image's dimensions.
- *
- */
-struct resolution {
-
-    std::uint32_t width {};
-    std::uint32_t height {};
-};
 
 class texture_2d {
 public:

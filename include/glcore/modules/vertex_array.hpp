@@ -19,7 +19,6 @@
 #include <cstdint>
 #include <list>
 #include <optional>
-#include <ranges>
 
 namespace glcore {
 
@@ -164,15 +163,15 @@ vertex_array::iterator_t vertex_array::add_vertex_buffer(vertex_buffer&& vbo)
 
     vbo_ref.bind();
 
-    for (const auto& [type, name, offset, elements] : vbo_ref.layout().get_map() | std::ranges::views::values) {
+    for (const auto& [_, attribute] : vbo_ref.layout().get_map()) {
         glEnableVertexAttribArray(attrib_index);
         glVertexAttribPointer(
             attrib_index++,
-            shader_data_type::component_count(type) * elements,
-            shader_data_type::to_opengl_underlying_type(type),
+            shader_data_type::component_count(attribute.type) * attribute.element_count,
+            shader_data_type::to_opengl_underlying_type(attribute.type),
             GL_FALSE,
             vbo_ref.layout().stride(),
-            reinterpret_cast<const void*>(offset));
+            reinterpret_cast<const void*>(attribute.offset));
     }
 
     return std::prev(m_vertex_buffers.end());
@@ -185,15 +184,15 @@ void vertex_array::set_instance_buffer(vertex_buffer_inst&& vbo)
     glBindVertexArray(m_id);
     m_instanced_vbo->bind();
 
-    for (const auto& [type, name, offset, elements] : m_instanced_vbo->layout().get_map() | std::ranges::views::values) {
+    for (const auto& [_, attribute] : m_instanced_vbo->layout().get_map()) {
         glEnableVertexAttribArray(attrib_index);
         glVertexAttribPointer(
             attrib_index++,
-            shader_data_type::component_count(type) * elements,
-            shader_data_type::to_opengl_underlying_type(type),
+            shader_data_type::component_count(attribute.type) * attribute.element_count,
+            shader_data_type::to_opengl_underlying_type(attribute.type),
             GL_FALSE,
             m_instanced_vbo->layout().stride(),
-            reinterpret_cast<const void*>(offset));
+            reinterpret_cast<const void*>(attribute.offset));
         glVertexAttribDivisor(attrib_index - 1, 1);
     }
 }
