@@ -45,6 +45,7 @@ set(GLCORE_HEADERS
     ${GLCORE_MODULES_DIR}/vertex_buffer.hpp
     ${GLCORE_MODULES_DIR}/vertex_buffer_inst.hpp
     ${GLCORE_MODULES_DIR}/vertex_buffer_layout.hpp
+    ${GLCORE_MODULES_DIR}/cubemap.hpp
 )
 
 set(GLAD_INCLUDE_DIR "${SANDBOX_DIR}/external/glad/include/glad" "${SANDBOX_DIR}/external/glad/include/KHR")

@@ -33,8 +33,8 @@ public:
     framebuffer(framebuffer&&) noexcept;
     framebuffer& operator=(framebuffer&&) noexcept;
 
-    void add_texture(size_t index, std::span<const float> data, resolution res, texture_2d::texture_info_2d info = { GL_RGBA, GL_RGBA, GL_FLOAT }, bool generate_mipmap = false);
-    void add_texture(size_t index, resolution res, texture_2d::texture_info_2d info = { GL_RGBA, GL_RGBA, GL_FLOAT }, bool generate_mipmap = false);
+    void add_texture(size_t index, std::span<const float> data, resolution res, texture_color info = { GL_RGBA, GL_RGBA, GL_FLOAT }, bool generate_mipmap = false);
+    void add_texture(size_t index, resolution res, texture_color info = { GL_RGBA, GL_RGBA, GL_FLOAT }, bool generate_mipmap = false);
     void add_texture(size_t index, texture_2d&& texture);
     void add_renderbuffer(resolution res, framebuffer_attachment attachment = ATTACH_DEPTH_STENCIL_BUFFER);
 
@@ -181,7 +181,7 @@ void framebuffer::add_renderbuffer(resolution res, framebuffer_attachment attach
  *
  * @warning the framebuffer MUST be bound before calling this function.
  */
-void framebuffer::add_texture(size_t index, resolution res, texture_2d::texture_info_2d info, bool generate_mipmap)
+void framebuffer::add_texture(size_t index, resolution res, texture_color info, bool generate_mipmap)
 {
     m_textures[index].emplace(std::span<const float>(), res, info, generate_mipmap);
 }
@@ -196,7 +196,7 @@ void framebuffer::add_texture(size_t index, resolution res, texture_2d::texture_
  *
  * @warning the framebuffer MUST be bound before calling this function.
  */
-void framebuffer::add_texture(size_t index, std::span<const float> data, resolution res, texture_2d::texture_info_2d info, bool generate_mipmap)
+void framebuffer::add_texture(size_t index, std::span<const float> data, resolution res, texture_color info, bool generate_mipmap)
 {
     m_textures[index].emplace(data, res, info, generate_mipmap);
 
