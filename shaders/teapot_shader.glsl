@@ -1,5 +1,4 @@
 #type vertex
-
 #version 440 core
 
 layout(std140, binding = 0) uniform u_matrices
@@ -7,7 +6,6 @@ layout(std140, binding = 0) uniform u_matrices
     mat4 projection;
     mat4 view;
     mat4 model;
-    vec4 light_pos;
     vec4 camera_pos;
 };
 
@@ -18,8 +16,7 @@ void main()
 {
     vec4 viewPos = view * model * vec4(aPos, 1.0);
 
-    depth = viewPos.z;
-
+    depth = length(viewPos.xyz);
     gl_Position = projection * viewPos;
 }
 
@@ -32,11 +29,12 @@ out vec4 FragColor;
 
 void main()
 {
-    float maxDepth = 100.0; // Far clip plane distance
-    float depthFactor = depth / maxDepth; // Normalize depth
+
+    float teapotDistance = 4.0F;
+    float depthFactor = depth / teapotDistance; // Normalize depth
 
     // Calculate shading color based on depth
-    vec3 shadeColor = vec3(1.0) - depthFactor * 0.2; // Make it slightly darker
+    vec3 shadeColor = clamp(vec3(0.61F) - 0.25F * vec3(depthFactor), 0.F, 1.F); // Make it slightly darker
 
     FragColor = vec4(shadeColor, 1.0);
 }

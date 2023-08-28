@@ -10,18 +10,24 @@
 #include "glad.h"
 #include "glcore.hpp"
 #include <GLFW/glfw3.h>
+
 #include <algorithm>
 #include <array>
 #include <iostream>
 #include <span>
 #include <utility>
 
+// quick and dirty teapot and skybox models as C headers.
+#include "box.h"
 #include "teapot.h"
 
 // glm linear algebra library, NOT needed for glcore, just for the example.
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 /*
 
@@ -38,6 +44,24 @@ void processInput(GLFWwindow* window);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
+void GLAPIENTRY
+MessageCallback(GLenum source [[maybe_unused]],
+    GLenum type,
+    GLuint id [[maybe_unused]],
+    GLenum severity,
+    GLsizei length [[maybe_unused]],
+    const GLchar* message,
+    const void* userParam [[maybe_unused]])
+{
+    if (type == GL_DEBUG_TYPE_OTHER || type == GL_DEBUG_TYPE_PERFORMANCE)
+        return;
+    fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n",
+        (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
+        type, severity, message);
+}
+
+float aspect_ratio = static_cast<double>(SCR_WIDTH) / static_cast<double>(SCR_HEIGHT);
+
 auto main() -> int
 {
     // glfw: initialize and configure
@@ -45,6 +69,8 @@ auto main() -> int
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+
+    glfwWindowHint(GLFW_SAMPLES, 4); // MSAA
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
@@ -70,17 +96,27 @@ auto main() -> int
     }
 
     glEnable(GL_DEPTH_TEST);
+    // MSAA
+    glEnable(GL_MULTISAMPLE);
+    glEnable(GL_DEBUG_OUTPUT);
 
-    glcore::shader_program teapot { "teapot_shader", "./shaders/teapot_shader.glsl" };
+    glDebugMessageCallback(MessageCallback, nullptr);
+
+    glcore::shader_program teapot_shader { "teapot_shader", "./shaders/teapot_shader.glsl" };
+    glcore::shader_program skybox_shader { "skybox_shader", "./shaders/skybox_shader.glsl" };
+
+    skybox_shader.upload_uniform1i("skybox", 0);
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
+
+    // teapot
+    glcore::vertex_buffer VBO { { teapot_vertices, TEAPOT_VERTEX_COUNT }, glcore::driver_draw_hint::STATIC_DRAW };
 
     std::vector<unsigned int> teapot_indices(TEAPOT_VERTEX_COUNT / 3);
 
     std::generate(teapot_indices.begin(), teapot_indices.end(), [n = 0]() mutable { return n++; });
 
-    glcore::vertex_buffer VBO { { teapot_vertices, TEAPOT_VERTEX_COUNT }, glcore::driver_draw_hint::STATIC_DRAW };
     glcore::index_buffer EBO { teapot_indices };
 
     using namespace glcore::shader_data_type;
@@ -93,47 +129,83 @@ auto main() -> int
 
     VAO.add_vertex_buffer(std::move(VBO));
     VAO.set_index_buffer(std::move(EBO));
+    VAO.unbind();
 
-    teapot.bind();
+    teapot_shader.bind();
+
+    // skybox
+
+    glcore::vertex_buffer skybox_VBO { { skybox_vertices, SKYBOX_VERTS },
+        glcore::driver_draw_hint::STATIC_DRAW };
+
+    std::vector<unsigned int> skybox_indices(SKYBOX_VERTS / 3);
+    std::generate(skybox_indices.begin(), skybox_indices.end(), [n = 0]() mutable { return n++; });
+
+    glcore::index_buffer skybox_EBO { skybox_indices };
+    skybox_VBO.set_layout(layout);
+
+    glcore::vertex_array skybox_VAO;
+
+    skybox_VAO.add_vertex_buffer(std::move(skybox_VBO));
+    skybox_VAO.set_index_buffer(std::move(skybox_EBO));
+    skybox_VAO.unbind();
 
     glm::vec4 light_pos { 0.0F, 0.0F, 1.0F, 1.0F };
-
     glm::vec4 look_dir { 0.0F, 0.0F, -1.0F, 1.0F };
 
     // get projection matrix
     glm::mat4 model = glm::mat4(1.0F);
 
-    // invert the y axis
-    glm::mat4 flip_vert = glm::scale(model, glm::vec3(1.0F, -1.0F, 1.0F));
-
-    glm::mat4 projection = glm::perspective(glm::radians(75.0F), static_cast<float>(SCR_WIDTH) / static_cast<float>(SCR_HEIGHT), 0.01F, 100.0F);
-
     glcore::vertex_buffer_layout uniform_block_layout {
         { shader_type::mat4, "projection" },
         { shader_type::mat4, "view" },
         { shader_type::mat4, "model" },
-        { shader_type::vec4, "light_pos" },
         { shader_type::vec4, "camera_pos" }
     };
 
     glcore::uniform_buffer uniform_block { uniform_block_layout, 0 };
 
-    uniform_block.bind();
+    // load up cubemap
+    std::array<std::string, 6> faces {
+        "./assets/skybox/right.jpg", "./assets/skybox/left.jpg", "./assets/skybox/top.jpg",
+        "./assets/skybox/bottom.jpg", "./assets/skybox/front.jpg", "./assets/skybox/back.jpg"
+    };
 
-    uniform_block.set_attribute_data(std::span { glm::value_ptr(projection), 16 }, "projection", 0);
-    uniform_block.set_attribute_data(std::span { glm::value_ptr(flip_vert), 16 }, "model", 0);
-    uniform_block.set_attribute_data(std::span { glm::value_ptr(light_pos), 4 }, "light_pos", 0);
+    std::array<std::byte*, 6> cube_data;
+
+    int width, height, nrChannels;
+
+    int i = 0;
+    for (auto& face : faces) {
+        std::byte* data = reinterpret_cast<std::byte*>(stbi_load(face.c_str(), &width, &height, &nrChannels, 0));
+        if (data == nullptr) {
+            std::cout << "Failed to load cubemap texture" << std::endl;
+            return -1;
+        }
+
+        cube_data[i++] = data;
+    }
+
+    glcore::cubemap skybox {
+        cube_data, { width, height }, { GL_RGB, GL_RGB, GL_UNSIGNED_BYTE }, true
+    };
+
+    skybox.bind();
+    skybox.set_unit(0);
+
+    uniform_block.bind();
 
     while (glfwWindowShouldClose(window) == 0) {
         // input
         // -----
         processInput(window);
 
+        // set the various matrices as uniforms
         float time = static_cast<float>(glfwGetTime());
 
-        float camX = sin(time) * 3.0F;
-        float camZ = cos(time) * 3.0F;
-        float camY = sin(time) * 1.2F + 0.6F; // slightly over the teapot.
+        float camX = sin(time / 5.F) * 4.0F;
+        float camZ = cos(time / 5.F) * 4.0F;
+        float camY = sin(time / 5.F) + 0.5F; // slightly over the teapot.
 
         glm::vec4 camera_pos { camX, camY, camZ, 1.0F };
         const glm::vec4 camera_target { 0.0F, 0.0F, -.0F, 1.0F };
@@ -141,28 +213,38 @@ auto main() -> int
         glm::mat4 view = glm::lookAt(glm::vec3(camera_pos), glm::vec3(0.0F, 0.0F, 0.0F),
             glm::vec3(0.0F, 1.0F, 0.0F));
 
+        glm::mat4 projection = glm::perspective(glm::radians(75.0F), aspect_ratio, 0.01F, 100.0F);
         uniform_block.set_attribute_data(std::span { glm::value_ptr(camera_pos), 4 }, "camera_pos", 0);
         uniform_block.set_attribute_data(std::span { glm::value_ptr(view), 16 }, "view", 0);
+        uniform_block.set_attribute_data(std::span { glm::value_ptr(projection), 16 }, "projection", 0);
 
         // render
-        // ------
 
-        // clear sky blue
-        glClearColor(0.529F, 0.808F, 0.922F, 1.0F);
+        // clear total black
+        glClearColor(0.F, 0.F, 0.F, 1.0F);
         glClear(GL_COLOR_BUFFER_BIT);
         glClear(GL_DEPTH_BUFFER_BIT);
+        // ------
 
-        // draw our first triangle
-        VAO.bind(); // seeing as we only have a single VAO there's
-                    // no need to bind it every time, but we'll do
-                    // so to keep things a bit more organized
-        // glDrawArrays(GL_TRIANGLES, 0, 6);
+        skybox_VAO.bind();
+        skybox_shader.bind();
+
+        glm::mat4 skybox_mat = glm::scale(glm::mat4(1.0F), glm::vec3(50.0F, 50.0F, 50.0F));
+        uniform_block.set_attribute_data(std::span { glm::value_ptr(skybox_mat), 16 }, "model", 0);
+
+        glDepthMask(GL_FALSE);
+        glDrawElements(GL_TRIANGLES, skybox_VAO.index_data().count(), GL_UNSIGNED_INT, nullptr);
+        glDepthMask(GL_TRUE);
+
+        // invert the y axis
+        glm::mat4 model_mat = glm::scale(model, glm::vec3(1.0F, -1.0F, 1.0F));
+        uniform_block.set_attribute_data(std::span { glm::value_ptr(model_mat), 16 }, "model", 0);
+
+        VAO.bind();
+        teapot_shader.bind();
+
         glDrawElements(GL_TRIANGLES, VAO.index_data().count(), GL_UNSIGNED_INT, nullptr);
-        // glBindVertexArray(0); // no need to unbind it every time
 
-        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved
-        // etc.)
-        // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
@@ -194,4 +276,5 @@ void framebuffer_size_callback(GLFWwindow* /*window*/, int width, int height)
     // make sure the viewport matches the new window dimensions; note that width
     // and height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
+    aspect_ratio = static_cast<double>(width) / static_cast<double>(height);
 }

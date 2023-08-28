@@ -124,6 +124,8 @@ public:
      */
     void unbind() const;
 
+    void upload_uniform1i(std::string_view name, int val) const;
+
     /**
      * @brief Upload a float uniform to the shader program.
      *
@@ -306,6 +308,11 @@ void shader_program::unbind() const
     glUseProgram(0);
 }
 
+void shader_program::upload_uniform1i(std::string_view name, int val) const
+{
+    glUniform1i(uniform_location(name), val);
+}
+
 void shader_program::upload_uniform1f(std::string_view name, float val) const
 {
     glUniform1f(uniform_location(name), val);
@@ -350,16 +357,29 @@ std::uint32_t shader_program::create_program() const
 {
     const std::uint32_t program { glCreateProgram() };
 
-    std::vector<std::uint32_t> shader_ids;
-    shader_ids.reserve(m_shaders.size());
+    std::vector<std::uint32_t> shader_ids(m_shaders.size());
 
-    for (const auto& [type, src] : m_shaders)
+    for (const auto& [type, src] : m_shaders) {
         shader_ids.push_back(compile(type, src));
+    }
 
-    for (const auto& id : shader_ids)
+    for (const auto& id : shader_ids) {
         glAttachShader(program, id);
+    }
     glLinkProgram(program);
     glValidateProgram(program);
+
+    int success;
+    glGetProgramiv(program, GL_VALIDATE_STATUS, &success);
+    if (!success) {
+        int max_length {};
+        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &max_length);
+        std::vector<char> info_log(max_length);
+        glGetProgramInfoLog(program, max_length, &max_length, &info_log[0]);
+        std::fwrite(info_log.data(), info_log.size(), 1, stdout);
+        std::fwrite("\n", 1, 1, stdout);
+        std::terminate();
+    }
 
     for (const auto& id : shader_ids)
         glDetachShader(program, id);
@@ -411,7 +431,15 @@ std::vector<shader> shader_program::parse_shaders(const std::string& source) con
 
 int shader_program::uniform_location(std::string_view name) const
 {
-    return glGetUniformLocation(m_id, name.data());
+    static std::unordered_map<std::string_view, int> uniform_cache;
+
+    if (uniform_cache.find(name) != uniform_cache.end()) [[likely]] {
+        return uniform_cache[name];
+    } else {
+        const int location { glGetUniformLocation(m_id, name.data()) };
+        uniform_cache[name] = location;
+        return location;
+    }
 }
 
 bool shader_program::is_valid(std::uint32_t id) const

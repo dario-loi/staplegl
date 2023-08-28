@@ -37,6 +37,8 @@ auto main() -> int
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+
+    glfwWindowHint(GLFW_SAMPLES, 4); // MSAA
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
 #ifdef __APPLE__
@@ -53,6 +55,8 @@ auto main() -> int
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+    glEnable(GL_MULTISAMPLE); // MSAA
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------

@@ -43,7 +43,12 @@ public:
     texture_2d(std::span<const float> data, resolution res,
         texture_color color = { GL_RGBA, GL_RGBA, GL_FLOAT }, bool generate_mipmap = true);
 
-    ~texture_2d();
+    ~texture_2d()
+    {
+        if (m_id != 0) {
+            glDeleteTextures(1, &m_id);
+        }
+    }
 
     // delete copy and copy assignment operators
 
@@ -131,20 +136,13 @@ public:
         return m_id;
     }
 
-    ~texture_2d()
-    {
-        if (m_id != 0) {
-            glDeleteTextures(1, &m_id);
-        }
-    }
-
 private:
     uint32_t m_id {};
     texture_color m_color {};
 };
 
 texture_2d::texture_2d(std::span<const float> data, resolution res,
-    texture_color color = { GL_RGBA, GL_RGBA, GL_FLOAT }, bool generate_mipmap = true)
+    texture_color color, bool generate_mipmap)
     : m_color { color }
 {
     glGenTextures(1, &m_id);
@@ -162,7 +160,7 @@ texture_2d::texture_2d(std::span<const float> data, resolution res,
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void texture_2d::set_data(std::span<const float> data, resolution res, texture_color color = { GL_RGBA, GL_RGBA, GL_FLOAT }, bool generate_mipmap = true)
+void texture_2d::set_data(std::span<const float> data, resolution res, texture_color color, bool generate_mipmap)
 {
     glTexImage2D(GL_TEXTURE_2D, 0, m_color.internal_format, res.width, res.height, 0, m_color.format, m_color.datatype, data.data());
     m_color = color;

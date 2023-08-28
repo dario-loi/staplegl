@@ -20,8 +20,10 @@
 
 #pragma once
 
+#include "modules/cubemap.hpp"
 #include "modules/index_buffer.hpp"
 #include "modules/shader.hpp"
+#include "modules/texture.hpp"
 #include "modules/uniform_buffer.hpp"
 #include "modules/vertex_array.hpp"
 #include "modules/vertex_buffer.hpp"

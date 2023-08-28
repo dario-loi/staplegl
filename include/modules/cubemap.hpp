@@ -15,6 +15,7 @@
 #include "utility.hpp"
 
 #include <array>
+#include <cstddef>
 #include <cstdint>
 #include <span>
 
@@ -23,8 +24,13 @@ namespace glcore {
 class cubemap {
 
 public:
-    cubemap(std::span<std::span<const float>, 6>, resolution res, texture_color color = { GL_RGBA, GL_RGBA, GL_FLOAT }, bool generate_mipmaps = false);
-    ~cubemap();
+    cubemap(std::span<std::byte*, 6> data, resolution res, texture_color color = { GL_RGBA, GL_RGBA, GL_FLOAT }, bool generate_mipmaps = false);
+    ~cubemap() noexcept
+    {
+        if (m_id != 0) {
+            glDeleteTextures(1, &m_id);
+        }
+    }
 
     // delete copy and copy assignment operators
 
@@ -108,27 +114,46 @@ private:
     resolution m_res {};
 };
 
-cubemap::cubemap(std::span<std::span<const float>, 6> data, resolution res, texture_color color, bool generate_mipmaps)
+cubemap::cubemap(std::span<std::byte*, 6> data, resolution res, texture_color color, bool generate_mipmaps)
     : m_color(color)
     , m_res(res)
 {
-    glCreateTextures(GL_TEXTURE_CUBE_MAP, 1, &m_id);
+    glGenTextures(1, &m_id);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, m_id);
 
     glTextureParameteri(m_id, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTextureParameteri(m_id, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTextureParameteri(m_id, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
     glTextureParameteri(m_id, GL_TEXTURE_MIN_FILTER, generate_mipmaps ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
     glTextureParameteri(m_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     glTextureStorage2D(m_id, 1, m_color.internal_format, m_res.width, m_res.height);
 
+    int i = 0;
     for (auto const& face : data) {
-        glTextureSubImage2D(m_id, 0, 0, 0, m_res.width, m_res.height, m_color.format, m_color.datatype, face.data());
+        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i++, 0, m_color.internal_format, m_res.width, m_res.height, 0, m_color.format, m_color.datatype, face);
     }
 
     if (generate_mipmaps) {
         glGenerateTextureMipmap(m_id);
     }
 };
+
+void cubemap::bind() const
+{
+    glBindTexture(GL_TEXTURE_CUBE_MAP, m_id);
+}
+
+void cubemap::unbind() const
+{
+    glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+}
+
+void cubemap::set_unit(std::uint32_t unit_offset) const
+{
+    glActiveTexture(GL_TEXTURE0 + unit_offset);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, m_id);
+}
 
 } // namespace glcore

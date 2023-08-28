@@ -178,17 +178,10 @@ target_include_directories(batches PUBLIC ${GLFW3_INCLUDE_DIR}
 # and add the file as a dependency to the target
 set(SHADER_DIR "${PROJECT_SOURCE_DIR}/shaders")
 
-set(SANDBOX_GLSL_SHADERS
-    ${SHADER_DIR}/basic_shader.glsl
-)
-
-set(BATCHES_GLSL_SHADERS
-    ${SHADER_DIR}/batched_shader.glsl
-)
-
 set(EXAMPLES_SHADERS
     ${SHADER_DIR}/basic_shader.glsl
     ${SHADER_DIR}/batched_shader.glsl
+    ${SHADER_DIR}/skybox_shader.glsl
     ${SHADER_DIR}/teapot_shader.glsl
 )
 
@@ -196,6 +189,14 @@ foreach(shader ${EXAMPLES_SHADERS})
     get_filename_component(shader_name ${shader} NAME)
     configure_file(${shader} ${CMAKE_CURRENT_BINARY_DIR}/shaders/${shader_name} COPYONLY)
 endforeach(shader)
+
+set(ASSETS_DIR "${EXTERNAL_DIR}/assets")
+
+set(SKYBOX_DIR "${ASSETS_DIR}/skybox")
+
+foreach(face IN ITEMS right left top bottom front back)
+    configure_file(${SKYBOX_DIR}/${face}.jpg ${CMAKE_CURRENT_BINARY_DIR}/assets/skybox/${face}.jpg COPYONLY)
+endforeach(face)
 
 # add warnings to executable targets
 if(MSVC)
@@ -237,6 +238,7 @@ set(TEAPOT_DATA
 )
 
 set(GLM_DIR "${EXTERNAL_DIR}/glm")
+set(STB_DIR "${EXTERNAL_DIR}/stb")
 
 add_executable(teapot ${TEAPOT_SOURCES} ${GLCORE_HEADERS} ${GLAD_HEADERS} ${TEAPOT_DATA})
 target_include_directories(teapot PUBLIC
@@ -245,6 +247,7 @@ target_include_directories(teapot PUBLIC
     ${GLAD_INCLUDE_DIR}
     ${ASSETS_DIR}
     ${GLM_DIR}
+    ${STB_DIR}
 )
 target_link_libraries(teapot ${LIBS})
 target_include_directories(teapot PUBLIC ${GLFW3_INCLUDE_DIR}
