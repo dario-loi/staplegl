@@ -12,15 +12,32 @@
 #pragma once
 #include "gl_functions.hpp"
 #include "vertex_buffer_layout.hpp"
+#include <concepts>
 #include <functional>
 #include <span>
 
 namespace glcore {
 
+template <typename T>
+concept plain_old_data = std::is_standard_layout_v<T> && std::is_trivial_v<T>;
+
 enum driver_draw_hint {
     STATIC_DRAW = GL_STATIC_DRAW,
     DYNAMIC_DRAW = GL_DYNAMIC_DRAW,
     STREAM_DRAW = GL_STREAM_DRAW
+};
+
+/**
+ * @brief Enum that specifies the access specifier of a buffer.
+ *
+ * @warning this is **not** a hint, although the spec does not require the driver to crash if the user
+ * violates the access specifier, it is still undefined behaviour and anything goes.
+ *
+ */
+enum driver_access_specifier {
+    READ_ONLY = GL_READ_ONLY,
+    WRITE_ONLY = GL_WRITE_ONLY,
+    READ_WRITE = GL_READ_WRITE
 };
 
 /**
@@ -102,20 +119,25 @@ public:
     /**
      * @brief Applies a function to the vertices of the vertex buffer object.
      *
-     * @note See documentation for an explanation of how this works internally.
+     * @note Ensure that T is tightly packed (no padding), as the vertices of the vertex buffer object are tightly packed.
      *
      * @details This function provides an API for low-level manipulation of the vertices of the vertex buffer object,
      * this can be useful to perform a number of modifications to the vertices without issuing multiple API calls, for
      * example in the case of an instanced vertex buffer, one can update the whole buffer with a single call.
      *
-     * Internally, this works by obtaining a pointer to the vertices of the vertex buffer object, and then passing it
-     * to the user-provided function along with the layout of the vertex buffer object, so that the user has all the
-     * information needed to perform the desired modifications.
+     * Internally, this works by obtaining a pointer to the vertices of the vertex buffer object and reinterpreting
+     * it as a user-provided type
      *
      * @param func the function to be applied to the vertices of the vertex buffer object.
+     * @param access_specifier the access mode of the buffer, defaults to READ_WRITE, take care not to
+     * violate the specifier (reading a write-only buffer, writing a read-only buffer, etc.) as it
+     * results in undefined behaviour. If unsure, use READ_WRITE.
+     * @tparam T a type that represents a vertex of the vertex buffer object.
+     *
+     * @see plain_old_data
      */
-    void apply(const std::function<void(std::span<float> vertices,
-            const vertex_buffer_layout& layout)>& func) noexcept;
+    template <plain_old_data T>
+    void apply(const std::function<void(std::span<T> vertices)>& func, driver_access_specifier access_specifier = glcore::READ_WRITE) noexcept;
 
 protected:
     std::uint32_t m_id {};
@@ -205,20 +227,17 @@ void vertex_buffer::set_data(std::span<const float> vertices) noexcept
     glBufferData(GL_ARRAY_BUFFER, vertices.size_bytes(), vertices.data(), GL_STATIC_DRAW);
 }
 
-void vertex_buffer::apply(const std::function<void(std::span<float> vertices,
-        const vertex_buffer_layout& layout)>& func) noexcept
+template <plain_old_data T>
+void vertex_buffer::apply(const std::function<void(std::span<T> vertices)>& func, driver_access_specifier access_specifier) noexcept
 {
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
 
-    // get the pointer to the vertices
-    float* vertices = static_cast<float*>(glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE));
     int32_t buffer_size {};
     glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &buffer_size);
 
-    // apply the function
-    func(std::span { vertices, buffer_size / sizeof(float) }, m_layout);
+    func(std::span { reinterpret_cast<T*>(glMapBuffer(GL_ARRAY_BUFFER, access_specifier)),
+        buffer_size / sizeof(T) });
 
-    // unmap the buffer
     glUnmapBuffer(GL_ARRAY_BUFFER);
 }
 

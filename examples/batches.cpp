@@ -199,28 +199,30 @@ auto main() -> int
             UBO_block.set_attribute_data(std::span { &color[i], 1 }, "u_color", i);
         }
 
-        VAO.instanced_data()->apply(
-            [](std::span<float> data,
-                glcore::vertex_buffer_layout const& layout [[maybe_unused]]) {
-                // reinterpret the data as a 3D vector
-                struct vec3 {
-                    float x;
-                    float y;
-                    float z;
-                };
+// define a struct for the instance data
+#pragma pack(push, 1)
+        struct vec3 {
+            float x;
+            float y;
+            float z;
+        };
+#pragma pack(pop)
 
-                static_assert(sizeof(vec3) == 3 * sizeof(float));
-                std::span<vec3> vec_data { reinterpret_cast<vec3*>(data.data()),
-                    data.size() / 3 };
+        static_assert(sizeof(vec3) == 3 * sizeof(float));
 
-                std::for_each(std::execution::par_unseq, vec_data.begin(), vec_data.end(),
-                    [](vec3& v) {
+        // apply a lambda to the instance data, reading it as a span of vec3
+        VAO.instanced_data()->apply<vec3>(
+            [](std::span<vec3> data) {
+                // thanks to std::span, we can pass this GPU buffer to a parallel algorithm!
+                std::for_each(std::execution::par_unseq, data.begin(), data.end(),
+                    [](vec3& v) { // randomly shift the position of the instance left or right
                         const float speed = ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) - 0.5F) / 1000.0F;
                         v.x += speed;
                     });
             });
 
-        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr,
+        // draw the instances
+        glDrawElementsInstanced(GL_TRIANGLES, VAO.index_data().count(), GL_UNSIGNED_INT, nullptr,
             VAO.instanced_data()->instance_count());
 
         glfwSwapBuffers(window);
