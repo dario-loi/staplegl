@@ -34,26 +34,6 @@ public:
     void unbind() const;
 
     /**
-     * @brief Applies a function to the vertices of the vertex buffer object.
-     *
-     * @details Allows the user to apply a function to the vertices of the Uniform Buffer Object.
-     * The function works in a similar way to the apply() method of the vertex_buffer class, however,
-     * you should be aware that the layout of the vertices is not 100% guaranteed to be the same on
-     * the host and on the GPU, so you should be careful when using this method.
-     *
-     * In particular, it is recommended to explicitly state a layout standard on GLSL, such as std140.
-     *
-     * @note If no other thread is interacting with the OpenGL state machine, the UBO is guaranteed to be
-     * bound to the GL_UNIFORM_BUFFER target when `func` is called. This can be useful if you want to
-     * query the OpenGL state machine for information about the UBO's layout.
-     *
-     * @param func the function to apply to the vertices, it should take a std::span<float> and a vertex_buffer_layout, which
-     * will be provided by the Uniform Buffer Object.
-     */
-    void apply(const std::function<void(std::span<float> vertices,
-            const vertex_buffer_layout& layout)>& func) noexcept;
-
-    /**
      * @brief Set the attribute data object
      *
      * @warning This method does *NOT* bind the UBO, so you should make sure that the UBO is bound before calling this method.
@@ -148,23 +128,6 @@ uniform_buffer::uniform_buffer(uniform_buffer&& other) noexcept
     }
 
     return *this;
-}
-
-void uniform_buffer::apply(const std::function<void(std::span<float> vertices,
-        const vertex_buffer_layout& layout)>& func) noexcept
-{
-    glBindBuffer(GL_UNIFORM_BUFFER, m_id);
-
-    // get the pointer to the vertices
-    float* vertices = static_cast<float*>(glMapBuffer(GL_UNIFORM_BUFFER, GL_READ_WRITE));
-    int32_t buffer_size {};
-    glGetBufferParameteriv(GL_UNIFORM_BUFFER, GL_BUFFER_SIZE, &buffer_size);
-
-    // apply the function
-    func(std::span { vertices, buffer_size / sizeof(float) }, m_layout);
-
-    // unmap the buffer
-    glUnmapBuffer(GL_UNIFORM_BUFFER);
 }
 
 void uniform_buffer::set_attribute_data(std::span<const float> uniform_data, const std::string& name)
