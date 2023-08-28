@@ -35,7 +35,7 @@ struct vertex_attribute {
     std::uint32_t offset {};
     std::size_t element_count { 1 };
 
-    vertex_attribute() = delete;
+    vertex_attribute() = default;
     vertex_attribute(shader_data_type::shader_type in_type, std::string_view in_name)
         : type { in_type }
         , name { in_name }
@@ -49,6 +49,12 @@ struct vertex_attribute {
         , element_count { element_count }
     {
     }
+
+    vertex_attribute(const vertex_attribute&) noexcept = default;
+    vertex_attribute& operator=(const vertex_attribute&) noexcept = default;
+
+    vertex_attribute(vertex_attribute&&) noexcept = default;
+    vertex_attribute& operator=(vertex_attribute&&) noexcept = default;
 };
 
 /**
@@ -75,11 +81,9 @@ public:
     vertex_buffer_layout(std::initializer_list<vertex_attribute> attributes)
     {
         for (const auto& attribute : attributes) {
+            auto key = attribute.name;
             m_attributes.emplace(attribute.name, attribute);
-        }
-
-        for (auto& [_, attribute] : m_attributes) {
-            attribute.offset = m_stride;
+            m_attributes[key].offset = m_stride;
             m_stride += shader_data_type::size(attribute.type) * attribute.element_count;
         }
     }

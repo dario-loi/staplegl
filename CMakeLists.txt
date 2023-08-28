@@ -186,12 +186,13 @@ set(BATCHES_GLSL_SHADERS
     ${SHADER_DIR}/batched_shader.glsl
 )
 
-foreach(shader ${SANDBOX_GLSL_SHADERS})
-    get_filename_component(shader_name ${shader} NAME)
-    configure_file(${shader} ${CMAKE_CURRENT_BINARY_DIR}/shaders/${shader_name} COPYONLY)
-endforeach(shader)
+set(EXAMPLES_SHADERS
+    ${SHADER_DIR}/basic_shader.glsl
+    ${SHADER_DIR}/batched_shader.glsl
+    ${SHADER_DIR}/teapot_shader.glsl
+)
 
-foreach(shader ${BATCHES_GLSL_SHADERS})
+foreach(shader ${EXAMPLES_SHADERS})
     get_filename_component(shader_name ${shader} NAME)
     configure_file(${shader} ${CMAKE_CURRENT_BINARY_DIR}/shaders/${shader_name} COPYONLY)
 endforeach(shader)
@@ -223,4 +224,29 @@ add_custom_target(clang-tidy-batches
     -I${GLCORE_DIR} -I${GLCORE_MODULES_DIR}/include -std=c++20 -fexperimental-library
     COMMENT "Running clang-tidy on batches"
     VERBATIM
+)
+
+set(TEAPOT_SOURCES
+    ${EXAMPLES_DIR}/teapot.cpp
+)
+
+set(ASSETS_DIR "${EXTERNAL_DIR}/assets")
+
+set(TEAPOT_DATA
+    ${ASSETS_DIR}/teapot.h
+)
+
+set(GLM_DIR "${EXTERNAL_DIR}/glm")
+
+add_executable(teapot ${TEAPOT_SOURCES} ${GLCORE_HEADERS} ${GLAD_HEADERS} ${TEAPOT_DATA})
+target_include_directories(teapot PUBLIC
+    ${GLCORE_DIR}
+    ${GLCORE_MODULES_DIR}
+    ${GLAD_INCLUDE_DIR}
+    ${ASSETS_DIR}
+    ${GLM_DIR}
+)
+target_link_libraries(teapot ${LIBS})
+target_include_directories(teapot PUBLIC ${GLFW3_INCLUDE_DIR}
+    ${OPENGL_INCLUDE_DIR}
 )
