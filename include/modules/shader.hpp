@@ -366,6 +366,21 @@ std::uint32_t shader_program::create_program() const
         glAttachShader(program, id);
     }
     glLinkProgram(program);
+
+    int link_success;
+    glGetProgramiv(program, GL_LINK_STATUS, &link_success);
+
+    if (!link_success) [[unlikely]] {
+        int max_length {};
+        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &max_length);
+        std::vector<char> error_log(max_length);
+        glGetProgramInfoLog(program, max_length, &max_length, &error_log[0]);
+        std::fwrite(error_log.data(), error_log.size(), 1, stdout);
+        std::fwrite("\n", 1, 1, stdout);
+        glDeleteProgram(program);
+        return 0;
+    }
+
     glValidateProgram(program);
 
     int success;
@@ -373,13 +388,15 @@ std::uint32_t shader_program::create_program() const
     if (!success) {
         int max_length {};
         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &max_length);
-        std::vector<char> info_log(max_length);
-        glGetProgramInfoLog(program, max_length, &max_length, &info_log[0]);
-        std::fwrite(info_log.data(), info_log.size(), 1, stdout);
+        std::vector<char> error_log(max_length);
+        glGetProgramInfoLog(program, max_length, &max_length, &error_log[0]);
+        std::fwrite(error_log.data(), error_log.size(), 1, stdout);
         std::fwrite("\n", 1, 1, stdout);
-        std::terminate();
+        glDeleteProgram(program);
+        return 0;
     }
 
+    // Detach and delete shaders after linking the program.
     for (const auto& id : shader_ids)
         glDetachShader(program, id);
     for (const auto& id : shader_ids)
@@ -395,8 +412,17 @@ std::uint32_t shader_program::compile(shader_type shader_type, std::string_view 
 
     glShaderSource(id, 1, &src, nullptr);
     glCompileShader(id);
+    bool is_compiled { is_valid(id) };
 
-    return is_valid(id) ? id : 0;
+    if (!is_compiled) [[unlikely]] {
+        std::fwrite("Failed to compile shader: ", 1, 26, stdout);
+        std::fwrite(source.data(), source.size(), 1, stdout);
+        std::fwrite("\n", 1, 1, stdout);
+        glDeleteShader(id);
+        return 0;
+    }
+
+    return is_compiled ? id : 0;
 }
 
 std::vector<shader> shader_program::parse_shaders(const std::string& source) const
@@ -446,11 +472,12 @@ bool shader_program::is_valid(std::uint32_t id) const
     int is_compiled {};
     glGetShaderiv(id, GL_COMPILE_STATUS, &is_compiled);
 
-    if (is_compiled == GL_FALSE) {
+    if (is_compiled == GL_FALSE) [[unlikely]] {
         int max_length {};
         glGetShaderiv(id, GL_INFO_LOG_LENGTH, &max_length);
         std::vector<char> error_log(max_length);
         glGetShaderInfoLog(id, max_length, &max_length, &error_log[0]);
+        std::fwrite("Failed to compile shader: ", 1, 26, stdout);
         std::fwrite(error_log.data(), error_log.size(), 1, stdout);
         std::fwrite("\n", 1, 1, stdout);
         glDeleteShader(id);

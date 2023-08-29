@@ -56,12 +56,13 @@ MessageCallback(GLenum source [[maybe_unused]],
     const GLchar* message,
     const void* userParam [[maybe_unused]])
 {
-    if (type == GL_DEBUG_TYPE_OTHER || type == GL_DEBUG_TYPE_PERFORMANCE)
+    if (type == GL_DEBUG_TYPE_PERFORMANCE)
         return;
     fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n",
         (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
         type, severity, message);
 
+    // print location of error
     fprintf(stderr, "source = 0x%x, id = %d\n", source, id);
 }
 
@@ -78,11 +79,11 @@ auto main() -> int
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 
     glfwWindowHint(GLFW_SAMPLES, 4); // MSAA
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -112,6 +113,9 @@ auto main() -> int
     glEnable(GL_DEBUG_OUTPUT);
     glEnable(GL_CULL_FACE);
 
+    // set up tessellation
+    glPatchParameteri(GL_PATCH_VERTICES, 3);
+
     glDebugMessageCallback(MessageCallback, nullptr);
 
     // load our shaders, one for the teapot, one for the skybox, also set up the
@@ -121,6 +125,9 @@ auto main() -> int
 
     skybox_shader.bind();
     skybox_shader.upload_uniform1i("skybox", 0);
+
+    teapot_shader.bind(); // we also set the skybox as the environment map for the teapot.
+    teapot_shader.upload_uniform1i("environment", 0);
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -272,14 +279,13 @@ auto main() -> int
         VAO.bind();
         teapot_shader.bind();
 
-        glDrawElements(GL_TRIANGLES, VAO.index_data().count(), GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_PATCHES, VAO.index_data().count(), GL_UNSIGNED_INT, nullptr);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
-    // optional: de-allocate all resources once they've outlived their purpose:
-    // ------------------------------------------------------------------------
+    // no need to de-allocate anything as glcore handles all the OpenGL objects in a RAII fashion.
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
