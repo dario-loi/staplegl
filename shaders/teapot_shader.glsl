@@ -10,11 +10,15 @@ layout(std140, binding = 0) uniform u_matrices
 };
 
 layout(location = 0) in vec3 aPos;
+layout(location = 1) in vec3 aNormal;
+
 out float depth;
+out vec3 normal;
 
 void main()
 {
     vec4 viewPos = view * model * vec4(aPos, 1.0);
+    normal = aNormal;
 
     depth = length(viewPos.xyz);
     gl_Position = projection * viewPos;
@@ -25,16 +29,22 @@ void main()
 #version 440 core
 
 in float depth;
+in vec3 normal;
 out vec4 FragColor;
+
+// Controls how much to shade the teapot based on depth
+const float shade_control = 0.40F;
+const vec3 porcelain_white = vec3(0.61F);
 
 void main()
 {
-
-    float teapotDistance = 4.0F;
-    float depthFactor = depth / teapotDistance; // Normalize depth
+    const float teapotDistance = 4.0F;
+    const float depthFactor = depth / teapotDistance; // Normalize depth
 
     // Calculate shading color based on depth
-    vec3 shadeColor = clamp(vec3(0.61F) - 0.25F * vec3(depthFactor), 0.F, 1.F); // Make it slightly darker
+    vec3 shadeColor = porcelain_white - shade_control * vec3(depthFactor); // Make it slightly darker
+    shadeColor = clamp(shadeColor, 0.0, 1.0); // Clamp to [0, 1]
 
-    FragColor = vec4(shadeColor, 1.0);
+    float gamma = 2.2;
+    FragColor = vec4(pow(shadeColor.rgb, vec3(1.0 / gamma)), 1.0);
 }

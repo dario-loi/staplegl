@@ -13,9 +13,10 @@
  */
 #pragma once
 
-#include <map>
+#include <span>
 #include <string>
 #include <string_view>
+#include <vector>
 
 #include "shader_data_type.hpp"
 
@@ -70,6 +71,11 @@ struct vertex_attribute {
  *
  */
 class vertex_buffer_layout {
+
+private:
+    std::size_t m_stride {};
+    std::vector<vertex_attribute> m_attributes;
+
 public:
     vertex_buffer_layout() = default;
     /**
@@ -79,11 +85,10 @@ public:
      * @see vertex_attribute
      */
     vertex_buffer_layout(std::initializer_list<vertex_attribute> attributes)
+        : m_attributes { attributes }
     {
-        for (const auto& attribute : attributes) {
-            auto key = attribute.name;
-            m_attributes.emplace(attribute.name, attribute);
-            m_attributes[key].offset = m_stride;
+        for (auto& attribute : m_attributes) {
+            attribute.offset = m_stride;
             m_stride += shader_data_type::size(attribute.type) * attribute.element_count;
         }
     }
@@ -103,30 +108,22 @@ public:
     constexpr std::size_t stride_elements() const noexcept { return m_stride / sizeof(float); }
 
     /**
-     * @brief Get the data of the vertex buffer layout.
+     * @brief Get the data of the vertex buffer layout as a non-owning view.
      *
-     * @return std::map<std::string_view, vertex_attribute>&, the data of the vertex buffer layout.
+     * @return std::span<const vertex_attribute>, the data of the vertex buffer layout.
      */
-    [[nodiscard]] auto get_map() const noexcept -> std::map<std::string, vertex_attribute> const&
+    [[nodiscard]] auto get_attributes() const noexcept -> std::span<const vertex_attribute>
     {
-        return m_attributes;
+        return std::span(m_attributes);
     }
 
     /**
-     * @brief Retrieve a specific vertex attribute by name.
+     * @brief Get a single attribute from the vertex buffer layout.
      *
-     * @param name the name of the vertex attribute.
-     * @return vertex_attribute the vertex attribute.
+     * @param index the index of the attribute to get.
+     * @return const vertex_attribute& the attribute at the specified index.
      */
-    [[nodiscard]] vertex_attribute operator[](std::string const& name) const noexcept
-    {
-        // crashes if not found, so we're still fast but at least we know if we're wrong
-        return m_attributes.at(name);
-    }
-
-private:
-    std::size_t m_stride {};
-    std::map<std::string, vertex_attribute> m_attributes;
+    [[nodiscard]] auto operator[](std::size_t index) const -> const vertex_attribute& { return m_attributes[index]; }
 };
 
 } // namespace glcore
