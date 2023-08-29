@@ -356,8 +356,7 @@ const shader& shader_program::operator[](std::size_t index) const
 std::uint32_t shader_program::create_program() const
 {
     const std::uint32_t program { glCreateProgram() };
-
-    std::vector<std::uint32_t> shader_ids(m_shaders.size());
+    std::vector<std::uint32_t> shader_ids;
 
     for (const auto& [type, src] : m_shaders) {
         shader_ids.push_back(compile(type, src));

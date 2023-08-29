@@ -58,6 +58,8 @@ MessageCallback(GLenum source [[maybe_unused]],
     fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n",
         (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
         type, severity, message);
+
+    fprintf(stderr, "source = 0x%x, id = %d\n", source, id);
 }
 
 float aspect_ratio = static_cast<double>(SCR_WIDTH) / static_cast<double>(SCR_HEIGHT);
@@ -105,6 +107,7 @@ auto main() -> int
     glcore::shader_program teapot_shader { "teapot_shader", "./shaders/teapot_shader.glsl" };
     glcore::shader_program skybox_shader { "skybox_shader", "./shaders/skybox_shader.glsl" };
 
+    skybox_shader.bind();
     skybox_shader.upload_uniform1i("skybox", 0);
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
@@ -187,7 +190,7 @@ auto main() -> int
     }
 
     glcore::cubemap skybox {
-        cube_data, { width, height }, { GL_RGB, GL_RGB, GL_UNSIGNED_BYTE }, true
+        cube_data, { width, height }, { .internal_format = GL_RGB8, .format = GL_RGB, .datatype = GL_UNSIGNED_BYTE }, true
     };
 
     skybox.bind();

@@ -128,8 +128,6 @@ cubemap::cubemap(std::span<std::byte*, 6> data, resolution res, texture_color co
     glTextureParameteri(m_id, GL_TEXTURE_MIN_FILTER, generate_mipmaps ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
     glTextureParameteri(m_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    glTextureStorage2D(m_id, 1, m_color.internal_format, m_res.width, m_res.height);
-
     int i = 0;
     for (auto const& face : data) {
         glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i++, 0, m_color.internal_format, m_res.width, m_res.height, 0, m_color.format, m_color.datatype, face);
