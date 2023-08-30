@@ -279,7 +279,7 @@ auto main() -> int
         VAO.bind();
         teapot_shader.bind();
 
-        glDrawElements(GL_PATCHES, VAO.index_data().count(), GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_TRIANGLES, VAO.index_data().count(), GL_UNSIGNED_INT, nullptr);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
