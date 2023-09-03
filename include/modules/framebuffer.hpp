@@ -23,20 +23,33 @@ enum framebuffer_attachment : std::uint8_t {
 class framebuffer {
 
 public:
-    framebuffer();
-    framebuffer(framebuffer_attachment attachment = NONE, resolution res = { 800, 600 });
+    // to allow the FBO to be stored in a container painlessly (default-constructed instances are invalid)
+    framebuffer() = default;
+    framebuffer(framebuffer_attachment attachment, resolution res, texture_color tex_info);
     ~framebuffer();
 
     framebuffer(const framebuffer&) = delete;
     framebuffer& operator=(const framebuffer&) = delete;
-
     framebuffer(framebuffer&&) noexcept;
     framebuffer& operator=(framebuffer&&) noexcept;
 
-    void add_texture(size_t index, std::span<const float> data, resolution res, texture_color info = { GL_RGBA, GL_RGBA, GL_FLOAT }, bool generate_mipmap = false);
-    void add_texture(size_t index, resolution res, texture_color info = { GL_RGBA, GL_RGBA, GL_FLOAT }, bool generate_mipmap = false);
-    void add_texture(size_t index, texture_2d&& texture);
+    void set_texture(size_t index, std::span<const float> data, resolution res, texture_color tex_info, bool generate_mipmap = false);
+    void set_texture(size_t index, resolution res, texture_color tex_info, bool generate_mipmap = false);
+    void set_texture(size_t index, texture_2d&& texture);
     void add_renderbuffer(resolution res, framebuffer_attachment attachment = ATTACH_DEPTH_STENCIL_BUFFER);
+
+    /**
+     * @brief Bind the default framebuffer.
+     *
+     * @details Calling this function is equivalent to calling ::unbind on any framebuffer object,
+     * however, it is semantically more correct to call this function when you want to bind the default
+     * framebuffer (even if no framebuffer object exists).
+     *
+     */
+    static void bind_default()
+    {
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
 
     void bind() const;
     void unbind() const;
@@ -62,6 +75,19 @@ public:
         return status == GL_FRAMEBUFFER_COMPLETE;
     }
 
+    /**
+     * @brief Get the id of the framebuffer.
+     *
+     * @return std::uint32_t the id of the framebuffer.
+     */
+    [[nodiscard]] std::uint32_t id() const
+    {
+        return m_id;
+    }
+
+    [[nodiscard]] const std::optional<texture_2d>& get_texture(size_t index) const;
+    [[nodiscard]] const std::optional<renderbuffer>& get_renderbuffer() const;
+
 private:
     std::uint32_t m_id {};
     framebuffer_attachment m_attachment {};
@@ -77,23 +103,16 @@ private:
  * @param attachment Enumerator that specifies the type of the underlying renderbuffer acting as stencil buffer, depth buffer or both.
  * @param res the resolution of the renderbuffer.
  */
-framebuffer::framebuffer(framebuffer_attachment attachment, resolution res)
+framebuffer::framebuffer(framebuffer_attachment attachment, resolution res, texture_color tex_info)
     : m_attachment(attachment)
 {
-    glCreateFramebuffers(1, &m_id);
-
+    glGenFramebuffers(1, &m_id);
     glBindFramebuffer(GL_FRAMEBUFFER, m_id);
+
+    set_texture(0, res, tex_info);
+
     add_renderbuffer(res, m_attachment);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
-
-/**
- * @brief Construct a new framebuffer::framebuffer object without any attachments.
- *
- */
-framebuffer::framebuffer()
-{
-    glCreateFramebuffers(1, &m_id);
 }
 
 framebuffer::~framebuffer()
@@ -169,7 +188,7 @@ void framebuffer::add_renderbuffer(resolution res, framebuffer_attachment attach
 
     m_renderbuffer.emplace(res, type);
 
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, static_cast<std::uint32_t>(attachment), GL_RENDERBUFFER, m_renderbuffer->id());
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, static_cast<std::uint32_t>(type), GL_RENDERBUFFER, m_renderbuffer->id());
 }
 
 /**
@@ -181,9 +200,11 @@ void framebuffer::add_renderbuffer(resolution res, framebuffer_attachment attach
  *
  * @warning the framebuffer MUST be bound before calling this function.
  */
-void framebuffer::add_texture(size_t index, resolution res, texture_color info, bool generate_mipmap)
+void framebuffer::set_texture(size_t index, resolution res, texture_color info, bool generate_mipmap)
 {
     m_textures[index].emplace(std::span<const float>(), res, info, generate_mipmap);
+
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index, GL_TEXTURE_2D, m_textures[index]->id(), 0);
 }
 
 /**
@@ -196,11 +217,38 @@ void framebuffer::add_texture(size_t index, resolution res, texture_color info, 
  *
  * @warning the framebuffer MUST be bound before calling this function.
  */
-void framebuffer::add_texture(size_t index, std::span<const float> data, resolution res, texture_color info, bool generate_mipmap)
+void framebuffer::set_texture(size_t index, std::span<const float> data, resolution res, texture_color info, bool generate_mipmap)
 {
     m_textures[index].emplace(data, res, info, generate_mipmap);
 
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index, GL_TEXTURE_2D, m_textures[index]->id(), 0);
+}
+
+void framebuffer::set_texture(size_t index, texture_2d&& texture)
+{
+    m_textures[index] = std::move(texture);
+
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index, GL_TEXTURE_2D, m_textures[index]->id(), 0);
+}
+
+const std::optional<texture_2d>& framebuffer::get_texture(size_t index) const
+{
+    return m_textures[index];
+}
+
+const std::optional<renderbuffer>& framebuffer::get_renderbuffer() const
+{
+    return m_renderbuffer;
+}
+
+void framebuffer::bind() const
+{
+    glBindFramebuffer(GL_FRAMEBUFFER, m_id);
+}
+
+void framebuffer::unbind() const
+{
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 } // namespace glcore

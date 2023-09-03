@@ -155,8 +155,8 @@ void vertex_array::unbind() const
 
 vertex_array::iterator_t vertex_array::add_vertex_buffer(vertex_buffer&& vbo)
 {
-    glBindVertexArray(m_id);
     m_vertex_buffers.push_back(std::move(vbo));
+    glBindVertexArray(m_id);
 
     // get a reference to the newly added vertex buffer from the variant in the vector
     vertex_buffer const& vbo_ref = m_vertex_buffers.back();

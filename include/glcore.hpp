@@ -21,6 +21,7 @@
 #pragma once
 
 #include "modules/cubemap.hpp"
+#include "modules/framebuffer.hpp"
 #include "modules/index_buffer.hpp"
 #include "modules/shader.hpp"
 #include "modules/texture.hpp"

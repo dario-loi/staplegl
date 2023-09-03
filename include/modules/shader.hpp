@@ -375,6 +375,7 @@ std::uint32_t shader_program::create_program() const
         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &max_length);
         std::vector<char> error_log(max_length);
         glGetProgramInfoLog(program, max_length, &max_length, &error_log[0]);
+        std::fwrite("Failed to link shader program: ", 1, 32, stdout);
         std::fwrite(error_log.data(), error_log.size(), 1, stdout);
         std::fwrite("\n", 1, 1, stdout);
         glDeleteProgram(program);
@@ -385,11 +386,12 @@ std::uint32_t shader_program::create_program() const
 
     int success;
     glGetProgramiv(program, GL_VALIDATE_STATUS, &success);
-    if (!success) {
+    if (!success) [[unlikely]] {
         int max_length {};
         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &max_length);
         std::vector<char> error_log(max_length);
         glGetProgramInfoLog(program, max_length, &max_length, &error_log[0]);
+        std::fwrite("failed to validate shader program: ", 1, 36, stdout);
         std::fwrite(error_log.data(), error_log.size(), 1, stdout);
         std::fwrite("\n", 1, 1, stdout);
         glDeleteProgram(program);

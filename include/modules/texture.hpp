@@ -32,6 +32,8 @@ struct texture_color {
 
 class texture_2d {
 public:
+    texture_2d() = default;
+
     /**
      * @brief Construct a new texture 2d object
      *

@@ -14,18 +14,20 @@ layout(location = 0) in vec3 aPos;
 layout(location = 1) in vec3 aNormal;
 
 out vec3 normal;
+out vec3 frag_pos_view;
 
 void main()
 {
 
     normal = normalize(aNormal);
-    gl_Position = projection * view * model * vec4(aPos, 1.0F);
+    frag_pos_view = vec3(view * model * vec4(aPos, 1.0F));
+    gl_Position = projection * vec4(frag_pos_view, 1.0F);
 }
 
 #type fragment
 
 #version 420 core
-#line 87
+#line 30
 
 layout(std140, binding = 0) uniform u_matrices
 {
@@ -35,14 +37,30 @@ layout(std140, binding = 0) uniform u_matrices
     vec4 camera_pos;
 };
 
+layout(std140, binding = 1) uniform u_light
+{
+    vec4 light_pos;
+    vec4 light_color;
+    vec4 light_attenuation;
+    vec2 light_intensity;
+};
+
+layout(std140, binding = 2) uniform u_material
+{
+    vec4 material_color;
+    float material_shininess;
+    float material_roughness;
+};
+
 in vec3 normal;
+in vec3 frag_pos_view;
 
 out vec4 color;
 
 uniform samplerCube environment;
 
-const float refraction_ratio = 0.15F;
-const float ambient_light = 0.70F; // brightness of the environment
+const float refraction_ratio = 0.20F;
+const float ambient_light = 0.10F; // brightness of the environment
 
 void main()
 {
@@ -54,7 +72,23 @@ void main()
     vec4 env_color = texture(environment, R);
     vec4 teapot_porcelain_color = vec4(0.51F, 0.55F, 0.66F, 1.0F);
 
-    vec4 diffuse = ambient_light * teapot_porcelain_color + refraction_ratio * env_color;
+    vec4 ambient = ambient_light * teapot_porcelain_color + refraction_ratio * env_color;
 
-    color = pow(diffuse, vec4(1.0F / 2.2F));
+    float dist_to_light = length((view * light_pos).xyz - frag_pos_view);
+    float lum = 1.0F / (light_attenuation.x + light_attenuation.y * dist_to_light + light_attenuation.z * dist_to_light * dist_to_light);
+
+    vec4 diffuse = max(dot(N, light_pos.xyz), 0.0F) * light_color;
+    diffuse /= dist_to_light;
+
+    vec3 H = normalize(V + light_pos.xyz);
+    float spec = pow(max(dot(N, H), 0.0F), material_shininess);
+    spec /= dist_to_light;
+
+    vec4 specular = spec * (1.0F - material_roughness) * light_color;
+
+    if (dot(N, V) < 0.0F) {
+        specular = vec4(0.0F);
+    }
+
+    color = ambient + lum * diffuse * light_intensity.x + lum * specular * light_intensity.y;
 }

@@ -20,7 +20,7 @@ namespace glcore {
 class renderbuffer {
 
 public:
-    enum class attachment_type : int32_t {
+    enum class attachment_type : uint32_t {
         depth = GL_DEPTH_ATTACHMENT,
         stencil = GL_STENCIL_ATTACHMENT,
         depth_stencil = GL_DEPTH_STENCIL_ATTACHMENT
@@ -57,7 +57,7 @@ renderbuffer::renderbuffer(resolution res, attachment_type type)
 
     switch (m_type) {
     case attachment_type::depth:
-        internal_format = GL_DEPTH_COMPONENT32F;
+        internal_format = GL_DEPTH_COMPONENT24;
         break;
     case attachment_type::stencil:
         internal_format = GL_STENCIL_INDEX8;
@@ -67,10 +67,10 @@ renderbuffer::renderbuffer(resolution res, attachment_type type)
         break;
     }
 
-    glCreateRenderbuffers(1, &m_id);
-    glBindBuffer(GL_RENDERBUFFER, m_id);
+    glGenRenderbuffers(1, &m_id);
+    glBindRenderbuffer(GL_RENDERBUFFER, m_id);
     glRenderbufferStorage(GL_RENDERBUFFER, internal_format, res.width, res.height);
-    glBindBuffer(GL_RENDERBUFFER, 0);
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
 }
 
 renderbuffer::~renderbuffer()
