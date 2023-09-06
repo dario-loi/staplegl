@@ -28,6 +28,8 @@ struct resolution {
 }
 
 namespace glcore::util {
+
+
 static std::string read_file(std::string_view path)
 {
     std::ifstream in(path.data(), std::ios::ate | std::ios::binary);

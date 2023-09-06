@@ -8,35 +8,77 @@
 #include <array>
 #include <cstdint>
 #include <exception>
+#include <functional>
 #include <optional>
 #include <span>
 
 namespace glcore {
 
-enum framebuffer_attachment : std::uint8_t {
+enum class fbo_attachment : std::uint8_t {
     NONE = 0x00,
     ATTACH_DEPTH_BUFFER = 0x01,
     ATTACH_STENCIL_BUFFER = 0x02,
     ATTACH_DEPTH_STENCIL_BUFFER = 0x03,
 };
 
+
+
 class framebuffer {
 
 public:
-    // to allow the FBO to be stored in a container painlessly (default-constructed instances are invalid)
-    framebuffer() = default;
-    framebuffer(framebuffer_attachment attachment, resolution res, texture_color tex_info);
+
+    framebuffer();
     ~framebuffer();
 
     framebuffer(const framebuffer&) = delete;
     framebuffer& operator=(const framebuffer&) = delete;
+
     framebuffer(framebuffer&&) noexcept;
     framebuffer& operator=(framebuffer&&) noexcept;
 
-    void set_texture(size_t index, std::span<const float> data, resolution res, texture_color tex_info, bool generate_mipmap = false);
-    void set_texture(size_t index, resolution res, texture_color tex_info, bool generate_mipmap = false);
+    /**
+     * @brief Set a texture object in the texture array.
+     * 
+     * @details Attaches a texture to the renderbuffer so that it can be used as a 
+     * draw target when the FBO is bound.
+     * 
+     * @note the array's available slots range from 0 - 7.
+     * 
+     * @param index the index of the array at which to store the texture
+     * @param texture the texture object to move into the array
+     */
     void set_texture(size_t index, texture_2d&& texture);
-    void add_renderbuffer(resolution res, framebuffer_attachment attachment = ATTACH_DEPTH_STENCIL_BUFFER);
+
+    /**
+     * @brief Set the renderbuffer object
+     * 
+     * @param res The resolution of the renderbuffer object.
+     * @param attachment the type of attachment (Depth buffer, Stencil Buffer, Both, None).
+     * 
+     * @note passing glcore::fbo_attachment::NONE results in the removal of any renderbuffer from the FBO.
+     * @note this function destroys any previously held renderbuffer.
+     * 
+     * @see glcore::fbo_attachment
+     */
+    void set_renderbuffer(resolution res, fbo_attachment attachment = fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER);
+
+    /**
+     * @brief Resize the OpenGL viewport.
+     * 
+     * @note this does not resize held textures, but it's faster.
+     * 
+     * @param res The target resolution
+     */
+    static void set_viewport(resolution res);
+
+    /**
+     * @brief Resize the OpenGL viewport and all the currently held textures
+     * 
+     * @warning resizal will cause every currently held texture to be zeroed, losing all data.
+     *
+     * @param res
+     */
+    void resize(resolution res);
 
     /**
      * @brief Bind the default framebuffer.
@@ -85,34 +127,36 @@ public:
         return m_id;
     }
 
+    /**
+     * @brief Get the texture object.
+     * 
+     * @warning The index can range from 0 to 7.
+     * 
+     * @param index the index of the texture to get
+     * @return const std::optional<texture_2d>& constant reference to a `texture_2d` object
+     */
     [[nodiscard]] const std::optional<texture_2d>& get_texture(size_t index) const;
     [[nodiscard]] const std::optional<renderbuffer>& get_renderbuffer() const;
 
+    [[nodiscard]] std::optional<texture_2d> &&extract_texture(size_t index);
+
 private:
     std::uint32_t m_id {};
-    framebuffer_attachment m_attachment {};
+    fbo_attachment m_attachment {};
     std::array<std::optional<texture_2d>, 8> m_textures {};
 
-    std::optional<renderbuffer> m_renderbuffer {}; // depends on the attachment type
+    std::optional<renderbuffer> m_renderbuffer {}; 
 
 }; // class framebuffer
 
 /**
  * @brief Construct a new framebuffer::framebuffer object
  *
- * @param attachment Enumerator that specifies the type of the underlying renderbuffer acting as stencil buffer, depth buffer or both.
- * @param res the resolution of the renderbuffer.
+ * @details Very thin constructor, generates an ID for the framebuffer and stores it.
  */
-framebuffer::framebuffer(framebuffer_attachment attachment, resolution res, texture_color tex_info)
-    : m_attachment(attachment)
+framebuffer::framebuffer()
 {
     glGenFramebuffers(1, &m_id);
-    glBindFramebuffer(GL_FRAMEBUFFER, m_id);
-
-    set_texture(0, res, tex_info);
-
-    add_renderbuffer(res, m_attachment);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 framebuffer::~framebuffer()
@@ -121,6 +165,7 @@ framebuffer::~framebuffer()
         glDeleteFramebuffers(1, &m_id);
     }
 }
+
 
 /**
  * @brief Construct a new framebuffer::framebuffer object
@@ -133,7 +178,7 @@ framebuffer::framebuffer(framebuffer&& other) noexcept
     , m_textures(std::move(other.m_textures))
     , m_renderbuffer(std::move(other.m_renderbuffer))
 {
-    other.m_id = 0;
+  other.m_id = 0;
 }
 
 /**
@@ -160,80 +205,110 @@ framebuffer& framebuffer::operator=(framebuffer&& other) noexcept
  * @param res the resolution of the renderbuffer.
  * @param attachment the type of the renderbuffer.
  *
- * @warning passing a framebuffer_attachment::NONE value will result in a no-op.
  * @warning the framebuffer MUST be bound before calling this function.
  */
-void framebuffer::add_renderbuffer(resolution res, framebuffer_attachment attachment)
+void framebuffer::set_renderbuffer(resolution res, fbo_attachment attachment)
 {
+    if(attachment != fbo_attachment::NONE) {
 
-    renderbuffer::attachment_type type {};
+        renderbuffer::attachment_type type {};
 
-    switch (attachment) {
-    case NONE:
-        return;
-    case ATTACH_DEPTH_BUFFER:
-        type = renderbuffer::attachment_type::depth;
-        break;
-    case ATTACH_STENCIL_BUFFER:
-        type = renderbuffer::attachment_type::stencil;
-        break;
-    case ATTACH_DEPTH_STENCIL_BUFFER:
-        type = renderbuffer::attachment_type::depth_stencil;
-        break;
-    default:
-        std::terminate();
+        switch (attachment) {
+        case fbo_attachment::ATTACH_DEPTH_BUFFER:
+            type = renderbuffer::attachment_type::depth;
+            break;
+        case fbo_attachment::ATTACH_STENCIL_BUFFER:
+            type = renderbuffer::attachment_type::stencil;
+            break;
+        case fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER:
+            type = renderbuffer::attachment_type::depth_stencil;
+            break;
+        default:
+            std::terminate();
+        }
+
+        m_attachment = attachment; // in some cases this is a redundant operation, fair enough.
+        m_renderbuffer.emplace(res, type);
+
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, static_cast<std::uint32_t>(type), GL_RENDERBUFFER, m_renderbuffer->id());
+    } else {
+        // unbind the old framebuffer, if present
+
+        if(m_attachment == fbo_attachment::NONE) {
+          return; // nothing to unbind
+        }
+
+        renderbuffer::attachment_type type {};
+
+        switch (m_attachment) {
+        case fbo_attachment::ATTACH_DEPTH_BUFFER:
+          type = renderbuffer::attachment_type::depth;
+          break;
+        case fbo_attachment::ATTACH_STENCIL_BUFFER:
+          type = renderbuffer::attachment_type::stencil;
+          break;
+        case fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER:
+          type = renderbuffer::attachment_type::depth_stencil;
+          break;
+          default:
+            break;
+          }
+
+          m_attachment = fbo_attachment::NONE;
+
+          glFramebufferRenderbuffer(GL_FRAMEBUFFER,
+                                    static_cast<std::uint32_t>(type),
+                                    GL_RENDERBUFFER, 0);
     }
-
-    m_attachment = attachment; // in some cases this is a redundant operation, fair enough.
-
-    m_renderbuffer.emplace(res, type);
-
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, static_cast<std::uint32_t>(type), GL_RENDERBUFFER, m_renderbuffer->id());
-}
-
-/**
- * @brief Add an empty (zeroed) texture object to the framebuffer.
- *
- * @param res the resolution of the texture.
- * @param info the texture info.
- * @param generate_mipmap whether to generate mipmaps for the texture.
- *
- * @warning the framebuffer MUST be bound before calling this function.
- */
-void framebuffer::set_texture(size_t index, resolution res, texture_color info, bool generate_mipmap)
-{
-    m_textures[index].emplace(std::span<const float>(), res, info, generate_mipmap);
-
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index, GL_TEXTURE_2D, m_textures[index]->id(), 0);
-}
-
-/**
- * @brief Add a texture object to the framebuffer.
- *
- * @param data the data to be uploaded to the texture.
- * @param res the resolution of the texture.
- * @param info the texture info.
- * @param generate_mipmap whether to generate mipmaps for the texture.
- *
- * @warning the framebuffer MUST be bound before calling this function.
- */
-void framebuffer::set_texture(size_t index, std::span<const float> data, resolution res, texture_color info, bool generate_mipmap)
-{
-    m_textures[index].emplace(data, res, info, generate_mipmap);
-
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index, GL_TEXTURE_2D, m_textures[index]->id(), 0);
 }
 
 void framebuffer::set_texture(size_t index, texture_2d&& texture)
 {
     m_textures[index] = std::move(texture);
-
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index, GL_TEXTURE_2D, m_textures[index]->id(), 0);
+}
+
+void framebuffer::set_viewport(glcore::resolution res) {
+    glViewport(0, 0, res.width, res.height);
+}
+
+void framebuffer::resize(glcore::resolution res) {
+
+  framebuffer::set_viewport(res);
+
+  if(!(m_attachment == fbo_attachment::NONE)) {
+    renderbuffer::attachment_type type;
+    switch (m_attachment) {
+    case fbo_attachment::ATTACH_DEPTH_BUFFER:
+        type = renderbuffer::attachment_type::depth;
+        break;
+    case fbo_attachment::ATTACH_STENCIL_BUFFER:
+        type = renderbuffer::attachment_type::stencil;
+        break;
+    case fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER:
+        type = renderbuffer::attachment_type::depth_stencil;
+        break;
+    default:
+      break;
+    }
+    m_renderbuffer.emplace(res, type);
+  }
+
+  for(auto& opt : m_textures) {
+    if(opt.has_value() && opt->id()) { // check for ID since move semantics do NOT disengage the optional
+      opt.emplace(std::span<const float>{}, res, opt->color(), false);
+    }
+  }
 }
 
 const std::optional<texture_2d>& framebuffer::get_texture(size_t index) const
 {
-    return m_textures[index];
+  return m_textures[index];
+}
+
+std::optional<texture_2d> &&framebuffer::extract_texture(size_t index)
+{
+  return std::move(m_textures[index]);
 }
 
 const std::optional<renderbuffer>& framebuffer::get_renderbuffer() const
@@ -241,10 +316,13 @@ const std::optional<renderbuffer>& framebuffer::get_renderbuffer() const
     return m_renderbuffer;
 }
 
+
 void framebuffer::bind() const
 {
     glBindFramebuffer(GL_FRAMEBUFFER, m_id);
 }
+
+
 
 void framebuffer::unbind() const
 {

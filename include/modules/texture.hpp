@@ -32,8 +32,6 @@ struct texture_color {
 
 class texture_2d {
 public:
-    texture_2d() = default;
-
     /**
      * @brief Construct a new texture 2d object
      *
@@ -138,14 +136,25 @@ public:
         return m_id;
     }
 
+    /**
+     * @brief Get the resolution of the texture object
+     * 
+     * @return glcore::resolution
+     */
+    [[nodiscard]] glcore::resolution get_resolution() const {
+      return m_resolution;
+    };
+
 private:
     uint32_t m_id {};
     texture_color m_color {};
+    resolution m_resolution {};
 };
 
 texture_2d::texture_2d(std::span<const float> data, resolution res,
     texture_color color, bool generate_mipmap)
     : m_color { color }
+    , m_resolution { res }
 {
     glGenTextures(1, &m_id);
     glBindTexture(GL_TEXTURE_2D, m_id);
@@ -153,7 +162,7 @@ texture_2d::texture_2d(std::span<const float> data, resolution res,
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, generate_mipmap ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, color.internal_format, res.width, res.height, 0, color.format, color.datatype, data.data());
+    glTexImage2D(GL_TEXTURE_2D, 0, color.internal_format, m_resolution.width, m_resolution.height, 0, color.format, color.datatype, data.data());
 
     if (generate_mipmap) {
         glGenerateMipmap(GL_TEXTURE_2D);
@@ -166,6 +175,7 @@ void texture_2d::set_data(std::span<const float> data, resolution res, texture_c
 {
     glTexImage2D(GL_TEXTURE_2D, 0, m_color.internal_format, res.width, res.height, 0, m_color.format, m_color.datatype, data.data());
     m_color = color;
+    m_resolution = res;
 
     if (generate_mipmap) {
         glGenerateMipmap(GL_TEXTURE_2D);

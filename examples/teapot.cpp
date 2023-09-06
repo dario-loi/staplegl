@@ -123,6 +123,8 @@ auto main() -> int
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_DEBUG_OUTPUT);
     glEnable(GL_CULL_FACE);
+    glBlendFunc(GL_ONE, GL_ONE);
+    glBlendEquation(GL_FUNC_ADD);
 
     // set up tessellation
     glPatchParameteri(GL_PATCH_VERTICES, 3);
@@ -135,6 +137,8 @@ auto main() -> int
     glcore::shader_program skybox_shader { "skybox_shader", "./shaders/skybox_shader.glsl" };
     glcore::shader_program light_shader { "light_shader", "./shaders/light_shader.glsl" };
     glcore::shader_program tonemap_shader { "tone_mapping", "./shaders/tone_mapping.glsl" };
+    glcore::shader_program downsample_shader {"downsample", "./shaders/downsample_shader.glsl"};
+    glcore::shader_program upsample_shader{"upsample", "./shaders/upsample_shader.glsl"};
 
     skybox_shader.bind();
     skybox_shader.upload_uniform1i("skybox", 0);
@@ -145,21 +149,22 @@ auto main() -> int
     tonemap_shader.bind();
     tonemap_shader.upload_uniform1i("scene", 4);
 
-    // set up framebuffers for bloom effect
+    // set up framebuffers and textures for HDR and bloom effect
 
-    glcore::framebuffer hdr_fbo {
-        glcore::ATTACH_DEPTH_STENCIL_BUFFER,
-        { SCR_WIDTH, SCR_HEIGHT },
-        { GL_RGBA16F, GL_RGBA, GL_FLOAT }
-    };
+    std::array<std::optional<glcore::texture_2d>, calc_pyramid_levels(SCR_WIDTH, SCR_HEIGHT)> pyramid_textures {};
+
+    // construct a pyramid of downscaled textures
+    for (int i = 0; auto& tex : pyramid_textures) {
+        tex.emplace(std::span<const float> {},
+            glcore::resolution { SCR_WIDTH >> i, SCR_HEIGHT >> i },
+            glcore::texture_color { GL_RGBA16F, GL_RGBA, GL_FLOAT }, false);
+    }
+
+    glcore::framebuffer hdr_fbo {};
 
     hdr_fbo.bind();
-    hdr_fbo.get_texture(0)->set_unit(4);
-
-    if (!hdr_fbo.assert_completeness()) {
-        std::cout << "HDR framebuffer not complete!" << std::endl;
-        return -1;
-    }
+    hdr_fbo.set_renderbuffer({SCR_WIDTH, SCR_HEIGHT},
+                             glcore::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER);
 
     hdr_fbo.unbind();
     // set up vertex data (and buffer(s)) and configure vertex attributes
@@ -348,6 +353,7 @@ auto main() -> int
         // clear total black
 
         hdr_fbo.bind();
+        hdr_fbo.set_texture(0, *std::move(pyramid_textures[0]));
 
         if (!hdr_fbo.assert_completeness()) {
             std::cout << "Framebuffer not complete!" << std::endl;
@@ -395,6 +401,54 @@ auto main() -> int
         teapot_shader.bind();
 
         glDrawElements(GL_TRIANGLES, VAO.index_data().count(), GL_UNSIGNED_INT, nullptr);
+        // Bloom processing
+        // remove the renderbuffer, resolution is irrelevant.
+        hdr_fbo.set_renderbuffer({0, 0}, glcore::fbo_attachment::NONE);
+        downsample_shader.bind();
+        quad_VAO.bind();
+
+        // bloom downsampling
+        for(int i = 1; i < pyramid_textures.size(); ++i) {
+            // retrieve the scene and set it as a texture to be read from
+            downsample_shader.upload_uniform1i("pyramid_level", i);
+            pyramid_textures[i - 1] = std::move(hdr_fbo.extract_texture(0));
+            auto const &scene_tex = pyramid_textures[i - 1];
+            scene_tex->bind();
+            scene_tex->set_unit(4);
+
+            // prep the next level of the pyramid
+            hdr_fbo.set_texture(0, std::move(*pyramid_textures[i]));
+            auto const &draw_target = hdr_fbo.get_texture(0);
+            auto const res = draw_target->get_resolution();
+
+            hdr_fbo.set_viewport({res.width,
+                                  res.height});
+
+            downsample_shader.upload_uniform2f("uResolution", res.width,
+                                               res.height);
+            glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        }
+        // We have the image pyramid, we can now reconstruct it.
+        upsample_shader.bind();
+
+        glEnable(GL_BLEND);
+
+        for (int i = pyramid_textures.size() - 1; i > 0; --i) {
+          upsample_shader.upload_uniform1i("pyramid_level", i);
+          pyramid_textures[i] = std::move(hdr_fbo.extract_texture(0));
+          auto const &scene_tex = pyramid_textures[i];
+          scene_tex->bind();
+          scene_tex->set_unit(4);
+
+          hdr_fbo.set_texture(0, std::move(*pyramid_textures[i - 1]));
+          auto const &draw_target = hdr_fbo.get_texture(0);
+          auto const res = draw_target->get_resolution();
+          hdr_fbo.set_viewport({res.width, 
+                                res.height});
+          glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        }
+
+        glDisable(GL_BLEND);
 
         // HDR post-processing
         glcore::framebuffer::bind_default();
