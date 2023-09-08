@@ -19,10 +19,13 @@ void main() {
 in vec2 TexCoord;
 
 uniform sampler2D scene;
+uniform int pyramid_level;
 
-layout(location = 0) out vec3 upsample;
+layout(location = 0) out vec3 outColor;
 
 void main() {
+    vec3 upsample = vec3(0.F);
+
     float x = 0.005F;
     float y = 0.005F;
 
@@ -42,5 +45,14 @@ void main() {
     upsample += (b + d + f + h) * 2.0;
     upsample += (a + c + g + i);
     upsample *= 1.0 / 16.0;
+    switch(pyramid_level) 
+    {
+        case 0:
+        outColor += mix(vec3(0.F), upsample, 0.04F);
+        break;
+        default:
+        outColor = upsample;
+        break;
+    }
 }
 

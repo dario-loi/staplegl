@@ -57,8 +57,9 @@ MessageCallback(GLenum source [[maybe_unused]],
     const GLchar* message,
     const void* userParam [[maybe_unused]])
 {
-    if (type == GL_DEBUG_TYPE_PERFORMANCE)
+    if (type == GL_DEBUG_TYPE_PERFORMANCE || type == GL_DEBUG_TYPE_OTHER)
         return;
+
     fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n",
         (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
         type, severity, message);
@@ -158,15 +159,11 @@ auto main() -> int
         tex.emplace(std::span<const float> {},
             glcore::resolution { SCR_WIDTH >> i, SCR_HEIGHT >> i },
             glcore::texture_color { GL_RGBA16F, GL_RGBA, GL_FLOAT }, false);
+        i++;
     }
 
     glcore::framebuffer hdr_fbo {};
 
-    hdr_fbo.bind();
-    hdr_fbo.set_renderbuffer({SCR_WIDTH, SCR_HEIGHT},
-                             glcore::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER);
-
-    hdr_fbo.unbind();
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
 
@@ -296,8 +293,8 @@ auto main() -> int
         std::byte* data = reinterpret_cast<std::byte*>(
             stbi_load(face.c_str(), &width, &height, &nrChannels, 0));
         if (data == nullptr) {
-            std::cout << "Failed to load cubemap texture" << std::endl;
-            return -1;
+            hdr_fbo.set_renderbuffer({ SCR_WIDTH, SCR_HEIGHT },
+                glcore::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER);
         }
         // pack data in array
         cube_data[i++] = data;
@@ -354,6 +351,9 @@ auto main() -> int
 
         hdr_fbo.bind();
         hdr_fbo.set_texture(0, *std::move(pyramid_textures[0]));
+
+        hdr_fbo.set_renderbuffer({ SCR_WIDTH, SCR_HEIGHT },
+            glcore::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER);
 
         if (!hdr_fbo.assert_completeness()) {
             std::cout << "Framebuffer not complete!" << std::endl;
@@ -434,7 +434,7 @@ auto main() -> int
         glEnable(GL_BLEND);
 
         for (int i = pyramid_textures.size() - 1; i > 0; --i) {
-          upsample_shader.upload_uniform1i("pyramid_level", i);
+          upsample_shader.upload_uniform1i("pyramid_level", i - 1);
           pyramid_textures[i] = std::move(hdr_fbo.extract_texture(0));
           auto const &scene_tex = pyramid_textures[i];
           scene_tex->bind();
@@ -447,6 +447,11 @@ auto main() -> int
                                 res.height});
           glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         }
+
+        auto const &scene = pyramid_textures[0];
+
+        scene->bind();
+        scene->set_unit(4);
 
         glDisable(GL_BLEND);
 
@@ -464,8 +469,11 @@ auto main() -> int
 
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
+        pyramid_textures[0] = std::move(hdr_fbo.extract_texture(0));
+
         glfwSwapBuffers(window);
         glfwPollEvents();
+
     }
 
     // no need to de-allocate anything as glcore handles all the OpenGL objects in a RAII fashion.

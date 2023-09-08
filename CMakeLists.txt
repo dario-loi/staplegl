@@ -186,6 +186,7 @@ set(EXAMPLES_SHADERS
     ${SHADER_DIR}/light_shader.glsl
     ${SHADER_DIR}/tone_mapping.glsl
     ${SHADER_DIR}/downsample_shader.glsl
+    ${SHADER_DIR}/upsample_shader.glsl
 )
 
 foreach(shader ${EXAMPLES_SHADERS})
