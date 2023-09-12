@@ -334,8 +334,7 @@ auto main() -> int
         true
     };
 
-    // bind the texture and set it to unit 0 so that it can be sampled from the shader.
-    skybox.bind();
+    // set the texture to unit 0, so that the shader can find it.
     skybox.set_unit(0);
 
     // bind the uniform block
@@ -456,7 +455,6 @@ auto main() -> int
             auto& draw_target = pyramid_textures[i + 1];
             auto const& t_res = draw_target.get_resolution();
 
-            draw_source.bind();
             draw_source.set_unit(4);
 
             hdr_fbo.set_texture(draw_target, 0);
@@ -486,7 +484,6 @@ auto main() -> int
             auto& draw_source = pyramid_textures[i];
             auto& draw_target = pyramid_textures[i - 1];
 
-            draw_source.bind();
             draw_source.set_unit(4);
 
             hdr_fbo.set_texture(draw_target, 0);
