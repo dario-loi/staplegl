@@ -58,7 +58,7 @@ private:
      * @brief The number of instances in the buffer.
      *
      */
-    std::size_t m_count {};
+    std::int32_t m_count {};
 
     /**
      * @brief Compute the new capacity of the buffer, given the current capacity.
@@ -67,7 +67,7 @@ private:
      *
      * @return std::size_t the new capacity of the buffer.
      */
-    constexpr std::size_t calc_capacity(std::size_t capacity) noexcept
+    constexpr std::size_t calc_capacity(std::size_t capacity) const noexcept
     {
         std::size_t new_cap;
 
@@ -145,7 +145,7 @@ public:
 
     // UTLITIES
 
-    constexpr std::size_t instance_count() const noexcept { return m_count; }
+    constexpr std::int32_t instance_count() const noexcept { return m_count; }
     constexpr std::size_t instance_size() const noexcept { return m_layout.stride(); }
 
 }; // class vertex_buffer_inst

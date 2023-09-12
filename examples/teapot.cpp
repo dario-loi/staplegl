@@ -57,8 +57,9 @@ MessageCallback(GLenum source [[maybe_unused]],
     const GLchar* message,
     const void* userParam [[maybe_unused]])
 {
-    if (type == GL_DEBUG_TYPE_PERFORMANCE || type == GL_DEBUG_TYPE_OTHER)
+    if (type == GL_DEBUG_TYPE_PERFORMANCE || type == GL_DEBUG_TYPE_OTHER) {
         return;
+    }
 
     fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n",
         (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
@@ -68,7 +69,7 @@ MessageCallback(GLenum source [[maybe_unused]],
     fprintf(stderr, "source = 0x%x, id = %d\n", source, id);
 }
 
-constexpr uint32_t calc_pyramid_levels(uint32_t width, uint32_t height)
+constexpr auto calc_pyramid_levels(uint32_t width, uint32_t height) -> uint32_t
 {
     uint32_t levels = 1;
     while (width > 4 && height > 4) {
@@ -125,7 +126,6 @@ auto main() -> int
     glEnable(GL_DEBUG_OUTPUT);
     glEnable(GL_CULL_FACE);
 
-
     glDebugMessageCallback(MessageCallback, nullptr);
 
     // Set up all the shaders
@@ -133,9 +133,9 @@ auto main() -> int
     glcore::shader_program skybox_shader { "skybox_shader", "./shaders/skybox_shader.glsl" };
     glcore::shader_program light_shader { "light_shader", "./shaders/light_shader.glsl" };
     glcore::shader_program tonemap_shader { "tone_mapping", "./shaders/tone_mapping.glsl" };
-    glcore::shader_program downsample_shader {"downsample", "./shaders/downsample_shader.glsl"};
-    glcore::shader_program upsample_shader{"upsample", "./shaders/upsample_shader.glsl"};
-    glcore::shader_program passthrough_shader{"passthrough", "./shaders/passthrough_shader.glsl"};
+    glcore::shader_program downsample_shader { "downsample", "./shaders/downsample_shader.glsl" };
+    glcore::shader_program upsample_shader { "upsample", "./shaders/upsample_shader.glsl" };
+    glcore::shader_program passthrough_shader { "passthrough", "./shaders/passthrough_shader.glsl" };
 
     skybox_shader.bind();
     skybox_shader.upload_uniform1i("skybox", 0);
@@ -156,38 +156,32 @@ auto main() -> int
     upsample_shader.bind();
     upsample_shader.upload_uniform1i("scene", 4);
 
-
     // set up framebuffers and textures for HDR and bloom effect
     std::array<glcore::texture_2d, calc_pyramid_levels(SCR_WIDTH, SCR_HEIGHT)> pyramid_textures {};
 
     glcore::texture_2d hdr_color {
         std::span<const float> {},
         glcore::resolution { SCR_WIDTH, SCR_HEIGHT },
-        glcore::texture_color { 
-            .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT 
-            }, 
-        glcore::texture_filter { 
-            .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE
-            },
+        glcore::texture_color {
+            .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT },
+        glcore::texture_filter {
+            .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },
         false
-        };
-
+    };
 
     // construct a texture pyramid, with each texture being half the size of the previous one.
     // iteratively downsampling from screen resolution towards the bottom will allow us to
     // spread the bloom effect over a wide area, with more details.
     for (int i = 0; auto& tex : pyramid_textures) {
-        tex = glcore::texture_2d{
+        tex = glcore::texture_2d {
             std::span<const float> {},
             glcore::resolution { SCR_WIDTH >> i, SCR_HEIGHT >> i },
-            glcore::texture_color { 
-                .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT 
-                }, 
-            glcore::texture_filter { 
-                .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE
-                },
+            glcore::texture_color {
+                .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT },
+            glcore::texture_filter {
+                .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },
             false
-            };
+        };
         i++;
     }
 
@@ -199,7 +193,8 @@ auto main() -> int
     // Teapot model
     glcore::vertex_buffer_layout layout_3P_3N { { shader_type::vec3, "aPos" }, { shader_type::vec3, "aNormal" } };
 
-    glcore::vertex_buffer VBO { { teapot_vertices, TEAPOT_VERTEX_COMPONENTS * TEAPOT_VERTICES }, glcore::driver_draw_hint::STATIC_DRAW };
+    glcore::vertex_buffer VBO { { teapot_vertices, static_cast<size_t>(TEAPOT_VERTEX_COMPONENTS * TEAPOT_VERTICES) },
+        glcore::driver_draw_hint::STATIC_DRAW };
     VBO.set_layout(layout_3P_3N);
 
     glcore::index_buffer EBO {
@@ -318,7 +313,7 @@ auto main() -> int
     std::int32_t width, height, nrChannels;
     int i = 0;
     for (auto& face : faces) {
-        std::byte* data = reinterpret_cast<std::byte*>(
+        auto* data = reinterpret_cast<std::byte*>(
             stbi_load(face.c_str(), &width, &height, &nrChannels, 0));
         if (data == nullptr) {
             std::cout << "Failed to load texture" << std::endl;
@@ -334,10 +329,8 @@ auto main() -> int
     // intended.
     glcore::cubemap skybox {
         cube_data, { static_cast<uint32_t>(width), static_cast<uint32_t>(height) },
-        { .internal_format = GL_SRGB8, .format = GL_RGB, .datatype = GL_UNSIGNED_BYTE }, 
-        {
-            .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE
-        },
+        { .internal_format = GL_SRGB8, .format = GL_RGB, .datatype = GL_UNSIGNED_BYTE },
+        { .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },
         true
     };
 
@@ -355,7 +348,7 @@ auto main() -> int
         processInput(window);
 
         // Rotate the camera around the teapot.
-        const float time = static_cast<float>(glfwGetTime());
+        const auto time = static_cast<float>(glfwGetTime());
         const float radius = 4.0F;
         const float slow_factor = 0.5F;
 
@@ -433,11 +426,11 @@ auto main() -> int
         teapot_shader.bind();
 
         glDrawElements(GL_TRIANGLES, VAO.index_data().count(), GL_UNSIGNED_INT, nullptr);
-        
+
         /*
-        
+
             post-processing
-        
+
         */
 
         // bind screen-quad, every draw call will now simply
@@ -449,7 +442,7 @@ auto main() -> int
         passthrough_shader.bind();
         hdr_color.set_unit(2);
         hdr_fbo.set_texture(pyramid_textures[0], 0);
-        hdr_fbo.set_renderbuffer({0, 0}, glcore::fbo_attachment::NONE);
+        hdr_fbo.set_renderbuffer({ 0, 0 }, glcore::fbo_attachment::NONE);
 
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // copy the scene to the lowest level of the pyramid
 
@@ -461,17 +454,18 @@ auto main() -> int
 
             auto& draw_source = pyramid_textures[i];
             auto& draw_target = pyramid_textures[i + 1];
+            auto const& t_res = draw_target.get_resolution();
 
             draw_source.bind();
             draw_source.set_unit(4);
 
             hdr_fbo.set_texture(draw_target, 0);
             hdr_fbo.set_viewport(
-                { draw_target.get_resolution().width,
-                    draw_target.get_resolution().height });
+                { t_res.width,
+                    t_res.height });
 
-            downsample_shader.upload_uniform2f("uResolution", draw_target.get_resolution().width,
-                draw_target.get_resolution().height);
+            downsample_shader.upload_uniform2f("uResolution", static_cast<float>(t_res.width),
+                static_cast<float>(t_res.height));
 
             glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         }
@@ -515,12 +509,10 @@ auto main() -> int
         hdr_color.set_unit(4);
         pyramid_textures[0].set_unit(5);
 
-
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
-
     }
 
     // no need to de-allocate anything as glcore handles all the OpenGL objects in a RAII fashion.
@@ -549,5 +541,5 @@ void framebuffer_size_callback(GLFWwindow* /*window*/, int width, int height)
     // make sure the viewport matches the new window dimensions; note that width
     // and height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
-    aspect_ratio = static_cast<double>(width) / static_cast<double>(height);
+    aspect_ratio = static_cast<float>(width) / static_cast<float>(height);
 }

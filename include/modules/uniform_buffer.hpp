@@ -22,17 +22,17 @@ namespace glcore {
 class uniform_buffer {
 
 public:
-    uniform_buffer(std::span<const float> contents, vertex_buffer_layout layout, int32_t binding_point);
-    uniform_buffer(vertex_buffer_layout layout, int32_t binding_point);
+    uniform_buffer(std::span<const float> contents, vertex_buffer_layout const& layout, int32_t binding_point);
+    uniform_buffer(vertex_buffer_layout const& layout, int32_t binding_point);
 
     uniform_buffer(const uniform_buffer&) = delete;
     uniform_buffer& operator=(const uniform_buffer&) = delete;
 
-    uniform_buffer(uniform_buffer&&) noexcept;
-    [[nodiscard]] uniform_buffer& operator=(uniform_buffer&&) noexcept;
+    uniform_buffer(uniform_buffer&& other) noexcept;
+    [[nodiscard]] uniform_buffer& operator=(uniform_buffer&& other) noexcept;
 
     void bind() const;
-    void unbind() const;
+    static void unbind();
 
     /**
      * @brief Set the attribute data object
@@ -80,7 +80,7 @@ private:
 
 }; // class uniform_buffer
 
-uniform_buffer::uniform_buffer(std::span<const float> contents, vertex_buffer_layout layout, int32_t binding_point)
+uniform_buffer::uniform_buffer(std::span<const float> contents, vertex_buffer_layout const& layout, int32_t binding_point)
     : m_binding_point { binding_point }
     , m_layout { layout }
 {
@@ -97,7 +97,7 @@ uniform_buffer::uniform_buffer(std::span<const float> contents, vertex_buffer_la
     }
 }
 
-uniform_buffer::uniform_buffer(vertex_buffer_layout layout, int32_t binding_point)
+uniform_buffer::uniform_buffer(vertex_buffer_layout const& layout, int32_t binding_point)
     : m_binding_point { binding_point }
     , m_layout { layout }
 {
@@ -119,7 +119,7 @@ void uniform_buffer::bind() const
     glBindBuffer(GL_UNIFORM_BUFFER, m_id);
 }
 
-void uniform_buffer::unbind() const
+void uniform_buffer::unbind()
 {
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
@@ -135,7 +135,7 @@ uniform_buffer::uniform_buffer(uniform_buffer&& other) noexcept
     : m_id { other.m_id }
     , m_binding_point { other.m_binding_point }
     , m_attr_cache { std::move(other.m_attr_cache) }
-    , m_layout { other.m_layout }
+    , m_layout { std::move(other.m_layout) }
 {
     other.m_id = 0;
 }
@@ -146,7 +146,7 @@ uniform_buffer::uniform_buffer(uniform_buffer&& other) noexcept
         glDeleteBuffers(1, &m_id);
         m_id = other.m_id;
         m_binding_point = other.m_binding_point;
-        m_layout = other.m_layout;
+        m_layout = std::move(other.m_layout);
         m_attr_cache = std::move(other.m_attr_cache);
 
         other.m_id = 0;

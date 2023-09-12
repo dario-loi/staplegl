@@ -21,30 +21,27 @@ enum class fbo_attachment : std::uint8_t {
     ATTACH_DEPTH_STENCIL_BUFFER = 0x03,
 };
 
-
-
 class framebuffer {
 
 public:
-
     framebuffer();
     ~framebuffer();
 
     framebuffer(const framebuffer&) = delete;
     framebuffer& operator=(const framebuffer&) = delete;
 
-    framebuffer(framebuffer&&) noexcept;
-    framebuffer& operator=(framebuffer&&) noexcept;
+    framebuffer(framebuffer&& other) noexcept;
+    framebuffer& operator=(framebuffer&& other) noexcept;
 
     /**
      * @brief Set the renderbuffer object
-     * 
+     *
      * @param res The resolution of the renderbuffer object.
      * @param attachment the type of attachment (Depth buffer, Stencil Buffer, Both, None).
-     * 
+     *
      * @note passing glcore::fbo_attachment::NONE results in the removal of any renderbuffer from the FBO.
      * @note this function destroys any previously held renderbuffer.
-     * 
+     *
      * @see glcore::fbo_attachment
      */
     void set_renderbuffer(resolution res, fbo_attachment attachment = fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER);
@@ -61,13 +58,13 @@ public:
      * @param tex a texture_2d to attach to the framebuffer.
      * @param index the index of the color attachment to use, used as an offset from `GL_COLOR_ATTACHMENT0`.
      */
-    void set_texture(texture_2d const &tex, size_t index = 0) const;
+    void set_texture(texture_2d const& tex, size_t index = 0) const;
 
     /**
      * @brief Resize the OpenGL viewport.
-     * 
+     *
      * @note this does not resize held textures, but it's faster.
-     * 
+     *
      * @param res The target resolution
      */
     static void set_viewport(resolution res);
@@ -86,7 +83,7 @@ public:
     }
 
     void bind() const;
-    void unbind() const;
+    static void unbind();
 
     /**
      * @brief Check if the framebuffer is complete.
@@ -102,7 +99,7 @@ public:
      * @return true if the framebuffer is complete.
      * @return false otherwise.
      */
-    bool assert_completeness() const
+    static bool assert_completeness()
     {
         auto status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 
@@ -124,7 +121,7 @@ public:
 private:
     std::uint32_t m_id {};
     fbo_attachment m_attachment {};
-    std::optional<renderbuffer> m_renderbuffer {}; 
+    std::optional<renderbuffer> m_renderbuffer {};
 
 }; // class framebuffer
 
@@ -145,7 +142,6 @@ framebuffer::~framebuffer()
     }
 }
 
-
 /**
  * @brief Construct a new framebuffer::framebuffer object
  *
@@ -156,7 +152,7 @@ framebuffer::framebuffer(framebuffer&& other) noexcept
     , m_attachment(other.m_attachment)
     , m_renderbuffer(std::move(other.m_renderbuffer))
 {
-  other.m_id = 0;
+    other.m_id = 0;
 }
 
 /**
@@ -186,7 +182,7 @@ framebuffer& framebuffer::operator=(framebuffer&& other) noexcept
  */
 void framebuffer::set_renderbuffer(resolution res, fbo_attachment attachment)
 {
-    if(attachment != fbo_attachment::NONE) {
+    if (attachment != fbo_attachment::NONE) {
 
         renderbuffer::attachment_type type {};
 
@@ -211,41 +207,42 @@ void framebuffer::set_renderbuffer(resolution res, fbo_attachment attachment)
     } else {
         // unbind the old framebuffer, if present
 
-        if(m_attachment == fbo_attachment::NONE) {
-          return; // nothing to unbind
+        if (m_attachment == fbo_attachment::NONE) {
+            return; // nothing to unbind
         }
 
         renderbuffer::attachment_type type {};
 
         switch (m_attachment) {
         case fbo_attachment::ATTACH_DEPTH_BUFFER:
-          type = renderbuffer::attachment_type::depth;
-          break;
-        case fbo_attachment::ATTACH_STENCIL_BUFFER:
-          type = renderbuffer::attachment_type::stencil;
-          break;
-        case fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER:
-          type = renderbuffer::attachment_type::depth_stencil;
-          break;
-          default:
+            type = renderbuffer::attachment_type::depth;
             break;
-          }
+        case fbo_attachment::ATTACH_STENCIL_BUFFER:
+            type = renderbuffer::attachment_type::stencil;
+            break;
+        case fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER:
+            type = renderbuffer::attachment_type::depth_stencil;
+            break;
+        default:
+            break;
+        }
 
-          m_attachment = fbo_attachment::NONE;
+        m_attachment = fbo_attachment::NONE;
 
-          glFramebufferRenderbuffer(GL_FRAMEBUFFER,
-                                    static_cast<std::uint32_t>(type),
-                                    GL_RENDERBUFFER, 0);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER,
+            static_cast<std::uint32_t>(type),
+            GL_RENDERBUFFER, 0);
     }
 }
 
-void framebuffer::set_texture(glcore::texture_2d const& tex, size_t index) const {
+void framebuffer::set_texture(glcore::texture_2d const& tex, size_t index) const
+{
 
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index, GL_TEXTURE_2D, tex.id(), 0);
-
 }
 
-void framebuffer::set_viewport(glcore::resolution res) {
+void framebuffer::set_viewport(glcore::resolution res)
+{
     glViewport(0, 0, res.width, res.height);
 }
 
@@ -254,13 +251,12 @@ const std::optional<renderbuffer>& framebuffer::get_renderbuffer() const
     return m_renderbuffer;
 }
 
-
 void framebuffer::bind() const
 {
     glBindFramebuffer(GL_FRAMEBUFFER, m_id);
 }
 
-void framebuffer::unbind() const
+void framebuffer::unbind()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

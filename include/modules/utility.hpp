@@ -29,20 +29,19 @@ struct resolution {
 
 namespace glcore::util {
 
-
 static std::string read_file(std::string_view path)
 {
-    std::ifstream in(path.data(), std::ios::ate | std::ios::binary);
+    std::ifstream in_file(path.data(), std::ios::ate | std::ios::binary);
 
-    if (!in.is_open()) {
+    if (!in_file.is_open()) {
         return {};
     }
 
-    size_t file_size = in.tellg();
+    size_t file_size = in_file.tellg();
     std::string result(file_size, '\0');
 
-    in.seekg(0);
-    in.read(result.data(), file_size);
+    in_file.seekg(0);
+    in_file.read(result.data(), file_size);
 
     return result;
 }

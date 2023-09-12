@@ -53,7 +53,7 @@ public:
      * @brief Unbind the vertex array object.
      *
      */
-    void unbind() const;
+    static void unbind();
 
     /**
      * @brief Add a vertex buffer to the vertex array object.
@@ -148,7 +148,7 @@ void vertex_array::bind() const
     glBindVertexArray(m_id);
 }
 
-void vertex_array::unbind() const
+void vertex_array::unbind()
 {
     glBindVertexArray(0);
 }

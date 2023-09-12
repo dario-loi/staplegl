@@ -24,10 +24,10 @@ namespace glcore {
 class cubemap {
 
 public:
-    cubemap(std::span<std::byte*, 6> data, resolution res, 
-            texture_color color = { GL_RGBA, GL_RGBA, GL_FLOAT }, 
-            texture_filter filter = { GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE },
-            bool generate_mipmaps = false);
+    cubemap(std::span<std::byte*, 6> data, resolution res,
+        texture_color color = { GL_RGBA, GL_RGBA, GL_FLOAT },
+        texture_filter filter = { GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE },
+        bool generate_mipmaps = false);
     ~cubemap() noexcept
     {
         if (m_id != 0) {
@@ -83,7 +83,7 @@ public:
      * @brief Unbind the cubemap texture.
      *
      */
-    void unbind() const;
+    static void unbind();
 
     /**
      * @brief Get the texture id.
@@ -150,7 +150,7 @@ void cubemap::bind() const
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_id);
 }
 
-void cubemap::unbind() const
+void cubemap::unbind()
 {
     glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }

@@ -71,8 +71,8 @@ public:
     vertex_buffer(const vertex_buffer&) = delete;
     vertex_buffer& operator=(const vertex_buffer&) = delete;
 
-    vertex_buffer(vertex_buffer&&) noexcept;
-    vertex_buffer& operator=(vertex_buffer&&) noexcept;
+    vertex_buffer(vertex_buffer&& other) noexcept;
+    vertex_buffer& operator=(vertex_buffer&& other) noexcept;
 
     /**
      * @brief Bind the vertex buffer object.
@@ -84,7 +84,7 @@ public:
      * @brief Unbind the vertex buffer object.
      *
      */
-    void unbind() const;
+    static void unbind();
 
     /**
      * @brief Set the layout object
@@ -100,7 +100,7 @@ public:
      *
      */
 
-    void set_data(std::span<const float> vertices) noexcept;
+    void set_data(std::span<const float> vertices) const noexcept;
 
     // UTILITIES
 
@@ -183,7 +183,7 @@ vertex_buffer::~vertex_buffer()
 
 vertex_buffer::vertex_buffer(vertex_buffer&& other) noexcept
     : m_id { other.m_id }
-    , m_layout { other.m_layout }
+    , m_layout { std::move(other.m_layout) }
 {
     other.m_id = 0;
 }
@@ -206,7 +206,7 @@ void vertex_buffer::bind() const
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
 }
 
-void vertex_buffer::unbind() const
+void vertex_buffer::unbind()
 {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
@@ -221,7 +221,7 @@ void vertex_buffer::set_layout(const vertex_buffer_layout& layout)
     return m_layout;
 }
 
-void vertex_buffer::set_data(std::span<const float> vertices) noexcept
+void vertex_buffer::set_data(std::span<const float> vertices) const noexcept
 {
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
     glBufferData(GL_ARRAY_BUFFER, vertices.size_bytes(), vertices.data(), GL_STATIC_DRAW);

@@ -63,17 +63,17 @@ public:
     /**
      * @brief Get the number of indices in the index buffer object.
      *
-     * @return std::uint32_t, the number of indices.
+     * @return std::int32_t, the number of indices.
      */
-    std::size_t count() const;
+    std::int32_t count() const;
 
 private:
     std::uint32_t m_id {};
-    std::size_t m_count {};
+    std::int32_t m_count {};
 };
 
 index_buffer::index_buffer(std::span<const std::uint32_t> indices) noexcept
-    : m_count { indices.size() }
+    : m_count { static_cast<int32_t>(indices.size()) }
 {
     glGenBuffers(1, &m_id);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
@@ -117,7 +117,7 @@ void index_buffer::unbind() const
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-std::size_t index_buffer::count() const
+std::int32_t index_buffer::count() const
 {
     return m_count;
 }
