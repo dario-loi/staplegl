@@ -71,7 +71,7 @@ MessageCallback(GLenum source [[maybe_unused]],
 constexpr uint32_t calc_pyramid_levels(uint32_t width, uint32_t height)
 {
     uint32_t levels = 1;
-    while (width > 16 && height > 16) {
+    while (width > 4 && height > 4) {
         width /= 2;
         height /= 2;
         levels++;
@@ -124,41 +124,70 @@ auto main() -> int
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_DEBUG_OUTPUT);
     glEnable(GL_CULL_FACE);
-    glBlendFunc(GL_ONE, GL_ONE);
-    glBlendEquation(GL_FUNC_ADD);
 
-    // set up tessellation
-    glPatchParameteri(GL_PATCH_VERTICES, 3);
 
     glDebugMessageCallback(MessageCallback, nullptr);
 
-    // load our shaders, one for the teapot, one for the skybox, also set up the
-    // skybox shader to use the cubemap texture.
+    // Set up all the shaders
     glcore::shader_program teapot_shader { "teapot_shader", "./shaders/teapot_shader.glsl" };
     glcore::shader_program skybox_shader { "skybox_shader", "./shaders/skybox_shader.glsl" };
     glcore::shader_program light_shader { "light_shader", "./shaders/light_shader.glsl" };
     glcore::shader_program tonemap_shader { "tone_mapping", "./shaders/tone_mapping.glsl" };
     glcore::shader_program downsample_shader {"downsample", "./shaders/downsample_shader.glsl"};
     glcore::shader_program upsample_shader{"upsample", "./shaders/upsample_shader.glsl"};
+    glcore::shader_program passthrough_shader{"passthrough", "./shaders/passthrough_shader.glsl"};
 
     skybox_shader.bind();
     skybox_shader.upload_uniform1i("skybox", 0);
 
-    teapot_shader.bind(); // we also set the skybox as the environment map for the teapot.
+    teapot_shader.bind();
     teapot_shader.upload_uniform1i("environment", 0);
+
+    passthrough_shader.bind();
+    passthrough_shader.upload_uniform1i("scene", 2);
 
     tonemap_shader.bind();
     tonemap_shader.upload_uniform1i("scene", 4);
+    tonemap_shader.upload_uniform1i("bloom", 5);
+
+    downsample_shader.bind();
+    downsample_shader.upload_uniform1i("scene", 4);
+
+    upsample_shader.bind();
+    upsample_shader.upload_uniform1i("scene", 4);
+
 
     // set up framebuffers and textures for HDR and bloom effect
+    std::array<glcore::texture_2d, calc_pyramid_levels(SCR_WIDTH, SCR_HEIGHT)> pyramid_textures {};
 
-    std::array<std::optional<glcore::texture_2d>, calc_pyramid_levels(SCR_WIDTH, SCR_HEIGHT)> pyramid_textures {};
+    glcore::texture_2d hdr_color {
+        std::span<const float> {},
+        glcore::resolution { SCR_WIDTH, SCR_HEIGHT },
+        glcore::texture_color { 
+            .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT 
+            }, 
+        glcore::texture_filter { 
+            .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE
+            },
+        false
+        };
 
-    // construct a pyramid of downscaled textures
+
+    // construct a texture pyramid, with each texture being half the size of the previous one.
+    // iteratively downsampling from screen resolution towards the bottom will allow us to
+    // spread the bloom effect over a wide area, with more details.
     for (int i = 0; auto& tex : pyramid_textures) {
-        tex.emplace(std::span<const float> {},
+        tex = glcore::texture_2d{
+            std::span<const float> {},
             glcore::resolution { SCR_WIDTH >> i, SCR_HEIGHT >> i },
-            glcore::texture_color { GL_RGBA16F, GL_RGBA, GL_FLOAT }, false);
+            glcore::texture_color { 
+                .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT 
+                }, 
+            glcore::texture_filter { 
+                .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE
+                },
+            false
+            };
         i++;
     }
 
@@ -247,13 +276,13 @@ auto main() -> int
     glcore::uniform_buffer light_block { light_block_layout, 1 };
 
     const glm::vec4 light_pos { 1.0F, 1.0F, 8.0F, 1.0F };
-    const glm::vec4 light_color { 0.0F, 0.0F, 1.0F, 1.0F };
+    const glm::vec4 light_color { 1.0F, 0.6863F, 0.2F, 1.0F };
 
     light_block.bind();
     light_block.set_attribute_data(std::span { glm::value_ptr(light_pos), 4 }, "light_pos");
     light_block.set_attribute_data(std::span { glm::value_ptr(light_color), 4 }, "light_color");
-    light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec4(1.0F, 0.14F, 0.07F, 0.0F)), 4 }, "light_attenuation");
-    light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec2(5.0F, 1.2F)), 2 }, "light_intensities");
+    light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec4(1.0F, 0.045F, 0.0075F, 0.0F)), 4 }, "light_attenuation");
+    light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec2(20.0F, 6.0F)), 2 }, "light_intensities");
     light_block.unbind();
 
     glcore::vertex_buffer_layout material_block_layout {
@@ -264,7 +293,6 @@ auto main() -> int
     glcore::uniform_buffer material_block { material_block_layout, 2 };
 
     // teapot materials
-
     const glm::vec4 teapot_color { 0.51F, 0.55F, 0.66F, 1.0F };
     const glm::vec4 teapot_specular { 0.5F, 0.5F, 0.5F, 1.0F };
     const float teapot_shininess = 16.0F;
@@ -293,8 +321,8 @@ auto main() -> int
         std::byte* data = reinterpret_cast<std::byte*>(
             stbi_load(face.c_str(), &width, &height, &nrChannels, 0));
         if (data == nullptr) {
-            hdr_fbo.set_renderbuffer({ SCR_WIDTH, SCR_HEIGHT },
-                glcore::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER);
+            std::cout << "Failed to load texture" << std::endl;
+            return -1;
         }
         // pack data in array
         cube_data[i++] = data;
@@ -306,7 +334,11 @@ auto main() -> int
     // intended.
     glcore::cubemap skybox {
         cube_data, { static_cast<uint32_t>(width), static_cast<uint32_t>(height) },
-        { .internal_format = GL_SRGB8, .format = GL_RGB, .datatype = GL_UNSIGNED_BYTE }, true
+        { .internal_format = GL_SRGB8, .format = GL_RGB, .datatype = GL_UNSIGNED_BYTE }, 
+        {
+            .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE
+        },
+        true
     };
 
     // bind the texture and set it to unit 0 so that it can be sampled from the shader.
@@ -347,19 +379,19 @@ auto main() -> int
 
         // Draw calls start here
 
-        // clear total black
-
+        // first off, we bind the framebuffer and start drawing to our HDR texture.
         hdr_fbo.bind();
-        hdr_fbo.set_texture(0, *std::move(pyramid_textures[0]));
+        hdr_fbo.set_texture(hdr_color, 0);
 
-        hdr_fbo.set_renderbuffer({ SCR_WIDTH, SCR_HEIGHT },
+        hdr_fbo.set_renderbuffer({ SCR_WIDTH, SCR_HEIGHT }, // get a renderbuffer of the same size as the screen.
             glcore::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER);
 
-        if (!hdr_fbo.assert_completeness()) {
-            std::cout << "Framebuffer not complete!" << std::endl;
-            return -1;
+        if (!hdr_fbo.assert_completeness()) [[unlikely]] {
+            std::cerr << "Framebuffer not complete, line: " << __LINE__ << std::endl;
+            return EXIT_FAILURE; // check for completeness
         }
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
         // ------
 
@@ -401,75 +433,90 @@ auto main() -> int
         teapot_shader.bind();
 
         glDrawElements(GL_TRIANGLES, VAO.index_data().count(), GL_UNSIGNED_INT, nullptr);
-        // Bloom processing
-        // remove the renderbuffer, resolution is irrelevant.
-        hdr_fbo.set_renderbuffer({0, 0}, glcore::fbo_attachment::NONE);
-        downsample_shader.bind();
+        
+        /*
+        
+            post-processing
+        
+        */
+
+        // bind screen-quad, every draw call will now simply
+        // transfer content from one texture to another.
+
         quad_VAO.bind();
 
-        // bloom downsampling
-        for(int i = 1; i < pyramid_textures.size(); ++i) {
-            // retrieve the scene and set it as a texture to be read from
-            downsample_shader.upload_uniform1i("pyramid_level", i);
-            pyramid_textures[i - 1] = std::move(hdr_fbo.extract_texture(0));
-            auto const &scene_tex = pyramid_textures[i - 1];
-            scene_tex->bind();
-            scene_tex->set_unit(4);
+        // copy stuff to the bloom pyramid
+        passthrough_shader.bind();
+        hdr_color.set_unit(2);
+        hdr_fbo.set_texture(pyramid_textures[0], 0);
+        hdr_fbo.set_renderbuffer({0, 0}, glcore::fbo_attachment::NONE);
 
-            // prep the next level of the pyramid
-            hdr_fbo.set_texture(0, std::move(*pyramid_textures[i]));
-            auto const &draw_target = hdr_fbo.get_texture(0);
-            auto const res = draw_target->get_resolution();
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // copy the scene to the lowest level of the pyramid
 
-            hdr_fbo.set_viewport({res.width,
-                                  res.height});
+        downsample_shader.bind();
 
-            downsample_shader.upload_uniform2f("uResolution", res.width,
-                                               res.height);
+        // work our way down the levels of the pyramid, downsampling the texture each time.
+        for (int i = 0; i < pyramid_textures.size() - 1; i++) {
+            // downsample from texture i to texture i + 1
+
+            auto& draw_source = pyramid_textures[i];
+            auto& draw_target = pyramid_textures[i + 1];
+
+            draw_source.bind();
+            draw_source.set_unit(4);
+
+            hdr_fbo.set_texture(draw_target, 0);
+            hdr_fbo.set_viewport(
+                { draw_target.get_resolution().width,
+                    draw_target.get_resolution().height });
+
+            downsample_shader.upload_uniform2f("uResolution", draw_target.get_resolution().width,
+                draw_target.get_resolution().height);
+
             glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         }
-        // We have the image pyramid, we can now reconstruct it.
+
+        // now every level of the pyramid is filled with a downsampled version of the scene.
+        // we can now upsample the pyramid and add the results together to get the bloom effect.
+
+        // blending for Bloom
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE);
+        glBlendEquation(GL_FUNC_ADD);
+
         upsample_shader.bind();
 
-        glEnable(GL_BLEND);
+        for (int i = pyramid_textures.size() - 1; i > 0; i--) {
+            // upsample from texture i to texture i - 1
 
-        for (int i = pyramid_textures.size() - 1; i > 0; --i) {
-          upsample_shader.upload_uniform1i("pyramid_level", i - 1);
-          pyramid_textures[i] = std::move(hdr_fbo.extract_texture(0));
-          auto const &scene_tex = pyramid_textures[i];
-          scene_tex->bind();
-          scene_tex->set_unit(4);
+            auto& draw_source = pyramid_textures[i];
+            auto& draw_target = pyramid_textures[i - 1];
 
-          hdr_fbo.set_texture(0, std::move(*pyramid_textures[i - 1]));
-          auto const &draw_target = hdr_fbo.get_texture(0);
-          auto const res = draw_target->get_resolution();
-          hdr_fbo.set_viewport({res.width, 
-                                res.height});
-          glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+            draw_source.bind();
+            draw_source.set_unit(4);
+
+            hdr_fbo.set_texture(draw_target, 0);
+            hdr_fbo.set_viewport(
+                { draw_target.get_resolution().width,
+                    draw_target.get_resolution().height });
+            glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         }
-
-        auto const &scene = pyramid_textures[0];
-
-        scene->bind();
-        scene->set_unit(4);
-
         glDisable(GL_BLEND);
+
+        // After upscaling the pyramid, we have the bloom effect in the lowest level of the pyramid.
+        // we can combine it with the original scene to get the final result.
 
         // HDR post-processing
         glcore::framebuffer::bind_default();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         tonemap_shader.bind();
-        quad_VAO.bind();
+        // bind the pyramid texture and the original scene
+        hdr_color.set_unit(4);
+        pyramid_textures[0].set_unit(5);
 
-        auto const& hdr_texture = hdr_fbo.get_texture(0);
-
-        hdr_texture->bind();
-        hdr_texture->set_unit(4);
 
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-        pyramid_textures[0] = std::move(hdr_fbo.extract_texture(0));
 
         glfwSwapBuffers(window);
         glfwPollEvents();

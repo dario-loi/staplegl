@@ -24,7 +24,10 @@ namespace glcore {
 class cubemap {
 
 public:
-    cubemap(std::span<std::byte*, 6> data, resolution res, texture_color color = { GL_RGBA, GL_RGBA, GL_FLOAT }, bool generate_mipmaps = false);
+    cubemap(std::span<std::byte*, 6> data, resolution res, 
+            texture_color color = { GL_RGBA, GL_RGBA, GL_FLOAT }, 
+            texture_filter filter = { GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE },
+            bool generate_mipmaps = false);
     ~cubemap() noexcept
     {
         if (m_id != 0) {
@@ -44,8 +47,9 @@ public:
      */
     cubemap(cubemap&& other) noexcept
         : m_id(other.m_id)
-        , m_color(other.m_color)
         , m_res(other.m_res)
+        , m_color(other.m_color)
+        , m_filter(other.m_filter)
     {
         other.m_id = 0;
     }
@@ -62,6 +66,7 @@ public:
             m_id = other.m_id;
             m_color = other.m_color;
             m_res = other.m_res;
+            m_filter = other.m_filter;
             other.m_id = 0;
         }
         return *this;
@@ -110,23 +115,25 @@ public:
 
 private:
     uint32_t m_id {};
-    texture_color m_color {};
     resolution m_res {};
+    texture_color m_color {};
+    texture_filter m_filter {};
 };
 
-cubemap::cubemap(std::span<std::byte*, 6> data, resolution res, texture_color color, bool generate_mipmaps)
-    : m_color(color)
-    , m_res(res)
+cubemap::cubemap(std::span<std::byte*, 6> data, resolution res, texture_color color, texture_filter filter, bool generate_mipmaps)
+    : m_res(res)
+    , m_color(color)
+    , m_filter(filter)
 {
     glGenTextures(1, &m_id);
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_id);
 
-    glTextureParameteri(m_id, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTextureParameteri(m_id, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTextureParameteri(m_id, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    glTextureParameteri(m_id, GL_TEXTURE_WRAP_S, filter.clamping);
+    glTextureParameteri(m_id, GL_TEXTURE_WRAP_T, filter.clamping);
+    glTextureParameteri(m_id, GL_TEXTURE_WRAP_R, filter.clamping);
 
-    glTextureParameteri(m_id, GL_TEXTURE_MIN_FILTER, generate_mipmaps ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
-    glTextureParameteri(m_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTextureParameteri(m_id, GL_TEXTURE_MIN_FILTER, generate_mipmaps ? to_mipmap(filter.min_filter) : filter.min_filter);
+    glTextureParameteri(m_id, GL_TEXTURE_MAG_FILTER, filter.mag_filter);
 
     int i = 0;
     for (auto const& face : data) {

@@ -45,14 +45,7 @@ void main() {
     upsample += (b + d + f + h) * 2.0;
     upsample += (a + c + g + i);
     upsample *= 1.0 / 16.0;
-    switch(pyramid_level) 
-    {
-        case 0:
-        outColor += mix(vec3(0.F), upsample, 0.04F);
-        break;
-        default:
-        outColor = upsample;
-        break;
-    }
+
+    outColor += upsample;
 }
 
