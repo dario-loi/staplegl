@@ -30,11 +30,26 @@ struct texture_color {
     std::uint32_t datatype {};
 };
 
+/**
+ * @brief OpenGL texture details relating to filtering and clamping of the image
+ *
+ */
 struct texture_filter {
     std::uint32_t min_filter {};
     std::uint32_t mag_filter {};
     std::uint32_t clamping {};
 };
+
+enum tex_samples : int32_t {
+
+    MSAA_X1 = 1,
+    MSAA_X2 = 2,
+    MSAA_X4 = 4,
+    MSAA_X8 = 8,
+    MSAA_X16 = 16,
+    MSAA_X32 = 32,
+
+}
 
 /**
  * @brief Convert a filter type to its mipmap counterpart.
@@ -45,7 +60,8 @@ struct texture_filter {
  *
  * @return constexpr std::uint32_t The OpenGL enum value of the mipmap counterpart.
  */
-static constexpr std::uint32_t to_mipmap(std::uint32_t filter_type)
+static constexpr std::uint32_t
+to_mipmap(std::uint32_t filter_type)
 {
     switch (filter_type) {
     case GL_NEAREST:
@@ -82,10 +98,13 @@ public:
      * @param data span of floats that represent the texture data.
      * @param res resolution of the texture.
      * @param color descriptor of the texture's color format and data type.
-     * @param generate_mipmap whether to generate mipmaps for the texture.
+     * @param samples the number of samples to use for the texture, defaults to 1.
+     * @param generate_mipmap whether to generate mipmaps for the texture, defaults to false.
      */
     texture_2d(std::span<const float> data, resolution res,
-        texture_color color, texture_filter filters, bool generate_mipmap = true);
+        texture_color color, texture_filter filters,
+        tex_samples samples = tex_samples::MSAA_X1,
+        bool generate_mipmap = false);
 
     ~texture_2d()
     {
@@ -106,6 +125,7 @@ public:
      */
     texture_2d(texture_2d&& other) noexcept
         : m_id(other.m_id)
+        , m_samples(other.m_samples)
         , m_color(other.m_color)
         , m_resolution(other.m_resolution)
     {
@@ -122,11 +142,11 @@ public:
     {
         if (this != &other) {
             m_id = other.m_id;
+            m_samples = other.m_samples;
             m_color = other.m_color;
             m_resolution = other.m_resolution;
             other.m_id = 0;
         }
-
         return *this;
     }
 
@@ -162,16 +182,16 @@ public:
      */
     void bind() const
     {
-        glBindTexture(GL_TEXTURE_2D, m_id);
+        glBindTexture(m_antialias.type, m_id);
     }
 
     /**
      * @brief Unbind the texture object.
      *
      */
-    static void unbind()
+    void unbind() const
     {
-        glBindTexture(GL_TEXTURE_2D, 0);
+        glBindTexture(m_antialias.type, 0);
     }
 
     /**
@@ -205,44 +225,51 @@ public:
     };
 
 private:
-    uint32_t m_id {};
-    uint32_t m_unit {};
+    std::uint32_t m_id {};
+    std::uint32_t m_unit {};
+    tex_samples m_samples {};
     texture_color m_color {};
     texture_filter m_filter {};
     resolution m_resolution {};
 };
 
 texture_2d::texture_2d(std::span<const float> data, resolution res,
-    texture_color color, texture_filter filter, bool generate_mipmap)
-    : m_color { color }
+    texture_color color, texture_filter filter, tex_samples samples, bool generate_mipmap)
+    : m_samples { m_samples }
+    , m_color { color }
     , m_filter { filter }
     , m_resolution { res }
 {
     glGenTextures(1, &m_id);
-    glBindTexture(GL_TEXTURE_2D, m_id);
+    glBindTexture(m_antialias.type, m_id);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, generate_mipmap ? to_mipmap(filter.min_filter) : filter.min_filter);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter.mag_filter);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, filter.clamping);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, filter.clamping);
+    glTexParameteri(m_antialias.type, GL_TEXTURE_MIN_FILTER, generate_mipmap ? to_mipmap(filter.min_filter) : filter.min_filter);
+    glTexParameteri(m_antialias.type, GL_TEXTURE_MAG_FILTER, filter.mag_filter);
+    glTexParameteri(m_antialias.type, GL_TEXTURE_WRAP_S, filter.clamping);
+    glTexParameteri(m_antialias.type, GL_TEXTURE_WRAP_T, filter.clamping);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, color.internal_format, m_resolution.width, m_resolution.height, 0, color.format, color.datatype, data.data());
-
-    if (generate_mipmap) {
-        glGenerateMipmap(GL_TEXTURE_2D);
+    if (m_antialias.type == GL_TEXTURE_2D) {
+        glTexImage2D(m_antialias.type, 0, color.internal_format, m_resolution.width, m_resolution.height, 0, color.format, color.datatype, data.data());
+    } else if (m_antialias.type == GL_TEXTURE_2D_MULTISAMPLE) {
+        glTexImage2DMultisample(m_antialias.type, m_antialias.samples, color.internal_format,
+            m_resolution.width, m_resolution.height, GL_TRUE);
     }
 
-    glBindTexture(GL_TEXTURE_2D, 0);
+    if (generate_mipmap) {
+        glGenerateMipmap(m_antialias.type);
+    }
+
+    glBindTexture(m_antialias.type, 0);
 }
 
 void texture_2d::set_data(std::span<const float> data, resolution res, texture_color color, bool generate_mipmap)
 {
-    glTexImage2D(GL_TEXTURE_2D, 0, m_color.internal_format, res.width, res.height, 0, m_color.format, m_color.datatype, data.data());
+    glTexImage2D(m_antialias.type, 0, m_color.internal_format, res.width, res.height, 0, m_color.format, m_color.datatype, data.data());
     m_color = color;
     m_resolution = res;
 
     if (generate_mipmap) {
-        glGenerateMipmap(GL_TEXTURE_2D);
+        glGenerateMipmap(m_antialias.type);
     }
 }
 

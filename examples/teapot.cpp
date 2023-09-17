@@ -166,7 +166,8 @@ auto main() -> int
             .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT },
         glcore::texture_filter {
             .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },
-        false
+        glcore::texture_antialias {
+            .type = glcore::tex_type_2d::texture_multisampled, .samples = 4 }
     };
 
     // construct a texture pyramid, with each texture being half the size of the previous one.
@@ -180,6 +181,8 @@ auto main() -> int
                 .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT },
             glcore::texture_filter {
                 .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },
+            glcore::texture_antialias {
+                .type = glcore::tex_type_2d::texture_regular, .samples = 1 },
             false
         };
         i++;

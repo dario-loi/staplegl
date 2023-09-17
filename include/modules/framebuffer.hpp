@@ -44,7 +44,7 @@ public:
      *
      * @see glcore::fbo_attachment
      */
-    void set_renderbuffer(resolution res, fbo_attachment attachment = fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER);
+    void set_renderbuffer(resolution res, fbo_attachment attachment = fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER, uint32_t samples = 1);
 
     /**
      * @brief Set a texture as the color attachment of the framebuffer.
@@ -180,7 +180,7 @@ framebuffer& framebuffer::operator=(framebuffer&& other) noexcept
  *
  * @warning the framebuffer MUST be bound before calling this function.
  */
-void framebuffer::set_renderbuffer(resolution res, fbo_attachment attachment)
+void framebuffer::set_renderbuffer(resolution res, fbo_attachment attachment, uint32_t samples)
 {
     if (attachment != fbo_attachment::NONE) {
 
