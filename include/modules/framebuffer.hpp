@@ -111,12 +111,17 @@ public:
      *
      * @return std::uint32_t the id of the framebuffer.
      */
-    [[nodiscard]] std::uint32_t id() const
+    [[nodiscard]] constexpr std::uint32_t id() const
     {
         return m_id;
     }
 
-    [[nodiscard]] const std::optional<renderbuffer>& get_renderbuffer() const;
+    [[nodiscard]] constexpr const std::optional<renderbuffer>& get_renderbuffer() const;
+
+    [[nodiscard]] constexpr fbo_attachment attachment() const
+    {
+        return m_attachment;
+    }
 
 private:
     std::uint32_t m_id {};

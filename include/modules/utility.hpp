@@ -25,7 +25,16 @@ struct resolution {
     std::uint32_t width {};
     std::uint32_t height {};
 };
-}
+
+enum tex_samples : int32_t {
+  MSAA_X1 = 1,
+  MSAA_X2 = 2,
+  MSAA_X4 = 4,
+  MSAA_X8 = 8,
+  MSAA_X16 = 16,
+  MSAA_X32 = 32,
+};
+} // namespace glcore
 
 namespace glcore::util {
 

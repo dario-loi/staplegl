@@ -90,21 +90,21 @@ public:
      *
      * @return uint32_t the texture id.
      */
-    [[nodiscard]] uint32_t id() const noexcept { return m_id; }
+    [[nodiscard]] constexpr uint32_t id() const noexcept { return m_id; }
 
     /**
      * @brief Get the texture color.
      *
      * @return texture_color the texture color.
      */
-    [[nodiscard]] texture_color color() const noexcept { return m_color; }
+    [[nodiscard]] constexpr texture_color color() const noexcept { return m_color; }
 
     /**
      * @brief Get the resolution of the cubemap.
      *
      * @return resolution the resolution of the cubemap.
      */
-    [[nodiscard]] resolution res() const noexcept { return m_res; }
+    [[nodiscard]] constexpr resolution res() const noexcept { return m_res; }
 
     /**
      * @brief Set the unit object to bind the texture to.
