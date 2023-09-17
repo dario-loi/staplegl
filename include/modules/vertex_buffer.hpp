@@ -93,7 +93,7 @@ public:
      * @see vertex_buffer_layout.hpp
      */
     void set_layout(const vertex_buffer_layout& layout);
-    [[nodiscard]] const vertex_buffer_layout& layout() const;
+    [[nodiscard]] constexpr const vertex_buffer_layout& layout() const;
 
     /**
      * @brief Give new data to the vertex buffer object, overwriting the old one.
@@ -138,6 +138,8 @@ public:
      */
     template <plain_old_data T>
     void apply(const std::function<void(std::span<T> vertices)>& func, driver_access_specifier access_specifier = glcore::READ_WRITE) noexcept;
+
+
 
 protected:
     std::uint32_t m_id {};
@@ -216,7 +218,7 @@ void vertex_buffer::set_layout(const vertex_buffer_layout& layout)
     m_layout = layout;
 }
 
-[[nodiscard]] const vertex_buffer_layout& vertex_buffer::layout() const
+[[nodiscard]] constexpr const vertex_buffer_layout& vertex_buffer::layout() const
 {
     return m_layout;
 }

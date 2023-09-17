@@ -65,7 +65,7 @@ public:
      *
      * @return std::int32_t, the number of indices.
      */
-    std::int32_t count() const;
+    constexpr std::int32_t count() const;
 
 private:
     std::uint32_t m_id {};

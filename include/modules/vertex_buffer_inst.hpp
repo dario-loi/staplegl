@@ -147,6 +147,8 @@ public:
 
     constexpr std::int32_t instance_count() const noexcept { return m_count; }
     constexpr std::size_t instance_size() const noexcept { return m_layout.stride(); }
+    constexpr std::size_t capacity() const noexcept { return m_capacity; }
+    [[nodiscard]] constexpr auto layout() const noexcept -> const vertex_buffer_layout& { return m_layout; }
 
 }; // class vertex_buffer_inst
 

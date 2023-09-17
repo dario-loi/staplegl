@@ -40,16 +40,12 @@ struct texture_filter {
     std::uint32_t clamping {};
 };
 
-enum tex_samples : int32_t {
+struct texture_antialias {
+    std::uint32_t type {};
+    tex_samples samples {};
+};
 
-    MSAA_X1 = 1,
-    MSAA_X2 = 2,
-    MSAA_X4 = 4,
-    MSAA_X8 = 8,
-    MSAA_X16 = 16,
-    MSAA_X32 = 32,
 
-}
 
 /**
  * @brief Convert a filter type to its mipmap counterpart.
@@ -118,6 +114,8 @@ public:
     texture_2d(const texture_2d&) = delete;
     texture_2d& operator=(const texture_2d&) = delete;
 
+
+
     /**
      * @brief Construct a new texture 2d object
      *
@@ -125,9 +123,9 @@ public:
      */
     texture_2d(texture_2d&& other) noexcept
         : m_id(other.m_id)
-        , m_samples(other.m_samples)
         , m_color(other.m_color)
         , m_resolution(other.m_resolution)
+        , m_antialias(other.m_antialias)
     {
         other.m_id = 0;
     }
@@ -142,9 +140,9 @@ public:
     {
         if (this != &other) {
             m_id = other.m_id;
-            m_samples = other.m_samples;
             m_color = other.m_color;
             m_resolution = other.m_resolution;
+            m_antialias = other.m_antialias;
             other.m_id = 0;
         }
         return *this;
@@ -162,15 +160,6 @@ public:
         bind();
     }
 
-    /**
-     * @brief Get the texture unit on which the texture is currently active.
-     *
-     * @return uint32_t a texture unit offset from `GL_TEXTURE0`.
-     */
-    uint32_t get_unit() const
-    {
-        return m_unit;
-    }
 
     void set_data(std::span<const float> data, resolution res,
         texture_color color = { GL_RGBA, GL_RGBA, GL_FLOAT },
@@ -193,13 +182,22 @@ public:
     {
         glBindTexture(m_antialias.type, 0);
     }
+    /**
+     * @brief Get the last texture unit this texture was bound to.
+     *
+     * @return uint32_t a texture unit offset from `GL_TEXTURE0`.
+     */
+    uint32_t constexpr get_unit() const
+    {
+        return m_unit;
+    }
 
     /**
      * @brief Get the texture color struct.
      *
      * @return texture_color
      */
-    [[nodiscard]] texture_color color() const
+    [[nodiscard]] constexpr texture_color color() const
     {
         return m_color;
     }
@@ -209,7 +207,7 @@ public:
      *
      * @return std::uint32_t
      */
-    [[nodiscard]] std::uint32_t id() const
+    [[nodiscard]] constexpr  std::uint32_t id() const
     {
         return m_id;
     }
@@ -219,36 +217,58 @@ public:
      *
      * @return glcore::resolution
      */
-    [[nodiscard]] glcore::resolution get_resolution() const
+    [[nodiscard]] constexpr  glcore::resolution get_resolution() const
     {
         return m_resolution;
     };
 
+    /**
+     * @brief Get the texture filter struct.
+     *
+     * @return texture_filter
+     */
+    [[nodiscard]] constexpr  texture_filter filter() const
+    {
+        return m_filter;
+    }
+
+    /**
+     * @brief Get the texture antialias struct.
+     *
+     * @return texture_antialias
+     */
+    [[nodiscard]] constexpr  texture_antialias antialias() const
+    {
+        return m_antialias;
+    }
+
+
+
 private:
     std::uint32_t m_id {};
     std::uint32_t m_unit {};
-    tex_samples m_samples {};
     texture_color m_color {};
     texture_filter m_filter {};
     resolution m_resolution {};
+    texture_antialias m_antialias {};
 };
 
 texture_2d::texture_2d(std::span<const float> data, resolution res,
     texture_color color, texture_filter filter, tex_samples samples, bool generate_mipmap)
-    : m_samples { m_samples }
-    , m_color { color }
+    : m_color { color }
     , m_filter { filter }
     , m_resolution { res }
+    , m_antialias { (samples == tex_samples::MSAA_X1) ? texture_antialias { GL_TEXTURE_2D, samples } : texture_antialias { GL_TEXTURE_2D_MULTISAMPLE, samples } }
 {
     glGenTextures(1, &m_id);
     glBindTexture(m_antialias.type, m_id);
 
-    glTexParameteri(m_antialias.type, GL_TEXTURE_MIN_FILTER, generate_mipmap ? to_mipmap(filter.min_filter) : filter.min_filter);
-    glTexParameteri(m_antialias.type, GL_TEXTURE_MAG_FILTER, filter.mag_filter);
-    glTexParameteri(m_antialias.type, GL_TEXTURE_WRAP_S, filter.clamping);
-    glTexParameteri(m_antialias.type, GL_TEXTURE_WRAP_T, filter.clamping);
-
     if (m_antialias.type == GL_TEXTURE_2D) {
+        glTexParameteri(m_antialias.type, GL_TEXTURE_MIN_FILTER, generate_mipmap ? to_mipmap(filter.min_filter) : filter.min_filter);
+        glTexParameteri(m_antialias.type, GL_TEXTURE_MAG_FILTER, filter.mag_filter);
+        glTexParameteri(m_antialias.type, GL_TEXTURE_WRAP_S, filter.clamping);
+        glTexParameteri(m_antialias.type, GL_TEXTURE_WRAP_T, filter.clamping);
+
         glTexImage2D(m_antialias.type, 0, color.internal_format, m_resolution.width, m_resolution.height, 0, color.format, color.datatype, data.data());
     } else if (m_antialias.type == GL_TEXTURE_2D_MULTISAMPLE) {
         glTexImage2DMultisample(m_antialias.type, m_antialias.samples, color.internal_format,
@@ -264,6 +284,11 @@ texture_2d::texture_2d(std::span<const float> data, resolution res,
 
 void texture_2d::set_data(std::span<const float> data, resolution res, texture_color color, bool generate_mipmap)
 {
+
+    if(m_antialias.type == GL_TEXTURE_2D_MULTISAMPLE) {
+      return;
+    }
+
     glTexImage2D(m_antialias.type, 0, m_color.internal_format, res.width, res.height, 0, m_color.format, m_color.datatype, data.data());
     m_color = color;
     m_resolution = res;

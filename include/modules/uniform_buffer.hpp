@@ -69,6 +69,7 @@ public:
 
     constexpr int32_t binding_point() const noexcept { return m_binding_point; }
     constexpr int32_t id() const noexcept { return m_id; }
+    [[nodiscard]] constexpr vertex_buffer_layout const& layout() const noexcept { return m_layout; }
 
 private:
     using attr_ref = std::reference_wrapper<const vertex_attribute>;

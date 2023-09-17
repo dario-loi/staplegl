@@ -102,21 +102,21 @@ public:
      *
      * @return std::list<vertex_buffer>&  the vertex buffer object at the specified index.
      */
-    constexpr auto buffers_data() -> std::list<vertex_buffer>& { return m_vertex_buffers; }
+    [[nodiscard]] constexpr auto buffers_data() -> std::list<vertex_buffer>& { return m_vertex_buffers; }
 
     /**
      * @brief Get the instance buffer object.
      *
      * @return std::optional<vertex_buffer_inst>& the instance buffer object.
      */
-    constexpr auto instanced_data() -> std::optional<vertex_buffer_inst>& { return m_instanced_vbo; }
+    [[nodiscard]] constexpr auto instanced_data() -> std::optional<vertex_buffer_inst>& { return m_instanced_vbo; }
 
     /**
      * @brief Get the index buffer object.
      *
      * @return index_buffer& the index buffer object.
      */
-    constexpr auto index_data() -> index_buffer& { return m_index_buffer; }
+    [[nodiscard]] constexpr auto index_data() -> index_buffer& { return m_index_buffer; }
 
 private:
     std::uint32_t m_id {};

@@ -220,7 +220,7 @@ private:
      *
      * @return std::vector<shader>. A vector of shaders.
      */
-    std::vector<shader> parse_shaders(const std::string& source) const;
+    [[nodiscard]] std::vector<shader> parse_shaders(const std::string& source) const;
 
 private:
     /**
@@ -248,7 +248,7 @@ private:
      * @param shader_type the shader type.
      * @return std::uint32_t, the OpenGL equivalent of the shader type, as an OpenGL enum.
      */
-    static std::uint32_t to_gl_type(shader_type shader_type);
+    static constexpr std::uint32_t to_gl_type(shader_type shader_type);
 
     /**
      * @brief Convert a string to a shader type.
@@ -257,7 +257,7 @@ private:
      *
      * @return shader_type, the shader type.
      */
-    static std::optional<shader_type> string_to_shader_type(std::string_view str);
+    [[nodiscard]] static std::optional<shader_type> string_to_shader_type(std::string_view str);
 
 private:
     std::uint32_t m_id {};
