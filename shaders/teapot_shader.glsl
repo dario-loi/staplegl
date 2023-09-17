@@ -13,8 +13,8 @@ layout(std140, binding = 0) uniform u_matrices
 layout(location = 0) in vec3 aPos;
 layout(location = 1) in vec3 aNormal;
 
-out vec3 normal;
-out vec3 frag_pos_view;
+layout(location = 0) out vec3 normal;
+layout(location = 1) out vec3 frag_pos_view;
 
 void main()
 {
@@ -52,12 +52,12 @@ layout(std140, binding = 2) uniform u_material
     float material_roughness;
 };
 
-in vec3 normal;
-in vec3 frag_pos_view;
+layout(location = 0) in vec3 normal;
+layout(location = 1) in vec3 frag_pos_view;
 
-out vec4 color;
+layout(location = 0) out vec4 color;
 
-uniform samplerCube environment;
+layout(binding = 0) uniform samplerCube environment;
 
 const float refraction_ratio = 0.20F;
 const float ambient_light = 0.10F; // brightness of the environment

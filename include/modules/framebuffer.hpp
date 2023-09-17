@@ -44,7 +44,7 @@ public:
      *
      * @see glcore::fbo_attachment
      */
-    void set_renderbuffer(resolution res, fbo_attachment attachment = fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER, uint32_t samples = 1);
+    void set_renderbuffer(resolution res, fbo_attachment attachment = fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER, tex_samples samples = tex_samples::MSAA_X1);
 
     /**
      * @brief Set a texture as the color attachment of the framebuffer.
@@ -104,6 +104,23 @@ public:
         auto status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 
         return status == GL_FRAMEBUFFER_COMPLETE;
+    }
+
+    /**
+     * @brief Transfer the contents of a framebuffer to another.
+     * 
+     * @param src The source framebuffer.
+     * @param dst The destination framebuffer.
+     * @param res The resolution of the framebuffer.
+     */
+    static void transfer_data(framebuffer const& src, framebuffer const& dst, resolution res)
+    {
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, src.id());
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, dst.id());
+
+        glBlitFramebuffer(0, 0, res.width, res.height, 0, 0, res.width, res.height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+    
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
     /**
@@ -185,7 +202,7 @@ framebuffer& framebuffer::operator=(framebuffer&& other) noexcept
  *
  * @warning the framebuffer MUST be bound before calling this function.
  */
-void framebuffer::set_renderbuffer(resolution res, fbo_attachment attachment, uint32_t samples)
+void framebuffer::set_renderbuffer(resolution res, fbo_attachment attachment, tex_samples samples)
 {
     if (attachment != fbo_attachment::NONE) {
 
@@ -206,7 +223,7 @@ void framebuffer::set_renderbuffer(resolution res, fbo_attachment attachment, ui
         }
 
         m_attachment = attachment; // in some cases this is a redundant operation, fair enough.
-        m_renderbuffer.emplace(res, type);
+        m_renderbuffer.emplace(res, type, samples);
 
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, static_cast<std::uint32_t>(type), GL_RENDERBUFFER, m_renderbuffer->id());
     } else {
@@ -243,7 +260,7 @@ void framebuffer::set_renderbuffer(resolution res, fbo_attachment attachment, ui
 void framebuffer::set_texture(glcore::texture_2d const& tex, size_t index) const
 {
 
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index, GL_TEXTURE_2D, tex.id(), 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index, tex.antialias().type, tex.id(), 0);
 }
 
 void framebuffer::set_viewport(glcore::resolution res)
@@ -251,7 +268,7 @@ void framebuffer::set_viewport(glcore::resolution res)
     glViewport(0, 0, res.width, res.height);
 }
 
-const std::optional<renderbuffer>& framebuffer::get_renderbuffer() const
+constexpr const std::optional<renderbuffer>& framebuffer::get_renderbuffer() const
 {
     return m_renderbuffer;
 }

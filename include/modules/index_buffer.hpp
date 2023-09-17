@@ -117,7 +117,7 @@ void index_buffer::unbind() const
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-std::int32_t index_buffer::count() const
+constexpr std::int32_t index_buffer::count() const
 {
     return m_count;
 }

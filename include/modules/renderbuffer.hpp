@@ -27,7 +27,7 @@ public:
     };
 
     renderbuffer(resolution res, attachment_type type = attachment_type::depth_stencil, 
-        tex_samples samples);
+        tex_samples samples = tex_samples::MSAA_X1);
     ~renderbuffer();
 
     renderbuffer(const renderbuffer&) = delete;

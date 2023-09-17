@@ -11,7 +11,7 @@ layout(std140, binding = 0) uniform u_matrices
     vec4 camera_pos;
 };
 
-out vec3 texCoords;
+layout(location = 0) out vec3 texCoords;
 
 void main()
 {
@@ -22,10 +22,10 @@ void main()
 #type fragment
 #version 420 core
 
-in vec3 texCoords;
-out vec4 FragColor;
+layout(location = 0) in vec3 texCoords;
+layout(location = 0) out vec4 FragColor;
 
-uniform samplerCube skybox;
+layout(binding = 0) uniform samplerCube skybox;
 
 void main()
 {

@@ -489,7 +489,7 @@ bool shader_program::is_valid(std::uint32_t id) const
     return true;
 }
 
-std::uint32_t shader_program::to_gl_type(shader_type shader_type)
+constexpr std::uint32_t shader_program::to_gl_type(shader_type shader_type)
 {
     switch (shader_type) {
     case shader_type::vertex:

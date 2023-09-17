@@ -29,7 +29,8 @@ layout(std140, binding = 1) uniform u_light
     vec2 light_intensities;
 };
 
-out vec4 FragColor;
+layout(location = 0) out vec4 FragColor;
+
 void main()
 { // make the light glow with intensity proportional to the diffuse intensity
     FragColor = light_color * light_intensities.x;

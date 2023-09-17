@@ -44,8 +44,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
 // initial window size
-const unsigned int SCR_WIDTH = 1200;
-const unsigned int SCR_HEIGHT = 800;
+const uint32_t SCR_WIDTH = 1600;
+const uint32_t SCR_HEIGHT = 900;
 
 // OpenGL debug callback
 void GLAPIENTRY
@@ -72,7 +72,7 @@ MessageCallback(GLenum source [[maybe_unused]],
 constexpr auto calc_pyramid_levels(uint32_t width, uint32_t height) -> uint32_t
 {
     uint32_t levels = 1;
-    while (width > 4 && height > 4) {
+    while (width > 2 && height > 2) {
         width /= 2;
         height /= 2;
         levels++;
@@ -96,7 +96,7 @@ auto main() -> int
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 
-    glfwWindowHint(GLFW_SAMPLES, 4); // MSAA
+    glfwWindowHint(GLFW_SAMPLES, 16); // MSAA
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
@@ -144,20 +144,30 @@ auto main() -> int
     teapot_shader.upload_uniform1i("environment", 0);
 
     passthrough_shader.bind();
-    passthrough_shader.upload_uniform1i("scene", 2);
+    passthrough_shader.upload_uniform1i("scene", 1);
 
     tonemap_shader.bind();
-    tonemap_shader.upload_uniform1i("scene", 4);
-    tonemap_shader.upload_uniform1i("bloom", 5);
+    tonemap_shader.upload_uniform1i("scene", 1);
+    tonemap_shader.upload_uniform1i("bloom", 2);
 
     downsample_shader.bind();
-    downsample_shader.upload_uniform1i("scene", 4);
+    downsample_shader.upload_uniform1i("scene", 1);
 
     upsample_shader.bind();
-    upsample_shader.upload_uniform1i("scene", 4);
+    upsample_shader.upload_uniform1i("scene", 1);
 
     // set up framebuffers and textures for HDR and bloom effect
     std::array<glcore::texture_2d, calc_pyramid_levels(SCR_WIDTH, SCR_HEIGHT)> pyramid_textures {};
+
+    glcore::texture_2d msaa_color {
+        std::span<const float> {},
+        glcore::resolution { SCR_WIDTH, SCR_HEIGHT },
+        glcore::texture_color {
+            .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT },
+        glcore::texture_filter {
+            .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },
+        glcore::tex_samples::MSAA_X16
+    };
 
     glcore::texture_2d hdr_color {
         std::span<const float> {},
@@ -165,9 +175,7 @@ auto main() -> int
         glcore::texture_color {
             .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT },
         glcore::texture_filter {
-            .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },
-        glcore::texture_antialias {
-            .type = glcore::tex_type_2d::texture_multisampled, .samples = 4 }
+            .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE }
     };
 
     // construct a texture pyramid, with each texture being half the size of the previous one.
@@ -180,15 +188,14 @@ auto main() -> int
             glcore::texture_color {
                 .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT },
             glcore::texture_filter {
-                .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },
-            glcore::texture_antialias {
-                .type = glcore::tex_type_2d::texture_regular, .samples = 1 },
-            false
+                .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE }
         };
         i++;
     }
 
-    glcore::framebuffer hdr_fbo {};
+    glcore::framebuffer msaa_fbo {};
+    glcore::framebuffer post_fbo {};
+
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -273,14 +280,14 @@ auto main() -> int
 
     glcore::uniform_buffer light_block { light_block_layout, 1 };
 
-    const glm::vec4 light_pos { 1.0F, 1.0F, 8.0F, 1.0F };
-    const glm::vec4 light_color { 1.0F, 0.6863F, 0.2F, 1.0F };
+    const glm::vec4 light_pos { 1.0F, 1.0F, 10.0F, 1.0F };
+    const glm::vec4 light_color { 0.9333F, 0.5098, 0.9333F, 1.0F };
 
     light_block.bind();
     light_block.set_attribute_data(std::span { glm::value_ptr(light_pos), 4 }, "light_pos");
     light_block.set_attribute_data(std::span { glm::value_ptr(light_color), 4 }, "light_color");
     light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec4(1.0F, 0.045F, 0.0075F, 0.0F)), 4 }, "light_attenuation");
-    light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec2(20.0F, 6.0F)), 2 }, "light_intensities");
+    light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec2(8.0F, 1.2F)), 2 }, "light_intensities");
     light_block.unbind();
 
     glcore::vertex_buffer_layout material_block_layout {
@@ -292,9 +299,8 @@ auto main() -> int
 
     // teapot materials
     const glm::vec4 teapot_color { 0.51F, 0.55F, 0.66F, 1.0F };
-    const glm::vec4 teapot_specular { 0.5F, 0.5F, 0.5F, 1.0F };
-    const float teapot_shininess = 16.0F;
-    const float teapot_roughness = 0.25F;
+    const float teapot_shininess = 32.0F;
+    const float teapot_roughness = 0.80F;
 
     material_block.bind();
     material_block.set_attribute_data(std::span { glm::value_ptr(teapot_color), 4 }, "material_color");
@@ -372,23 +378,27 @@ auto main() -> int
         camera_block.set_attribute_data(std::span { glm::value_ptr(view), 16 }, "view");
         camera_block.set_attribute_data(std::span { glm::value_ptr(projection), 16 }, "projection");
 
-        // Draw calls start here
-
         // first off, we bind the framebuffer and start drawing to our HDR texture.
-        hdr_fbo.bind();
-        hdr_fbo.set_texture(hdr_color, 0);
+        msaa_fbo.bind();
+        msaa_fbo.set_texture(msaa_color);
+        msaa_fbo.set_renderbuffer(
+            {SCR_WIDTH,
+             SCR_HEIGHT}, // get a renderbuffer of the same size as the screen.
+            glcore::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER,
+            glcore::tex_samples::MSAA_X16); // set the same samples as the color texture.
 
-        hdr_fbo.set_renderbuffer({ SCR_WIDTH, SCR_HEIGHT }, // get a renderbuffer of the same size as the screen.
-            glcore::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER);
-
-        if (!hdr_fbo.assert_completeness()) [[unlikely]] {
+        if (!msaa_fbo.assert_completeness()) [[unlikely]] {
             std::cerr << "Framebuffer not complete, line: " << __LINE__ << std::endl;
             return EXIT_FAILURE; // check for completeness
         }
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
-        // ------
+        /*
+        
+            Rendering with MSAA
+        
+        */
 
         // prep to render the skybox
         skybox_VAO.bind();
@@ -430,8 +440,22 @@ auto main() -> int
         glDrawElements(GL_TRIANGLES, VAO.index_data().count(), GL_UNSIGNED_INT, nullptr);
 
         /*
+        
+            Resolve MSAA to HDR framebuffer
 
-            post-processing
+        */
+
+        post_fbo.bind();
+        post_fbo.set_texture(hdr_color);
+
+        glcore::framebuffer::transfer_data(msaa_fbo, post_fbo, {SCR_WIDTH, SCR_HEIGHT});
+
+        post_fbo.bind();
+        post_fbo.set_renderbuffer({ 0, 0 }, glcore::fbo_attachment::NONE);
+
+        /*
+
+            Post-processing
 
         */
 
@@ -442,9 +466,8 @@ auto main() -> int
 
         // copy stuff to the bloom pyramid
         passthrough_shader.bind();
-        hdr_color.set_unit(2);
-        hdr_fbo.set_texture(pyramid_textures[0], 0);
-        hdr_fbo.set_renderbuffer({ 0, 0 }, glcore::fbo_attachment::NONE);
+        hdr_color.set_unit(1);
+        post_fbo.set_texture(pyramid_textures[0], 0);
 
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); // copy the scene to the lowest level of the pyramid
 
@@ -458,10 +481,10 @@ auto main() -> int
             auto& draw_target = pyramid_textures[i + 1];
             auto const& t_res = draw_target.get_resolution();
 
-            draw_source.set_unit(4);
+            draw_source.set_unit(1);
 
-            hdr_fbo.set_texture(draw_target, 0);
-            hdr_fbo.set_viewport(
+            post_fbo.set_texture(draw_target, 0);
+            post_fbo.set_viewport(
                 { t_res.width,
                     t_res.height });
 
@@ -487,10 +510,10 @@ auto main() -> int
             auto& draw_source = pyramid_textures[i];
             auto& draw_target = pyramid_textures[i - 1];
 
-            draw_source.set_unit(4);
+            draw_source.set_unit(1);
 
-            hdr_fbo.set_texture(draw_target, 0);
-            hdr_fbo.set_viewport(
+            post_fbo.set_texture(draw_target, 0);
+            post_fbo.set_viewport(
                 { draw_target.get_resolution().width,
                     draw_target.get_resolution().height });
             glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -506,8 +529,8 @@ auto main() -> int
 
         tonemap_shader.bind();
         // bind the pyramid texture and the original scene
-        hdr_color.set_unit(4);
-        pyramid_textures[0].set_unit(5);
+        hdr_color.set_unit(1);
+        pyramid_textures[0].set_unit(2);
 
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 

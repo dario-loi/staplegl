@@ -5,7 +5,7 @@
 layout(location = 0) in vec3 aPos;
 layout(location = 1) in vec2 aTexCoord;
 
-out vec2 TexCoord;
+layout(location = 0) out vec2 TexCoord;
 
 void main() {
     TexCoord = aTexCoord;
@@ -16,9 +16,9 @@ void main() {
 #version 420 core 
 #line 17
 
-in vec2 TexCoord;
+layout(location = 0) in vec2 TexCoord;
 
-uniform sampler2D scene;
+layout(binding = 1) uniform sampler2D scene;
 uniform int pyramid_level;
 
 layout(location = 0) out vec3 outColor;

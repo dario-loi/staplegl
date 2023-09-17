@@ -139,8 +139,8 @@ public:
     [[nodiscard]] vertex_buffer_inst& operator=(vertex_buffer_inst&&) noexcept = default;
 
     void add_instance(std::span<const float> instance_data) noexcept;
-    size_t delete_instance(std::size_t index) noexcept;
-    void update_instance(std::size_t index,
+    int32_t delete_instance(std::int32_t index) noexcept;
+    void update_instance(std::int32_t index,
         std::span<const float> instance_data) noexcept;
 
     // UTLITIES
@@ -170,7 +170,7 @@ inline void vertex_buffer_inst::add_instance(std::span<const float> instance_dat
     m_count++;
 }
 
-void vertex_buffer_inst::update_instance(std::size_t index, std::span<const float> instance_data) noexcept
+void vertex_buffer_inst::update_instance(std::int32_t index, std::span<const float> instance_data) noexcept
 {
     assert(index < m_count || instance_data.size_bytes() == m_layout.stride());
 
@@ -178,9 +178,9 @@ void vertex_buffer_inst::update_instance(std::size_t index, std::span<const floa
     glBufferSubData(GL_ARRAY_BUFFER, index * instance_data.size_bytes(), instance_data.size_bytes(), instance_data.data());
 }
 
-inline size_t vertex_buffer_inst::delete_instance(std::size_t index) noexcept
+inline std::int32_t vertex_buffer_inst::delete_instance(std::int32_t index) noexcept
 {
-    if (index >= m_count) [[unlikely]] {
+    if (index >= m_count || index < 0) [[unlikely]] {
         return m_count;
     } // pretend we did something
 
