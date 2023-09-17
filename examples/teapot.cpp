@@ -47,6 +47,9 @@ void processInput(GLFWwindow* window);
 const uint32_t SCR_WIDTH = 1600;
 const uint32_t SCR_HEIGHT = 900;
 
+// global luminosity to be updated by keypresses
+float luminosity = 10.0F;
+
 // OpenGL debug callback
 void GLAPIENTRY
 MessageCallback(GLenum source [[maybe_unused]],
@@ -87,17 +90,25 @@ float aspect_ratio = static_cast<double>(SCR_WIDTH) / static_cast<double>(SCR_HE
 auto main() -> int
 {
 
-    // shorten layout declarations a bit.
-    using namespace glcore::shader_data_type;
+  std::string_view hello_message{
+      "Hello! This is a more complex example of glcore usage, featuring the Utah Teapot model.\n"
+      "Press the U and D keys to increase (U) and decrease (D) the luminosity of the light source.\n"
+      "Play around with them to observe how the bloom effect changes."
+  };
 
-    // glfw: initialize and configure
-    // ------------------------------
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+  std::cout << hello_message << std::endl;
 
-    glfwWindowHint(GLFW_SAMPLES, 16); // MSAA
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  // shorten layout declarations a bit.
+  using namespace glcore::shader_data_type;
+
+  // glfw: initialize and configure
+  // ------------------------------
+  glfwInit();
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+
+  glfwWindowHint(GLFW_SAMPLES, 16); // MSAA
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -287,7 +298,7 @@ auto main() -> int
     light_block.set_attribute_data(std::span { glm::value_ptr(light_pos), 4 }, "light_pos");
     light_block.set_attribute_data(std::span { glm::value_ptr(light_color), 4 }, "light_color");
     light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec4(1.0F, 0.045F, 0.0075F, 0.0F)), 4 }, "light_attenuation");
-    light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec2(8.0F, 1.2F)), 2 }, "light_intensities");
+    light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec2(luminosity, 1.2F)), 2 }, "light_intensities");
     light_block.unbind();
 
     glcore::vertex_buffer_layout material_block_layout {
@@ -346,8 +357,6 @@ auto main() -> int
     // set the texture to unit 0, so that the shader can find it.
     skybox.set_unit(0);
 
-    // bind the uniform block
-    camera_block.bind();
     glClearColor(0.F, 0.F, 0.F, 1.0F);
 
     while (glfwWindowShouldClose(window) == 0) {
@@ -355,10 +364,13 @@ auto main() -> int
         // -----
         processInput(window);
 
+        light_block.bind();
+        light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec2(luminosity, 1.2F)), 2 }, "light_intensities");
+
         // Rotate the camera around the teapot.
         const auto time = static_cast<float>(glfwGetTime());
         const float radius = 4.0F;
-        const float slow_factor = 0.5F;
+        const float slow_factor = 0.25F;
 
         const float camX = sin(time * slow_factor) * radius;
         const float camZ = cos(time * slow_factor) * radius;
@@ -374,7 +386,9 @@ auto main() -> int
         glm::mat4 projection = glm::perspective(glm::radians(75.0F), aspect_ratio, 0.01F, 100.0F);
 
         // send the data to the GPU through the uniform block.
-        camera_block.set_attribute_data(std::span { glm::value_ptr(camera_pos), 4 }, "camera_pos");
+        camera_block.bind();
+        camera_block.set_attribute_data(
+            std::span{glm::value_ptr(camera_pos), 4}, "camera_pos");
         camera_block.set_attribute_data(std::span { glm::value_ptr(view), 16 }, "view");
         camera_block.set_attribute_data(std::span { glm::value_ptr(projection), 16 }, "projection");
 
@@ -553,7 +567,20 @@ void processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, 1);
-    }
+    } 
+    if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS) {
+        luminosity += 0.1F;
+    } 
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+        luminosity = std::max(0.0F, luminosity - 0.1F);
+    } 
+    if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
+        // toggle mesh wireframe
+        static bool wireframe = false;
+        wireframe = !wireframe;
+        glPolygonMode(GL_FRONT_AND_BACK, wireframe ? GL_LINE : GL_FILL);
+    } 
+
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback
