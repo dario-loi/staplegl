@@ -1,4 +1,4 @@
 <map id="include/modules/framebuffer.hpp" name="include/modules/framebuffer.hpp">
 <area shape="rect" id="node1" title="Wrapper for OpenGL Framebuffer Objects." alt="" coords="5,5,243,32"/>
-<area shape="rect" id="node2" href="$glcore_8hpp.html" title="GLCore, a C++20 wrapper for OpenGL." alt="" coords="53,80,195,107"/>
+<area shape="rect" id="node2" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="47,80,201,107"/>
 </map>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['static_5fdraw_313',['STATIC_DRAW',['../namespaceglcore.html#a09b400f7908ab33e5fbce943cd2b5708a375d556bd0a6afc3fd3a26fbeec4d086',1,'glcore']]],
-  ['stencil_314',['stencil',['../classglcore_1_1renderbuffer.html#ad9af31211d1fa2e08e7b12d427b4a53ea667f218c5ed2c9cf25734500472e7c4a',1,'glcore::renderbuffer']]],
-  ['stream_5fdraw_315',['STREAM_DRAW',['../namespaceglcore.html#a09b400f7908ab33e5fbce943cd2b5708a5a62cf1dc3aafff6b9e97958c6ac90b4',1,'glcore']]]
+  ['static_5fdraw_313',['STATIC_DRAW',['../namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4abc84187eddb93b6cbc1a8cb47f0eb841',1,'staplegl']]],
+  ['stencil_314',['stencil',['../classstaplegl_1_1renderbuffer.html#a09943a91da5775824efa82ba18e13576a667f218c5ed2c9cf25734500472e7c4a',1,'staplegl::renderbuffer']]],
+  ['stream_5fdraw_315',['STREAM_DRAW',['../namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4a583bf5dd8a3afaca8f0784e05ff2d7c8',1,'staplegl']]]
 ];

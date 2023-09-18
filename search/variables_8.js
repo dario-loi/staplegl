@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['offset_276',['offset',['../structglcore_1_1vertex__attribute.html#ad9b27f44f6bb79f6b099006b1e17f948',1,'glcore::vertex_attribute']]]
+  ['offset_276',['offset',['../structstaplegl_1_1vertex__attribute.html#a5fe03b8eb414e71b1c43b04dd060560a',1,'staplegl::vertex_attribute']]]
 ];

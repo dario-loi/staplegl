@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['filter_207',['filter',['../classglcore_1_1texture__2d.html#aaf2f898d6f5a1ed80c1b3627f442454d',1,'glcore::texture_2d']]],
-  ['framebuffer_208',['framebuffer',['../classglcore_1_1framebuffer.html#a64e7774e873178001a1529d7a8d77d1c',1,'glcore::framebuffer::framebuffer() noexcept'],['../classglcore_1_1framebuffer.html#af9caf11a3995516399f7f47cdeac9b45',1,'glcore::framebuffer::framebuffer(const framebuffer &amp;)=delete'],['../classglcore_1_1framebuffer.html#a440f96a95660eee8fdf05cdf667c09db',1,'glcore::framebuffer::framebuffer(framebuffer &amp;&amp;other) noexcept']]]
+  ['filter_207',['filter',['../classstaplegl_1_1texture__2d.html#a358b63733a90cc2ace7c841c72885ac9',1,'staplegl::texture_2d']]],
+  ['framebuffer_208',['framebuffer',['../classstaplegl_1_1framebuffer.html#a127337aacf6b853013f245d2cd0c6458',1,'staplegl::framebuffer::framebuffer() noexcept'],['../classstaplegl_1_1framebuffer.html#a8adf50fcb6f43a38a081c030f5f1cd46',1,'staplegl::framebuffer::framebuffer(const framebuffer &amp;)=delete'],['../classstaplegl_1_1framebuffer.html#a8d6d45632cc35e643b8cdc849f088223',1,'staplegl::framebuffer::framebuffer(framebuffer &amp;&amp;other) noexcept']]]
 ];

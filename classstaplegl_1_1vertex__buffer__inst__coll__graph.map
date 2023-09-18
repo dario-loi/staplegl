@@ -1,0 +1,5 @@
+<map id="staplegl::vertex_buffer_inst" name="staplegl::vertex_buffer_inst">
+<area shape="rect" id="node1" title="A vertex buffer object for instanced rendering." alt="" coords="5,185,205,212"/>
+<area shape="rect" id="node2" href="$classstaplegl_1_1vertex__buffer.html" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="21,109,190,136"/>
+<area shape="rect" id="node3" href="$classstaplegl_1_1vertex__buffer__layout.html" title="Vertex buffer layout." alt="" coords="21,5,190,47"/>
+</map>

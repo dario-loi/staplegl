@@ -5,5 +5,5 @@
 <area shape="rect" id="node5" href="$renderbuffer_8hpp.html" title="Render Buffer Object (RBO) wrapper." alt="" coords="436,80,676,107"/>
 <area shape="rect" id="node6" href="$shader_8hpp.html" title="Shader program wrapper." alt="" coords="587,155,791,181"/>
 <area shape="rect" id="node7" href="$texture_8hpp.html" title="Texture abstraction." alt="" coords="153,80,361,107"/>
-<area shape="rect" id="node3" href="$glcore_8hpp.html" title="GLCore, a C++20 wrapper for OpenGL." alt="" coords="271,229,412,256"/>
+<area shape="rect" id="node3" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="265,229,418,256"/>
 </map>

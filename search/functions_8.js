@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['name_220',['name',['../classglcore_1_1shader__program.html#a8658800e50c5a5e2ded3454ceb750da6',1,'glcore::shader_program']]]
+  ['name_220',['name',['../classstaplegl_1_1shader__program.html#a523f6bb15c8d64dcaccda448007a32ed',1,'staplegl::shader_program']]]
 ];

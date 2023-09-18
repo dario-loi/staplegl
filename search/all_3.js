@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['datatype_21',['datatype',['../structglcore_1_1texture__color.html#ad3703f7b2398c402515183aac2660aff',1,'glcore::texture_color']]],
-  ['delete_5finstance_22',['delete_instance',['../classglcore_1_1vertex__buffer__inst.html#aeefdb10f40432bbf79e737a64b42b0ec',1,'glcore::vertex_buffer_inst']]],
-  ['depth_23',['depth',['../classglcore_1_1renderbuffer.html#ad9af31211d1fa2e08e7b12d427b4a53ea12a055bf01a31369fe81ac35d85c7bc1',1,'glcore::renderbuffer']]],
-  ['depth_5fstencil_24',['depth_stencil',['../classglcore_1_1renderbuffer.html#ad9af31211d1fa2e08e7b12d427b4a53ea4cc2150334d039ce9f2a6b7e8e285e3e',1,'glcore::renderbuffer']]],
-  ['driver_5faccess_5fspecifier_25',['driver_access_specifier',['../namespaceglcore.html#aabf40a53800a6ac41785a39922e44a36',1,'glcore']]],
-  ['driver_5fdraw_5fhint_26',['driver_draw_hint',['../namespaceglcore.html#a09b400f7908ab33e5fbce943cd2b5708',1,'glcore']]],
-  ['dynamic_5fdraw_27',['DYNAMIC_DRAW',['../namespaceglcore.html#a09b400f7908ab33e5fbce943cd2b5708a027629283e4125b99a33dafe5867efd8',1,'glcore']]]
+  ['datatype_21',['datatype',['../structstaplegl_1_1texture__color.html#a7b8a2d2263f2e77e356a2eb924656650',1,'staplegl::texture_color']]],
+  ['delete_5finstance_22',['delete_instance',['../classstaplegl_1_1vertex__buffer__inst.html#a344cbd57b5dd234de1629d2446f7f0e3',1,'staplegl::vertex_buffer_inst']]],
+  ['depth_23',['depth',['../classstaplegl_1_1renderbuffer.html#a09943a91da5775824efa82ba18e13576a12a055bf01a31369fe81ac35d85c7bc1',1,'staplegl::renderbuffer']]],
+  ['depth_5fstencil_24',['depth_stencil',['../classstaplegl_1_1renderbuffer.html#a09943a91da5775824efa82ba18e13576a4cc2150334d039ce9f2a6b7e8e285e3e',1,'staplegl::renderbuffer']]],
+  ['driver_5faccess_5fspecifier_25',['driver_access_specifier',['../namespacestaplegl.html#a36fe2820e5ba7d6bb37aecf456947854',1,'staplegl']]],
+  ['driver_5fdraw_5fhint_26',['driver_draw_hint',['../namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4',1,'staplegl']]],
+  ['dynamic_5fdraw_27',['DYNAMIC_DRAW',['../namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4a93e0c2679415db1e0db23d17d0b6acac',1,'staplegl']]]
 ];

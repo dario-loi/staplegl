@@ -1,9 +1,9 @@
 <map id="include/modules/shader_data_type.hpp" name="include/modules/shader_data_type.hpp">
-<area shape="rect" id="node1" title="Shader data type definitions." alt="" coords="95,5,273,47"/>
-<area shape="rect" id="node2" href="$vertex__buffer__layout_8hpp.html" title="Vertex Buffer Layout abstraction." alt="" coords="97,95,271,136"/>
-<area shape="rect" id="node3" href="$glcore_8hpp.html" title="GLCore, a C++20 wrapper for OpenGL." alt="" coords="177,452,319,479"/>
-<area shape="rect" id="node4" href="$uniform__buffer_8hpp.html" title="Uniform Buffer Object (UBO) wrapper." alt="" coords="27,273,211,315"/>
-<area shape="rect" id="node5" href="$vertex__buffer_8hpp.html" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="173,184,347,225"/>
-<area shape="rect" id="node7" href="$vertex__buffer__inst_8hpp.html" title="Vertex buffer object for instanced rendering." alt="" coords="337,273,511,315"/>
-<area shape="rect" id="node6" href="$vertex__array_8hpp.html" title="Vertex Array Object (VAO) wrapper." alt="" coords="286,363,461,404"/>
+<area shape="rect" id="node1" title="Shader data type definitions." alt="" coords="201,5,378,47"/>
+<area shape="rect" id="node2" href="$vertex__buffer__layout_8hpp.html" title="Vertex Buffer Layout abstraction." alt="" coords="202,95,377,136"/>
+<area shape="rect" id="node3" href="$uniform__buffer_8hpp.html" title="Uniform Buffer Object (UBO) wrapper." alt="" coords="5,273,189,315"/>
+<area shape="rect" id="node4" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="201,452,354,479"/>
+<area shape="rect" id="node5" href="$vertex__buffer_8hpp.html" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="265,184,439,225"/>
+<area shape="rect" id="node7" href="$vertex__buffer__inst_8hpp.html" title="Vertex buffer object for instanced rendering." alt="" coords="390,273,565,315"/>
+<area shape="rect" id="node6" href="$vertex__array_8hpp.html" title="Vertex Array Object (VAO) wrapper." alt="" coords="315,363,490,404"/>
 </map>

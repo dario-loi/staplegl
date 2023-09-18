@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['name_275',['name',['../structglcore_1_1vertex__attribute.html#ae383abb2d20e5ff99e3797f2b7c25aff',1,'glcore::vertex_attribute']]]
+  ['name_275',['name',['../structstaplegl_1_1vertex__attribute.html#abc8f644f8b3e24d29ad4e380ae2be09c',1,'staplegl::vertex_attribute']]]
 ];

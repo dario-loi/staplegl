@@ -1,5 +1,5 @@
 <map id="include/modules/index_buffer.hpp" name="include/modules/index_buffer.hpp">
-<area shape="rect" id="node1" title="Element Buffer Object (EBO) wrapper." alt="" coords="5,5,175,47"/>
-<area shape="rect" id="node2" href="$glcore_8hpp.html" title="GLCore, a C++20 wrapper for OpenGL." alt="" coords="19,184,161,211"/>
-<area shape="rect" id="node3" href="$vertex__array_8hpp.html" title="Vertex Array Object (VAO) wrapper." alt="" coords="65,95,240,136"/>
+<area shape="rect" id="node1" title="Element Buffer Object (EBO) wrapper." alt="" coords="71,5,240,47"/>
+<area shape="rect" id="node2" href="$vertex__array_8hpp.html" title="Vertex Array Object (VAO) wrapper." alt="" coords="5,95,180,136"/>
+<area shape="rect" id="node3" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="79,184,232,211"/>
 </map>

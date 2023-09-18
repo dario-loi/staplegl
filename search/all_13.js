@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['width_145',['width',['../structglcore_1_1resolution.html#a4f58b74bfb93d3aff09de840087bfacf',1,'glcore::resolution']]],
-  ['write_5fonly_146',['WRITE_ONLY',['../namespaceglcore.html#aabf40a53800a6ac41785a39922e44a36a76778d4ed66c8bcfa18a36f4f3d9a4bd',1,'glcore']]]
+  ['width_145',['width',['../structstaplegl_1_1resolution.html#a72d7adb7cde1f9881a0398a3de902eed',1,'staplegl::resolution']]],
+  ['write_5fonly_146',['WRITE_ONLY',['../namespacestaplegl.html#a36fe2820e5ba7d6bb37aecf456947854af4c137217ae057e619d62bdfaa966c45',1,'staplegl']]]
 ];

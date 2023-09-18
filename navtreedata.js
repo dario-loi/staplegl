@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "GLCore", "index.html", [
+  [ "StapleGL", "index.html", [
     [ "Introduction", "index.html#intro_sec", null ],
     [ "Installation", "index.html#install_sec", null ],
     [ "Usage", "index.html#usage_sec", null ],
@@ -58,7 +58,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"shader__data__type_8hpp.html#a190247c7f50b6f8158bad454eed0dd21a0dd87e9dfdea657e8be233b5836821d0"
+"shader__data__type_8hpp.html#a4e852019b92d95d4814fce0dfb961697a87c214e1e77f5e0644a224f3df50fae7"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['height_269',['height',['../structglcore_1_1resolution.html#a8f3aa44e2ab27d9ee47086d3bff58e6a',1,'glcore::resolution']]]
+  ['height_269',['height',['../structstaplegl_1_1resolution.html#a11717d4a0c49d09cd65476be524adea3',1,'staplegl::resolution']]]
 ];

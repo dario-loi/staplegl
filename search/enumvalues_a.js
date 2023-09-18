@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['write_5fonly_325',['WRITE_ONLY',['../namespaceglcore.html#aabf40a53800a6ac41785a39922e44a36a76778d4ed66c8bcfa18a36f4f3d9a4bd',1,'glcore']]]
+  ['write_5fonly_325',['WRITE_ONLY',['../namespacestaplegl.html#a36fe2820e5ba7d6bb37aecf456947854af4c137217ae057e619d62bdfaa966c45',1,'staplegl']]]
 ];

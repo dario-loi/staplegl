@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['width_281',['width',['../structglcore_1_1resolution.html#a4f58b74bfb93d3aff09de840087bfacf',1,'glcore::resolution']]]
+  ['width_281',['width',['../structstaplegl_1_1resolution.html#a72d7adb7cde1f9881a0398a3de902eed',1,'staplegl::resolution']]]
 ];

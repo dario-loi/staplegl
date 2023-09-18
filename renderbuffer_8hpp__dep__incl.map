@@ -1,5 +1,5 @@
 <map id="include/modules/renderbuffer.hpp" name="include/modules/renderbuffer.hpp">
 <area shape="rect" id="node1" title="Render Buffer Object (RBO) wrapper." alt="" coords="5,5,245,32"/>
 <area shape="rect" id="node2" href="$framebuffer_8hpp.html" title="Wrapper for OpenGL Framebuffer Objects." alt="" coords="7,80,244,107"/>
-<area shape="rect" id="node3" href="$glcore_8hpp.html" title="GLCore, a C++20 wrapper for OpenGL." alt="" coords="55,155,196,181"/>
+<area shape="rect" id="node3" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="49,155,202,181"/>
 </map>
