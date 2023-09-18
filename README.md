@@ -348,12 +348,13 @@ This is done through the `apply` function:
 // launch a multithreaded algorithm to modify the instance data
 VAO.instanced_data()->apply<vec3>(
 	[](std::span<vec3> data) {
-		// thanks to std::span, we can pass this GPU buffer to a parallel algorithm!
-		std::for_each(std::execution::par_unseq, data.begin(), data.end(),
-			[](vec3& v) { // randomly shift the position of the instance left or right
-				const float speed = ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) - 0.5F) / 1000.0F;
-				v.x += speed;
-			});
+	// thanks to std::span, we can pass this GPU buffer to a parallel algorithm!
+	std::for_each(std::execution::par_unseq, data.begin(), data.end(),
+		[](vec3& v) { // randomly shift the position of the instance left or right
+			const float speed = ((static_cast<float>(std::rand()) 
+				/ static_cast<float>(RAND_MAX)) - 0.5F) / 1000.0F;
+			v.x += speed;
+		});
 	});
 ```
 
