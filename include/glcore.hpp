@@ -39,7 +39,7 @@ The rest of the file is reserved for documentation purposes. (mainly for doxygen
  *
  * @section intro_sec Introduction
  *
- * GLCore is a C++17 wrapper for OpenGL. It is designed with the principal goal of having
+ * GLCore is a C++20 wrapper for OpenGL. It is designed with the principal goal of having
  * zero dependencies and being as lightweight as possible. You can integrate it
  * with any OpenGL project by providing your own OpenGL loader in modules/gl_functions.h,
  * and then simply importing this header file.
