@@ -16,7 +16,7 @@ var searchData=
   ['shader_5fdata_5ftype_94',['shader_data_type',['../namespacestaplegl_1_1shader__data__type.html',1,'staplegl']]],
   ['shader_5fdata_5ftype_2ehpp_95',['shader_data_type.hpp',['../shader__data__type_8hpp.html',1,'']]],
   ['shader_5fprogram_96',['shader_program',['../classstaplegl_1_1shader__program.html#adfc52e7568047ad39783b9a7df4f9e38',1,'staplegl::shader_program::shader_program(std::string_view name, std::initializer_list&lt; std::pair&lt; shader_type, std::string_view &gt;&gt; shaders) noexcept'],['../classstaplegl_1_1shader__program.html#aad442d01b1d8de46a4ff651ab09d27a0',1,'staplegl::shader_program::shader_program(std::string_view path) noexcept'],['../classstaplegl_1_1shader__program.html#a6ac16ad2392f4d26ed4a04c7b0a04405',1,'staplegl::shader_program::shader_program()=default'],['../classstaplegl_1_1shader__program.html#ab48aa11f72d2017544e09af55b902301',1,'staplegl::shader_program::shader_program(std::string_view name, std::string_view path) noexcept'],['../classstaplegl_1_1shader__program.html',1,'staplegl::shader_program']]],
-  ['shader_5ftype_97',['shader_type',['../namespacestaplegl.html#a66841971b93edd37f3e313c52bed59a5',1,'staplegl::shader_type()'],['../namespacestaplegl_1_1shader__data__type.html#a4e852019b92d95d4814fce0dfb961697',1,'staplegl::shader_data_type::shader_type()']]],
+  ['shader_5ftype_97',['shader_type',['../namespacestaplegl.html#a66841971b93edd37f3e313c52bed59a5',1,'staplegl']]],
   ['size_98',['size',['../classstaplegl_1_1vertex__buffer.html#a59986d41fc52ecd68d5948b2c4c1e9e7',1,'staplegl::vertex_buffer']]],
   ['source_99',['source',['../structstaplegl_1_1shader.html#a9157088de5665b1c6cb35c8402604a3d',1,'staplegl::shader']]],
   ['staplegl_100',['StapleGL',['../index.html',1,'']]],

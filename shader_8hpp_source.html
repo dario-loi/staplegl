@@ -180,7 +180,7 @@ $(document).ready(function(){initNavTree('shader_8hpp_source.html',''); initResi
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="comment">*/</span></div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160; </div>
-<div class="line"><a name="l00279"></a><span class="lineno"><a class="line" href="classstaplegl_1_1shader__program.html#ab48aa11f72d2017544e09af55b902301">  279</a></span>&#160;<a class="code" href="classstaplegl_1_1shader__program.html#a6ac16ad2392f4d26ed4a04c7b0a04405">shader_program::shader_program</a>(std::string_view name, std::string_view path)</div>
+<div class="line"><a name="l00279"></a><span class="lineno"><a class="line" href="classstaplegl_1_1shader__program.html#ab48aa11f72d2017544e09af55b902301">  279</a></span>&#160;<a class="code" href="classstaplegl_1_1shader__program.html#a6ac16ad2392f4d26ed4a04c7b0a04405">shader_program::shader_program</a>(std::string_view name, std::string_view path) noexcept</div>
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    : m_name { name }</div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    , m_shaders { parse_shaders(util::read_file(path)) }</div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;{</div>
@@ -188,7 +188,7 @@ $(document).ready(function(){initNavTree('shader_8hpp_source.html',''); initResi
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;}</div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160; </div>
 <div class="line"><a name="l00286"></a><span class="lineno"><a class="line" href="classstaplegl_1_1shader__program.html#adfc52e7568047ad39783b9a7df4f9e38">  286</a></span>&#160;<a class="code" href="classstaplegl_1_1shader__program.html#a6ac16ad2392f4d26ed4a04c7b0a04405">shader_program::shader_program</a>(std::string_view name,</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    std::initializer_list&lt;std::pair&lt;shader_type, std::string_view&gt;&gt; shaders)</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    std::initializer_list&lt;std::pair&lt;shader_type, std::string_view&gt;&gt; shaders) noexcept</div>
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    : m_name { name }</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;{</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [type, path] : shaders)</div>
@@ -197,7 +197,7 @@ $(document).ready(function(){initNavTree('shader_8hpp_source.html',''); initResi
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    m_id = create_program();</div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;}</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
-<div class="line"><a name="l00296"></a><span class="lineno"><a class="line" href="classstaplegl_1_1shader__program.html#aad442d01b1d8de46a4ff651ab09d27a0">  296</a></span>&#160;<a class="code" href="classstaplegl_1_1shader__program.html#a6ac16ad2392f4d26ed4a04c7b0a04405">shader_program::shader_program</a>(std::string_view path)</div>
+<div class="line"><a name="l00296"></a><span class="lineno"><a class="line" href="classstaplegl_1_1shader__program.html#aad442d01b1d8de46a4ff651ab09d27a0">  296</a></span>&#160;<a class="code" href="classstaplegl_1_1shader__program.html#a6ac16ad2392f4d26ed4a04c7b0a04405">shader_program::shader_program</a>(std::string_view path) noexcept</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    : <a class="code" href="classstaplegl_1_1shader__program.html">shader_program</a> { util::get_file_name(path), path }</div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;{</div>
 <div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;}</div>
