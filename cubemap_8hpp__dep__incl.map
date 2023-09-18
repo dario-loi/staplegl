@@ -1,0 +1,4 @@
+<map id="include/modules/cubemap.hpp" name="include/modules/cubemap.hpp">
+<area shape="rect" id="node1" title="Cube map texture wrapper." alt="" coords="5,5,227,32"/>
+<area shape="rect" id="node2" href="$glcore_8hpp.html" title="GLCore, a C++20 wrapper for OpenGL." alt="" coords="45,80,187,107"/>
+</map>

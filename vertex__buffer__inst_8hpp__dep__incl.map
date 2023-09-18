@@ -1,0 +1,5 @@
+<map id="include/modules/vertex_buffer_inst.hpp" name="include/modules/vertex_buffer_inst.hpp">
+<area shape="rect" id="node1" title="Vertex buffer object for instanced rendering." alt="" coords="5,5,180,47"/>
+<area shape="rect" id="node2" href="$glcore_8hpp.html" title="GLCore, a C++20 wrapper for OpenGL." alt="" coords="22,184,163,211"/>
+<area shape="rect" id="node3" href="$vertex__array_8hpp.html" title="Vertex Array Object (VAO) wrapper." alt="" coords="68,95,243,136"/>
+</map>

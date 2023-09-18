@@ -1,0 +1,6 @@
+<map id="include/modules/texture.hpp" name="include/modules/texture.hpp">
+<area shape="rect" id="node1" title="Texture abstraction." alt="" coords="29,5,237,32"/>
+<area shape="rect" id="node2" href="$glcore_8hpp.html" title="GLCore, a C++20 wrapper for OpenGL." alt="" coords="63,155,204,181"/>
+<area shape="rect" id="node3" href="$cubemap_8hpp.html" title="Cube map texture wrapper." alt="" coords="23,80,244,107"/>
+<area shape="rect" id="node4" href="$framebuffer_8hpp.html" title="Wrapper for OpenGL Framebuffer Objects." alt="" coords="268,80,505,107"/>
+</map>

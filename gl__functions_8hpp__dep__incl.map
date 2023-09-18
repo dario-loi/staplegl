@@ -1,0 +1,16 @@
+<map id="include/modules/gl_functions.hpp" name="include/modules/gl_functions.hpp">
+<area shape="rect" id="node1" title="Loads OpenGL functions." alt="" coords="593,5,738,47"/>
+<area shape="rect" id="node2" href="$cubemap_8hpp.html" title="Cube map texture wrapper." alt="" coords="5,191,227,218"/>
+<area shape="rect" id="node4" href="$framebuffer_8hpp.html" title="Wrapper for OpenGL Framebuffer Objects." alt="" coords="301,191,539,218"/>
+<area shape="rect" id="node5" href="$index__buffer_8hpp.html" title="Element Buffer Object (EBO) wrapper." alt="" coords="458,363,627,404"/>
+<area shape="rect" id="node6" href="$vertex__array_8hpp.html" title="Vertex Array Object (VAO) wrapper." alt="" coords="629,452,803,493"/>
+<area shape="rect" id="node7" href="$renderbuffer_8hpp.html" title="Render Buffer Object (RBO) wrapper." alt="" coords="337,102,577,129"/>
+<area shape="rect" id="node8" href="$shader_8hpp.html" title="Shader program wrapper." alt="" coords="1141,459,1345,486"/>
+<area shape="rect" id="node9" href="$shader__data__type_8hpp.html" title="Shader data type definitions." alt="" coords="869,95,1046,136"/>
+<area shape="rect" id="node11" href="$uniform__buffer_8hpp.html" title="Uniform Buffer Object (UBO) wrapper." alt="" coords="1055,273,1239,315"/>
+<area shape="rect" id="node12" href="$vertex__buffer_8hpp.html" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="754,273,929,315"/>
+<area shape="rect" id="node13" href="$vertex__buffer__inst_8hpp.html" title="Vertex buffer object for instanced rendering." alt="" coords="754,363,929,404"/>
+<area shape="rect" id="node14" href="$texture_8hpp.html" title="Texture abstraction." alt="" coords="55,102,263,129"/>
+<area shape="rect" id="node3" href="$glcore_8hpp.html" title="GLCore, a C++20 wrapper for OpenGL." alt="" coords="708,541,849,568"/>
+<area shape="rect" id="node10" href="$vertex__buffer__layout_8hpp.html" title="Vertex Buffer Layout abstraction." alt="" coords="879,184,1054,225"/>
+</map>

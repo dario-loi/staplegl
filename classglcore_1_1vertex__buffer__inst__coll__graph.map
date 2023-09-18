@@ -1,0 +1,5 @@
+<map id="glcore::vertex_buffer_inst" name="glcore::vertex_buffer_inst">
+<area shape="rect" id="node1" title="A vertex buffer object for instanced rendering." alt="" coords="5,185,193,212"/>
+<area shape="rect" id="node2" href="$classglcore_1_1vertex__buffer.html" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="21,109,178,136"/>
+<area shape="rect" id="node3" href="$classglcore_1_1vertex__buffer__layout.html" title="Vertex buffer layout." alt="" coords="21,5,178,47"/>
+</map>

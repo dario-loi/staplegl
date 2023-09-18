@@ -1,0 +1,13 @@
+<map id="include/modules/vertex_buffer_layout.hpp" name="include/modules/vertex_buffer_layout.hpp">
+<area shape="rect" id="node1" title="Vertex Buffer Layout abstraction." alt="" coords="127,5,302,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,59,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="83,95,141,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="166,95,263,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="287,95,350,121"/>
+<area shape="rect" id="node6" href="$shader__data__type_8hpp.html" title="Shader data type definitions." alt="" coords="374,95,541,121"/>
+<area shape="rect" id="node7" href="$gl__functions_8hpp.html" title="Loads OpenGL functions." alt="" coords="222,169,351,196"/>
+<area shape="rect" id="node9" title=" " alt="" coords="375,169,446,196"/>
+<area shape="rect" id="node10" title=" " alt="" coords="471,169,537,196"/>
+<area shape="rect" id="node11" title=" " alt="" coords="562,169,649,196"/>
+<area shape="rect" id="node8" title=" " alt="" coords="255,244,318,271"/>
+</map>

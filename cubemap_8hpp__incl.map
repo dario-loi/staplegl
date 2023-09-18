@@ -1,0 +1,13 @@
+<map id="include/modules/cubemap.hpp" name="include/modules/cubemap.hpp">
+<area shape="rect" id="node1" title="Cube map texture wrapper." alt="" coords="250,5,471,32"/>
+<area shape="rect" id="node2" href="$gl__functions_8hpp.html" title="Loads OpenGL functions." alt="" coords="5,155,135,181"/>
+<area shape="rect" id="node4" href="$texture_8hpp.html" title="Texture abstraction." alt="" coords="225,80,323,107"/>
+<area shape="rect" id="node5" href="$utility_8hpp.html" title="Utility functions for parsing files." alt="" coords="159,155,245,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="281,229,347,256"/>
+<area shape="rect" id="node9" title=" " alt="" coords="321,155,374,181"/>
+<area shape="rect" id="node10" title=" " alt="" coords="449,80,505,107"/>
+<area shape="rect" id="node11" title=" " alt="" coords="529,80,600,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="13,229,76,256"/>
+<area shape="rect" id="node7" title=" " alt="" coords="100,229,173,256"/>
+<area shape="rect" id="node8" title=" " alt="" coords="198,229,257,256"/>
+</map>

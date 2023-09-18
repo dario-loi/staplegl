@@ -1,0 +1,8 @@
+<map id="include/modules/vertex_buffer_layout.hpp" name="include/modules/vertex_buffer_layout.hpp">
+<area shape="rect" id="node1" title="Vertex Buffer Layout abstraction." alt="" coords="97,5,271,47"/>
+<area shape="rect" id="node2" href="$glcore_8hpp.html" title="GLCore, a C++20 wrapper for OpenGL." alt="" coords="177,363,319,389"/>
+<area shape="rect" id="node3" href="$uniform__buffer_8hpp.html" title="Uniform Buffer Object (UBO) wrapper." alt="" coords="27,184,211,225"/>
+<area shape="rect" id="node4" href="$vertex__buffer_8hpp.html" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="173,95,347,136"/>
+<area shape="rect" id="node6" href="$vertex__buffer__inst_8hpp.html" title="Vertex buffer object for instanced rendering." alt="" coords="337,184,511,225"/>
+<area shape="rect" id="node5" href="$vertex__array_8hpp.html" title="Vertex Array Object (VAO) wrapper." alt="" coords="286,273,461,315"/>
+</map>

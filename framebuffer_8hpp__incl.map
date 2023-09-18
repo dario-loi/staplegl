@@ -1,0 +1,16 @@
+<map id="include/modules/framebuffer.hpp" name="include/modules/framebuffer.hpp">
+<area shape="rect" id="node1" title="Wrapper for OpenGL Framebuffer Objects." alt="" coords="272,5,510,32"/>
+<area shape="rect" id="node2" href="$gl__functions_8hpp.html" title="Loads OpenGL functions." alt="" coords="22,155,152,181"/>
+<area shape="rect" id="node4" href="$renderbuffer_8hpp.html" title="Render Buffer Object (RBO) wrapper." alt="" coords="77,80,206,107"/>
+<area shape="rect" id="node5" href="$utility_8hpp.html" title="Utility functions for parsing files." alt="" coords="278,155,365,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="166,229,232,256"/>
+<area shape="rect" id="node9" href="$texture_8hpp.html" title="Texture abstraction." alt="" coords="230,80,328,107"/>
+<area shape="rect" id="node10" title=" " alt="" coords="390,155,443,181"/>
+<area shape="rect" id="node11" title=" " alt="" coords="454,80,510,107"/>
+<area shape="rect" id="node12" title=" " alt="" coords="534,80,621,107"/>
+<area shape="rect" id="node13" title=" " alt="" coords="645,80,732,107"/>
+<area shape="rect" id="node14" title=" " alt="" coords="756,80,831,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="56,229,118,256"/>
+<area shape="rect" id="node7" title=" " alt="" coords="276,229,349,256"/>
+<area shape="rect" id="node8" title=" " alt="" coords="374,229,432,256"/>
+</map>
