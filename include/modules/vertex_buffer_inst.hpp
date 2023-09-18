@@ -5,7 +5,7 @@
  * @date 2023-08-10
  * 
  * @details This class is a specialization of the vertex_buffer class, and it is meant to help with
- * instanced rendering, allowing the user of glcore to build a more performant renderer. <br>
+ * instanced rendering, allowing the user of staplegl to build a more performant renderer. <br>
  * 
  * It can be thought of as a `std::vector`-like container for vertex data.
  *
@@ -26,13 +26,13 @@
 #include <numbers>
 #include <span>
 
-namespace glcore {
+namespace staplegl {
 
 /**
  * @brief A vertex buffer object for instanced rendering.
  *
  * @details This class is a specialization of the vertex_buffer class, and it is meant to help with
- * instanced rendering, allowing the user of glcore to build a more performant renderer.
+ * instanced rendering, allowing the user of staplegl to build a more performant renderer.
  *
  * When using this class, the user should initialize the buffer with an empty span of data and
  * a layout that describes how a single instance of the object is laid out in memory.
@@ -213,4 +213,4 @@ inline std::int32_t vertex_buffer_inst::delete_instance(std::int32_t index) noex
     return index;
 }
 
-} // namespace glcore
+} // namespace staplegl

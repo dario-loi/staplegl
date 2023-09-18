@@ -24,7 +24,7 @@
 
 #include "shader_data_type.hpp"
 
-namespace glcore {
+namespace staplegl {
 /**
  * @brief Vertex attribute.
  *
@@ -130,4 +130,4 @@ public:
     [[nodiscard]] auto operator[](std::size_t index) const -> const vertex_attribute& { return m_attributes[index]; }
 };
 
-} // namespace glcore
+} // namespace staplegl

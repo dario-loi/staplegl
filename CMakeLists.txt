@@ -25,26 +25,26 @@ set(BATCHES_SOURCES
     ${EXAMPLES_DIR}/batches.cpp
 )
 
-set(GLCORE_DIR "${PROJECT_SOURCE_DIR}/include")
-set(GLCORE_MODULES_DIR "${GLCORE_DIR}/modules")
+set(STAPLEGL_DIR "${PROJECT_SOURCE_DIR}/include")
+set(STAPLEGL_MODULES_DIR "${STAPLEGL_DIR}/modules")
 
-set(GLCORE_HEADERS
-    ${GLCORE_DIR}/glcore.hpp
-    ${GLCORE_MODULES_DIR}/framebuffer.hpp
-    ${GLCORE_MODULES_DIR}/gl_function_placeholders.hpp
-    ${GLCORE_MODULES_DIR}/gl_functions.hpp
-    ${GLCORE_MODULES_DIR}/index_buffer.hpp
-    ${GLCORE_MODULES_DIR}/renderbuffer.hpp
-    ${GLCORE_MODULES_DIR}/shader_data_type.hpp
-    ${GLCORE_MODULES_DIR}/shader.hpp
-    ${GLCORE_MODULES_DIR}/texture.hpp
-    ${GLCORE_MODULES_DIR}/uniform_buffer.hpp
-    ${GLCORE_MODULES_DIR}/utility.hpp
-    ${GLCORE_MODULES_DIR}/vertex_array.hpp
-    ${GLCORE_MODULES_DIR}/vertex_buffer.hpp
-    ${GLCORE_MODULES_DIR}/vertex_buffer_inst.hpp
-    ${GLCORE_MODULES_DIR}/vertex_buffer_layout.hpp
-    ${GLCORE_MODULES_DIR}/cubemap.hpp
+set(STAPLEGL_HEADERS
+    ${STAPLEGL_DIR}/staplegl.hpp
+    ${STAPLEGL_MODULES_DIR}/framebuffer.hpp
+    ${STAPLEGL_MODULES_DIR}/gl_function_placeholders.hpp
+    ${STAPLEGL_MODULES_DIR}/gl_functions.hpp
+    ${STAPLEGL_MODULES_DIR}/index_buffer.hpp
+    ${STAPLEGL_MODULES_DIR}/renderbuffer.hpp
+    ${STAPLEGL_MODULES_DIR}/shader_data_type.hpp
+    ${STAPLEGL_MODULES_DIR}/shader.hpp
+    ${STAPLEGL_MODULES_DIR}/texture.hpp
+    ${STAPLEGL_MODULES_DIR}/uniform_buffer.hpp
+    ${STAPLEGL_MODULES_DIR}/utility.hpp
+    ${STAPLEGL_MODULES_DIR}/vertex_array.hpp
+    ${STAPLEGL_MODULES_DIR}/vertex_buffer.hpp
+    ${STAPLEGL_MODULES_DIR}/vertex_buffer_inst.hpp
+    ${STAPLEGL_MODULES_DIR}/vertex_buffer_layout.hpp
+    ${STAPLEGL_MODULES_DIR}/cubemap.hpp
 )
 
 set(GLAD_INCLUDE_DIR "${EXTERNAL_DIR}/glad/include/glad" "${EXTERNAL_DIR}/glad/include/KHR")
@@ -54,19 +54,19 @@ set(GLAD_HEADERS
     ${EXTERNAL_DIR}/glad/include/KHR/khrplatform.h
 )
 
-add_executable(sandbox ${SANDBOX_SOURCES} ${GLCORE_HEADERS} ${GLAD_HEADERS})
+add_executable(sandbox ${SANDBOX_SOURCES} ${STAPLEGL_HEADERS} ${GLAD_HEADERS})
 
 target_include_directories(sandbox PUBLIC
-    ${GLCORE_DIR}
-    ${GLCORE_MODULES_DIR}
+    ${STAPLEGL_DIR}
+    ${STAPLEGL_MODULES_DIR}
     ${GLAD_INCLUDE_DIR}
 )
 
-add_executable(batches ${BATCHES_SOURCES} ${GLCORE_HEADERS} ${GLAD_HEADERS})
+add_executable(batches ${BATCHES_SOURCES} ${STAPLEGL_HEADERS} ${GLAD_HEADERS})
 
 target_include_directories(batches PUBLIC
-    ${GLCORE_DIR}
-    ${GLCORE_MODULES_DIR}
+    ${STAPLEGL_DIR}
+    ${STAPLEGL_MODULES_DIR}
     ${GLAD_INCLUDE_DIR}
 )
 
@@ -225,10 +225,10 @@ set(TEAPOT_DATA
 set(GLM_DIR "${EXTERNAL_DIR}/glm")
 set(STB_DIR "${EXTERNAL_DIR}/stb")
 
-add_executable(teapot ${TEAPOT_SOURCES} ${GLCORE_HEADERS} ${GLAD_HEADERS} ${TEAPOT_DATA})
+add_executable(teapot ${TEAPOT_SOURCES} ${STAPLEGL_HEADERS} ${GLAD_HEADERS} ${TEAPOT_DATA})
 target_include_directories(teapot PUBLIC
-    ${GLCORE_DIR}
-    ${GLCORE_MODULES_DIR}
+    ${STAPLEGL_DIR}
+    ${STAPLEGL_MODULES_DIR}
     ${GLAD_INCLUDE_DIR}
     ${ASSETS_DIR}
     ${GLM_DIR}
@@ -246,7 +246,7 @@ set(CLANG_TIDY_CHECKS
 add_custom_target(clang-tidy-sandbox
     COMMAND clang-tidy --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${SANDBOX_SOURCES}
     -- -I${SANDBOX_DIR}/include -I${GLAD_INCLUDE_DIR} -I${GLFW3_INCLUDE_DIR}
-    -I${GLCORE_DIR} -I${GLCORE_MODULES_DIR}/include -std=c++20 -fexperimental-library
+    -I${STAPLEGL_DIR} -I${STAPLEGL_MODULES_DIR}/include -std=c++20 -fexperimental-library
     COMMENT "Running clang-tidy on sandbox"
     VERBATIM
 )
@@ -254,7 +254,7 @@ add_custom_target(clang-tidy-sandbox
 add_custom_target(clang-tidy-batches
     COMMAND clang-tidy --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${BATCHES_SOURCES}
     -- -I${BATCHES_DIR}/include -I${GLAD_INCLUDE_DIR} -I${GLFW3_INCLUDE_DIR}
-    -I${GLCORE_DIR} -I${GLCORE_MODULES_DIR}/include -std=c++20 -fexperimental-library
+    -I${STAPLEGL_DIR} -I${STAPLEGL_MODULES_DIR}/include -std=c++20 -fexperimental-library
     COMMENT "Running clang-tidy on batches"
     VERBATIM
 )
@@ -263,7 +263,7 @@ add_custom_target(
     clang-tidy-teapot
     COMMAND clang-tidy --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${TEAPOT_SOURCES}
     -- -I${TEAPOT_DIR}/include -I${GLAD_INCLUDE_DIR} -I${GLFW3_INCLUDE_DIR} -I${ASSETS_DIR} -I${GLM_DIR} -I${STB_DIR}
-    -I${GLCORE_DIR} -I${GLCORE_MODULES_DIR}/include -std=c++20 -fexperimental-library
+    -I${STAPLEGL_DIR} -I${STAPLEGL_MODULES_DIR}/include -std=c++20 -fexperimental-library
     COMMENT "Running clang-tidy on teapot"
     VERBATIM
 )

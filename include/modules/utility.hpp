@@ -18,7 +18,7 @@
 #include <fstream>
 #include <string>
 
-namespace glcore {
+namespace staplegl {
 /**
  * @brief A struct that represents an image's dimensions.
  *
@@ -41,9 +41,9 @@ enum tex_samples : int32_t {
   MSAA_X16 = 16,
   MSAA_X32 = 32,
 };
-} // namespace glcore
+} // namespace staplegl
 
-namespace glcore::util {
+namespace staplegl::util {
 
 /**
  * @brief Read a file into a string.

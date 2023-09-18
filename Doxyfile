@@ -1,6 +1,6 @@
 # Doxyfile 1.9.6
 
-PROJECT_NAME           = GLCore
+PROJECT_NAME           = StapleGL
 PROJECT_BRIEF          = "Header-only C++20 OpenGL wrapper"
 OUTPUT_DIRECTORY       = ./docs
 EXTRACT_ALL            = YES

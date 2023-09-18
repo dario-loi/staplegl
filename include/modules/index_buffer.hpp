@@ -24,7 +24,7 @@
 #include <iostream>
 #include <span>
 
-namespace glcore {
+namespace staplegl {
 
 /**
  * @brief Element Buffer Object (EBO) wrapper.

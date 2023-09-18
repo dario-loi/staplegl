@@ -27,7 +27,7 @@
 #include <functional>
 #include <span>
 
-namespace glcore {
+namespace staplegl {
 
 /**
  * @brief Concept that specifies that a type is a Plain Old Data (POD) type.
@@ -153,7 +153,7 @@ public:
      * @see plain_old_data
      */
     template <plain_old_data T>
-    void apply(const std::function<void(std::span<T> vertices)>& func, driver_access_specifier access_specifier = glcore::READ_WRITE) noexcept;
+    void apply(const std::function<void(std::span<T> vertices)>& func, driver_access_specifier access_specifier = staplegl::READ_WRITE) noexcept;
 
 
 
@@ -259,4 +259,4 @@ void vertex_buffer::apply(const std::function<void(std::span<T> vertices)>& func
     glUnmapBuffer(GL_ARRAY_BUFFER);
 }
 
-} // namespace glcore
+} // namespace staplegl

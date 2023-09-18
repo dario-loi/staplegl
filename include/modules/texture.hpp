@@ -9,7 +9,7 @@
  * @details Abstracts away the creation and usage of a 2D texture. Textures are 2D 
  * images that can be used to read and write data in the GPU. <br>
  * 
- * glcore provides a single interface for 2D texture creation whether the texture 
+ * staplegl provides a single interface for 2D texture creation whether the texture 
  * is to be used as an object's material or as a framebuffer attachment. <br>
  * 
  * For this reason, the texture's constructor takes a number of structs that 
@@ -29,7 +29,7 @@
 #include <cstdint>
 #include <span>
 
-namespace glcore {
+namespace staplegl {
 
 /**
  * @brief OpenGL texture details relating to the color format and data type.
@@ -56,7 +56,7 @@ struct texture_filter {
  * 
  * @warning Antialiasing is mainly intended for use in framebuffer attachments, so 
  * if you are creating a texture to be used as an object's material, you most likely 
- * want to use `glcore::tex_samples::MSAA_X1`.
+ * want to use `staplegl::tex_samples::MSAA_X1`.
  */
 struct texture_antialias {
     std::uint32_t type {};
@@ -248,9 +248,9 @@ public:
     /**
      * @brief Get the resolution of the texture object
      *
-     * @return glcore::resolution
+     * @return staplegl::resolution
      */
-    [[nodiscard]] constexpr  glcore::resolution get_resolution() const
+    [[nodiscard]] constexpr  staplegl::resolution get_resolution() const
     {
         return m_resolution;
     };
@@ -331,4 +331,4 @@ void texture_2d::set_data(std::span<const float> data, resolution res, texture_c
     }
 }
 
-} // namespace glcore
+} // namespace staplegl

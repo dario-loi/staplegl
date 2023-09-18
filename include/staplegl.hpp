@@ -1,12 +1,12 @@
 /**
- * @file glcore.hpp
+ * @file staplegl.hpp
 
- * @brief GLCore, a C++20 wrapper for OpenGL.
+ * @brief StapleGL, a C++20 wrapper for OpenGL.
  *
  * @authors Christian Panov, Dario Loi.
  * @date 2023-04-28
  *
- * @details GLCore is a C++20 wrapper for OpenGL. It is designed to be simple and easy to use.
+ * @details StapleGL is a C++20 wrapper for OpenGL. It is designed to be simple and easy to use.
  * simply import this header file and provide your own OpenGL loader in modules/gl_functions.h.
  *
  *
@@ -35,30 +35,30 @@ The rest of the file is reserved for documentation purposes. (mainly for doxygen
 */
 
 /**
- * @mainpage GLCore
+ * @mainpage StapleGL
  *
  * @section intro_sec Introduction
  *
- * GLCore is a C++20 wrapper for OpenGL. It is designed with the principal goal of having
+ * StapleGL is a C++20 wrapper for OpenGL. It is designed with the principal goal of having
  * zero dependencies and being as lightweight as possible. You can integrate it
  * with any OpenGL project by providing your own OpenGL loader in modules/gl_functions.h,
  * and then simply importing this header file.
  *
- * GLCore offers modern RAII interfaces for OpenGL objects, such as Vertex Buffer Objects,
+ * StapleGL offers modern RAII interfaces for OpenGL objects, such as Vertex Buffer Objects,
  * abstracting away the need to manually manage OpenGL objects, and lessening the amount
  * of boilerplate code you need to write in order to get started with OpenGL.
  *
  * @section install_sec Installation
  *
- * To install GLCore, simply clone the repository and copy the contents of the include folder
+ * To install StapleGL, simply clone the repository and copy the contents of the include folder
  * into your project's include folder. Then, provide your own OpenGL loader in modules/gl_functions.h.
  *
  * @section usage_sec Usage
  *
- * Each of the modules in GLCore has its own documentation page which detail its usage, you can find the documentation
+ * Each of the modules in StapleGL has its own documentation page which detail its usage, you can find the documentation
  * pages in the /docs/html folder, by opening index.html.
  *
- * In general, due to GLCore being very minimalistic, its very easy to get started with it,
+ * In general, due to StapleGL being very minimalistic, its very easy to get started with it,
  * and you can find a number of examples in the examples folder.
  * 
  * The examples can be compiled through the CMakeLists.txt file in the root directory.

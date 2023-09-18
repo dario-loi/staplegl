@@ -1,14 +1,14 @@
 /**
  * @file sandbox.cpp
  * @author Dario Loi
- * @brief Minimal example of how to use glcore.
+ * @brief Minimal example of how to use staplegl.
  *
  * @copyright MIT License
  *
  */
 
 #include "glad.h"
-#include "glcore.hpp"
+#include "staplegl.hpp"
 #include <GLFW/glfw3.h>
 #include <array>
 #include <iostream>
@@ -18,7 +18,7 @@
 /*
 
         IMPORTANT: in order for the program to correctly compile, go to
-        include/glcore/modules/gl_functions.hpp and replace the placeholder
+        include/staplegl/modules/gl_functions.hpp and replace the placeholder
         with the provided OpenGL loader ("glad.h").
 
 */
@@ -47,7 +47,7 @@ auto main() -> int
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL example in GLCore", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL example in StapleGL", nullptr, nullptr);
     if (window == nullptr) {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -65,7 +65,7 @@ auto main() -> int
         return -1;
     }
 
-    glcore::shader_program basic { "basic_shader", "./shaders/basic_shader.glsl" };
+    staplegl::shader_program basic { "basic_shader", "./shaders/basic_shader.glsl" };
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -81,16 +81,16 @@ auto main() -> int
         1, 2, 3 // second Triangle
     };
 
-    glcore::vertex_buffer VBO { vertices, glcore::driver_draw_hint::STATIC_DRAW };
-    glcore::index_buffer EBO { indices };
+    staplegl::vertex_buffer VBO { vertices, staplegl::driver_draw_hint::STATIC_DRAW };
+    staplegl::index_buffer EBO { indices };
 
-    using namespace glcore::shader_data_type;
+    using namespace staplegl::shader_data_type;
 
-    glcore::vertex_buffer_layout layout { { shader_type::vec3, "aPos" } };
+    staplegl::vertex_buffer_layout layout { { shader_type::vec3, "aPos" } };
 
     VBO.set_layout(layout);
 
-    glcore::vertex_array VAO;
+    staplegl::vertex_array VAO;
 
     VAO.add_vertex_buffer(std::move(VBO));
     VAO.set_index_buffer(std::move(EBO));

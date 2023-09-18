@@ -9,7 +9,7 @@
  */
 
 #include "glad.h"
-#include "glcore.hpp"
+#include "staplegl.hpp"
 
 #include <GLFW/glfw3.h>
 #include <algorithm>
@@ -25,7 +25,7 @@
 /*
 
         IMPORTANT: in order for the program to correctly compile, go to
-        include/glcore/modules/gl_functions.hpp and replace the placeholder
+        include/staplegl/modules/gl_functions.hpp and replace the placeholder
         with the provided OpenGL loader ("glad.h").
 
 */
@@ -108,7 +108,7 @@ auto main() -> int
     glEnable(GL_POLYGON_SMOOTH);
     glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 
-    glcore::shader_program basic { "batched_shader", "./shaders/batched_shader.glsl" };
+    staplegl::shader_program basic { "batched_shader", "./shaders/batched_shader.glsl" };
 
     basic.bind();
 
@@ -127,30 +127,30 @@ auto main() -> int
         1, 2, 3 // second Triangle
     };
 
-    using namespace glcore::shader_data_type;
+    using namespace staplegl::shader_data_type;
 
-    glcore::vertex_buffer_layout layout {
+    staplegl::vertex_buffer_layout layout {
         { shader_type::vec3, "aPos" }
     };
 
-    glcore::vertex_buffer_layout instance_layout {
+    staplegl::vertex_buffer_layout instance_layout {
         { shader_type::vec3, "instancePos" }
     };
 
-    glcore::vertex_buffer VBO(vertices, glcore::driver_draw_hint::STATIC_DRAW);
-    glcore::vertex_buffer_inst VBO_inst({}); // empty for now
+    staplegl::vertex_buffer VBO(vertices, staplegl::driver_draw_hint::STATIC_DRAW);
+    staplegl::vertex_buffer_inst VBO_inst({}); // empty for now
 
     VBO_inst.set_layout(instance_layout);
     VBO.set_layout(layout);
 
-    glcore::index_buffer EBO { indices };
-    glcore::vertex_array VAO;
+    staplegl::index_buffer EBO { indices };
+    staplegl::vertex_array VAO;
 
-    glcore::vertex_buffer_layout UBO_block_layout {
+    staplegl::vertex_buffer_layout UBO_block_layout {
         { shader_array_type::float32_arr, "u_color", 4 }
     };
 
-    glcore::uniform_buffer UBO_block { UBO_block_layout, 1 };
+    staplegl::uniform_buffer UBO_block { UBO_block_layout, 1 };
 
     UBO_block.bind();
 

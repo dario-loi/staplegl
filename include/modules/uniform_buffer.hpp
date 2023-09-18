@@ -23,7 +23,7 @@
 #include <string_view>
 #include <unordered_map>
 
-namespace glcore {
+namespace staplegl {
 
 /**
  * @brief Uniform Buffer Object (UBO) wrapper.
@@ -191,4 +191,4 @@ void uniform_buffer::set_attribute_data(std::span<const float> uniform_data, siz
     glBufferSubData(GL_UNIFORM_BUFFER, attr.offset + offset * sizeof(float), uniform_data.size_bytes(), uniform_data.data());
 }
 
-} // namespace glcore
+} // namespace staplegl

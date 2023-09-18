@@ -33,7 +33,7 @@
 #include <list>
 #include <optional>
 
-namespace glcore {
+namespace staplegl {
 
 /**
  * @brief Vertex Array Object (VAO) wrapper.

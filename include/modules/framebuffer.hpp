@@ -27,7 +27,7 @@
 #include <optional>
 #include <span>
 
-namespace glcore {
+namespace staplegl {
 
 /**
  * @brief enum class for framebuffer attachments.
@@ -62,17 +62,17 @@ public:
      * @param res The resolution of the renderbuffer object.
      * @param attachment the type of attachment (Depth buffer, Stencil Buffer, Both, None).
      *
-     * @note passing glcore::fbo_attachment::NONE results in the removal of any renderbuffer from the FBO.
+     * @note passing staplegl::fbo_attachment::NONE results in the removal of any renderbuffer from the FBO.
      * @note this function destroys any previously held renderbuffer.
      *
-     * @see glcore::fbo_attachment
+     * @see staplegl::fbo_attachment
      */
     void set_renderbuffer(resolution res, fbo_attachment attachment = fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER, tex_samples samples = tex_samples::MSAA_X1);
 
     /**
      * @brief Set a texture as the color attachment of the framebuffer.
      *
-     * @details Uses the ID contained in the `glcore::texture_2d` object to attach it to the framebuffer,
+     * @details Uses the ID contained in the `staplegl::texture_2d` object to attach it to the framebuffer,
      *
      * @note the framebuffer must be bound before calling this function.
      * @warning the framebuffer does not take ownership of the texture, hence care must be taken to ensure that the
@@ -280,13 +280,13 @@ void framebuffer::set_renderbuffer(resolution res, fbo_attachment attachment, te
     }
 }
 
-void framebuffer::set_texture(glcore::texture_2d const& tex, size_t index) const
+void framebuffer::set_texture(staplegl::texture_2d const& tex, size_t index) const
 {
 
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index, tex.antialias().type, tex.id(), 0);
 }
 
-void framebuffer::set_viewport(glcore::resolution res)
+void framebuffer::set_viewport(staplegl::resolution res)
 {
     glViewport(0, 0, res.width, res.height);
 }
@@ -306,4 +306,4 @@ void framebuffer::unbind()
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-} // namespace glcore
+} // namespace staplegl

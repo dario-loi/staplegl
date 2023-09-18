@@ -21,7 +21,7 @@
 
 #include <cstdint>
 
-namespace glcore {
+namespace staplegl {
 
 /**
  * @brief Render Buffer Object (RBO) wrapper.
@@ -200,4 +200,4 @@ void renderbuffer::unbind() const
     glBindRenderbuffer(GL_RENDERBUFFER, 0);
 }
 
-} // namespace glcore
+} // namespace staplegl

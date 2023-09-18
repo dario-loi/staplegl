@@ -22,7 +22,7 @@
 #include <cstdint>
 #include <exception>
 
-namespace glcore::shader_data_type {
+namespace staplegl::shader_data_type {
 
 /**
  * @brief Enumerator that represents an array of a given data type.
@@ -47,9 +47,9 @@ enum class shader_array_type : std::uint8_t {
  * as a uniform to the shader, as well as a runtime type to feed as a parameter to other functions
  * in this module.
  *
- * @see glcore::shader_data_type::size
- * @see glcore::shader_data_type::to_opengl_type
- * @see glcore::shader_data_type::component_count
+ * @see staplegl::shader_data_type::size
+ * @see staplegl::shader_data_type::to_opengl_type
+ * @see staplegl::shader_data_type::component_count
  *
  */
 enum class shader_type : std::uint8_t {
@@ -65,7 +65,7 @@ enum class shader_type : std::uint8_t {
  * @brief Get the size of the shader data type.
  *
  * @param type the type of the shader data.
- * @see glcore::shader_data_type::shader_type
+ * @see staplegl::shader_data_type::shader_type
  * @return std::size_t the size of the shader data type in bytes.
  */
 constexpr static std::size_t size(shader_type type)
@@ -92,7 +92,7 @@ constexpr static std::size_t size(shader_type type)
  * @brief Convert the shader data type to an OpenGL type.
  *
  * @param type the type of the shader data.
- * @see glcore::shader_data_type::shader_type
+ * @see staplegl::shader_data_type::shader_type
  * @return std::uint32_t the equivalent OpenGL type, as an enum.
  */
 constexpr static std::uint32_t to_opengl_type(shader_type type)
@@ -144,7 +144,7 @@ constexpr static std::uint32_t to_opengl_underlying_type(shader_type type)
  * @brief Get the number of components in the shader data type, useful for vector types.
  *
  * @param type the type of the shader data.
- * @see glcore::shader_data_type::shader_type
+ * @see staplegl::shader_data_type::shader_type
  *
  * @return std::uint16_t the number of components in the shader data type.
  */

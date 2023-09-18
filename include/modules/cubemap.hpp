@@ -25,7 +25,7 @@
 #include <cstdint>
 #include <span>
 
-namespace glcore {
+namespace staplegl {
 
 /**
  * @brief Cube map texture wrapper.
@@ -185,4 +185,4 @@ void cubemap::set_unit(std::uint32_t unit_offset) const
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_id);
 }
 
-} // namespace glcore
+} // namespace staplegl

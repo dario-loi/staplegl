@@ -1,14 +1,14 @@
 /**
  * @file sandbox.cpp
  * @author Dario Loi
- * @brief More complex example of glcore usage with the Utah Teapot model.
+ * @brief More complex example of staplegl usage with the Utah Teapot model.
  *
  * @copyright MIT License
  *
  */
 
 #include "glad.h"
-#include "glcore.hpp"
+#include "staplegl.hpp"
 #include <GLFW/glfw3.h>
 
 #include <algorithm>
@@ -22,7 +22,7 @@
 #include "screen_quad.h"
 #include "teapot_data.h"
 
-// glm linear algebra library, NOT needed for glcore, just for the example.
+// glm linear algebra library, NOT needed for staplegl, just for the example.
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
@@ -34,7 +34,7 @@
 /*
 
         IMPORTANT: in order for the program to correctly compile, go to
-        include/glcore/modules/gl_functions.hpp and replace the placeholder
+        include/staplegl/modules/gl_functions.hpp and replace the placeholder
         with the provided OpenGL loader ("glad.h").
 
 */
@@ -91,7 +91,7 @@ auto main() -> int
 {
 
   std::string_view hello_message{
-      "Hello! This is a more complex example of glcore usage, featuring the Utah Teapot model.\n"
+      "Hello! This is a more complex example of staplegl usage, featuring the Utah Teapot model.\n"
       "Press the U and D keys to increase (U) and decrease (D) the luminosity of the light source.\n"
       "Play around with them to observe how the bloom effect changes."
   };
@@ -99,7 +99,7 @@ auto main() -> int
   std::cout << hello_message << std::endl;
 
   // shorten layout declarations a bit.
-  using namespace glcore::shader_data_type;
+  using namespace staplegl::shader_data_type;
 
   // glfw: initialize and configure
   // ------------------------------
@@ -140,13 +140,13 @@ auto main() -> int
     glDebugMessageCallback(MessageCallback, nullptr);
 
     // Set up all the shaders
-    glcore::shader_program teapot_shader { "teapot_shader", "./shaders/teapot_shader.glsl" };
-    glcore::shader_program skybox_shader { "skybox_shader", "./shaders/skybox_shader.glsl" };
-    glcore::shader_program light_shader { "light_shader", "./shaders/light_shader.glsl" };
-    glcore::shader_program tonemap_shader { "tone_mapping", "./shaders/tone_mapping.glsl" };
-    glcore::shader_program downsample_shader { "downsample", "./shaders/downsample_shader.glsl" };
-    glcore::shader_program upsample_shader { "upsample", "./shaders/upsample_shader.glsl" };
-    glcore::shader_program passthrough_shader { "passthrough", "./shaders/passthrough_shader.glsl" };
+    staplegl::shader_program teapot_shader { "teapot_shader", "./shaders/teapot_shader.glsl" };
+    staplegl::shader_program skybox_shader { "skybox_shader", "./shaders/skybox_shader.glsl" };
+    staplegl::shader_program light_shader { "light_shader", "./shaders/light_shader.glsl" };
+    staplegl::shader_program tonemap_shader { "tone_mapping", "./shaders/tone_mapping.glsl" };
+    staplegl::shader_program downsample_shader { "downsample", "./shaders/downsample_shader.glsl" };
+    staplegl::shader_program upsample_shader { "upsample", "./shaders/upsample_shader.glsl" };
+    staplegl::shader_program passthrough_shader { "passthrough", "./shaders/passthrough_shader.glsl" };
 
     skybox_shader.bind();
     skybox_shader.upload_uniform1i("skybox", 0);
@@ -168,24 +168,24 @@ auto main() -> int
     upsample_shader.upload_uniform1i("scene", 1);
 
     // set up framebuffers and textures for HDR and bloom effect
-    std::array<glcore::texture_2d, calc_pyramid_levels(SCR_WIDTH, SCR_HEIGHT)> pyramid_textures {};
+    std::array<staplegl::texture_2d, calc_pyramid_levels(SCR_WIDTH, SCR_HEIGHT)> pyramid_textures {};
 
-    glcore::texture_2d msaa_color {
+    staplegl::texture_2d msaa_color {
         std::span<const float> {},
-        glcore::resolution { SCR_WIDTH, SCR_HEIGHT },
-        glcore::texture_color {
+        staplegl::resolution { SCR_WIDTH, SCR_HEIGHT },
+        staplegl::texture_color {
             .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT },
-        glcore::texture_filter {
+        staplegl::texture_filter {
             .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },
-        glcore::tex_samples::MSAA_X16
+        staplegl::tex_samples::MSAA_X16
     };
 
-    glcore::texture_2d hdr_color {
+    staplegl::texture_2d hdr_color {
         std::span<const float> {},
-        glcore::resolution { SCR_WIDTH, SCR_HEIGHT },
-        glcore::texture_color {
+        staplegl::resolution { SCR_WIDTH, SCR_HEIGHT },
+        staplegl::texture_color {
             .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT },
-        glcore::texture_filter {
+        staplegl::texture_filter {
             .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE }
     };
 
@@ -193,36 +193,36 @@ auto main() -> int
     // iteratively downsampling from screen resolution towards the bottom will allow us to
     // spread the bloom effect over a wide area, with more details.
     for (int i = 0; auto& tex : pyramid_textures) {
-        tex = glcore::texture_2d {
+        tex = staplegl::texture_2d {
             std::span<const float> {},
-            glcore::resolution { SCR_WIDTH >> i, SCR_HEIGHT >> i },
-            glcore::texture_color {
+            staplegl::resolution { SCR_WIDTH >> i, SCR_HEIGHT >> i },
+            staplegl::texture_color {
                 .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT },
-            glcore::texture_filter {
+            staplegl::texture_filter {
                 .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE }
         };
         i++;
     }
 
-    glcore::framebuffer msaa_fbo {};
-    glcore::framebuffer post_fbo {};
+    staplegl::framebuffer msaa_fbo {};
+    staplegl::framebuffer post_fbo {};
 
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
 
     // Teapot model
-    glcore::vertex_buffer_layout layout_3P_3N { { shader_type::vec3, "aPos" }, { shader_type::vec3, "aNormal" } };
+    staplegl::vertex_buffer_layout layout_3P_3N { { shader_type::vec3, "aPos" }, { shader_type::vec3, "aNormal" } };
 
-    glcore::vertex_buffer VBO { { teapot_vertices, static_cast<size_t>(TEAPOT_VERTEX_COMPONENTS * TEAPOT_VERTICES) },
-        glcore::driver_draw_hint::STATIC_DRAW };
+    staplegl::vertex_buffer VBO { { teapot_vertices, static_cast<size_t>(TEAPOT_VERTEX_COMPONENTS * TEAPOT_VERTICES) },
+        staplegl::driver_draw_hint::STATIC_DRAW };
     VBO.set_layout(layout_3P_3N);
 
-    glcore::index_buffer EBO {
+    staplegl::index_buffer EBO {
         { teapot_indices, TEAPOT_INDICES }
     };
 
-    glcore::vertex_array VAO;
+    staplegl::vertex_array VAO;
 
     VAO.add_vertex_buffer(std::move(VBO));
     VAO.set_index_buffer(std::move(EBO));
@@ -230,19 +230,19 @@ auto main() -> int
 
     // Cube model used for the skybox
 
-    glcore::vertex_buffer_layout layout_3P { { shader_type::vec3, "aPos" } };
+    staplegl::vertex_buffer_layout layout_3P { { shader_type::vec3, "aPos" } };
 
-    glcore::vertex_buffer skybox_VBO { { skybox_vertices, SKYBOX_VERTS },
-        glcore::driver_draw_hint::STATIC_DRAW };
+    staplegl::vertex_buffer skybox_VBO { { skybox_vertices, SKYBOX_VERTS },
+        staplegl::driver_draw_hint::STATIC_DRAW };
     skybox_VBO.set_layout(layout_3P); // we reuse the same layout as the teapot.
 
     // the skybox has no indices per se, we generate them on the fly.
     std::vector<unsigned int> skybox_indices(SKYBOX_VERTS / 3);
     std::generate(skybox_indices.begin(), skybox_indices.end(),
         [n = 0]() mutable { return n++; });
-    glcore::index_buffer skybox_EBO { skybox_indices };
+    staplegl::index_buffer skybox_EBO { skybox_indices };
 
-    glcore::vertex_array skybox_VAO;
+    staplegl::vertex_array skybox_VAO;
 
     skybox_VAO.add_vertex_buffer(std::move(skybox_VBO));
     skybox_VAO.set_index_buffer(std::move(skybox_EBO));
@@ -253,13 +253,13 @@ auto main() -> int
 
     // screen quad for post-processing
 
-    glcore::vertex_buffer_layout layout_3P_2UV { { shader_type::vec3, "aPos" }, { shader_type::vec2, "aTexCoord" } };
+    staplegl::vertex_buffer_layout layout_3P_2UV { { shader_type::vec3, "aPos" }, { shader_type::vec2, "aTexCoord" } };
 
-    glcore::vertex_buffer quad_VBO { { quadVertices, GLCORE_QUAD_VERTICES },
-        glcore::driver_draw_hint::STATIC_DRAW };
+    staplegl::vertex_buffer quad_VBO { { quadVertices, STAPLEGL_QUAD_VERTICES },
+        staplegl::driver_draw_hint::STATIC_DRAW };
 
     quad_VBO.set_layout(layout_3P_2UV);
-    glcore::vertex_array quad_VAO;
+    staplegl::vertex_array quad_VAO;
 
     quad_VAO.add_vertex_buffer(std::move(quad_VBO));
     quad_VAO.unbind();
@@ -273,23 +273,23 @@ auto main() -> int
 
     */
 
-    glcore::vertex_buffer_layout camera_block_layout {
+    staplegl::vertex_buffer_layout camera_block_layout {
         { shader_type::mat4, "projection" },
         { shader_type::mat4, "view" },
         { shader_type::mat4, "model" },
         { shader_type::vec4, "camera_pos" }
     };
 
-    glcore::uniform_buffer camera_block { camera_block_layout, 0 };
+    staplegl::uniform_buffer camera_block { camera_block_layout, 0 };
 
-    glcore::vertex_buffer_layout light_block_layout {
+    staplegl::vertex_buffer_layout light_block_layout {
         { shader_type::vec4, "light_pos" },
         { shader_type::vec4, "light_color" },
         { shader_type::vec4, "light_attenuation" }, // 0 : constant, 1 : linear, 2 : quadratic, 3 : padding
         { shader_type::vec2, "light_intensities" } // 0 : diffuse, 1 : specular
     };
 
-    glcore::uniform_buffer light_block { light_block_layout, 1 };
+    staplegl::uniform_buffer light_block { light_block_layout, 1 };
 
     const glm::vec4 light_pos { 1.0F, 1.0F, 10.0F, 1.0F };
     const glm::vec4 light_color { 0.9333F, 0.5098, 0.9333F, 1.0F };
@@ -301,12 +301,12 @@ auto main() -> int
     light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec2(luminosity, 1.2F)), 2 }, "light_intensities");
     light_block.unbind();
 
-    glcore::vertex_buffer_layout material_block_layout {
+    staplegl::vertex_buffer_layout material_block_layout {
         { shader_type::vec4, "material_color" },
         { shader_type::float32, "material_shininess" },
         { shader_type::float32, "material_roughness" }
     };
-    glcore::uniform_buffer material_block { material_block_layout, 2 };
+    staplegl::uniform_buffer material_block { material_block_layout, 2 };
 
     // teapot materials
     const glm::vec4 teapot_color { 0.51F, 0.55F, 0.66F, 1.0F };
@@ -347,7 +347,7 @@ auto main() -> int
     // srgb8 is used to ensure that the texture is correctly gamma corrected.
     // the static casts are necessary to specify that a narrowing conversion is
     // intended.
-    glcore::cubemap skybox {
+    staplegl::cubemap skybox {
         cube_data, { static_cast<uint32_t>(width), static_cast<uint32_t>(height) },
         { .internal_format = GL_SRGB8, .format = GL_RGB, .datatype = GL_UNSIGNED_BYTE },
         { .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },
@@ -398,8 +398,8 @@ auto main() -> int
         msaa_fbo.set_renderbuffer(
             {SCR_WIDTH,
              SCR_HEIGHT}, // get a renderbuffer of the same size as the screen.
-            glcore::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER,
-            glcore::tex_samples::MSAA_X16); // set the same samples as the color texture.
+            staplegl::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER,
+            staplegl::tex_samples::MSAA_X16); // set the same samples as the color texture.
 
         if (!msaa_fbo.assert_completeness()) [[unlikely]] {
             std::cerr << "Framebuffer not complete, line: " << __LINE__ << std::endl;
@@ -462,10 +462,10 @@ auto main() -> int
         post_fbo.bind();
         post_fbo.set_texture(hdr_color);
 
-        glcore::framebuffer::transfer_data(msaa_fbo, post_fbo, {SCR_WIDTH, SCR_HEIGHT});
+        staplegl::framebuffer::transfer_data(msaa_fbo, post_fbo, {SCR_WIDTH, SCR_HEIGHT});
 
         post_fbo.bind();
-        post_fbo.set_renderbuffer({ 0, 0 }, glcore::fbo_attachment::NONE);
+        post_fbo.set_renderbuffer({ 0, 0 }, staplegl::fbo_attachment::NONE);
 
         /*
 
@@ -538,7 +538,7 @@ auto main() -> int
         // we can combine it with the original scene to get the final result.
 
         // HDR post-processing
-        glcore::framebuffer::bind_default();
+        staplegl::framebuffer::bind_default();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         tonemap_shader.bind();
@@ -552,7 +552,7 @@ auto main() -> int
         glfwPollEvents();
     }
 
-    // no need to de-allocate anything as glcore handles all the OpenGL objects in a RAII fashion.
+    // no need to de-allocate anything as staplegl handles all the OpenGL objects in a RAII fashion.
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------

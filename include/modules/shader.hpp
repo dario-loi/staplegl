@@ -26,7 +26,7 @@
 #include <unordered_map>
 #include <vector>
 
-namespace glcore {
+namespace staplegl {
 
 /**
  * @brief The type of the shader.
@@ -48,7 +48,7 @@ enum class shader_type {
  * @details The shader struct is effectively nothing more that a string that is
  * tagged with a shader type.
  *
- * @see glcore::shader_type
+ * @see staplegl::shader_type
  *
  */
 struct shader {
@@ -183,7 +183,7 @@ public:
      * @brief Obtain a reference to a shader in the shader program.
      *
      * @param index Shader index.
-     * @see glcore::shader
+     * @see staplegl::shader
      * @return shader&, a reference to the shader.
      */
     shader& operator[](std::size_t index);
@@ -192,7 +192,7 @@ public:
      * @brief Obtain a const reference to a shader in the shader program.
      *
      * @param index Shader index.
-     * @see glcore::shader
+     * @see staplegl::shader
      * @return const shader&, a const reference to the shader.
      */
     const shader& operator[](std::size_t index) const;
@@ -209,7 +209,7 @@ private:
      * @brief Create a shader object.
      *
      * @param shader_type The shader type.
-     * @see glcore::shader_type
+     * @see staplegl::shader_type
      * @param source The shader source.
      * @return std::uint32_t, the shader object id.
      */
@@ -221,7 +221,7 @@ private:
      * splitting the monolithic source into individual shader sources by scanning for the #type tag.
      *
      * @param source The shader program source.
-     * @see glcore::shader_type
+     * @see staplegl::shader_type
      *
      * @return std::vector<shader>. A vector of shaders.
      */
@@ -249,7 +249,7 @@ private:
     /**
      * @brief Convert a shader type to its OpenGL equivalent.
      *
-     * @see glcore::shader_type
+     * @see staplegl::shader_type
      * @param shader_type the shader type.
      * @return std::uint32_t, the OpenGL equivalent of the shader type, as an OpenGL enum.
      */
