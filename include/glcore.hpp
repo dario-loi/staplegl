@@ -1,17 +1,14 @@
 /**
- * @file glcore.h
+ * @file glcore.hpp
 
- * @brief GLCore, a C++17 wrapper for OpenGL.
+ * @brief GLCore, a C++20 wrapper for OpenGL.
  *
  * @authors Christian Panov, Dario Loi.
  * @date 2023-04-28
  *
- * @details GLCore is a C++17 wrapper for OpenGL. It is designed to be simple and easy to use.
+ * @details GLCore is a C++20 wrapper for OpenGL. It is designed to be simple and easy to use.
  * simply import this header file and provide your own OpenGL loader in modules/gl_functions.h.
  *
- *
- * @warning **IMPORTANT** Do not forget to provide an OpenGL loader in modules/gl_functions.h, or else
- * GLCore will not work.
  *
  * @see modules/gl_functions.h
  * @copyright MIT License
@@ -62,9 +59,8 @@ The rest of the file is reserved for documentation purposes. (mainly for doxygen
  * pages in the /docs/html folder, by opening index.html.
  *
  * In general, due to GLCore being very minimalistic, its very easy to get started with it,
- * and you can find a simple example of usage in the /examples/sandbox folder, you can compile
- * this example through the CMakeLists.txt file in the root directory, but first, you need
- * to include the provided glad.h file in the /examples/sandbox/external folder, or replace it
- * with another alternative you prefer (which might require a rewrite of sandbox.cpp/CMakeLists.txt).
+ * and you can find a number of examples in the examples folder.
+ * 
+ * The examples can be compiled through the CMakeLists.txt file in the root directory.
  *
  */

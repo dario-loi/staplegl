@@ -6,6 +6,17 @@
  * @date 2023-04-28
  *
  * @copyright MIT License
+ * 
+ * @details Wraps VBOs allowing for easy creation and usage. Vertex buffer objects
+ * are GPU buffers that store an array of data that OpenGL uses to render primitives. <br>
+ * 
+ * This data is stored in the GPU's memory and can be accessed by the GPU without
+ * the need to send it from the CPU every time it is needed. It is stored contiguously
+ * as one array of floats, hence the layout of the data must be specified to OpenGL
+ * by the user through a vertex buffer layout.
+ * 
+ * @see vertex_buffer_layout.hpp
+ * @see https://www.khronos.org/opengl/wiki/Vertex_Specification#Vertex_Buffer_Object
  *
  */
 
@@ -18,6 +29,11 @@
 
 namespace glcore {
 
+/**
+ * @brief Concept that specifies that a type is a Plain Old Data (POD) type.
+ * 
+ * @tparam T the type to be checked.
+ */
 template <typename T>
 concept plain_old_data = std::is_standard_layout_v<T> && std::is_trivial_v<T>;
 

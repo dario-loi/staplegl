@@ -1,3 +1,18 @@
+/**
+ * @file framebuffer.hpp
+ * @author Dario Loi
+ * @brief Wrapper for OpenGL Framebuffer Objects.
+ * 
+ * @date 2023-09-18
+ * 
+ * @copyright MIT License
+ * 
+ * @details Wraps FBOs allowing for easy creation and usage. functionalities include 
+ * the internal management of renderbuffers, some utility functions to transfer 
+ * contents from one framebuffer to another, and some functions to bind/unbind the
+ * FBO to the OpenGL context.
+ */
+
 #pragma once
 
 #include "gl_functions.hpp"
@@ -14,6 +29,10 @@
 
 namespace glcore {
 
+/**
+ * @brief enum class for framebuffer attachments.
+ * 
+ */
 enum class fbo_attachment : std::uint8_t {
     NONE = 0x00,
     ATTACH_DEPTH_BUFFER = 0x01,
@@ -21,10 +40,14 @@ enum class fbo_attachment : std::uint8_t {
     ATTACH_DEPTH_STENCIL_BUFFER = 0x03,
 };
 
+/**
+ * @brief Framebuffer Object (FBO) wrapper.
+ * 
+ */
 class framebuffer {
 
 public:
-    framebuffer();
+    framebuffer() noexcept;
     ~framebuffer();
 
     framebuffer(const framebuffer&) = delete;

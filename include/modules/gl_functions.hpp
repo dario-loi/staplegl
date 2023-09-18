@@ -1,19 +1,22 @@
 /**
  * @file gl_functions.hpp
- * @author Christian Panov
+ * @authors Christian Panov, Dario Loi
  * @brief Loads OpenGL functions.
  *
  * @date 2023-04-28
  *
- * @details One of the main philosophies of GLCore is to be as lightweight as possible. This means that
- * we *do not* provide an OpenGL loader, instead, we provide a placeholder header file that you can
- * modify according to your own needs!
- *
- * In order to do so, just substitute the include directive below with your own OpenGL loader
- * (GLAD, GLEW, etc...).
- *
- * @note the placeholder header file is just to prevent errors from showing up on your IDE. It does
- * nothing and once you replace it with your own loader, you can delete it if you want.
+ * @details This file is a placeholder for the OpenGL function loader. You can use any loader you
+ * want, as long as it is compatible with the OpenGL version you are using. 
+ * <br>
+ * To switch to a different loader, simply replace the include directive with the one you want to
+ * use. For example, if you want to use GLEW, you would replace the include directive with:
+ * <br>
+ * <code>#include "GL/glew.h"</code>
+ * <br>
+ * 
+ * For the examples, we are using glad.h, if you want to see the examples with a different
+ * loader, you'll have to modify their loading code accordingly.
+ * 
  * @copyright MIT License
  *
  */

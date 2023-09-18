@@ -5,6 +5,13 @@
  * @date 2023-08-24
  *
  * @copyright MIT License
+ * 
+ * @details Wraps UBOs allowing for easy creation and usage. Uniform buffer objects
+ * are GPU buffers that store uniform data that can be shared between multiple shader 
+ * programs. <br>
+ * 
+ * Uniform blocks usually contain data that is used to configure the rendering pipeline,
+ * such as light data, material data, etc.
  */
 
 #pragma once
@@ -12,18 +19,21 @@
 #include "gl_functions.hpp"
 #include "vertex_buffer_layout.hpp"
 
-#include <functional>
 #include <span>
 #include <string_view>
 #include <unordered_map>
 
 namespace glcore {
 
+/**
+ * @brief Uniform Buffer Object (UBO) wrapper.
+ * 
+ */
 class uniform_buffer {
 
 public:
-    uniform_buffer(std::span<const float> contents, vertex_buffer_layout const& layout, int32_t binding_point);
-    uniform_buffer(vertex_buffer_layout const& layout, int32_t binding_point);
+    uniform_buffer(std::span<const float> contents, vertex_buffer_layout const& layout, int32_t binding_point) noexcept;
+    uniform_buffer(vertex_buffer_layout const& layout, int32_t binding_point) noexcept;
 
     uniform_buffer(const uniform_buffer&) = delete;
     uniform_buffer& operator=(const uniform_buffer&) = delete;

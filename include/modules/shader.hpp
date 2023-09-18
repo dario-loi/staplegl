@@ -84,7 +84,7 @@ public:
      * @param name Shader program name, for debugging purposes.
      * @param path Shader program path, currently it must be relative to the current working directory.
      */
-    shader_program(std::string_view name, std::string_view path);
+    shader_program(std::string_view name, std::string_view path) noexcept;
 
     /**
      * @brief Construct a new shader program object from a name and a list of shaders sources.
@@ -95,7 +95,7 @@ public:
      * @param name Shader name, for debugging purposes.
      * @param shaders A list of shader sources, each shader source is a pair of shader type and shader source.
      */
-    shader_program(std::string_view name, std::initializer_list<std::pair<shader_type, std::string_view>> shaders);
+    shader_program(std::string_view name, std::initializer_list<std::pair<shader_type, std::string_view>> shaders) noexcept;
 
     /**
      * @brief Construct a new shader program object from a path.
@@ -108,7 +108,12 @@ public:
      *
      * @param path Shader program path, currently it must be relative to the current working directory.
      */
-    shader_program(std::string_view path);
+    shader_program(std::string_view path) noexcept;
+
+    /**
+     * @brief Destroy the shader program object
+     * 
+     */
     ~shader_program();
 
 public:

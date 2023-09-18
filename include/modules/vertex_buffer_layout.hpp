@@ -6,7 +6,11 @@
  * @date 2023-04-28
  *
  * @details Provides a simple abstraction for vertex buffer layouts,
- * allowing to specify the layout of the vertex buffer in a simple and easy to use way.
+ * allowing to specify the layout of the vertex buffer in a simple and easy to use way. <br>
+ * 
+ * Vertex buffer layouts are used to specify the layout of the data contained in a vertex buffer,
+ * that is, the type of the data, the name of the attribute and the offset of the attribute in the buffer
+ * (in bytes).
  *
  * @copyright MIT License
  *

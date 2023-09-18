@@ -6,6 +6,19 @@
  *
  * @copyright MIT License
  *
+ * @details Abstracts away the creation and usage of a 2D texture. Textures are 2D 
+ * images that can be used to read and write data in the GPU. <br>
+ * 
+ * glcore provides a single interface for 2D texture creation whether the texture 
+ * is to be used as an object's material or as a framebuffer attachment. <br>
+ * 
+ * For this reason, the texture's constructor takes a number of structs that 
+ * specify the texture's behavior, such as the color format and data type, the
+ * various filtering algorithms to use, and the number of samples to use for the
+ * texture. <br>
+ * 
+ * The constructor has sensible defaults, so that the user can create a simple texture 
+ * just by passing the data, the resolution and the color format/filters.
  */
 
 #pragma once
@@ -14,8 +27,6 @@
 #include "utility.hpp"
 
 #include <cstdint>
-#include <exception>
-#include <optional>
 #include <span>
 
 namespace glcore {
@@ -40,6 +51,13 @@ struct texture_filter {
     std::uint32_t clamping {};
 };
 
+/**
+ * @brief OpenGL texture details relating to the number of samples to use for the texture.
+ * 
+ * @warning Antialiasing is mainly intended for use in framebuffer attachments, so 
+ * if you are creating a texture to be used as an object's material, you most likely 
+ * want to use `glcore::tex_samples::MSAA_X1`.
+ */
 struct texture_antialias {
     std::uint32_t type {};
     tex_samples samples {};
@@ -71,6 +89,10 @@ to_mipmap(std::uint32_t filter_type)
     }
 }
 
+/**
+ * @brief 2D texture wrapper.
+ * 
+ */
 class texture_2d {
 public:
     /**
@@ -91,17 +113,22 @@ public:
     /**
      * @brief Construct a new texture 2d object
      *
-     * @param data span of floats that represent the texture data.
+     * @param data span of floats that contains the texture data.
      * @param res resolution of the texture.
      * @param color descriptor of the texture's color format and data type.
+     * @param filters descriptor of the texture's filtering and clamping.
      * @param samples the number of samples to use for the texture, defaults to 1.
      * @param generate_mipmap whether to generate mipmaps for the texture, defaults to false.
      */
     texture_2d(std::span<const float> data, resolution res,
         texture_color color, texture_filter filters,
         tex_samples samples = tex_samples::MSAA_X1,
-        bool generate_mipmap = false);
+        bool generate_mipmap = false) noexcept;
 
+    /**
+     * @brief Destroy the texture 2d object
+     * 
+     */
     ~texture_2d()
     {
         if (m_id != 0) {
@@ -160,10 +187,16 @@ public:
         bind();
     }
 
-
+    /**
+     * @brief Set the data object
+     * 
+     * @param data A span of floats that contains the new data.
+     * @param res A resolution object containing the new resolution.
+     * @param color A texture_color object containing the new color format and data type.
+     * @param generate_mipmap Whether to generate mipmaps for the texture, defaults to false.
+     */
     void set_data(std::span<const float> data, resolution res,
-        texture_color color = { GL_RGBA, GL_RGBA, GL_FLOAT },
-        bool generate_mipmap = true);
+        texture_color color, bool generate_mipmap = false);
 
     /**
      * @brief Bind the texture object.

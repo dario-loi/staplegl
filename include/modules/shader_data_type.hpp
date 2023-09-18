@@ -7,6 +7,11 @@
  *
  * @copyright MIT License
  *
+ * @details This file defines a set of enumerators that represent the data types that can be passed
+ * to a shader as a uniform. These are used as runtime types that can be passed around to other
+ * functions.
+ * 
+ * @see shader.hpp
  */
 
 #pragma once

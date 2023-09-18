@@ -6,6 +6,19 @@
  * @date 2023-04-28
  *
  * @copyright MIT License
+ * 
+ * @details Vertex Array Object Wrapper. <br>
+ * 
+ * Vertex Array Objects (VAOs) are OpenGL objects that store all of the state needed to supply vertex data
+ * to the GPU for a draw call. <br>
+ * 
+ * This includes the format of the vertex data as well as the buffers containing the vertices and 
+ * the indices specifying the order in which to render them. <br>
+ * 
+ * @see vertex_buffer
+ * @see index_buffer
+ * @see vertex_buffer_layout
+ * @see https://www.khronos.org/opengl/wiki/Vertex_Specification#Vertex_Array_Object
  *
  */
 
@@ -38,9 +51,13 @@ namespace glcore {
  */
 class vertex_array {
 public:
-    vertex_array();
+    vertex_array() noexcept;
     ~vertex_array();
 
+    /**
+     * @brief Iterator type returned from add_vertex_buffer.
+     * 
+     */
     using iterator_t = std::list<vertex_buffer>::iterator;
 
     /**

@@ -3,8 +3,16 @@
  * @author Dario Loi
  * @brief Vertex buffer object for instanced rendering.
  * @date 2023-08-10
+ * 
+ * @details This class is a specialization of the vertex_buffer class, and it is meant to help with
+ * instanced rendering, allowing the user of glcore to build a more performant renderer. <br>
+ * 
+ * It can be thought of as a `std::vector`-like container for vertex data.
  *
  * @copyright MIT License
+ * 
+ * @see vertex_buffer.hpp
+ * @see https://www.khronos.org/opengl/wiki/Vertex_Specification#Instanced_arrays
  *
  */
 

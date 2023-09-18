@@ -328,7 +328,7 @@ auto main() -> int
     };
 
     // prep for data transfer
-    std::array<std::byte*, 6> cube_data;
+    std::array<std::span<std::byte>, 6> cube_data;
 
     std::int32_t width, height, nrChannels;
     int i = 0;
@@ -340,7 +340,7 @@ auto main() -> int
             return -1;
         }
         // pack data in array
-        cube_data[i++] = data;
+        cube_data[i++] = std::span<std::byte> { data, static_cast<size_t>(width * height * nrChannels) };
     }
 
     // create the cubemap texture

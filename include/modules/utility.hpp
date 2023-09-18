@@ -6,6 +6,9 @@
  * @date 2023-04-28
  *
  * @copyright MIT License
+ * 
+ * @details This file acts as a container for utility functions and structs that 
+ * are shared across the project.
  *
  */
 
@@ -26,6 +29,10 @@ struct resolution {
     std::uint32_t height {};
 };
 
+/**
+ * @brief An enum that represents the number of samples for a texture.
+ * 
+ */
 enum tex_samples : int32_t {
   MSAA_X1 = 1,
   MSAA_X2 = 2,
@@ -38,6 +45,12 @@ enum tex_samples : int32_t {
 
 namespace glcore::util {
 
+/**
+ * @brief Read a file into a string.
+ * 
+ * @param path the file path, relative to the current working directory.
+ * @return std::string the contents of the file.
+ */
 static std::string read_file(std::string_view path)
 {
     std::ifstream in_file(path.data(), std::ios::ate | std::ios::binary);

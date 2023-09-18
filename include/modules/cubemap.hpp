@@ -3,7 +3,13 @@
  * @author Dario Loi
  * @brief Cube map texture wrapper.
  * @date 2023-08-25
- *
+ * 
+ * @details Abstracts away the creation and usage of a cube map texture. <br>
+ * 
+ * Cube maps are textures that are usually used to represent the skybox of a scene,
+ * or to represent reflections. <br>
+ * 
+ * 
  * @copyright MIT License
  *
  */
@@ -21,13 +27,32 @@
 
 namespace glcore {
 
+/**
+ * @brief Cube map texture wrapper.
+ * 
+ */
 class cubemap {
 
 public:
-    cubemap(std::span<std::byte*, 6> data, resolution res,
-        texture_color color = { GL_RGBA, GL_RGBA, GL_FLOAT },
-        texture_filter filter = { GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE },
-        bool generate_mipmaps = false);
+
+    /**
+     * @brief Construct a new cubemap object
+     * 
+     * @param data The cubemap data, six faces of the cube.
+     * @param res The resolution of the cubemap.
+     * @param color The color format of the cubemap.
+     * @param filter The filtering algorithms to use for the cubemap.
+     * @param generate_mipmaps Whether to generate mipmaps for the cubemap, defaults to false.
+     */
+    cubemap(std::span<std::span<std::byte>, 6> data, resolution res,
+        texture_color color,
+        texture_filter filter,
+        bool generate_mipmaps = false) noexcept;
+
+    /**
+     * @brief Destroy the cubemap object
+     * 
+     */
     ~cubemap() noexcept
     {
         if (m_id != 0) {
@@ -41,7 +66,7 @@ public:
     cubemap& operator=(const cubemap&) = delete;
 
     /**
-     * @brief Construct a new cubemap object
+     * @brief Construct a new cubemap object from another cubemap object.
      *
      * @param other the other cubemap object to move from.
      */
@@ -75,7 +100,6 @@ public:
     /**
      * @brief Bind the cubemap texture.
      *
-     * @param slot the texture slot to bind the texture to.
      */
     void bind() const;
 
@@ -120,7 +144,7 @@ private:
     texture_filter m_filter {};
 };
 
-cubemap::cubemap(std::span<std::byte*, 6> data, resolution res, texture_color color, texture_filter filter, bool generate_mipmaps)
+cubemap::cubemap(std::span<std::span<std::byte>, 6> data, resolution res, texture_color color, texture_filter filter, bool generate_mipmaps)
     : m_res(res)
     , m_color(color)
     , m_filter(filter)
@@ -137,7 +161,7 @@ cubemap::cubemap(std::span<std::byte*, 6> data, resolution res, texture_color co
 
     int i = 0;
     for (auto const& face : data) {
-        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i++, 0, m_color.internal_format, m_res.width, m_res.height, 0, m_color.format, m_color.datatype, face);
+        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i++, 0, m_color.internal_format, m_res.width, m_res.height, 0, m_color.format, m_color.datatype, face.data());
     }
 
     if (generate_mipmaps) {

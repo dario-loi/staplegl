@@ -8,7 +8,6 @@ INPUT                  = ./include
 RECURSIVE              = YES
 SOURCE_BROWSER         = YES
 GENERATE_TREEVIEW      = YES
-GENERATE_LATEX         = 
 GENERATE_TREEVIEW      = YES # optional. Also works without treeview
 DISABLE_INDEX          = NO
 FULL_SIDEBAR           = NO

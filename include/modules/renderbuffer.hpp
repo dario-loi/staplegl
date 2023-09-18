@@ -5,6 +5,12 @@
  * @date 2023-08-25
  *
  * @copyright MIT License
+ * 
+ * @detils Wraps RBOs allowing for easy creation and usage. Render buffer objects
+ * are GPU buffers that hold screen data (similar to a texture), but they are
+ * under the guarantee that the user will never need to read from them, this 
+ * allows OpenGL to optimize them for rendering use (for example, by storing
+ * Z-Buffer and Stencil data in a single buffer, in an efficient format).
  *
  */
 
@@ -17,31 +23,104 @@
 
 namespace glcore {
 
+/**
+ * @brief Render Buffer Object (RBO) wrapper.
+ * 
+ */
 class renderbuffer {
 
 public:
+    /**
+     * @brief Renderbuffer attachment type.
+     * 
+     * @details This enum is used to specify the type of attachment that the renderbuffer
+     * will be used for. <br>
+     * 
+     */
     enum class attachment_type : uint32_t {
         depth = GL_DEPTH_ATTACHMENT,
         stencil = GL_STENCIL_ATTACHMENT,
         depth_stencil = GL_DEPTH_STENCIL_ATTACHMENT
     };
 
+    /**
+     * @brief Construct a new renderbuffer object with the specified resolution, attachment type and sample count.
+     * 
+     * @param res Resolution of the renderbuffer.
+     * @param type Attachment type of the renderbuffer.
+     * @param samples Sample count of the renderbuffer, defaults to 1.
+     * 
+     */
     renderbuffer(resolution res, attachment_type type = attachment_type::depth_stencil, 
-        tex_samples samples = tex_samples::MSAA_X1);
+        tex_samples samples = tex_samples::MSAA_X1) noexcept;
+
+    /**
+     * @brief Destroy the renderbuffer object
+     * 
+     */
     ~renderbuffer();
 
     renderbuffer(const renderbuffer&) = delete;
     renderbuffer& operator=(const renderbuffer&) = delete;
 
-    renderbuffer(renderbuffer&&) noexcept;
-    renderbuffer& operator=(renderbuffer&&) noexcept;
+    /**
+     * @brief Construct a new renderbuffer object
+     *
+     * @param other The renderbuffer object to move from.
+     *
+     * @note Moving from a renderbuffer is cheap since it only involves copying the OpenGL 
+     * ID, the `other` object will be left with an ID of 0.
+     *
+     */
+    renderbuffer(renderbuffer&& other) noexcept;
 
+    /**
+     * @brief Move assignment operator.
+     * 
+     * @param other The renderbuffer object to move from.
+     * @return renderbuffer& The moved object.
+     */
+    renderbuffer& operator=(renderbuffer&& other) noexcept;
+
+    /**
+     * @brief Bind the renderbuffer object.
+     * 
+     */
     void bind() const;
+
+    /**
+     * @brief Unbind the renderbuffer object.
+     * 
+     */
     void unbind() const;
 
+    /**
+     * @brief Get the ID of the renderbuffer object.
+     * 
+     * @return uint32_t the ID of the renderbuffer object.
+     */
     constexpr uint32_t id() const noexcept { return m_id; }
+
+    /**
+     * @brief Get the resolution of the renderbuffer object.
+     * 
+     * @return resolution A resolution object containing the width and height of the renderbuffer.
+     */
     [[nodiscard]] constexpr resolution res() const noexcept { return m_res; }
+
+    /**
+     * @brief Get the attachment type of the renderbuffer object.
+     * 
+     * 
+     * @return attachment_type The attachment type of the renderbuffer object.
+     */
     [[nodiscard]] constexpr attachment_type type() const noexcept { return m_type; }
+
+    /**
+     * @brief Get the sample count of the renderbuffer object.
+     * 
+     * @return tex_samples The sample count of the renderbuffer object.
+     */
     [[nodiscard]] constexpr tex_samples samples() const noexcept { return m_samples; }
 
 private:
