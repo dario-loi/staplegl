@@ -20,7 +20,6 @@
 #include "texture.hpp"
 #include "utility.hpp"
 
-#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <span>

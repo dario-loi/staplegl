@@ -6,7 +6,7 @@
  *
  * @copyright MIT License
  * 
- * @detils Wraps RBOs allowing for easy creation and usage. Render buffer objects
+ * @details Wraps RBOs allowing for easy creation and usage. Render buffer objects
  * are GPU buffers that hold screen data (similar to a texture), but they are
  * under the guarantee that the user will never need to read from them, this 
  * allows OpenGL to optimize them for rendering use (for example, by storing
