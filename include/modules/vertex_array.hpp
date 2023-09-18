@@ -150,7 +150,7 @@ private:
 
 */
 
-vertex_array::vertex_array()
+vertex_array::vertex_array() noexcept
 {
     glCreateVertexArrays(1, &m_id);
 }

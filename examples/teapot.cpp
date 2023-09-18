@@ -212,7 +212,7 @@ auto main() -> int
     // ------------------------------------------------------------------
 
     // Teapot model
-    staplegl::vertex_buffer_layout layout_3P_3N { { shader_type::vec3, "aPos" }, { shader_type::vec3, "aNormal" } };
+    staplegl::vertex_buffer_layout layout_3P_3N { { u_type::vec3, "aPos" }, { u_type::vec3, "aNormal" } };
 
     staplegl::vertex_buffer VBO { { teapot_vertices, static_cast<size_t>(TEAPOT_VERTEX_COMPONENTS * TEAPOT_VERTICES) },
         staplegl::driver_draw_hint::STATIC_DRAW };
@@ -230,7 +230,7 @@ auto main() -> int
 
     // Cube model used for the skybox
 
-    staplegl::vertex_buffer_layout layout_3P { { shader_type::vec3, "aPos" } };
+    staplegl::vertex_buffer_layout layout_3P { { u_type::vec3, "aPos" } };
 
     staplegl::vertex_buffer skybox_VBO { { skybox_vertices, SKYBOX_VERTS },
         staplegl::driver_draw_hint::STATIC_DRAW };
@@ -253,7 +253,7 @@ auto main() -> int
 
     // screen quad for post-processing
 
-    staplegl::vertex_buffer_layout layout_3P_2UV { { shader_type::vec3, "aPos" }, { shader_type::vec2, "aTexCoord" } };
+    staplegl::vertex_buffer_layout layout_3P_2UV { { u_type::vec3, "aPos" }, { u_type::vec2, "aTexCoord" } };
 
     staplegl::vertex_buffer quad_VBO { { quadVertices, STAPLEGL_QUAD_VERTICES },
         staplegl::driver_draw_hint::STATIC_DRAW };
@@ -274,19 +274,19 @@ auto main() -> int
     */
 
     staplegl::vertex_buffer_layout camera_block_layout {
-        { shader_type::mat4, "projection" },
-        { shader_type::mat4, "view" },
-        { shader_type::mat4, "model" },
-        { shader_type::vec4, "camera_pos" }
+        { u_type::mat4, "projection" },
+        { u_type::mat4, "view" },
+        { u_type::mat4, "model" },
+        { u_type::vec4, "camera_pos" }
     };
 
     staplegl::uniform_buffer camera_block { camera_block_layout, 0 };
 
     staplegl::vertex_buffer_layout light_block_layout {
-        { shader_type::vec4, "light_pos" },
-        { shader_type::vec4, "light_color" },
-        { shader_type::vec4, "light_attenuation" }, // 0 : constant, 1 : linear, 2 : quadratic, 3 : padding
-        { shader_type::vec2, "light_intensities" } // 0 : diffuse, 1 : specular
+        { u_type::vec4, "light_pos" },
+        { u_type::vec4, "light_color" },
+        { u_type::vec4, "light_attenuation" }, // 0 : constant, 1 : linear, 2 : quadratic, 3 : padding
+        { u_type::vec2, "light_intensities" } // 0 : diffuse, 1 : specular
     };
 
     staplegl::uniform_buffer light_block { light_block_layout, 1 };
@@ -302,9 +302,9 @@ auto main() -> int
     light_block.unbind();
 
     staplegl::vertex_buffer_layout material_block_layout {
-        { shader_type::vec4, "material_color" },
-        { shader_type::float32, "material_shininess" },
-        { shader_type::float32, "material_roughness" }
+        { u_type::vec4, "material_color" },
+        { u_type::float32, "material_shininess" },
+        { u_type::float32, "material_roughness" }
     };
     staplegl::uniform_buffer material_block { material_block_layout, 2 };
 

@@ -35,20 +35,20 @@ namespace staplegl {
  * @see shader_data_type.hpp
  */
 struct vertex_attribute {
-    shader_data_type::shader_type type;
+    shader_data_type::u_type type;
     std::string name;
     std::uint32_t offset {};
     std::size_t element_count { 1 };
 
     vertex_attribute() = default;
-    vertex_attribute(shader_data_type::shader_type in_type, std::string_view in_name)
+    vertex_attribute(shader_data_type::u_type in_type, std::string_view in_name)
         : type { in_type }
         , name { in_name }
     {
     }
 
     vertex_attribute(shader_data_type::shader_array_type in_type, std::string_view in_name, size_t element_count)
-        : type { static_cast<shader_data_type::shader_type>(in_type) }
+        : type { static_cast<shader_data_type::u_type>(in_type) }
         , name { in_name }
         , offset {}
         , element_count { element_count }

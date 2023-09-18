@@ -130,7 +130,7 @@ private:
     tex_samples m_samples {};
 };
 
-renderbuffer::renderbuffer(resolution res, attachment_type type, tex_samples samples)
+renderbuffer::renderbuffer(resolution res, attachment_type type, tex_samples samples) noexcept
     : m_res(res)
     , m_type(type)
     , m_samples(samples)

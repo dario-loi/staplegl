@@ -175,7 +175,7 @@ private:
  *
  * @details Very thin constructor, generates an ID for the framebuffer and stores it.
  */
-framebuffer::framebuffer()
+framebuffer::framebuffer() noexcept
 {
     glGenFramebuffers(1, &m_id);
 }

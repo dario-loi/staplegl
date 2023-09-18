@@ -287,7 +287,7 @@ private:
 };
 
 texture_2d::texture_2d(std::span<const float> data, resolution res,
-    texture_color color, texture_filter filter, tex_samples samples, bool generate_mipmap)
+    texture_color color, texture_filter filter, tex_samples samples, bool generate_mipmap) noexcept
     : m_color { color }
     , m_filter { filter }
     , m_resolution { res }

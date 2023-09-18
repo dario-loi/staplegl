@@ -37,6 +37,16 @@ namespace staplegl {
 template <typename T>
 concept plain_old_data = std::is_standard_layout_v<T> && std::is_trivial_v<T>;
 
+/**
+ * @brief Enum that specifies the usage hint of a buffer.
+ * 
+ * @details The usage hint is a hint to the driver on how the buffer will be used, it is not a guarantee
+ * but setting this accordingly is likely to have positive performance implications on your 
+ * application.
+ * 
+ * @see https://www.khronos.org/opengl/wiki/Buffer_Object#Usage
+ * 
+ */
 enum driver_draw_hint {
     STATIC_DRAW = GL_STATIC_DRAW,
     DYNAMIC_DRAW = GL_DYNAMIC_DRAW,

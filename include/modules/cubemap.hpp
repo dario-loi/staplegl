@@ -143,7 +143,7 @@ private:
     texture_filter m_filter {};
 };
 
-cubemap::cubemap(std::span<std::span<std::byte>, 6> data, resolution res, texture_color color, texture_filter filter, bool generate_mipmaps)
+cubemap::cubemap(std::span<std::span<std::byte>, 6> data, resolution res, texture_color color, texture_filter filter, bool generate_mipmaps) noexcept
     : m_res(res)
     , m_color(color)
     , m_filter(filter)

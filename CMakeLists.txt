@@ -31,7 +31,6 @@ set(STAPLEGL_MODULES_DIR "${STAPLEGL_DIR}/modules")
 set(STAPLEGL_HEADERS
     ${STAPLEGL_DIR}/staplegl.hpp
     ${STAPLEGL_MODULES_DIR}/framebuffer.hpp
-    ${STAPLEGL_MODULES_DIR}/gl_function_placeholders.hpp
     ${STAPLEGL_MODULES_DIR}/gl_functions.hpp
     ${STAPLEGL_MODULES_DIR}/index_buffer.hpp
     ${STAPLEGL_MODULES_DIR}/renderbuffer.hpp

@@ -86,7 +86,7 @@ auto main() -> int
 
     using namespace staplegl::shader_data_type;
 
-    staplegl::vertex_buffer_layout layout { { shader_type::vec3, "aPos" } };
+    staplegl::vertex_buffer_layout layout { { u_type::vec3, "aPos" } };
 
     VBO.set_layout(layout);
 

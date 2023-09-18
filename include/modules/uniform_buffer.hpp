@@ -91,7 +91,7 @@ private:
 
 }; // class uniform_buffer
 
-uniform_buffer::uniform_buffer(std::span<const float> contents, vertex_buffer_layout const& layout, int32_t binding_point)
+uniform_buffer::uniform_buffer(std::span<const float> contents, vertex_buffer_layout const& layout, int32_t binding_point) noexcept
     : m_binding_point { binding_point }
     , m_layout { layout }
 {
@@ -108,7 +108,7 @@ uniform_buffer::uniform_buffer(std::span<const float> contents, vertex_buffer_la
     }
 }
 
-uniform_buffer::uniform_buffer(vertex_buffer_layout const& layout, int32_t binding_point)
+uniform_buffer::uniform_buffer(vertex_buffer_layout const& layout, int32_t binding_point) noexcept
     : m_binding_point { binding_point }
     , m_layout { layout }
 {

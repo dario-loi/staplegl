@@ -130,11 +130,11 @@ auto main() -> int
     using namespace staplegl::shader_data_type;
 
     staplegl::vertex_buffer_layout layout {
-        { shader_type::vec3, "aPos" }
+        { u_type::vec3, "aPos" }
     };
 
     staplegl::vertex_buffer_layout instance_layout {
-        { shader_type::vec3, "instancePos" }
+        { u_type::vec3, "instancePos" }
     };
 
     staplegl::vertex_buffer VBO(vertices, staplegl::driver_draw_hint::STATIC_DRAW);

@@ -276,7 +276,7 @@ private:
 
 */
 
-shader_program::shader_program(std::string_view name, std::string_view path)
+shader_program::shader_program(std::string_view name, std::string_view path) noexcept
     : m_name { name }
     , m_shaders { parse_shaders(util::read_file(path)) }
 {
@@ -284,7 +284,7 @@ shader_program::shader_program(std::string_view name, std::string_view path)
 }
 
 shader_program::shader_program(std::string_view name,
-    std::initializer_list<std::pair<shader_type, std::string_view>> shaders)
+    std::initializer_list<std::pair<shader_type, std::string_view>> shaders) noexcept
     : m_name { name }
 {
     for (const auto& [type, path] : shaders)
@@ -293,7 +293,7 @@ shader_program::shader_program(std::string_view name,
     m_id = create_program();
 }
 
-shader_program::shader_program(std::string_view path)
+shader_program::shader_program(std::string_view path) noexcept
     : shader_program { util::get_file_name(path), path }
 {
 }
