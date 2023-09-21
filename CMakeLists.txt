@@ -239,7 +239,7 @@ target_include_directories(teapot PUBLIC ${GLFW3_INCLUDE_DIR}
 )
 
 set(CLANG_TIDY_CHECKS
-    "-*,modernize-*,performance-*,bugprone-*,clang-analyzer-*,-bugprone-easily-swappable-parameters,-bugprone-unchecked-optional-access")
+    "misc-*,modernize-*,performance-*,bugprone-*,clang-analyzer-*,-bugprone-easily-swappable-parameters,-bugprone-unchecked-optional-access")
 
 # Define a custom target for clang-tidy
 add_custom_target(clang-tidy-sandbox

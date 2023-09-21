@@ -105,7 +105,7 @@ auto main() -> int
     // antialiasing and other nice things
     glEnable(GL_MULTISAMPLE);
 
-    staplegl::shader_program basic { "batched_shader", "./shaders/batched_shader.glsl" };
+    staplegl::shader_program const basic { "batched_shader", "./shaders/batched_shader.glsl" };
 
     basic.bind();
 
@@ -126,11 +126,11 @@ auto main() -> int
 
     using namespace staplegl::shader_data_type;
 
-    staplegl::vertex_buffer_layout layout {
+    staplegl::vertex_buffer_layout const layout {
         { u_type::vec3, "aPos" }
     };
 
-    staplegl::vertex_buffer_layout instance_layout {
+    staplegl::vertex_buffer_layout const instance_layout {
         { u_type::vec3, "instancePos" }
     };
 
@@ -147,7 +147,7 @@ auto main() -> int
     VAO.set_instance_buffer(std::move(VBO_inst));
     VAO.set_index_buffer(std::move(EBO));
 
-    staplegl::vertex_buffer_layout UBO_block_layout {
+    staplegl::vertex_buffer_layout const UBO_block_layout {
         { shader_array_type::float32_arr, "u_color", 4 }
     };
 

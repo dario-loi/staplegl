@@ -59,7 +59,7 @@ auto main() -> int
         return -1;
     }
 
-    staplegl::shader_program basic { "basic_shader", "./shaders/basic_shader.glsl" };
+    staplegl::shader_program const basic { "basic_shader", "./shaders/basic_shader.glsl" };
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -80,7 +80,7 @@ auto main() -> int
 
     using namespace staplegl::shader_data_type;
 
-    staplegl::vertex_buffer_layout layout { { u_type::vec3, "aPos" } };
+    staplegl::vertex_buffer_layout const layout { { u_type::vec3, "aPos" } };
 
     VBO.set_layout(layout);
 
