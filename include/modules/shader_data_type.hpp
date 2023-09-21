@@ -68,7 +68,7 @@ enum class u_type : std::uint8_t {
  * @see staplegl::shader_data_type::u_type
  * @return std::size_t the size of the shader data type in bytes.
  */
-constexpr static std::size_t size(u_type type)
+constexpr static auto size(u_type type) -> std::size_t
 {
     switch (type) {
     case u_type::float32:
@@ -95,7 +95,7 @@ constexpr static std::size_t size(u_type type)
  * @see staplegl::shader_data_type::u_type
  * @return std::uint32_t the equivalent OpenGL type, as an enum.
  */
-constexpr static std::uint32_t to_opengl_type(u_type type)
+constexpr static auto to_opengl_type(u_type type) -> std::uint32_t
 {
     switch (type) {
     case u_type::vec2:
@@ -125,7 +125,7 @@ constexpr static std::uint32_t to_opengl_type(u_type type)
  * @param type
  * @return constexpr std::uint32_t
  */
-constexpr static std::uint32_t to_opengl_underlying_type(u_type type)
+constexpr static auto to_opengl_underlying_type(u_type type) -> std::uint32_t
 {
     switch (type) {
     case u_type::vec2:
@@ -148,7 +148,7 @@ constexpr static std::uint32_t to_opengl_underlying_type(u_type type)
  *
  * @return std::uint16_t the number of components in the shader data type.
  */
-constexpr static std::uint16_t component_count(u_type type)
+constexpr static auto component_count(u_type type) -> std::uint16_t
 {
     switch (type) {
     case u_type::vec2:

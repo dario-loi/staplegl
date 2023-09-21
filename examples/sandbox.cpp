@@ -21,8 +21,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
 // initial window size
-const uint32_t SCR_WIDTH = 1600;
-const uint32_t SCR_HEIGHT = 900;
+const int32_t SCR_WIDTH = 1600;
+const int32_t SCR_HEIGHT = 900;
 
 auto main() -> int
 {
@@ -50,16 +50,16 @@ auto main() -> int
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    glEnable(GL_MULTISAMPLE); // MSAA
-
     // glad: load all OpenGL function pointers
     // ---------------------------------------
-    if (gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)) == 0) {
+    if (gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)) == 0) { // NOLINT (reinterpret-cast)
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
 
-    staplegl::shader_program basic { "basic_shader", "./shaders/basic_shader.glsl" };
+    glEnable(GL_MULTISAMPLE); // MSAA
+
+    staplegl::shader_program const basic { "basic_shader", "./shaders/basic_shader.glsl" };
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -80,7 +80,7 @@ auto main() -> int
 
     using namespace staplegl::shader_data_type;
 
-    staplegl::vertex_buffer_layout layout { { u_type::vec3, "aPos" } };
+    staplegl::vertex_buffer_layout const layout { { u_type::vec3, "aPos" } };
 
     VBO.set_layout(layout);
 

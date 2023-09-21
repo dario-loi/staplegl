@@ -45,8 +45,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
 // initial window size
-const uint32_t SCR_WIDTH = 1600;
-const uint32_t SCR_HEIGHT = 900;
+const int32_t SCR_WIDTH = 1600;
+const int32_t SCR_HEIGHT = 900;
 
 // global luminosity to be updated by keypresses
 float luminosity = 10.0F;
@@ -91,7 +91,7 @@ float aspect_ratio = static_cast<double>(SCR_WIDTH) / static_cast<double>(SCR_HE
 auto main() -> int
 {
 
-  std::string_view hello_message{
+  std::string_view const hello_message{
       "Hello! This is a more complex example of staplegl usage, featuring the Utah Teapot model.\n"
       "Press the U and D keys to increase (U) and decrease (D) the luminosity of the light source.\n"
       "Play around with them to observe how the bloom effect changes."
@@ -141,13 +141,13 @@ auto main() -> int
     glDebugMessageCallback(MessageCallback, nullptr);
 
     // Set up all the shaders
-    staplegl::shader_program teapot_shader { "teapot_shader", "./shaders/teapot_shader.glsl" };
-    staplegl::shader_program skybox_shader { "skybox_shader", "./shaders/skybox_shader.glsl" };
-    staplegl::shader_program light_shader { "light_shader", "./shaders/light_shader.glsl" };
-    staplegl::shader_program tonemap_shader { "tone_mapping", "./shaders/tone_mapping.glsl" };
-    staplegl::shader_program downsample_shader { "downsample", "./shaders/downsample_shader.glsl" };
-    staplegl::shader_program upsample_shader { "upsample", "./shaders/upsample_shader.glsl" };
-    staplegl::shader_program passthrough_shader { "passthrough", "./shaders/passthrough_shader.glsl" };
+    staplegl::shader_program const teapot_shader { "teapot_shader", "./shaders/teapot_shader.glsl" };
+    staplegl::shader_program const skybox_shader { "skybox_shader", "./shaders/skybox_shader.glsl" };
+    staplegl::shader_program const light_shader { "light_shader", "./shaders/light_shader.glsl" };
+    staplegl::shader_program const tonemap_shader { "tone_mapping", "./shaders/tone_mapping.glsl" };
+    staplegl::shader_program const downsample_shader { "downsample", "./shaders/downsample_shader.glsl" };
+    staplegl::shader_program const upsample_shader { "upsample", "./shaders/upsample_shader.glsl" };
+    staplegl::shader_program const passthrough_shader { "passthrough", "./shaders/passthrough_shader.glsl" };
 
     skybox_shader.bind();
     skybox_shader.upload_uniform1i("skybox", 0);
@@ -171,7 +171,7 @@ auto main() -> int
     // set up framebuffers and textures for HDR and bloom effect
     std::array<staplegl::texture_2d, calc_pyramid_levels(SCR_WIDTH, SCR_HEIGHT)> pyramid_textures {};
 
-    staplegl::texture_2d msaa_color {
+    staplegl::texture_2d const msaa_color {
         std::span<const float> {},
         staplegl::resolution { SCR_WIDTH, SCR_HEIGHT },
         staplegl::texture_color {
@@ -213,7 +213,7 @@ auto main() -> int
     // ------------------------------------------------------------------
 
     // Teapot model
-    staplegl::vertex_buffer_layout layout_3P_3N { { u_type::vec3, "aPos" }, { u_type::vec3, "aNormal" } };
+    staplegl::vertex_buffer_layout const layout_3P_3N { { u_type::vec3, "aPos" }, { u_type::vec3, "aNormal" } };
 
     staplegl::vertex_buffer VBO { { teapot_vertices, static_cast<size_t>(TEAPOT_VERTEX_COMPONENTS * TEAPOT_VERTICES) },
         staplegl::driver_draw_hint::STATIC_DRAW };
@@ -231,7 +231,7 @@ auto main() -> int
 
     // Cube model used for the skybox
 
-    staplegl::vertex_buffer_layout layout_3P { { u_type::vec3, "aPos" } };
+    staplegl::vertex_buffer_layout const layout_3P { { u_type::vec3, "aPos" } };
 
     staplegl::vertex_buffer skybox_VBO { { skybox_vertices, SKYBOX_VERTS },
         staplegl::driver_draw_hint::STATIC_DRAW };
@@ -250,11 +250,11 @@ auto main() -> int
     skybox_VAO.unbind(); // another unbind for good measure.
 
     // declare a simple model matrix, to be modified in the render loop.
-    glm::mat4 model = glm::mat4(1.0F);
+    glm::mat4 const model = glm::mat4(1.0F);
 
     // screen quad for post-processing
 
-    staplegl::vertex_buffer_layout layout_3P_2UV { { u_type::vec3, "aPos" }, { u_type::vec2, "aTexCoord" } };
+    staplegl::vertex_buffer_layout const layout_3P_2UV { { u_type::vec3, "aPos" }, { u_type::vec2, "aTexCoord" } };
 
     staplegl::vertex_buffer quad_VBO { { quadVertices, STAPLEGL_QUAD_VERTICES },
         staplegl::driver_draw_hint::STATIC_DRAW };
@@ -274,7 +274,7 @@ auto main() -> int
 
     */
 
-    staplegl::vertex_buffer_layout camera_block_layout {
+    staplegl::vertex_buffer_layout const camera_block_layout {
         { u_type::mat4, "projection" },
         { u_type::mat4, "view" },
         { u_type::mat4, "model" },
@@ -283,7 +283,7 @@ auto main() -> int
 
     staplegl::uniform_buffer camera_block { camera_block_layout, 0 };
 
-    staplegl::vertex_buffer_layout light_block_layout {
+    staplegl::vertex_buffer_layout const light_block_layout {
         { u_type::vec4, "light_pos" },
         { u_type::vec4, "light_color" },
         { u_type::vec4, "light_attenuation" }, // 0 : constant, 1 : linear, 2 : quadratic, 3 : padding
@@ -302,7 +302,7 @@ auto main() -> int
     light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec2(luminosity, 1.2F)), 2 }, "light_intensities");
     light_block.unbind();
 
-    staplegl::vertex_buffer_layout material_block_layout {
+    staplegl::vertex_buffer_layout const material_block_layout {
         { u_type::vec4, "material_color" },
         { u_type::float32, "material_shininess" },
         { u_type::float32, "material_roughness" }
@@ -322,7 +322,7 @@ auto main() -> int
 
     // load up cubemap texture
     // goes in order: right, left, top, bottom, front, back
-    std::array<std::string, 6> faces {
+    std::array<std::string, 6> const faces {
         "./assets/skybox/right.jpg", "./assets/skybox/left.jpg",
         "./assets/skybox/top.jpg", "./assets/skybox/bottom.jpg",
         "./assets/skybox/front.jpg", "./assets/skybox/back.jpg"
@@ -331,7 +331,7 @@ auto main() -> int
     // prep for data transfer
     std::array<std::span<std::byte>, 6> cube_data;
 
-    std::int32_t width, height, nrChannels;
+    std::int32_t width = 0, height = 0, nrChannels = 0;
     int i = 0;
     for (auto& face : faces) {
         auto* data = reinterpret_cast<std::byte*>(
@@ -348,8 +348,8 @@ auto main() -> int
     // srgb8 is used to ensure that the texture is correctly gamma corrected.
     // the static casts are necessary to specify that a narrowing conversion is
     // intended.
-    staplegl::cubemap skybox {
-        cube_data, { static_cast<uint32_t>(width), static_cast<uint32_t>(height) },
+    staplegl::cubemap const skybox {
+        cube_data, { width, height },
         { .internal_format = GL_SRGB8, .format = GL_RGB, .datatype = GL_UNSIGNED_BYTE },
         { .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },
         true
@@ -489,7 +489,7 @@ auto main() -> int
         downsample_shader.bind();
 
         // work our way down the levels of the pyramid, downsampling the texture each time.
-        for (int i = 0; i < pyramid_textures.size() - 1; i++) {
+        for (size_t i = 0; i < pyramid_textures.size() - 1; i++) {
             // downsample from texture i to texture i + 1
 
             auto& draw_source = pyramid_textures[i];

@@ -51,10 +51,10 @@ public:
     ~framebuffer();
 
     framebuffer(const framebuffer&) = delete;
-    framebuffer& operator=(const framebuffer&) = delete;
+    auto operator=(const framebuffer&) -> framebuffer& = delete;
 
     framebuffer(framebuffer&& other) noexcept;
-    framebuffer& operator=(framebuffer&& other) noexcept;
+    auto operator=(framebuffer&& other) noexcept -> framebuffer&;
 
     /**
      * @brief Set the renderbuffer object
@@ -122,7 +122,7 @@ public:
      * @return true if the framebuffer is complete.
      * @return false otherwise.
      */
-    static bool assert_completeness()
+    static auto assert_completeness() -> bool
     {
         auto status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 
@@ -151,14 +151,14 @@ public:
      *
      * @return std::uint32_t the id of the framebuffer.
      */
-    [[nodiscard]] constexpr std::uint32_t id() const
+    [[nodiscard]] constexpr auto id() const -> std::uint32_t
     {
         return m_id;
     }
 
-    [[nodiscard]] constexpr const std::optional<renderbuffer>& get_renderbuffer() const;
+    [[nodiscard]] constexpr auto get_renderbuffer() const -> const std::optional<renderbuffer>&;
 
-    [[nodiscard]] constexpr fbo_attachment attachment() const
+    [[nodiscard]] constexpr auto attachment() const -> fbo_attachment
     {
         return m_attachment;
     }
@@ -175,12 +175,12 @@ private:
  *
  * @details Very thin constructor, generates an ID for the framebuffer and stores it.
  */
-framebuffer::framebuffer() noexcept
+inline framebuffer::framebuffer() noexcept
 {
     glGenFramebuffers(1, &m_id);
 }
 
-framebuffer::~framebuffer()
+inline framebuffer::~framebuffer()
 {
     if (m_id != 0) {
         glDeleteFramebuffers(1, &m_id);
@@ -192,7 +192,7 @@ framebuffer::~framebuffer()
  *
  * @param other
  */
-framebuffer::framebuffer(framebuffer&& other) noexcept
+inline framebuffer::framebuffer(framebuffer&& other) noexcept
     : m_id(other.m_id)
     , m_attachment(other.m_attachment)
     , m_renderbuffer(std::move(other.m_renderbuffer))
@@ -206,7 +206,7 @@ framebuffer::framebuffer(framebuffer&& other) noexcept
  * @param other the other framebuffer object to move from.
  * @return framebuffer& the reference to this object.
  */
-framebuffer& framebuffer::operator=(framebuffer&& other) noexcept
+inline auto framebuffer::operator=(framebuffer&& other) noexcept -> framebuffer&
 {
     if (this != &other) {
         m_id = other.m_id;
@@ -225,7 +225,7 @@ framebuffer& framebuffer::operator=(framebuffer&& other) noexcept
  *
  * @warning the framebuffer MUST be bound before calling this function.
  */
-void framebuffer::set_renderbuffer(resolution res, fbo_attachment attachment, tex_samples samples)
+inline void framebuffer::set_renderbuffer(resolution res, fbo_attachment attachment, tex_samples samples)
 {
     if (attachment != fbo_attachment::NONE) {
 
@@ -280,28 +280,28 @@ void framebuffer::set_renderbuffer(resolution res, fbo_attachment attachment, te
     }
 }
 
-void framebuffer::set_texture(staplegl::texture_2d const& tex, size_t index) const
+inline void framebuffer::set_texture(staplegl::texture_2d const& tex, size_t index) const
 {
 
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index, tex.antialias().type, tex.id(), 0);
 }
 
-void framebuffer::set_viewport(staplegl::resolution res)
+inline void framebuffer::set_viewport(staplegl::resolution res)
 {
     glViewport(0, 0, res.width, res.height);
 }
 
-constexpr const std::optional<renderbuffer>& framebuffer::get_renderbuffer() const
+constexpr auto framebuffer::get_renderbuffer() const -> const std::optional<renderbuffer>&
 {
     return m_renderbuffer;
 }
 
-void framebuffer::bind() const
+inline void framebuffer::bind() const
 {
     glBindFramebuffer(GL_FRAMEBUFFER, m_id);
 }
 
-void framebuffer::unbind()
+inline void framebuffer::unbind()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

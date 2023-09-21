@@ -110,6 +110,29 @@ public:
      */
     shader_program(std::string_view path) noexcept;
 
+    shader_program(const shader_program&) = default;
+    auto operator=(const shader_program&) -> shader_program& = default;
+
+    shader_program(shader_program&& other) noexcept
+        : m_shaders { std::move(other.m_shaders) }
+        , m_id { other.m_id }
+        , m_name { std::move(other.m_name) }
+    {
+        other.m_id = 0;
+    }
+
+    auto operator=(shader_program&& other) noexcept -> shader_program&
+    {
+        if (this != &other) {
+            m_id = other.m_id;
+            m_name = std::move(other.m_name);
+            m_shaders = std::move(other.m_shaders);
+            other.m_id = 0;
+        }
+        return *this;
+    }
+
+
     /**
      * @brief Destroy the shader program object
      * 
@@ -175,8 +198,8 @@ public:
      *
      * @return std::uint32_t, the shader program id in the OpenGL context.
      */
-    std::uint32_t program_id() const;
-    std::string_view name() const;
+    [[nodiscard]] auto program_id() const -> std::uint32_t;
+    [[nodiscard]] auto name() const -> std::string_view;
 
 public:
     /**
@@ -186,7 +209,7 @@ public:
      * @see staplegl::shader
      * @return shader&, a reference to the shader.
      */
-    shader& operator[](std::size_t index);
+    auto operator[](std::size_t index) -> shader&;
 
     /**
      * @brief Obtain a const reference to a shader in the shader program.
@@ -195,7 +218,7 @@ public:
      * @see staplegl::shader
      * @return const shader&, a const reference to the shader.
      */
-    const shader& operator[](std::size_t index) const;
+    auto operator[](std::size_t index) const -> const shader&;
 
 private:
     /**
@@ -203,7 +226,7 @@ private:
      *
      * @return std::uint32_t, the program object id.
      */
-    std::uint32_t create_program() const;
+    [[nodiscard]] auto create_program() const -> std::uint32_t;
 
     /**
      * @brief Create a shader object.
@@ -213,7 +236,7 @@ private:
      * @param source The shader source.
      * @return std::uint32_t, the shader object id.
      */
-    std::uint32_t compile(shader_type shader_type, std::string_view source) const;
+    [[nodiscard]] auto compile(shader_type shader_type, std::string_view source) const -> std::uint32_t;
 
     /**
      * @brief Link the shader program.
@@ -225,7 +248,7 @@ private:
      *
      * @return std::vector<shader>. A vector of shaders.
      */
-    [[nodiscard]] std::vector<shader> parse_shaders(const std::string& source) const;
+    [[nodiscard]] auto parse_shaders(const std::string& source) const -> std::vector<shader>;
 
 private:
     /**
@@ -234,7 +257,7 @@ private:
      * @param name Uniform name.
      * @return int, the uniform location.
      */
-    int uniform_location(std::string_view name) const;
+    [[nodiscard]] auto uniform_location(std::string_view name) const -> int;
 
     /**
      * @brief Check if a shader program is valid.
@@ -243,7 +266,7 @@ private:
      * @return true, if the shader program is valid.
      * @return false, if the shader program is not valid.
      */
-    bool is_valid(std::uint32_t id) const;
+    [[nodiscard]] auto is_valid(std::uint32_t id) const -> bool;
 
 private:
     /**
@@ -253,7 +276,7 @@ private:
      * @param shader_type the shader type.
      * @return std::uint32_t, the OpenGL equivalent of the shader type, as an OpenGL enum.
      */
-    static constexpr std::uint32_t to_gl_type(shader_type shader_type);
+    static constexpr auto to_gl_type(shader_type shader_type) -> std::uint32_t;
 
     /**
      * @brief Convert a string to a shader type.
@@ -262,12 +285,12 @@ private:
      *
      * @return shader_type, the shader type.
      */
-    [[nodiscard]] static std::optional<shader_type> string_to_shader_type(std::string_view str);
+    [[nodiscard]] static auto string_to_shader_type(std::string_view str) -> std::optional<shader_type>;
 
 private:
+    std::vector<shader> m_shaders;
     std::uint32_t m_id {};
     std::string m_name;
-    std::vector<shader> m_shaders;
 };
 
 /*
@@ -276,94 +299,95 @@ private:
 
 */
 
-shader_program::shader_program(std::string_view name, std::string_view path) noexcept
-    : m_name { name }
-    , m_shaders { parse_shaders(util::read_file(path)) }
+inline shader_program::shader_program(std::string_view name, std::string_view path) noexcept
+    : m_shaders { parse_shaders(util::read_file(path)) } 
+    , m_id(create_program()), m_name { name }
 {
-    m_id = create_program();
+    
 }
 
-shader_program::shader_program(std::string_view name,
+inline shader_program::shader_program(std::string_view name,
     std::initializer_list<std::pair<shader_type, std::string_view>> shaders) noexcept
-    : m_name { name }
+    : m_id(create_program()), m_name { name }
 {
     for (const auto& [type, path] : shaders)
         m_shaders.push_back({ type, util::read_file(path) });
 
-    m_id = create_program();
 }
 
-shader_program::shader_program(std::string_view path) noexcept
+inline shader_program::shader_program(std::string_view path) noexcept
     : shader_program { util::get_file_name(path), path }
 {
 }
 
-shader_program::~shader_program()
+inline shader_program::~shader_program()
 {
     glDeleteProgram(m_id);
 }
 
-void shader_program::bind() const
+inline void shader_program::bind() const
 {
     glUseProgram(m_id);
 }
 
-void shader_program::unbind() const
+inline void shader_program::unbind() const
 {
     glUseProgram(0);
 }
 
-void shader_program::upload_uniform1i(std::string_view name, int val) const
+inline void shader_program::upload_uniform1i(std::string_view name, int val) const
 {
     glUniform1i(uniform_location(name), val);
 }
 
-void shader_program::upload_uniform1f(std::string_view name, float val) const
+inline void shader_program::upload_uniform1f(std::string_view name, float val) const
 {
     glUniform1f(uniform_location(name), val);
 }
 
-void shader_program::upload_uniform2f(std::string_view name, float val0, float val1) const
+inline void shader_program::upload_uniform2f(std::string_view name, float val0, float val1) const
 {
     glUniform2f(uniform_location(name), val0, val1);
 }
 
-void shader_program::upload_uniform3f(std::string_view name, float val0, float val1, float val2) const
+inline void shader_program::upload_uniform3f(std::string_view name, float val0, float val1, float val2) const
 {
     glUniform3f(uniform_location(name), val0, val1, val2);
 }
 
-void shader_program::upload_uniform4f(std::string_view name, float val0, float val1, float val2, float val3) const
+inline void shader_program::upload_uniform4f(std::string_view name, float val0, float val1, float val2, float val3) const
 {
     glUniform4f(uniform_location(name), val0, val1, val2, val3);
 }
 
-std::uint32_t shader_program::program_id() const
+inline auto shader_program::program_id() const -> std::uint32_t
 {
     return m_id;
 }
 
-std::string_view shader_program::name() const
+inline auto shader_program::name() const -> std::string_view
 {
     return m_name;
 }
 
-shader& shader_program::operator[](std::size_t index)
+inline auto shader_program::operator[](std::size_t index) -> shader&
 {
     return m_shaders[index];
 }
 
-const shader& shader_program::operator[](std::size_t index) const
+inline auto shader_program::operator[](std::size_t index) const -> const shader&
 {
     return m_shaders[index];
 }
 
-std::uint32_t shader_program::create_program() const
+inline auto shader_program::create_program() const -> std::uint32_t
 {
     const std::uint32_t program { glCreateProgram() };
     std::vector<std::uint32_t> shader_ids;
 
-    for (const auto& [type, src] : m_shaders) {
+
+    shader_ids.reserve(m_shaders.size());
+for (const auto& [type, src] : m_shaders) {
         shader_ids.push_back(compile(type, src));
     }
 
@@ -372,7 +396,7 @@ std::uint32_t shader_program::create_program() const
     }
     glLinkProgram(program);
 
-    int link_success;
+    int link_success = 0;
     glGetProgramiv(program, GL_LINK_STATUS, &link_success);
 
     if (!link_success) [[unlikely]] {
@@ -389,7 +413,7 @@ std::uint32_t shader_program::create_program() const
 
     glValidateProgram(program);
 
-    int success;
+    int success = 0;
     glGetProgramiv(program, GL_VALIDATE_STATUS, &success);
     if (!success) [[unlikely]] {
         int max_length {};
@@ -412,14 +436,14 @@ std::uint32_t shader_program::create_program() const
     return program;
 }
 
-std::uint32_t shader_program::compile(shader_type shader_type, std::string_view source) const
+inline auto shader_program::compile(shader_type shader_type, std::string_view source) const -> std::uint32_t
 {
     const std::uint32_t id { glCreateShader(to_gl_type(shader_type)) };
     const char* src { source.data() };
 
     glShaderSource(id, 1, &src, nullptr);
     glCompileShader(id);
-    bool is_compiled { is_valid(id) };
+    bool const is_compiled { is_valid(id) };
 
     if (!is_compiled) [[unlikely]] {
         std::fwrite("Failed to compile shader: ", 1, 26, stdout);
@@ -432,17 +456,17 @@ std::uint32_t shader_program::compile(shader_type shader_type, std::string_view 
     return is_compiled ? id : 0;
 }
 
-std::vector<shader> shader_program::parse_shaders(const std::string& source) const
+inline auto shader_program::parse_shaders(const std::string& source) const -> std::vector<shader>
 {
     std::vector<shader> shaders;
-    std::string_view type_token { "#type" };
+    std::string_view const type_token { "#type" };
 
     std::size_t pos { source.find(type_token, 0) };
     while (pos != std::string::npos) {
         const std::size_t eol { source.find_first_of("\r\n", pos) };
         const std::size_t begin { pos + type_token.size() + 1 };
         const std::size_t next_line_pos { source.find_first_not_of("\r\n", eol) };
-        std::string_view type { source.substr(begin, eol - begin) };
+        std::string_view const type { source.substr(begin, eol - begin) };
 
         auto shader_type { string_to_shader_type(type) };
 
@@ -461,7 +485,7 @@ std::vector<shader> shader_program::parse_shaders(const std::string& source) con
     return shaders;
 }
 
-int shader_program::uniform_location(std::string_view name) const
+inline auto shader_program::uniform_location(std::string_view name) const -> int
 {
     static std::unordered_map<std::string_view, int> uniform_cache;
 
@@ -474,7 +498,7 @@ int shader_program::uniform_location(std::string_view name) const
     }
 }
 
-bool shader_program::is_valid(std::uint32_t id) const
+inline auto shader_program::is_valid(std::uint32_t id) const -> bool
 {
     int is_compiled {};
     glGetShaderiv(id, GL_COMPILE_STATUS, &is_compiled);
@@ -494,7 +518,7 @@ bool shader_program::is_valid(std::uint32_t id) const
     return true;
 }
 
-constexpr std::uint32_t shader_program::to_gl_type(shader_type shader_type)
+inline constexpr auto shader_program::to_gl_type(shader_type shader_type) -> std::uint32_t
 {
     switch (shader_type) {
     case shader_type::vertex:
@@ -512,7 +536,7 @@ constexpr std::uint32_t shader_program::to_gl_type(shader_type shader_type)
     }
 }
 
-std::optional<shader_type> shader_program::string_to_shader_type(std::string_view str)
+inline auto shader_program::string_to_shader_type(std::string_view str) -> std::optional<shader_type>
 {
 
     static std::unordered_map<std::string_view, shader_type> map {

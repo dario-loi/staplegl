@@ -36,7 +36,7 @@ namespace staplegl {
  *
  */
 struct texture_color {
-    std::uint32_t internal_format {};
+    std::int32_t internal_format {};
     std::uint32_t format {};
     std::uint32_t datatype {};
 };
@@ -46,9 +46,9 @@ struct texture_color {
  *
  */
 struct texture_filter {
-    std::uint32_t min_filter {};
-    std::uint32_t mag_filter {};
-    std::uint32_t clamping {};
+    std::int32_t min_filter {};
+    std::int32_t mag_filter {};
+    std::int32_t clamping {};
 };
 
 /**
@@ -74,8 +74,8 @@ struct texture_antialias {
  *
  * @return constexpr std::uint32_t The OpenGL enum value of the mipmap counterpart.
  */
-static constexpr std::uint32_t
-to_mipmap(std::uint32_t filter_type)
+static constexpr auto
+to_mipmap(std::int32_t filter_type) -> std::int32_t
 {
     switch (filter_type) {
     case GL_NEAREST:
@@ -139,7 +139,7 @@ public:
     // delete copy and copy assignment operators
 
     texture_2d(const texture_2d&) = delete;
-    texture_2d& operator=(const texture_2d&) = delete;
+    auto operator=(const texture_2d&) -> texture_2d& = delete;
 
 
 
@@ -163,7 +163,7 @@ public:
      * @param other the other texture_2d object to move from.
      * @return texture_2d& the reference to this object.
      */
-    texture_2d& operator=(texture_2d&& other) noexcept
+    auto operator=(texture_2d&& other) noexcept -> texture_2d&
     {
         if (this != &other) {
             m_id = other.m_id;
@@ -220,7 +220,7 @@ public:
      *
      * @return uint32_t a texture unit offset from `GL_TEXTURE0`.
      */
-    uint32_t constexpr get_unit() const
+    [[nodiscard]] auto constexpr get_unit() const -> uint32_t
     {
         return m_unit;
     }
@@ -230,7 +230,7 @@ public:
      *
      * @return texture_color
      */
-    [[nodiscard]] constexpr texture_color color() const
+    [[nodiscard]] constexpr auto color() const -> texture_color
     {
         return m_color;
     }
@@ -240,7 +240,7 @@ public:
      *
      * @return std::uint32_t
      */
-    [[nodiscard]] constexpr  std::uint32_t id() const
+    [[nodiscard]] constexpr  auto id() const -> std::uint32_t
     {
         return m_id;
     }
@@ -250,7 +250,7 @@ public:
      *
      * @return staplegl::resolution
      */
-    [[nodiscard]] constexpr  staplegl::resolution get_resolution() const
+    [[nodiscard]] constexpr  auto get_resolution() const -> staplegl::resolution
     {
         return m_resolution;
     };
@@ -260,7 +260,7 @@ public:
      *
      * @return texture_filter
      */
-    [[nodiscard]] constexpr  texture_filter filter() const
+    [[nodiscard]] constexpr  auto filter() const -> texture_filter
     {
         return m_filter;
     }
@@ -270,7 +270,7 @@ public:
      *
      * @return texture_antialias
      */
-    [[nodiscard]] constexpr  texture_antialias antialias() const
+    [[nodiscard]] constexpr  auto antialias() const -> texture_antialias
     {
         return m_antialias;
     }
@@ -286,7 +286,7 @@ private:
     texture_antialias m_antialias {};
 };
 
-texture_2d::texture_2d(std::span<const float> data, resolution res,
+inline texture_2d::texture_2d(std::span<const float> data, resolution res,
     texture_color color, texture_filter filter, tex_samples samples, bool generate_mipmap) noexcept
     : m_color { color }
     , m_filter { filter }
@@ -315,7 +315,7 @@ texture_2d::texture_2d(std::span<const float> data, resolution res,
     glBindTexture(m_antialias.type, 0);
 }
 
-void texture_2d::set_data(std::span<const float> data, resolution res, texture_color color, bool generate_mipmap)
+inline void texture_2d::set_data(std::span<const float> data, resolution res, texture_color color, bool generate_mipmap)
 {
 
     if(m_antialias.type == GL_TEXTURE_2D_MULTISAMPLE) {

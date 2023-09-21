@@ -62,7 +62,7 @@ public:
     // delete copy and copy assignment operators
 
     cubemap(const cubemap&) = delete;
-    cubemap& operator=(const cubemap&) = delete;
+    auto operator=(const cubemap&) -> cubemap& = delete;
 
     /**
      * @brief Construct a new cubemap object from another cubemap object.
@@ -84,7 +84,7 @@ public:
      * @param other the other cubemap object to move from.
      * @return cubemap& a reference to this object.
      */
-    cubemap& operator=(cubemap&& other) noexcept
+    auto operator=(cubemap&& other) noexcept -> cubemap&
     {
         if (this != &other) {
             m_id = other.m_id;
@@ -113,21 +113,21 @@ public:
      *
      * @return uint32_t the texture id.
      */
-    [[nodiscard]] constexpr uint32_t id() const noexcept { return m_id; }
+    [[nodiscard]] constexpr auto id() const noexcept -> uint32_t { return m_id; }
 
     /**
      * @brief Get the texture color.
      *
      * @return texture_color the texture color.
      */
-    [[nodiscard]] constexpr texture_color color() const noexcept { return m_color; }
+    [[nodiscard]] constexpr auto color() const noexcept -> texture_color { return m_color; }
 
     /**
      * @brief Get the resolution of the cubemap.
      *
      * @return resolution the resolution of the cubemap.
      */
-    [[nodiscard]] constexpr resolution res() const noexcept { return m_res; }
+    [[nodiscard]] constexpr auto res() const noexcept -> resolution { return m_res; }
 
     /**
      * @brief Set the unit object to bind the texture to.
@@ -143,7 +143,7 @@ private:
     texture_filter m_filter {};
 };
 
-cubemap::cubemap(std::span<std::span<std::byte>, 6> data, resolution res, texture_color color, texture_filter filter, bool generate_mipmaps) noexcept
+inline cubemap::cubemap(std::span<std::span<std::byte>, 6> data, resolution res, texture_color color, texture_filter filter, bool generate_mipmaps) noexcept
     : m_res(res)
     , m_color(color)
     , m_filter(filter)
@@ -168,17 +168,17 @@ cubemap::cubemap(std::span<std::span<std::byte>, 6> data, resolution res, textur
     }
 };
 
-void cubemap::bind() const
+inline void cubemap::bind() const
 {
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_id);
 }
 
-void cubemap::unbind()
+inline void cubemap::unbind()
 {
     glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
-void cubemap::set_unit(std::uint32_t unit_offset) const
+inline void cubemap::set_unit(std::uint32_t unit_offset) const
 {
     glActiveTexture(GL_TEXTURE0 + unit_offset);
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_id);

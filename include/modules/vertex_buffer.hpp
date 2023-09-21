@@ -26,6 +26,7 @@
 #include <concepts>
 #include <functional>
 #include <span>
+#include <utility>
 
 namespace staplegl {
 
@@ -88,17 +89,17 @@ public:
      */
     vertex_buffer(std::span<const float> vertices) noexcept;
     vertex_buffer(std::span<const float> vertices, driver_draw_hint hint) noexcept;
-    vertex_buffer(std::span<const float> vertices, const vertex_buffer_layout& layout);
-    vertex_buffer(std::span<const float> vertices, const vertex_buffer_layout& layout,
-        driver_draw_hint hint);
+    vertex_buffer(std::span<const float> vertices, const vertex_buffer_layout& layout) noexcept;
+    vertex_buffer(std::span<const float> vertices, vertex_buffer_layout  layout,
+        driver_draw_hint hint) noexcept;
     ~vertex_buffer();
 
     // delete copy and assignment, only move is allowed
     vertex_buffer(const vertex_buffer&) = delete;
-    vertex_buffer& operator=(const vertex_buffer&) = delete;
+    auto operator=(const vertex_buffer&) -> vertex_buffer& = delete;
 
     vertex_buffer(vertex_buffer&& other) noexcept;
-    vertex_buffer& operator=(vertex_buffer&& other) noexcept;
+    auto operator=(vertex_buffer&& other) noexcept -> vertex_buffer&;
 
     /**
      * @brief Bind the vertex buffer object.
@@ -119,7 +120,7 @@ public:
      * @see vertex_buffer_layout.hpp
      */
     void set_layout(const vertex_buffer_layout& layout);
-    [[nodiscard]] constexpr const vertex_buffer_layout& layout() const;
+    [[nodiscard]] constexpr auto layout() const -> const vertex_buffer_layout&;
 
     /**
      * @brief Give new data to the vertex buffer object, overwriting the old one.
@@ -134,13 +135,13 @@ public:
      * @brief Get the id of the vertex buffer object.
      *
      */
-    constexpr std::uint32_t id() const noexcept { return m_id; }
+    [[nodiscard]] constexpr auto id() const noexcept -> std::uint32_t { return m_id; }
 
     /**
      * @brief Get the size of the vertex buffer object in bytes.
      *
      */
-    constexpr std::size_t size() const noexcept { return m_layout.stride(); }
+    [[nodiscard]] constexpr auto size() const noexcept -> std::size_t { return m_layout.stride(); }
 
     /**
      * @brief Applies a function to the vertices of the vertex buffer object.
@@ -178,45 +179,46 @@ protected:
 
 */
 
-vertex_buffer::vertex_buffer(std::span<const float> vertices, driver_draw_hint hint) noexcept
+inline vertex_buffer::vertex_buffer(std::span<const float> vertices, vertex_buffer_layout  layout,
+                                     driver_draw_hint hint) noexcept
+    : m_layout(std::move(layout))
 {
     glGenBuffers(1, &m_id);
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size_bytes(), vertices.data(), hint);
+    glBufferData(GL_ARRAY_BUFFER, static_cast<ptrdiff_t>(vertices.size_bytes()), vertices.data(), hint);
 }
 
-vertex_buffer::vertex_buffer(std::span<const float> vertices) noexcept
-    : vertex_buffer { vertices, driver_draw_hint::DYNAMIC_DRAW } // give the user the greatest amount of flexibility
+inline vertex_buffer::vertex_buffer(std::span<const float> vertices, driver_draw_hint hint) noexcept
+    : vertex_buffer(vertices, vertex_buffer_layout{}, hint)
 {
 }
 
-vertex_buffer::vertex_buffer(std::span<const float> vertices, const vertex_buffer_layout& layout,
-    driver_draw_hint hint)
-    : vertex_buffer { vertices, hint }
-{
-    m_layout = layout;
-}
-
-vertex_buffer::vertex_buffer(std::span<const float> vertices, const vertex_buffer_layout& layout)
-    : vertex_buffer { vertices, layout, driver_draw_hint::DYNAMIC_DRAW } // give the user the greatest amount of flexibility
+inline vertex_buffer::vertex_buffer(std::span<const float> vertices, const vertex_buffer_layout& layout) noexcept
+    : vertex_buffer(vertices, layout, driver_draw_hint::DYNAMIC_DRAW)
 {
 }
 
-vertex_buffer::~vertex_buffer()
+inline vertex_buffer::vertex_buffer(std::span<const float> vertices) noexcept
+    : vertex_buffer(vertices, vertex_buffer_layout{}, driver_draw_hint::DYNAMIC_DRAW)
+{
+}
+
+
+inline vertex_buffer::~vertex_buffer()
 {
     if (m_id != 0) {
         glDeleteBuffers(1, &m_id);
     }
 }
 
-vertex_buffer::vertex_buffer(vertex_buffer&& other) noexcept
+inline vertex_buffer::vertex_buffer(vertex_buffer&& other) noexcept
     : m_id { other.m_id }
     , m_layout { std::move(other.m_layout) }
 {
     other.m_id = 0;
 }
 
-vertex_buffer& vertex_buffer::operator=(vertex_buffer&& other) noexcept
+inline auto vertex_buffer::operator=(vertex_buffer&& other) noexcept -> vertex_buffer&
 {
     if (this != &other) {
         glDeleteBuffers(1, &m_id);
@@ -229,30 +231,30 @@ vertex_buffer& vertex_buffer::operator=(vertex_buffer&& other) noexcept
     return *this;
 }
 
-void vertex_buffer::bind() const
+inline void vertex_buffer::bind() const
 {
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
 }
 
-void vertex_buffer::unbind()
+inline void vertex_buffer::unbind()
 {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void vertex_buffer::set_layout(const vertex_buffer_layout& layout)
+inline void vertex_buffer::set_layout(const vertex_buffer_layout& layout)
 {
     m_layout = layout;
 }
 
-[[nodiscard]] constexpr const vertex_buffer_layout& vertex_buffer::layout() const
+[[nodiscard]] constexpr auto vertex_buffer::layout() const -> const vertex_buffer_layout&
 {
     return m_layout;
 }
 
-void vertex_buffer::set_data(std::span<const float> vertices) const noexcept
+inline void vertex_buffer::set_data(std::span<const float> vertices) const noexcept
 {
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size_bytes(), vertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, static_cast<ptrdiff_t>(vertices.size_bytes()), vertices.data(), GL_STATIC_DRAW);
 }
 
 template <plain_old_data T>
@@ -263,7 +265,7 @@ void vertex_buffer::apply(const std::function<void(std::span<T> vertices)>& func
     int32_t buffer_size {};
     glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &buffer_size);
 
-    func(std::span { reinterpret_cast<T*>(glMapBuffer(GL_ARRAY_BUFFER, access_specifier)),
+    func(std::span { reinterpret_cast<T*>(glMapBuffer(GL_ARRAY_BUFFER, access_specifier)), // NOLINT (reinterpret-cast)
         buffer_size / sizeof(T) });
 
     glUnmapBuffer(GL_ARRAY_BUFFER);

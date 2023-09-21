@@ -56,14 +56,15 @@ MessageCallback(GLenum source [[maybe_unused]],
 {
     if (type == GL_DEBUG_TYPE_OTHER || type == GL_DEBUG_TYPE_PERFORMANCE)
         return;
+    //NOLINTNEXTLINE 
     fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n",
         (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
         type, severity, message);
 }
 
 // initial window size
-const uint32_t SCR_WIDTH = 1600;
-const uint32_t SCR_HEIGHT = 900;
+const int32_t SCR_WIDTH = 1600;
+const int32_t SCR_HEIGHT = 900;
 
 auto main() -> int
 {
@@ -93,7 +94,7 @@ auto main() -> int
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
-    if (gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)) == 0) {
+    if (gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)) == 0) { // NOLINT (reinterpret-cast)
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
@@ -105,7 +106,7 @@ auto main() -> int
     // antialiasing and other nice things
     glEnable(GL_MULTISAMPLE);
 
-    staplegl::shader_program basic { "batched_shader", "./shaders/batched_shader.glsl" };
+    staplegl::shader_program const basic { "batched_shader", "./shaders/batched_shader.glsl" };
 
     basic.bind();
 
@@ -126,11 +127,11 @@ auto main() -> int
 
     using namespace staplegl::shader_data_type;
 
-    staplegl::vertex_buffer_layout layout {
+    staplegl::vertex_buffer_layout const layout {
         { u_type::vec3, "aPos" }
     };
 
-    staplegl::vertex_buffer_layout instance_layout {
+    staplegl::vertex_buffer_layout const instance_layout {
         { u_type::vec3, "instancePos" }
     };
 
@@ -147,7 +148,7 @@ auto main() -> int
     VAO.set_instance_buffer(std::move(VBO_inst));
     VAO.set_index_buffer(std::move(EBO));
 
-    staplegl::vertex_buffer_layout UBO_block_layout {
+    staplegl::vertex_buffer_layout const UBO_block_layout {
         { shader_array_type::float32_arr, "u_color", 4 }
     };
 
@@ -166,8 +167,9 @@ auto main() -> int
     const float Z_END = 1.00F;
 
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
+    constexpr int32_t NUM_INSTANCES = 65535;
 
-    for (int i = 0; i < 65535; i++) {
+    for (int i = 0; i < NUM_INSTANCES; i++) {
         std::array<float, 3> offset = {
             lerp(START, END,
                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX)),
@@ -196,7 +198,7 @@ auto main() -> int
         color[3] = 1.0F;
 
         for (int i = 0; i < 4; ++i) {
-            UBO_block.set_attribute_data(std::span { &color[i], 1 }, "u_color", i);
+            UBO_block.set_attribute_data(std::span { &color[i], 1 }, "u_color", i); 
         }
 
 // define a struct for the instance data

@@ -202,14 +202,7 @@ foreach(face IN ITEMS right left top bottom front back)
     configure_file(${SKYBOX_DIR}/${face}.jpg ${CMAKE_CURRENT_BINARY_DIR}/assets/skybox/${face}.jpg COPYONLY)
 endforeach(face)
 
-# add warnings to executable targets
-if(MSVC)
-    target_compile_options(sandbox PRIVATE /W4 /WX)
-    target_compile_options(batches PRIVATE /W4 /WX)
-else()
-    target_compile_options(sandbox PRIVATE -Wall -Wextra -pedantic)
-    target_compile_options(batches PRIVATE -Wall -Wextra -pedantic)
-endif()
+
 
 set(TEAPOT_SOURCES
     ${EXAMPLES_DIR}/teapot.cpp
@@ -238,20 +231,33 @@ target_include_directories(teapot PUBLIC ${GLFW3_INCLUDE_DIR}
     ${OPENGL_INCLUDE_DIR}
 )
 
+# add warnings to executable targets
+if(MSVC)
+    target_compile_options(sandbox PRIVATE /W4 /WX)
+    target_compile_options(batches PRIVATE /W4 /WX)
+    target_compile_options(teapot PRIVATE /W4 /WX)
+else()
+    target_compile_options(sandbox PRIVATE -Wall -Wextra -pedantic)
+    target_compile_options(batches PRIVATE -Wall -Wextra -pedantic)
+    target_compile_options(teapot PRIVATE -Wall -Wextra -pedantic)
+endif()
+
+
+
 set(CLANG_TIDY_CHECKS
-    "-*,modernize-*,performance-*,bugprone-*,clang-analyzer-*,-bugprone-easily-swappable-parameters,-bugprone-unchecked-optional-access")
+    "misc-*,modernize-*,cppcoreguidelines-*,performance-*,bugprone-*,clang-analyzer-*,-bugprone-easily-swappable-parameters,-bugprone-unchecked-optional-access,-misc-no-recursion,-misc-non-private-*,-performance-no-int-to-ptr,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-pro-bounds-constant-array-index,-cppcoreguidelines-non-private-*")
 
 # Define a custom target for clang-tidy
 add_custom_target(clang-tidy-sandbox
-    COMMAND clang-tidy --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${SANDBOX_SOURCES}
+    COMMAND clang-tidy -header-filter=${STAPLEGL_HEADERS} --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${SANDBOX_SOURCES}
     -- -I${SANDBOX_DIR}/include -I${GLAD_INCLUDE_DIR} -I${GLFW3_INCLUDE_DIR}
-    -I${STAPLEGL_DIR} -I${STAPLEGL_MODULES_DIR}/include -std=c++20 -fexperimental-library
+    -I${STAPLEGL_DIR} -I${STAPLEGL_MODULES_DIR}/include -std=c++20 -fexperimental-library 
     COMMENT "Running clang-tidy on sandbox"
     VERBATIM
 )
 
 add_custom_target(clang-tidy-batches
-    COMMAND clang-tidy --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${BATCHES_SOURCES}
+    COMMAND clang-tidy -header-filter=${STAPLEGL_HEADERS} --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${BATCHES_SOURCES}
     -- -I${BATCHES_DIR}/include -I${GLAD_INCLUDE_DIR} -I${GLFW3_INCLUDE_DIR}
     -I${STAPLEGL_DIR} -I${STAPLEGL_MODULES_DIR}/include -std=c++20 -fexperimental-library
     COMMENT "Running clang-tidy on batches"
@@ -260,7 +266,7 @@ add_custom_target(clang-tidy-batches
 
 add_custom_target(
     clang-tidy-teapot
-    COMMAND clang-tidy --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${TEAPOT_SOURCES}
+    COMMAND clang-tidy -header-filter=${STAPLEGL_HEADERS} --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${TEAPOT_SOURCES}
     -- -I${TEAPOT_DIR}/include -I${GLAD_INCLUDE_DIR} -I${GLFW3_INCLUDE_DIR} -I${ASSETS_DIR} -I${GLM_DIR} -I${STB_DIR}
     -I${STAPLEGL_DIR} -I${STAPLEGL_MODULES_DIR}/include -std=c++20 -fexperimental-library
     COMMENT "Running clang-tidy on teapot"

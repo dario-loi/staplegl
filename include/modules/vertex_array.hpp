@@ -51,8 +51,60 @@ namespace staplegl {
  */
 class vertex_array {
 public:
+
+    /**
+     * @brief Construct a new vertex array object
+     * 
+     * @details Constructs a VAO and generates an id for it, VBOs and EBOs can be added later.
+     * 
+     * @see add_vertex_buffer
+     * @see set_instance_buffer
+     * 
+     */
     vertex_array() noexcept;
     ~vertex_array();
+
+    vertex_array(const vertex_array&) = delete;
+    auto operator=(const vertex_array&) -> vertex_array& = delete;
+
+    /**
+     * @brief Construct a new vertex array object from another one.
+     * 
+     * @details constructs a VAO by stealing the ID and the attached VBOs and EBOs from another VAO.
+     * 
+     * @param other the vertex array object to copy from.
+     *
+     */
+    vertex_array(vertex_array&& other) noexcept
+        : m_id(other.m_id)
+        , m_vertex_buffers(std::move(other.m_vertex_buffers))
+        , m_instanced_vbo(std::move(other.m_instanced_vbo))
+        , m_index_buffer(std::move(other.m_index_buffer))
+        , attrib_index(other.attrib_index)
+    {
+        other.m_id = 0;
+    }
+
+    /**
+     * @brief Move assignment operator.
+     * 
+     * 
+     * @param other the vertex array object to move from.
+     * @return vertex_array& a reference to the moved vertex array object.
+     */
+    auto operator=(vertex_array&& other) noexcept -> vertex_array&
+    {
+        if (this != &other) {
+            m_id = other.m_id;
+            m_vertex_buffers = std::move(other.m_vertex_buffers);
+            m_instanced_vbo = std::move(other.m_instanced_vbo);
+            m_index_buffer = std::move(other.m_index_buffer);
+            attrib_index = other.attrib_index;
+
+            other.m_id = 0;
+        }
+        return *this;
+    }
 
     /**
      * @brief Iterator type returned from add_vertex_buffer.
@@ -82,7 +134,7 @@ public:
      *
      * @see vertex_buffer.hpp
      */
-    vertex_array::iterator_t add_vertex_buffer(vertex_buffer&& vbo);
+    auto add_vertex_buffer(vertex_buffer&& vbo) -> vertex_array::iterator_t;
 
     /**
      * @brief Set the instance buffer object
@@ -112,7 +164,7 @@ public:
      *
      * @return uint32_t the vertex array object id.
      */
-    constexpr uint32_t id() const { return m_id; }
+    [[nodiscard]] constexpr auto id() const -> uint32_t { return m_id; }
 
     /**
      * @brief Get the vertex buffer object at the specified index.
@@ -150,27 +202,27 @@ private:
 
 */
 
-vertex_array::vertex_array() noexcept
+inline vertex_array::vertex_array() noexcept
 {
-    glCreateVertexArrays(1, &m_id);
+    glGenVertexArrays(1, &m_id);
 }
 
-vertex_array::~vertex_array()
+inline vertex_array::~vertex_array()
 {
     glDeleteVertexArrays(1, &m_id);
 }
 
-void vertex_array::bind() const
+inline void vertex_array::bind() const
 {
     glBindVertexArray(m_id);
 }
 
-void vertex_array::unbind()
+inline void vertex_array::unbind()
 {
     glBindVertexArray(0);
 }
 
-vertex_array::iterator_t vertex_array::add_vertex_buffer(vertex_buffer&& vbo)
+inline auto vertex_array::add_vertex_buffer(vertex_buffer&& vbo) -> vertex_array::iterator_t
 {
     m_vertex_buffers.push_back(std::move(vbo));
     glBindVertexArray(m_id);
@@ -184,17 +236,17 @@ vertex_array::iterator_t vertex_array::add_vertex_buffer(vertex_buffer&& vbo)
         glEnableVertexAttribArray(attrib_index);
         glVertexAttribPointer(
             attrib_index++,
-            shader_data_type::component_count(type) * element_count,
+            static_cast<int32_t>(shader_data_type::component_count(type) * element_count),
             shader_data_type::to_opengl_underlying_type(type),
             GL_FALSE,
-            vbo_ref.layout().stride(),
-            reinterpret_cast<const void*>(offset));
+            static_cast<int32_t>(vbo_ref.layout().stride()),
+            reinterpret_cast<const void*>(offset)); // NOLINT (reinterpret-cast)
     }
 
     return std::prev(m_vertex_buffers.end());
 }
 
-void vertex_array::set_instance_buffer(vertex_buffer_inst&& vbo)
+inline void vertex_array::set_instance_buffer(vertex_buffer_inst&& vbo)
 {
     m_instanced_vbo = std::move(vbo);
 
@@ -205,16 +257,16 @@ void vertex_array::set_instance_buffer(vertex_buffer_inst&& vbo)
         glEnableVertexAttribArray(attrib_index);
         glVertexAttribPointer(
             attrib_index++,
-            shader_data_type::component_count(type) * element_count,
+            static_cast<int32_t>(shader_data_type::component_count(type) * element_count),
             shader_data_type::to_opengl_underlying_type(type),
             GL_FALSE,
-            m_instanced_vbo->layout().stride(),
-            reinterpret_cast<const void*>(offset));
+            static_cast<int32_t>(m_instanced_vbo->layout().stride()),
+            reinterpret_cast<const void*>(offset)); // NOLINT (reinterpret-cast)
         glVertexAttribDivisor(attrib_index - 1, 1);
     }
 }
 
-void vertex_array::set_index_buffer(index_buffer&& ibo)
+inline void vertex_array::set_index_buffer(index_buffer&& ibo)
 {
     m_index_buffer = std::move(ibo);
 
