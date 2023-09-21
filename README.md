@@ -7,6 +7,7 @@ No-dependency OpenGL support library, which abstracts the processes of creating 
 Table of Contents
 =================
 
+- [StapleGL](#staplegl)
 - [Table of Contents](#table-of-contents)
 - [Install](#install)
 - [Design Highlights](#design-highlights)
@@ -65,6 +66,12 @@ It also offers more functionality, such as:
 - Modern C++20 interfaces for increased usability and safety
 - STL algorithms on OpenGL buffer contents
 
+<br>
+
+![A non-trivial scene rendered with StapleGL](./teapot_bloom.png)
+*A non trivial scene rendered with the help of **StapleGL** in under 350 lines of code, featuring HDR, Tone mapping, MSAA x16, PBR Bloom^[1], cube maps and environment mapping.*
+
+^[1]: Next generation post processing in Call of Duty: Advanced Warfare, https://advances.realtimerendering.com/s2014/index.html
 
 # Setup
 
@@ -89,92 +96,27 @@ files by going to the [glad website](https://glad.dav1d.de/).
 # Usage
 ## Basic Usage
 
-Examples of increasing complexity can be found in the `examples` directory, here is 
-a mockup of what a basic program using ***StapleGL*** might look like:
+Examples of increasing complexity can be found in the `examples` directory, the same
+examples are also hosted on the online documentation [here](https://dario-loi.github.io/staplegl/examples).
 
-```cpp
-
-#include "staplegl.hpp"
-
-int main()
-{
-
-	/*
-		Load OpenGL functions, start a window, etc...
-	*/
-
-	// shortening the namespace for convenience
-	using staplegl::shader_data_type;
-
-	// the vertices of the square
-	float vertices[4][7] = {
-		{ -0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f },
-		{  0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f },
-		{  0.5f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f },
-		{ -0.5f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f }
-	};
-
-	// the indices of the square
-	unsigned int indices[2][3] = {
-		{ 0, 1, 2 },
-		{ 0, 2, 3 }
-	};
-
-	// create the buffers by passing spans to the constructor
-	staplegl::vertex_buffer vbo({*vertices, sizeof(vertices)}, staplegl::driver_draw_hint::STATIC_DRAW);
-	staplegl::index_buffer ibo({*indices, sizeof(indices) / sizeof(int)});
-
-	// specify the layout of the vertex buffer
-	staplegl::vertex_buffer_layout layout = {
-		{ u_type::vec3, "position" },
-		{ u_type::vec4, "color" }
-	};
-	// add the layout to the vertex buffer
-	vbo.set_layout(layout);
-
-	// create the vertex array and add the buffers to it
-	// the layout will be automatically added to the vertex array
-	staplegl::vertex_array vao;
-	vao.add_vertex_buffer(std::move(vbo));
-	vao.set_index_buffer(std::move(ibo));
-
-	// create the shader program, which will be automatically parsed and compiled
-	// here we are using multiple shader files
-	staplegl::shader_program shaders("Basic", {
-		{ shader_type::vertex, "shader_examples/vert.glsl" },
-		{ shader_type::fragment, "shader_examples/frag.glsl" }
-		});
-	shaders.bind();
-
-	// upload the uniform data to the GPU, the uniform location will be automatically retrieved
-	// and cached so that following calls will not have to retrieve the location again
-	shaders.upload_uniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
-
-	/*
-
-		Your rendering loop goes here (see `examples/sandbox.cpp` for an example)
-
-	*/
-
-	return EXIT_SUCCESS;
-}
-```
 ## Vertex buffer layout
-The vertex buffer layout is declared in a very intuitive way. You provide a shader data type and an identifier name. The shader data types reside in the ```staplegl::shader_data_type``` namespace.
+Vertex buffer layout are declared in a very intuitive way. You provide a list of shader data types and identifier names. The shader data types reside in the ```staplegl::shader_data_type``` namespace.
+
 ```cpp
 staplegl::vertex_buffer_layout layout = {
 	{ staplegl::shader_data_type::vec3, "position" },
 	{ staplegl::shader_data_type::vec4, "color" }
 };
 ```
-A vertex buffer layout can either be declared on it's own like in the example above, or can be created as an rvalue directly in the constructor of ```staplegl::vertex_buffer```.
+A vertex buffer layout can either be declared on it's own like in the example above, or can be created as an `rvalue` directly in the constructor of ```staplegl::vertex_buffer``` (or other classes that require a vertex buffer layout).
+
 ```cpp
 staplegl::vertex_buffer vbo({*vertices, sizeof(vertices)}, {
 	{ staplegl::shader_data_type::type::vec3, "position" },
 	{ staplegl::shader_data_type::type::vec4, "color" }
 });
 ```
-The layout is saved in the vertex buffer, so that information about the layout can  be queried at any time.
+The layout is saved in the vertex buffer, so that information about the layout can be queried at runtime.
 
 ## Shaders
 A shader program can be handled in two different ways. You can have separate shader files for each type of shader, or you can have one single shader file.
@@ -188,6 +130,10 @@ staplegl::shader_program shader_single_noname("shader_examples/basic.glsl");
 ```
 For the shader parser to differentiate between the different shaders in the file, the shader code needs to start with a specific command line - ```#type [shader type]```
 #### Example
+
+Here is a trivial pass-through shader that uses the single file approach for both 
+the vertex and fragment shader.
+
 ```glsl
 #type vertex
 #version 330 core
@@ -234,6 +180,8 @@ staplegl::shader_program shaders("Basic", {
 
 ## Batching
 
+*Example code available [here](https://dario-loi.github.io/staplegl/batches_8cpp-example.html).*
+
 If you need to render many *instances* of the same object, ***StapleGL*** has got you covered,
 in the form of ```staplegl::instanced_vertex_buffer```. This class is a wrapper around
 an OpenGL VBO that acts similarly to the STL's ```std::vector```. You can add and 
@@ -244,63 +192,27 @@ needed.
 > The buffer is optimized to minimize the number of reallocations, hence it reserves
 > some capacity to amortize the cost of `add` operations
 
-Let's see how to set up a batched rendering system for a simple square:
-
 ```cpp
+	// create an instanced VBO
+	staplegl::vertex_buffer_inst VBO_inst({ u_type::vec3, "instancePos" });
 
-// we use STL containers instead of C-style arrays in this example
-    using namespace staplegl::shader_data_type;	
+	staplegl::vertex_array VAO;
 
-    const std::array<const float, 12> vertices {
-        0.001F, 0.001F, 0.0F, // top right
-        0.001F, -0.001F, 0.0F, // bottom right
-        -0.001F, -0.001F, 0.0F, // bottom left
-        -0.001F, 0.001F, 0.0F, // top left
-    };
-
-    const std::array<const unsigned int, 6> indices {
-        // note that we start from 0!
-        0, 1, 3, // first Triangle
-        1, 2, 3 // second Triangle
-    };
-
-// specify the layout of the vertex buffer and of the instances
-    staplegl::vertex_buffer_layout layout {
-        { u_type::vec3, "aPos" }
-    };
-
-    staplegl::vertex_buffer_layout instance_layout {
-        { u_type::vec3, "instancePos" }
-    };
-
-// we now create *two* VBOs, one for the vertices and one for the instances
-    staplegl::vertex_buffer VBO(vertices, staplegl::driver_draw_hint::STATIC_DRAW);
-    staplegl::vertex_buffer_inst VBO_inst({}); // empty for now, DYNAMIC_DRAW by default
-
-    staplegl::index_buffer EBO { indices };
-
-    VBO_inst.set_layout(instance_layout);
-    VBO.set_layout(layout);
-
-// now we move everything to the VAO
-
-    staplegl::vertex_array VAO;
-
-    VAO.add_vertex_buffer(std::move(VBO));
+	// attach the instanced VBO to the VAO
     VAO.set_instance_buffer(std::move(VBO_inst));
-    VAO.set_index_buffer(std::move(EBO));
 
-    VAO.bind();
-
-// finally, we can spawn a *TON* of instances:
-
-    const float START = -0.95F;
+	// fill up the instanced VBO with random offsets
+	const float START = -0.95F;
     const float END = 0.95F;
 
     const float Z_START = 0.01F;
     const float Z_END = 1.00F;
 
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+	auto lerp = [](float a, float b, float f) {
+		return a + f * (b - a);
+	};
 
     for (int i = 0; i < 65535; i++) {
         std::array<float, 3> offset = {
@@ -311,26 +223,28 @@ Let's see how to set up a batched rendering system for a simple square:
             lerp(Z_START, Z_END,
                 static_cast<float>(rand()) / static_cast<float>(RAND_MAX))
         };
-
-        // I know the instance is set since it is in the optional, so I go for direct access
         VAO.instanced_data()->add_instance(offset);
     }
-
-	// render loop pseudocode
-	while(shouldDraw()) {
-		// clear the screen
-		// ...
-
-		// draw the instances
-		VAO.bind();
-		glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr, VAO.instanced_data()->size()); // Here we draw 65535 instances in *a single call!*
-		// ...
-	}
 ```
 
-For more information on how to use the instanced vertex buffer, check out the `batches.cpp` example in the `examples` directory.
+The above code fills up the instanced VBO with 65535 instances containing a random offset. the VAO with the instances can then be rendered with a single draw call as 
+follows:
+
+```cpp
+glDrawElementsInstanced(GL_TRIANGLES, 
+	VAO.index_data().count(), 	// assumes we also have an EBO for the model
+	GL_UNSIGNED_INT, 			// the type of the indices is unsigned int
+	nullptr,
+	VAO.instanced_data()->instance_count() // retrieve the number of spawned instances
+);
+```
+
+This is a powerful feature that allows you to reduce the driver overhead of your application with no effort on your part!
+
+
 
 ## STL Algorithms on Buffers
+
 
 Thanks to C++20's `std::span`, ***StapleGL*** allows you to use STL algorithms on buffers, such as `std::sort` and `std::find`. This is especially useful when using the instanced vertex buffer, since you can sort the instances by a specific criteria (such as distance from the camera) and then render them in order. 
 
@@ -359,6 +273,7 @@ VAO.instanced_data()->apply<vec3>(
 		});
 	});
 ```
+*Full code is part of the `batches.cpp` example available [here](https://dario-loi.github.io/staplegl/batches_8cpp-example.html).*
 
 As shown, the apply function takes any user-provided lambda and supplies it 
 with a span of the provided type. This works internally by `reinterpred_cast`ing

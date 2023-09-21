@@ -143,6 +143,10 @@ auto main() -> int
     staplegl::index_buffer EBO { indices };
     staplegl::vertex_array VAO;
 
+    VAO.add_vertex_buffer(std::move(VBO));
+    VAO.set_instance_buffer(std::move(VBO_inst));
+    VAO.set_index_buffer(std::move(EBO));
+
     staplegl::vertex_buffer_layout UBO_block_layout {
         { shader_array_type::float32_arr, "u_color", 4 }
     };
@@ -152,10 +156,6 @@ auto main() -> int
     UBO_block.bind();
 
     std::array<float, 4> color {};
-
-    VAO.add_vertex_buffer(std::move(VBO));
-    VAO.set_instance_buffer(std::move(VBO_inst));
-    VAO.set_index_buffer(std::move(EBO));
 
     VAO.bind();
 
