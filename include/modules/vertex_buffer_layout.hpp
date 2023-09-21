@@ -35,12 +35,14 @@ namespace staplegl {
  * @see shader_data_type.hpp
  */
 struct vertex_attribute {
-    shader_data_type::u_type type;
+    shader_data_type::u_type type {};
     std::string name;
     std::uint32_t offset {};
     std::size_t element_count { 1 };
 
     vertex_attribute() = default;
+    ~vertex_attribute() = default;
+
     vertex_attribute(shader_data_type::u_type in_type, std::string_view in_name)
         : type { in_type }
         , name { in_name }
@@ -50,16 +52,16 @@ struct vertex_attribute {
     vertex_attribute(shader_data_type::shader_array_type in_type, std::string_view in_name, size_t element_count)
         : type { static_cast<shader_data_type::u_type>(in_type) }
         , name { in_name }
-        , offset {}
-        , element_count { element_count }
+        , 
+         element_count { element_count }
     {
     }
 
     vertex_attribute(const vertex_attribute&) noexcept = default;
-    vertex_attribute& operator=(const vertex_attribute&) noexcept = default;
+    auto operator=(const vertex_attribute&) noexcept -> vertex_attribute& = default;
 
     vertex_attribute(vertex_attribute&&) noexcept = default;
-    vertex_attribute& operator=(vertex_attribute&&) noexcept = default;
+    auto operator=(vertex_attribute&&) noexcept -> vertex_attribute& = default;
 };
 
 /**
@@ -102,14 +104,14 @@ public:
      *
      * @return std::size_t, the stride of the vertex buffer layout.
      */
-    constexpr std::size_t stride() const noexcept { return m_stride; }
+    [[nodiscard]] constexpr auto stride() const noexcept -> std::size_t { return m_stride; }
 
     /**
      * @brief Get the stride of the vertex buffer layout in elements (assuming float-only data).
      *
      * @return std::size_t, the number of elements in a vertex.
      */
-    constexpr std::size_t stride_elements() const noexcept { return m_stride / sizeof(float); }
+    [[nodiscard]] constexpr auto stride_elements() const noexcept -> std::size_t { return m_stride / sizeof(float); }
 
     /**
      * @brief Get the data of the vertex buffer layout as a non-owning view.
@@ -118,7 +120,7 @@ public:
      */
     [[nodiscard]] auto get_attributes() const noexcept -> std::span<const vertex_attribute>
     {
-        return std::span(m_attributes);
+      return {m_attributes};
     }
 
     /**

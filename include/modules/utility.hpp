@@ -22,11 +22,13 @@ namespace staplegl {
 /**
  * @brief A struct that represents an image's dimensions.
  *
+ * @note The width and height are signed integers because OpenGL uses signed integers,
+ * even though the dimensions of an image are always positive.
  */
 struct resolution {
 
-    std::uint32_t width {};
-    std::uint32_t height {};
+    std::int32_t width {};
+    std::int32_t height {};
 };
 
 /**
@@ -51,7 +53,7 @@ namespace staplegl::util {
  * @param path the file path, relative to the current working directory.
  * @return std::string the contents of the file.
  */
-static std::string read_file(std::string_view path)
+static auto read_file(std::string_view path) -> std::string
 {
     std::ifstream in_file(path.data(), std::ios::ate | std::ios::binary);
 
@@ -59,7 +61,7 @@ static std::string read_file(std::string_view path)
         return {};
     }
 
-    size_t file_size = in_file.tellg();
+    std::ptrdiff_t const file_size = in_file.tellg();
     std::string result(file_size, '\0');
 
     in_file.seekg(0);
@@ -74,13 +76,13 @@ static std::string read_file(std::string_view path)
  * @param path Path to the file, relative to the current working directory.
  * @return std::string, the name of the file.
  */
-static std::string get_file_name(std::string_view path)
+static auto get_file_name(std::string_view path) -> std::string
 {
     size_t last_slash = path.find_last_of("/\\");
     last_slash = (last_slash == std::string::npos) ? 0 : last_slash + 1;
 
-    size_t last_dot = path.rfind('.');
-    size_t count = (last_dot == std::string::npos) ? path.size() - last_slash : last_dot - last_slash;
+    size_t const last_dot = path.rfind('.');
+    size_t const count = (last_dot == std::string::npos) ? path.size() - last_slash : last_dot - last_slash;
 
     return std::string(path.substr(last_slash, count));
 }

@@ -60,7 +60,7 @@ public:
     ~index_buffer();
 
     index_buffer(const index_buffer&) = delete;
-    index_buffer& operator=(const index_buffer&) = delete;
+    auto operator=(const index_buffer&) -> index_buffer& = delete;
 
     /**
      * @brief Construct a new index buffer object
@@ -79,7 +79,7 @@ public:
      * 
      * @return index_buffer& The moved object.
      */
-    index_buffer& operator=(index_buffer&&) noexcept;
+    auto operator=(index_buffer&&) noexcept -> index_buffer&;
 
     /**
      * @brief Bind the index buffer object.
@@ -98,44 +98,47 @@ public:
      *
      * @return std::int32_t, the number of indices.
      */
-    constexpr std::int32_t count() const;
+    [[nodiscard]] constexpr auto count() const -> std::int32_t;
 
     /**
      * @brief Get the ID of the index buffer object.
      * 
      * @return std::uint32_t the ID of the index buffer object.
      */
-    constexpr std::uint32_t id() const;
+    [[nodiscard]] constexpr auto id() const -> std::uint32_t;
 
 private:
     std::uint32_t m_id {};
     std::int32_t m_count {};
 };
 
-index_buffer::index_buffer(std::span<const std::uint32_t> indices) noexcept
+inline index_buffer::index_buffer(std::span<const std::uint32_t> indices) noexcept
     : m_count { static_cast<int32_t>(indices.size()) }
 {
     glGenBuffers(1, &m_id);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
 
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size_bytes(), indices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 
+    static_cast<ptrdiff_t>(indices.size_bytes()), 
+    indices.data(), 
+    GL_STATIC_DRAW);
 }
 
-index_buffer::~index_buffer()
+inline index_buffer::~index_buffer()
 {
     if (m_id != 0) {
         glDeleteBuffers(1, &m_id);
     }
 }
 
-index_buffer::index_buffer(index_buffer&& other) noexcept
+inline index_buffer::index_buffer(index_buffer&& other) noexcept
     : m_id { other.m_id }
     , m_count { other.m_count }
 {
     other.m_id = 0;
 }
 
-index_buffer& index_buffer::operator=(index_buffer&& other) noexcept
+inline auto index_buffer::operator=(index_buffer&& other) noexcept -> index_buffer&
 {
     if (this != &other) {
         m_id = other.m_id;
@@ -147,17 +150,17 @@ index_buffer& index_buffer::operator=(index_buffer&& other) noexcept
     return *this;
 }
 
-void index_buffer::bind() const
+inline void index_buffer::bind() const
 {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
 }
 
-void index_buffer::unbind() const
+inline void index_buffer::unbind() const
 {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-constexpr std::int32_t index_buffer::count() const
+constexpr auto index_buffer::count() const -> std::int32_t
 {
     return m_count;
 }

@@ -22,6 +22,7 @@
 #include <span>
 #include <string_view>
 #include <unordered_map>
+#include <utility>
 
 namespace staplegl {
 
@@ -32,14 +33,14 @@ namespace staplegl {
 class uniform_buffer {
 
 public:
-    uniform_buffer(std::span<const float> contents, vertex_buffer_layout const& layout, int32_t binding_point) noexcept;
+    uniform_buffer(std::span<const float> contents, vertex_buffer_layout  layout, int32_t binding_point) noexcept;
     uniform_buffer(vertex_buffer_layout const& layout, int32_t binding_point) noexcept;
 
     uniform_buffer(const uniform_buffer&) = delete;
-    uniform_buffer& operator=(const uniform_buffer&) = delete;
+    auto operator=(const uniform_buffer&) -> uniform_buffer& = delete;
 
     uniform_buffer(uniform_buffer&& other) noexcept;
-    [[nodiscard]] uniform_buffer& operator=(uniform_buffer&& other) noexcept;
+    [[nodiscard]] auto operator=(uniform_buffer&& other) noexcept -> uniform_buffer&;
 
     void bind() const;
     static void unbind();
@@ -77,9 +78,9 @@ public:
 
     // UTILITIES
 
-    constexpr int32_t binding_point() const noexcept { return m_binding_point; }
-    constexpr int32_t id() const noexcept { return m_id; }
-    [[nodiscard]] constexpr vertex_buffer_layout const& layout() const noexcept { return m_layout; }
+    constexpr auto binding_point() const noexcept -> int32_t { return m_binding_point; }
+    constexpr auto id() const noexcept -> uint32_t { return m_id; }
+    [[nodiscard]] constexpr auto layout() const noexcept -> vertex_buffer_layout const& { return m_layout; }
 
 private:
     using attr_ref = std::reference_wrapper<const vertex_attribute>;
@@ -91,13 +92,16 @@ private:
 
 }; // class uniform_buffer
 
-uniform_buffer::uniform_buffer(std::span<const float> contents, vertex_buffer_layout const& layout, int32_t binding_point) noexcept
+inline uniform_buffer::uniform_buffer(std::span<const float> contents, vertex_buffer_layout  layout, int32_t binding_point) noexcept
     : m_binding_point { binding_point }
-    , m_layout { layout }
+    , m_layout {std::move( layout )}
 {
     glGenBuffers(1, &m_id);
     glBindBuffer(GL_UNIFORM_BUFFER, m_id);
-    glBufferData(GL_UNIFORM_BUFFER, contents.size_bytes(), contents.data(), GL_DYNAMIC_DRAW);
+    glBufferData(GL_UNIFORM_BUFFER, 
+    static_cast<ptrdiff_t>(contents.size_bytes()), 
+    contents.data(), 
+    GL_DYNAMIC_DRAW);
     glBindBufferBase(GL_UNIFORM_BUFFER, m_binding_point, m_id);
 
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
@@ -108,13 +112,13 @@ uniform_buffer::uniform_buffer(std::span<const float> contents, vertex_buffer_la
     }
 }
 
-uniform_buffer::uniform_buffer(vertex_buffer_layout const& layout, int32_t binding_point) noexcept
+inline uniform_buffer::uniform_buffer(vertex_buffer_layout const& layout, int32_t binding_point) noexcept
     : m_binding_point { binding_point }
     , m_layout { layout }
 {
     glGenBuffers(1, &m_id);
     glBindBuffer(GL_UNIFORM_BUFFER, m_id);
-    glBufferData(GL_UNIFORM_BUFFER, layout.stride(), nullptr, GL_DYNAMIC_DRAW);
+    glBufferData(GL_UNIFORM_BUFFER, static_cast<std::ptrdiff_t>(layout.stride()), nullptr, GL_DYNAMIC_DRAW);
     glBindBufferBase(GL_UNIFORM_BUFFER, m_binding_point, m_id);
 
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
@@ -125,24 +129,24 @@ uniform_buffer::uniform_buffer(vertex_buffer_layout const& layout, int32_t bindi
     }
 }
 
-void uniform_buffer::bind() const
+inline void uniform_buffer::bind() const
 {
     glBindBuffer(GL_UNIFORM_BUFFER, m_id);
 }
 
-void uniform_buffer::unbind()
+inline void uniform_buffer::unbind()
 {
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 
-uniform_buffer::~uniform_buffer()
+inline uniform_buffer::~uniform_buffer()
 {
     if (m_id != 0) {
         glDeleteBuffers(1, &m_id);
     }
 }
 
-uniform_buffer::uniform_buffer(uniform_buffer&& other) noexcept
+inline uniform_buffer::uniform_buffer(uniform_buffer&& other) noexcept
     : m_id { other.m_id }
     , m_binding_point { other.m_binding_point }
     , m_attr_cache { std::move(other.m_attr_cache) }
@@ -151,7 +155,7 @@ uniform_buffer::uniform_buffer(uniform_buffer&& other) noexcept
     other.m_id = 0;
 }
 
-[[nodiscard]] uniform_buffer& uniform_buffer::operator=(uniform_buffer&& other) noexcept
+[[nodiscard]] inline auto uniform_buffer::operator=(uniform_buffer&& other) noexcept -> uniform_buffer&
 {
     if (this != &other) {
         glDeleteBuffers(1, &m_id);
@@ -166,29 +170,34 @@ uniform_buffer::uniform_buffer(uniform_buffer&& other) noexcept
     return *this;
 }
 
-void uniform_buffer::set_attribute_data(std::span<const float> uniform_data, const std::string& name)
+inline void uniform_buffer::set_attribute_data(std::span<const float> uniform_data, const std::string& name)
 {
     set_attribute_data(uniform_data, name, 0);
 }
 
-void uniform_buffer::set_attribute_data(std::span<const float> uniform_data, const std::string& name, std::size_t offset)
+inline void uniform_buffer::set_attribute_data(std::span<const float> uniform_data, const std::string& name, std::size_t offset)
 {
     auto const attr = m_attr_cache.at(name);
 
-    glBufferSubData(GL_UNIFORM_BUFFER, attr.get().offset + offset * sizeof(float),
-        uniform_data.size_bytes(), uniform_data.data());
+    glBufferSubData(GL_UNIFORM_BUFFER, 
+    static_cast<ptrdiff_t>(attr.get().offset + offset * sizeof(float)),
+    static_cast<ptrdiff_t>(uniform_data.size_bytes()), 
+    uniform_data.data());
 }
 
-void uniform_buffer::set_attribute_data(std::span<const float> uniform_data, size_t attribute_index)
+inline void uniform_buffer::set_attribute_data(std::span<const float> uniform_data, size_t attribute_index)
 {
     set_attribute_data(uniform_data, attribute_index, 0);
 }
 
-void uniform_buffer::set_attribute_data(std::span<const float> uniform_data, size_t attribute_index, std::size_t offset)
+inline void uniform_buffer::set_attribute_data(std::span<const float> uniform_data, size_t attribute_index, std::size_t offset)
 {
     auto const& attr = m_layout[attribute_index];
 
-    glBufferSubData(GL_UNIFORM_BUFFER, attr.offset + offset * sizeof(float), uniform_data.size_bytes(), uniform_data.data());
+    glBufferSubData(GL_UNIFORM_BUFFER, 
+    static_cast<ptrdiff_t>(attr.offset + offset * sizeof(float)), 
+    static_cast<ptrdiff_t>(uniform_data.size_bytes()), 
+    uniform_data.data());
 }
 
 } // namespace staplegl

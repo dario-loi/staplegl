@@ -45,8 +45,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
 // initial window size
-const uint32_t SCR_WIDTH = 1600;
-const uint32_t SCR_HEIGHT = 900;
+const int32_t SCR_WIDTH = 1600;
+const int32_t SCR_HEIGHT = 900;
 
 // global luminosity to be updated by keypresses
 float luminosity = 10.0F;
@@ -331,7 +331,7 @@ auto main() -> int
     // prep for data transfer
     std::array<std::span<std::byte>, 6> cube_data;
 
-    std::int32_t width, height, nrChannels;
+    std::int32_t width = 0, height = 0, nrChannels = 0;
     int i = 0;
     for (auto& face : faces) {
         auto* data = reinterpret_cast<std::byte*>(
@@ -349,7 +349,7 @@ auto main() -> int
     // the static casts are necessary to specify that a narrowing conversion is
     // intended.
     staplegl::cubemap const skybox {
-        cube_data, { static_cast<uint32_t>(width), static_cast<uint32_t>(height) },
+        cube_data, { width, height },
         { .internal_format = GL_SRGB8, .format = GL_RGB, .datatype = GL_UNSIGNED_BYTE },
         { .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },
         true

@@ -239,19 +239,19 @@ target_include_directories(teapot PUBLIC ${GLFW3_INCLUDE_DIR}
 )
 
 set(CLANG_TIDY_CHECKS
-    "misc-*,modernize-*,performance-*,bugprone-*,clang-analyzer-*,-bugprone-easily-swappable-parameters,-bugprone-unchecked-optional-access")
+    "misc-*,modernize-*,cppcoreguidelines-*,performance-*,bugprone-*,clang-analyzer-*,-bugprone-easily-swappable-parameters,-bugprone-unchecked-optional-access,-misc-no-recursion,-misc-non-private-*,-performance-no-int-to-ptr,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-pro-bounds-constant-array-index,-cppcoreguidelines-non-private-*")
 
 # Define a custom target for clang-tidy
 add_custom_target(clang-tidy-sandbox
-    COMMAND clang-tidy --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${SANDBOX_SOURCES}
+    COMMAND clang-tidy -header-filter=${STAPLEGL_HEADERS} --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${SANDBOX_SOURCES}
     -- -I${SANDBOX_DIR}/include -I${GLAD_INCLUDE_DIR} -I${GLFW3_INCLUDE_DIR}
-    -I${STAPLEGL_DIR} -I${STAPLEGL_MODULES_DIR}/include -std=c++20 -fexperimental-library
+    -I${STAPLEGL_DIR} -I${STAPLEGL_MODULES_DIR}/include -std=c++20 -fexperimental-library 
     COMMENT "Running clang-tidy on sandbox"
     VERBATIM
 )
 
 add_custom_target(clang-tidy-batches
-    COMMAND clang-tidy --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${BATCHES_SOURCES}
+    COMMAND clang-tidy -header-filter=${STAPLEGL_HEADERS} --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${BATCHES_SOURCES}
     -- -I${BATCHES_DIR}/include -I${GLAD_INCLUDE_DIR} -I${GLFW3_INCLUDE_DIR}
     -I${STAPLEGL_DIR} -I${STAPLEGL_MODULES_DIR}/include -std=c++20 -fexperimental-library
     COMMENT "Running clang-tidy on batches"
@@ -260,7 +260,7 @@ add_custom_target(clang-tidy-batches
 
 add_custom_target(
     clang-tidy-teapot
-    COMMAND clang-tidy --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${TEAPOT_SOURCES}
+    COMMAND clang-tidy -header-filter=${STAPLEGL_HEADERS} --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${TEAPOT_SOURCES}
     -- -I${TEAPOT_DIR}/include -I${GLAD_INCLUDE_DIR} -I${GLFW3_INCLUDE_DIR} -I${ASSETS_DIR} -I${GLM_DIR} -I${STB_DIR}
     -I${STAPLEGL_DIR} -I${STAPLEGL_MODULES_DIR}/include -std=c++20 -fexperimental-library
     COMMENT "Running clang-tidy on teapot"

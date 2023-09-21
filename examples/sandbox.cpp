@@ -21,8 +21,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
 // initial window size
-const uint32_t SCR_WIDTH = 1600;
-const uint32_t SCR_HEIGHT = 900;
+const int32_t SCR_WIDTH = 1600;
+const int32_t SCR_HEIGHT = 900;
 
 auto main() -> int
 {
@@ -54,7 +54,7 @@ auto main() -> int
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
-    if (gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)) == 0) {
+    if (gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)) == 0) { // NOLINT (reinterpret-cast)
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }

@@ -61,7 +61,7 @@ public:
     ~renderbuffer();
 
     renderbuffer(const renderbuffer&) = delete;
-    renderbuffer& operator=(const renderbuffer&) = delete;
+    auto operator=(const renderbuffer&) -> renderbuffer& = delete;
 
     /**
      * @brief Construct a new renderbuffer object
@@ -80,7 +80,7 @@ public:
      * @param other The renderbuffer object to move from.
      * @return renderbuffer& The moved object.
      */
-    renderbuffer& operator=(renderbuffer&& other) noexcept;
+    auto operator=(renderbuffer&& other) noexcept -> renderbuffer&;
 
     /**
      * @brief Bind the renderbuffer object.
@@ -99,14 +99,14 @@ public:
      * 
      * @return uint32_t the ID of the renderbuffer object.
      */
-    constexpr uint32_t id() const noexcept { return m_id; }
+    [[nodiscard]] constexpr auto id() const noexcept -> uint32_t { return m_id; }
 
     /**
      * @brief Get the resolution of the renderbuffer object.
      * 
      * @return resolution A resolution object containing the width and height of the renderbuffer.
      */
-    [[nodiscard]] constexpr resolution res() const noexcept { return m_res; }
+    [[nodiscard]] constexpr auto res() const noexcept -> resolution { return m_res; }
 
     /**
      * @brief Get the attachment type of the renderbuffer object.
@@ -114,14 +114,14 @@ public:
      * 
      * @return attachment_type The attachment type of the renderbuffer object.
      */
-    [[nodiscard]] constexpr attachment_type type() const noexcept { return m_type; }
+    [[nodiscard]] constexpr auto type() const noexcept -> attachment_type { return m_type; }
 
     /**
      * @brief Get the sample count of the renderbuffer object.
      * 
      * @return tex_samples The sample count of the renderbuffer object.
      */
-    [[nodiscard]] constexpr tex_samples samples() const noexcept { return m_samples; }
+    [[nodiscard]] constexpr auto samples() const noexcept -> tex_samples { return m_samples; }
 
 private:
     uint32_t m_id {};
@@ -130,7 +130,7 @@ private:
     tex_samples m_samples {};
 };
 
-renderbuffer::renderbuffer(resolution res, attachment_type type, tex_samples samples) noexcept
+inline renderbuffer::renderbuffer(resolution res, attachment_type type, tex_samples samples) noexcept
     : m_res(res)
     , m_type(type)
     , m_samples(samples)
@@ -161,13 +161,13 @@ renderbuffer::renderbuffer(resolution res, attachment_type type, tex_samples sam
     glBindRenderbuffer(GL_RENDERBUFFER, 0);
 }
 
-renderbuffer::~renderbuffer()
+inline renderbuffer::~renderbuffer()
 {
     if (m_id != 0)
         glDeleteRenderbuffers(1, &m_id);
 }
 
-renderbuffer::renderbuffer(renderbuffer&& other) noexcept
+inline renderbuffer::renderbuffer(renderbuffer&& other) noexcept
     : m_id(other.m_id)
     , m_res(other.m_res)
     , m_type(other.m_type)
@@ -176,7 +176,7 @@ renderbuffer::renderbuffer(renderbuffer&& other) noexcept
     other.m_id = 0;
 }
 
-renderbuffer& renderbuffer::operator=(renderbuffer&& other) noexcept
+inline auto renderbuffer::operator=(renderbuffer&& other) noexcept -> renderbuffer&
 {
     if (this != &other) {
         m_id = other.m_id;
@@ -190,12 +190,12 @@ renderbuffer& renderbuffer::operator=(renderbuffer&& other) noexcept
     return *this;
 }
 
-void renderbuffer::bind() const
+inline void renderbuffer::bind() const
 {
     glBindRenderbuffer(GL_RENDERBUFFER, m_id);
 }
 
-void renderbuffer::unbind() const
+inline void renderbuffer::unbind() const
 {
     glBindRenderbuffer(GL_RENDERBUFFER, 0);
 }

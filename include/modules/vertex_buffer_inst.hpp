@@ -75,16 +75,16 @@ private:
      *
      * @return std::size_t the new capacity of the buffer.
      */
-    constexpr std::size_t calc_capacity(std::size_t capacity) const noexcept
+    [[nodiscard]] constexpr auto calc_capacity(std::size_t capacity) const noexcept -> std::size_t
     {
-        std::size_t new_cap;
+      std::size_t new_cap{0};
 
-        if (capacity == 0) [[unlikely]] {
-            new_cap = instance_size();
+      if (capacity == 0) [[unlikely]] {
+        new_cap = instance_size();
         } else if (capacity == instance_size()) [[unlikely]] {
             new_cap = instance_size() * 32;
         } else [[likely]] {
-            new_cap = capacity * std::numbers::phi;
+            new_cap = static_cast<size_t>(static_cast<double>(capacity) * std::numbers::phi);
         }
 
         return new_cap;
@@ -111,20 +111,20 @@ private:
         glGenBuffers(1, &new_id);
 
         glBindBuffer(GL_COPY_WRITE_BUFFER, new_id);
-        glBufferData(GL_COPY_WRITE_BUFFER, old_capacity, nullptr, GL_DYNAMIC_DRAW);
+        glBufferData(GL_COPY_WRITE_BUFFER, static_cast<ptrdiff_t>(old_capacity), nullptr, GL_DYNAMIC_DRAW);
 
         glBindBuffer(GL_COPY_READ_BUFFER, m_id);
 
         // copy the data from the old buffer to the new one
 
-        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, m_count * m_layout.stride());
+        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, static_cast<ptrdiff_t>(m_count * m_layout.stride()));
 
         glBindBuffer(GL_COPY_WRITE_BUFFER, m_id);
-        glBufferData(GL_COPY_WRITE_BUFFER, new_capacity, nullptr, GL_DYNAMIC_DRAW);
+        glBufferData(GL_COPY_WRITE_BUFFER, static_cast<ptrdiff_t>(new_capacity), nullptr, GL_DYNAMIC_DRAW);
 
         glBindBuffer(GL_COPY_READ_BUFFER, new_id);
 
-        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, m_count * m_layout.stride());
+        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, static_cast<ptrdiff_t>(m_count * m_layout.stride()));
 
         glDeleteBuffers(1, &new_id);
         glBindBuffer(GL_ARRAY_BUFFER, m_id);
@@ -140,22 +140,24 @@ public:
         : vertex_buffer { instance_data, driver_draw_hint::DYNAMIC_DRAW }
         , m_capacity { instance_data.size() } {};
 
+    ~vertex_buffer_inst() noexcept = default;
+
     vertex_buffer_inst(const vertex_buffer_inst&) = delete;
-    vertex_buffer_inst& operator=(const vertex_buffer_inst&) = delete;
+    auto operator=(const vertex_buffer_inst&) -> vertex_buffer_inst& = delete;
 
     vertex_buffer_inst(vertex_buffer_inst&&) noexcept = default;
-    [[nodiscard]] vertex_buffer_inst& operator=(vertex_buffer_inst&&) noexcept = default;
+    [[nodiscard]] auto operator=(vertex_buffer_inst&&) noexcept -> vertex_buffer_inst& = default;
 
     void add_instance(std::span<const float> instance_data) noexcept;
-    int32_t delete_instance(std::int32_t index) noexcept;
+    auto delete_instance(std::int32_t index) noexcept -> int32_t;
     void update_instance(std::int32_t index,
         std::span<const float> instance_data) noexcept;
 
     // UTLITIES
 
-    constexpr std::int32_t instance_count() const noexcept { return m_count; }
-    constexpr std::size_t instance_size() const noexcept { return m_layout.stride(); }
-    constexpr std::size_t capacity() const noexcept { return m_capacity; }
+    [[nodiscard]] constexpr auto instance_count() const noexcept -> std::int32_t { return m_count; }
+    [[nodiscard]] constexpr auto instance_size() const noexcept -> std::size_t { return m_layout.stride(); }
+    [[nodiscard]] constexpr auto capacity() const noexcept -> std::size_t { return m_capacity; }
     [[nodiscard]] constexpr auto layout() const noexcept -> const vertex_buffer_layout& { return m_layout; }
 
 }; // class vertex_buffer_inst
@@ -178,15 +180,18 @@ inline void vertex_buffer_inst::add_instance(std::span<const float> instance_dat
     m_count++;
 }
 
-void vertex_buffer_inst::update_instance(std::int32_t index, std::span<const float> instance_data) noexcept
+inline void vertex_buffer_inst::update_instance(std::int32_t index, std::span<const float> instance_data) noexcept
 {
     assert(index < m_count || instance_data.size_bytes() == m_layout.stride());
 
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
-    glBufferSubData(GL_ARRAY_BUFFER, index * instance_data.size_bytes(), instance_data.size_bytes(), instance_data.data());
+    glBufferSubData(GL_ARRAY_BUFFER, 
+    static_cast<ptrdiff_t>(index * instance_data.size_bytes()), 
+    static_cast<ptrdiff_t>(instance_data.size_bytes()), 
+    instance_data.data());
 }
 
-inline std::int32_t vertex_buffer_inst::delete_instance(std::int32_t index) noexcept
+inline auto vertex_buffer_inst::delete_instance(std::int32_t index) noexcept -> std::int32_t
 {
     if (index >= m_count || index < 0) [[unlikely]] {
         return m_count;
@@ -194,8 +199,10 @@ inline std::int32_t vertex_buffer_inst::delete_instance(std::int32_t index) noex
 
     // move the last instance to the position of the deleted instance
 
-    float* last_instance_ptr = static_cast<float*>(glMapBufferRange(
-        GL_ARRAY_BUFFER, (m_count - 1) * m_layout.stride(), m_layout.stride(),
+    auto* last_instance_ptr = static_cast<float*>(glMapBufferRange(
+        GL_ARRAY_BUFFER, 
+        static_cast<ptrdiff_t>((m_count - 1) * m_layout.stride()), 
+        static_cast<uint32_t>(m_layout.stride()),
         GL_MAP_WRITE_BIT | GL_MAP_READ_BIT)); // read the last instance
 
     // write the last instance to the position of the deleted instance (overwriting it)
