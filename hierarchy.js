@@ -12,6 +12,7 @@ var hierarchy =
     [ "staplegl::texture_color", "structstaplegl_1_1texture__color.html", null ],
     [ "staplegl::texture_filter", "structstaplegl_1_1texture__filter.html", null ],
     [ "staplegl::uniform_buffer", "classstaplegl_1_1uniform__buffer.html", null ],
+    [ "vec3", "structvec3.html", null ],
     [ "staplegl::vertex_array", "classstaplegl_1_1vertex__array.html", null ],
     [ "staplegl::vertex_attribute", "structstaplegl_1_1vertex__attribute.html", null ],
     [ "staplegl::vertex_buffer", "classstaplegl_1_1vertex__buffer.html", [

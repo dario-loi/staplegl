@@ -18,5 +18,6 @@ var annotated_dup =
       [ "vertex_buffer_inst", "classstaplegl_1_1vertex__buffer__inst.html", "classstaplegl_1_1vertex__buffer__inst" ],
       [ "vertex_attribute", "structstaplegl_1_1vertex__attribute.html", "structstaplegl_1_1vertex__attribute" ],
       [ "vertex_buffer_layout", "classstaplegl_1_1vertex__buffer__layout.html", "classstaplegl_1_1vertex__buffer__layout" ]
-    ] ]
+    ] ],
+    [ "vec3", "structvec3.html", "structvec3" ]
 ];

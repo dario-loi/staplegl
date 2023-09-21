@@ -1,5 +1,8 @@
 <map id="include/modules/renderbuffer.hpp" name="include/modules/renderbuffer.hpp">
-<area shape="rect" id="node1" title="Render Buffer Object (RBO) wrapper." alt="" coords="5,5,245,32"/>
-<area shape="rect" id="node2" href="$framebuffer_8hpp.html" title="Wrapper for OpenGL Framebuffer Objects." alt="" coords="7,80,244,107"/>
-<area shape="rect" id="node3" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="49,155,202,181"/>
+<area shape="rect" id="node1" title="Render Buffer Object (RBO) wrapper." alt="" coords="164,5,404,32"/>
+<area shape="rect" id="node2" href="$framebuffer_8hpp.html" title="Wrapper for OpenGL Framebuffer Objects." alt="" coords="88,80,325,107"/>
+<area shape="rect" id="node3" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="207,155,361,181"/>
+<area shape="rect" id="node4" href="$batches_8cpp.html" title="Batched rendering example." alt="" coords="5,229,173,256"/>
+<area shape="rect" id="node5" href="$sandbox_8cpp.html" title="Minimal example of how to use staplegl." alt="" coords="198,229,370,256"/>
+<area shape="rect" id="node6" href="$teapot_8cpp.html" title="More complex example of staplegl usage with the Utah Teapot model." alt="" coords="394,229,553,256"/>
 </map>

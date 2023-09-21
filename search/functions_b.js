@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['renderbuffer_225',['renderbuffer',['../classstaplegl_1_1renderbuffer.html#abd436bf38b02e2cd66ca1222c867474c',1,'staplegl::renderbuffer::renderbuffer(resolution res, attachment_type type=attachment_type::depth_stencil, tex_samples samples=tex_samples::MSAA_X1) noexcept'],['../classstaplegl_1_1renderbuffer.html#a02f1033a508fdf14b040e33c65e9d34d',1,'staplegl::renderbuffer::renderbuffer(const renderbuffer &amp;)=delete'],['../classstaplegl_1_1renderbuffer.html#aff0b1996bdca795915d446e2d7ed8b32',1,'staplegl::renderbuffer::renderbuffer(renderbuffer &amp;&amp;other) noexcept']]],
-  ['res_226',['res',['../classstaplegl_1_1cubemap.html#a7d763c03ae314093d7997e23b6141f11',1,'staplegl::cubemap::res()'],['../classstaplegl_1_1renderbuffer.html#a4ac33fea3d2438b80706c793390da65e',1,'staplegl::renderbuffer::res()']]]
+  ['processinput_250',['processInput',['../batches_8cpp.html#a2d03c6f2666863543429a06ef642fe6a',1,'processInput(GLFWwindow *window):&#160;batches.cpp'],['../sandbox_8cpp.html#a2d03c6f2666863543429a06ef642fe6a',1,'processInput(GLFWwindow *window):&#160;sandbox.cpp'],['../teapot_8cpp.html#a2d03c6f2666863543429a06ef642fe6a',1,'processInput(GLFWwindow *window):&#160;teapot.cpp']]],
+  ['program_5fid_251',['program_id',['../classstaplegl_1_1shader__program.html#ad05c6c848d9bbe26146622a853a8b285',1,'staplegl::shader_program']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['element_5fcount_268',['element_count',['../structstaplegl_1_1vertex__attribute.html#a64bd31e273c2bd7b009afeac8576a185',1,'staplegl::vertex_attribute']]]
+  ['datatype_295',['datatype',['../structstaplegl_1_1texture__color.html#a7b8a2d2263f2e77e356a2eb924656650',1,'staplegl::texture_color']]]
 ];

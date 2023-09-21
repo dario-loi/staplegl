@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['offset_277',['offset',['../structstaplegl_1_1vertex__attribute.html#a5fe03b8eb414e71b1c43b04dd060560a',1,'staplegl::vertex_attribute']]]
+  ['m_5fid_301',['m_id',['../classstaplegl_1_1vertex__buffer.html#ae1a657d1a7703ec211a142df2a203b8f',1,'staplegl::vertex_buffer']]],
+  ['m_5flayout_302',['m_layout',['../classstaplegl_1_1vertex__buffer.html#a2b72ae1521a29169857b7d042ce84ff5',1,'staplegl::vertex_buffer']]],
+  ['mag_5ffilter_303',['mag_filter',['../structstaplegl_1_1texture__filter.html#a375df87b1268bd68379043bdaa847bb2',1,'staplegl::texture_filter']]],
+  ['min_5ffilter_304',['min_filter',['../structstaplegl_1_1texture__filter.html#ae7c882714e7698e3956021ed5999a954',1,'staplegl::texture_filter']]]
 ];

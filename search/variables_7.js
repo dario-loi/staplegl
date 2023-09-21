@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['name_276',['name',['../structstaplegl_1_1vertex__attribute.html#abc8f644f8b3e24d29ad4e380ae2be09c',1,'staplegl::vertex_attribute']]]
+  ['luminosity_300',['luminosity',['../teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42',1,'teapot.cpp']]]
 ];

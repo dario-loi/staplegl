@@ -1,9 +1,12 @@
 <map id="include/modules/utility.hpp" name="include/modules/utility.hpp">
-<area shape="rect" id="node1" title="Utility functions for parsing files." alt="" coords="300,5,497,32"/>
+<area shape="rect" id="node1" title="Utility functions for parsing files." alt="" coords="305,5,503,32"/>
 <area shape="rect" id="node2" href="$cubemap_8hpp.html" title="Cube map texture wrapper." alt="" coords="5,155,227,181"/>
-<area shape="rect" id="node4" href="$framebuffer_8hpp.html" title="Wrapper for OpenGL Framebuffer Objects." alt="" coords="301,155,539,181"/>
-<area shape="rect" id="node5" href="$renderbuffer_8hpp.html" title="Render Buffer Object (RBO) wrapper." alt="" coords="436,80,676,107"/>
-<area shape="rect" id="node6" href="$shader_8hpp.html" title="Shader program wrapper." alt="" coords="587,155,791,181"/>
-<area shape="rect" id="node7" href="$texture_8hpp.html" title="Texture abstraction." alt="" coords="153,80,361,107"/>
-<area shape="rect" id="node3" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="265,229,418,256"/>
+<area shape="rect" id="node7" href="$framebuffer_8hpp.html" title="Wrapper for OpenGL Framebuffer Objects." alt="" coords="301,155,539,181"/>
+<area shape="rect" id="node8" href="$renderbuffer_8hpp.html" title="Render Buffer Object (RBO) wrapper." alt="" coords="441,80,681,107"/>
+<area shape="rect" id="node9" href="$shader_8hpp.html" title="Shader program wrapper." alt="" coords="615,155,819,181"/>
+<area shape="rect" id="node10" href="$texture_8hpp.html" title="Texture abstraction." alt="" coords="159,80,367,107"/>
+<area shape="rect" id="node3" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="343,229,497,256"/>
+<area shape="rect" id="node4" href="$batches_8cpp.html" title="Batched rendering example." alt="" coords="141,304,309,331"/>
+<area shape="rect" id="node5" href="$sandbox_8cpp.html" title="Minimal example of how to use staplegl." alt="" coords="334,304,506,331"/>
+<area shape="rect" id="node6" href="$teapot_8cpp.html" title="More complex example of staplegl usage with the Utah Teapot model." alt="" coords="530,304,689,331"/>
 </map>

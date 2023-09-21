@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['datatype_267',['datatype',['../structstaplegl_1_1texture__color.html#a7b8a2d2263f2e77e356a2eb924656650',1,'staplegl::texture_color']]]
+  ['clamping_294',['clamping',['../structstaplegl_1_1texture__filter.html#ac2b259e72eb309c5f1f6e819ed94a446',1,'staplegl::texture_filter']]]
 ];

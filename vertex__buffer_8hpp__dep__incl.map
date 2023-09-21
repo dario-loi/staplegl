@@ -1,6 +1,9 @@
 <map id="include/modules/vertex_buffer.hpp" name="include/modules/vertex_buffer.hpp">
-<area shape="rect" id="node1" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="5,5,180,47"/>
-<area shape="rect" id="node2" href="$vertex__array_8hpp.html" title="Vertex Array Object (VAO) wrapper." alt="" coords="43,184,217,225"/>
-<area shape="rect" id="node3" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="53,273,207,300"/>
-<area shape="rect" id="node4" href="$vertex__buffer__inst_8hpp.html" title="Vertex buffer object for instanced rendering." alt="" coords="131,95,305,136"/>
+<area shape="rect" id="node1" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="159,5,334,47"/>
+<area shape="rect" id="node2" href="$vertex__array_8hpp.html" title="Vertex Array Object (VAO) wrapper." alt="" coords="197,184,371,225"/>
+<area shape="rect" id="node3" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="207,273,361,300"/>
+<area shape="rect" id="node7" href="$vertex__buffer__inst_8hpp.html" title="Vertex buffer object for instanced rendering." alt="" coords="285,95,459,136"/>
+<area shape="rect" id="node4" href="$batches_8cpp.html" title="Batched rendering example." alt="" coords="5,348,173,375"/>
+<area shape="rect" id="node5" href="$sandbox_8cpp.html" title="Minimal example of how to use staplegl." alt="" coords="198,348,370,375"/>
+<area shape="rect" id="node6" href="$teapot_8cpp.html" title="More complex example of staplegl usage with the Utah Teapot model." alt="" coords="394,348,553,375"/>
 </map>

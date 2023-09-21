@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['height_270',['height',['../structstaplegl_1_1resolution.html#a11717d4a0c49d09cd65476be524adea3',1,'staplegl::resolution']]]
+  ['format_297',['format',['../structstaplegl_1_1texture__color.html#ab7add19e40560eae2a5c5396592cb4c2',1,'staplegl::texture_color']]]
 ];

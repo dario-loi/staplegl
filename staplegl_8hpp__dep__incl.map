@@ -1,0 +1,6 @@
+<map id="include/staplegl.hpp" name="include/staplegl.hpp">
+<area shape="rect" id="node1" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="207,5,361,32"/>
+<area shape="rect" id="node2" href="$batches_8cpp.html" title="Batched rendering example." alt="" coords="5,80,173,107"/>
+<area shape="rect" id="node3" href="$sandbox_8cpp.html" title="Minimal example of how to use staplegl." alt="" coords="198,80,370,107"/>
+<area shape="rect" id="node4" href="$teapot_8cpp.html" title="More complex example of staplegl usage with the Utah Teapot model." alt="" coords="394,80,553,107"/>
+</map>

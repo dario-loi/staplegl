@@ -1,16 +1,19 @@
 <map id="include/modules/gl_functions.hpp" name="include/modules/gl_functions.hpp">
-<area shape="rect" id="node1" title="Loads OpenGL functions." alt="" coords="593,5,738,47"/>
+<area shape="rect" id="node1" title="Loads OpenGL functions." alt="" coords="707,5,853,47"/>
 <area shape="rect" id="node2" href="$cubemap_8hpp.html" title="Cube map texture wrapper." alt="" coords="5,191,227,218"/>
-<area shape="rect" id="node4" href="$framebuffer_8hpp.html" title="Wrapper for OpenGL Framebuffer Objects." alt="" coords="301,191,539,218"/>
-<area shape="rect" id="node5" href="$index__buffer_8hpp.html" title="Element Buffer Object (EBO) wrapper." alt="" coords="458,363,627,404"/>
-<area shape="rect" id="node6" href="$vertex__array_8hpp.html" title="Vertex Array Object (VAO) wrapper." alt="" coords="629,452,803,493"/>
-<area shape="rect" id="node7" href="$renderbuffer_8hpp.html" title="Render Buffer Object (RBO) wrapper." alt="" coords="337,102,577,129"/>
-<area shape="rect" id="node8" href="$shader_8hpp.html" title="Shader program wrapper." alt="" coords="1141,459,1345,486"/>
-<area shape="rect" id="node9" href="$shader__data__type_8hpp.html" title="Shader data type definitions." alt="" coords="869,95,1046,136"/>
-<area shape="rect" id="node11" href="$uniform__buffer_8hpp.html" title="Uniform Buffer Object (UBO) wrapper." alt="" coords="1055,273,1239,315"/>
-<area shape="rect" id="node12" href="$vertex__buffer_8hpp.html" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="754,273,929,315"/>
-<area shape="rect" id="node13" href="$vertex__buffer__inst_8hpp.html" title="Vertex buffer object for instanced rendering." alt="" coords="754,363,929,404"/>
-<area shape="rect" id="node14" href="$texture_8hpp.html" title="Texture abstraction." alt="" coords="55,102,263,129"/>
-<area shape="rect" id="node3" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="702,541,855,568"/>
-<area shape="rect" id="node10" href="$vertex__buffer__layout_8hpp.html" title="Vertex Buffer Layout abstraction." alt="" coords="879,184,1054,225"/>
+<area shape="rect" id="node7" href="$framebuffer_8hpp.html" title="Wrapper for OpenGL Framebuffer Objects." alt="" coords="301,191,539,218"/>
+<area shape="rect" id="node8" href="$index__buffer_8hpp.html" title="Element Buffer Object (EBO) wrapper." alt="" coords="573,363,742,404"/>
+<area shape="rect" id="node9" href="$vertex__array_8hpp.html" title="Vertex Array Object (VAO) wrapper." alt="" coords="669,452,843,493"/>
+<area shape="rect" id="node10" href="$renderbuffer_8hpp.html" title="Render Buffer Object (RBO) wrapper." alt="" coords="452,102,692,129"/>
+<area shape="rect" id="node11" href="$shader_8hpp.html" title="Shader program wrapper." alt="" coords="1125,459,1329,486"/>
+<area shape="rect" id="node12" href="$shader__data__type_8hpp.html" title="Shader data type definitions." alt="" coords="1011,95,1189,136"/>
+<area shape="rect" id="node14" href="$uniform__buffer_8hpp.html" title="Uniform Buffer Object (UBO) wrapper." alt="" coords="1264,273,1448,315"/>
+<area shape="rect" id="node15" href="$vertex__buffer_8hpp.html" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="818,273,993,315"/>
+<area shape="rect" id="node16" href="$vertex__buffer__inst_8hpp.html" title="Vertex buffer object for instanced rendering." alt="" coords="919,363,1094,404"/>
+<area shape="rect" id="node17" href="$texture_8hpp.html" title="Texture abstraction." alt="" coords="163,102,371,129"/>
+<area shape="rect" id="node3" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="679,541,833,568"/>
+<area shape="rect" id="node4" href="$batches_8cpp.html" title="Batched rendering example." alt="" coords="477,616,645,643"/>
+<area shape="rect" id="node5" href="$sandbox_8cpp.html" title="Minimal example of how to use staplegl." alt="" coords="670,616,842,643"/>
+<area shape="rect" id="node6" href="$teapot_8cpp.html" title="More complex example of staplegl usage with the Utah Teapot model." alt="" coords="866,616,1025,643"/>
+<area shape="rect" id="node13" href="$vertex__buffer__layout_8hpp.html" title="Vertex Buffer Layout abstraction." alt="" coords="1013,184,1187,225"/>
 </map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['plain_5fold_5fdata_278',['plain_old_data',['../namespacestaplegl.html#ac8e0062d2fd9c47b259fbf77c20c6fff',1,'staplegl']]]
+  ['name_305',['name',['../structstaplegl_1_1vertex__attribute.html#abc8f644f8b3e24d29ad4e380ae2be09c',1,'staplegl::vertex_attribute']]]
 ];
