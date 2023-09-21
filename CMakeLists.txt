@@ -202,14 +202,7 @@ foreach(face IN ITEMS right left top bottom front back)
     configure_file(${SKYBOX_DIR}/${face}.jpg ${CMAKE_CURRENT_BINARY_DIR}/assets/skybox/${face}.jpg COPYONLY)
 endforeach(face)
 
-# add warnings to executable targets
-if(MSVC)
-    target_compile_options(sandbox PRIVATE /W4 /WX)
-    target_compile_options(batches PRIVATE /W4 /WX)
-else()
-    target_compile_options(sandbox PRIVATE -Wall -Wextra -pedantic)
-    target_compile_options(batches PRIVATE -Wall -Wextra -pedantic)
-endif()
+
 
 set(TEAPOT_SOURCES
     ${EXAMPLES_DIR}/teapot.cpp
@@ -237,6 +230,19 @@ target_link_libraries(teapot ${LIBS})
 target_include_directories(teapot PUBLIC ${GLFW3_INCLUDE_DIR}
     ${OPENGL_INCLUDE_DIR}
 )
+
+# add warnings to executable targets
+if(MSVC)
+    target_compile_options(sandbox PRIVATE /W4 /WX)
+    target_compile_options(batches PRIVATE /W4 /WX)
+    target_compile_options(teapot PRIVATE /W4 /WX)
+else()
+    target_compile_options(sandbox PRIVATE -Wall -Wextra -pedantic)
+    target_compile_options(batches PRIVATE -Wall -Wextra -pedantic)
+    target_compile_options(teapot PRIVATE -Wall -Wextra -pedantic)
+endif()
+
+
 
 set(CLANG_TIDY_CHECKS
     "misc-*,modernize-*,cppcoreguidelines-*,performance-*,bugprone-*,clang-analyzer-*,-bugprone-easily-swappable-parameters,-bugprone-unchecked-optional-access,-misc-no-recursion,-misc-non-private-*,-performance-no-int-to-ptr,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-pro-bounds-constant-array-index,-cppcoreguidelines-non-private-*")

@@ -489,7 +489,7 @@ auto main() -> int
         downsample_shader.bind();
 
         // work our way down the levels of the pyramid, downsampling the texture each time.
-        for (int i = 0; i < pyramid_textures.size() - 1; i++) {
+        for (size_t i = 0; i < pyramid_textures.size() - 1; i++) {
             // downsample from texture i to texture i + 1
 
             auto& draw_source = pyramid_textures[i];

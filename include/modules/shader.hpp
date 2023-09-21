@@ -110,13 +110,13 @@ public:
      */
     shader_program(std::string_view path) noexcept;
 
-    shader_program(const shader_program&) = delete;
-    auto operator=(const shader_program&) -> shader_program& = delete;
+    shader_program(const shader_program&) = default;
+    auto operator=(const shader_program&) -> shader_program& = default;
 
     shader_program(shader_program&& other) noexcept
-        : m_id { other.m_id }
+        : m_shaders { std::move(other.m_shaders) }
+        , m_id { other.m_id }
         , m_name { std::move(other.m_name) }
-        , m_shaders { std::move(other.m_shaders) }
     {
         other.m_id = 0;
     }
@@ -288,9 +288,9 @@ private:
     [[nodiscard]] static auto string_to_shader_type(std::string_view str) -> std::optional<shader_type>;
 
 private:
+    std::vector<shader> m_shaders;
     std::uint32_t m_id {};
     std::string m_name;
-    std::vector<shader> m_shaders;
 };
 
 /*
@@ -300,8 +300,8 @@ private:
 */
 
 inline shader_program::shader_program(std::string_view name, std::string_view path) noexcept
-    : m_id(create_program()), m_name { name }
-    , m_shaders { parse_shaders(util::read_file(path)) }
+    : m_shaders { parse_shaders(util::read_file(path)) } 
+    , m_id(create_program()), m_name { name }
 {
     
 }
@@ -313,7 +313,6 @@ inline shader_program::shader_program(std::string_view name,
     for (const auto& [type, path] : shaders)
         m_shaders.push_back({ type, util::read_file(path) });
 
-    
 }
 
 inline shader_program::shader_program(std::string_view path) noexcept
@@ -385,6 +384,7 @@ inline auto shader_program::create_program() const -> std::uint32_t
 {
     const std::uint32_t program { glCreateProgram() };
     std::vector<std::uint32_t> shader_ids;
+
 
     shader_ids.reserve(m_shaders.size());
 for (const auto& [type, src] : m_shaders) {

@@ -50,14 +50,14 @@ auto main() -> int
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    glEnable(GL_MULTISAMPLE); // MSAA
-
     // glad: load all OpenGL function pointers
     // ---------------------------------------
     if (gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)) == 0) { // NOLINT (reinterpret-cast)
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
+
+    glEnable(GL_MULTISAMPLE); // MSAA
 
     staplegl::shader_program const basic { "basic_shader", "./shaders/basic_shader.glsl" };
 
