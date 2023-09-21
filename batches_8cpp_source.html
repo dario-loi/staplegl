@@ -223,19 +223,19 @@ $(document).ready(function(){initNavTree('batches_8cpp_source.html',''); initRes
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <a class="code" href="classstaplegl_1_1index__buffer.html">staplegl::index_buffer</a> EBO { indices };</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <a class="code" href="classstaplegl_1_1vertex__array.html">staplegl::vertex_array</a> VAO;</div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <a class="code" href="classstaplegl_1_1vertex__buffer__layout.html">staplegl::vertex_buffer_layout</a> UBO_block_layout {</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        { <a class="code" href="namespacestaplegl_1_1shader__data__type.html#af865d106895e557e4d60fc5da1b01eb6a9342d1f2c5cbc704e681a6bbf880a013">shader_array_type::float32_arr</a>, <span class="stringliteral">&quot;u_color&quot;</span>, 4 }</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    };</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    VAO.<a class="code" href="classstaplegl_1_1vertex__array.html#a85323f4caf4b1c6738922b47e1b957ee">add_vertex_buffer</a>(std::move(VBO));</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    VAO.<a class="code" href="classstaplegl_1_1vertex__array.html#aa66cbe1a2974f87313df52d72f45aa0f">set_instance_buffer</a>(std::move(VBO_inst));</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    VAO.<a class="code" href="classstaplegl_1_1vertex__array.html#a4cdd47f4f78f155dbf03b88933bcd455">set_index_buffer</a>(std::move(EBO));</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <a class="code" href="classstaplegl_1_1uniform__buffer.html">staplegl::uniform_buffer</a> UBO_block { UBO_block_layout, 1 };</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    UBO_block.<a class="code" href="classstaplegl_1_1uniform__buffer.html#a52b4788b3c8cd94862c1416cb9b7155c">bind</a>();</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <a class="code" href="classstaplegl_1_1vertex__buffer__layout.html">staplegl::vertex_buffer_layout</a> UBO_block_layout {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        { <a class="code" href="namespacestaplegl_1_1shader__data__type.html#af865d106895e557e4d60fc5da1b01eb6a9342d1f2c5cbc704e681a6bbf880a013">shader_array_type::float32_arr</a>, <span class="stringliteral">&quot;u_color&quot;</span>, 4 }</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    };</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    std::array&lt;float, 4&gt; color {};</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <a class="code" href="classstaplegl_1_1uniform__buffer.html">staplegl::uniform_buffer</a> UBO_block { UBO_block_layout, 1 };</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    VAO.<a class="code" href="classstaplegl_1_1vertex__array.html#a85323f4caf4b1c6738922b47e1b957ee">add_vertex_buffer</a>(std::move(VBO));</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    VAO.<a class="code" href="classstaplegl_1_1vertex__array.html#aa66cbe1a2974f87313df52d72f45aa0f">set_instance_buffer</a>(std::move(VBO_inst));</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    VAO.<a class="code" href="classstaplegl_1_1vertex__array.html#a4cdd47f4f78f155dbf03b88933bcd455">set_index_buffer</a>(std::move(EBO));</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    UBO_block.<a class="code" href="classstaplegl_1_1uniform__buffer.html#a52b4788b3c8cd94862c1416cb9b7155c">bind</a>();</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    std::array&lt;float, 4&gt; color {};</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    VAO.<a class="code" href="classstaplegl_1_1vertex__array.html#a4491c6a6f1dc174c2caa320c21042c2a">bind</a>();</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>

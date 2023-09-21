@@ -223,19 +223,19 @@ $(document).ready(function(){initNavTree('batches_8cpp-example.html',''); initRe
 <div class="line">    <a name="_a19"></a><a class="code" href="classstaplegl_1_1index__buffer.html">staplegl::index_buffer</a> EBO { indices };</div>
 <div class="line">    <a name="_a20"></a><a class="code" href="classstaplegl_1_1vertex__array.html">staplegl::vertex_array</a> VAO;</div>
 <div class="line"> </div>
+<div class="line">    VAO.<a name="a21"></a><a class="code" href="classstaplegl_1_1vertex__array.html#a85323f4caf4b1c6738922b47e1b957ee">add_vertex_buffer</a>(std::move(VBO));</div>
+<div class="line">    VAO.<a name="a22"></a><a class="code" href="classstaplegl_1_1vertex__array.html#aa66cbe1a2974f87313df52d72f45aa0f">set_instance_buffer</a>(std::move(VBO_inst));</div>
+<div class="line">    VAO.<a name="a23"></a><a class="code" href="classstaplegl_1_1vertex__array.html#a4cdd47f4f78f155dbf03b88933bcd455">set_index_buffer</a>(std::move(EBO));</div>
+<div class="line"> </div>
 <div class="line">    <a class="code" href="classstaplegl_1_1vertex__buffer__layout.html">staplegl::vertex_buffer_layout</a> UBO_block_layout {</div>
-<div class="line">        { <a name="a21"></a><a class="code" href="namespacestaplegl_1_1shader__data__type.html#af865d106895e557e4d60fc5da1b01eb6a9342d1f2c5cbc704e681a6bbf880a013">shader_array_type::float32_arr</a>, <span class="stringliteral">&quot;u_color&quot;</span>, 4 }</div>
+<div class="line">        { <a name="a24"></a><a class="code" href="namespacestaplegl_1_1shader__data__type.html#af865d106895e557e4d60fc5da1b01eb6a9342d1f2c5cbc704e681a6bbf880a013">shader_array_type::float32_arr</a>, <span class="stringliteral">&quot;u_color&quot;</span>, 4 }</div>
 <div class="line">    };</div>
 <div class="line"> </div>
-<div class="line">    <a name="_a22"></a><a class="code" href="classstaplegl_1_1uniform__buffer.html">staplegl::uniform_buffer</a> UBO_block { UBO_block_layout, 1 };</div>
+<div class="line">    <a name="_a25"></a><a class="code" href="classstaplegl_1_1uniform__buffer.html">staplegl::uniform_buffer</a> UBO_block { UBO_block_layout, 1 };</div>
 <div class="line"> </div>
-<div class="line">    UBO_block.<a name="a23"></a><a class="code" href="classstaplegl_1_1uniform__buffer.html#a52b4788b3c8cd94862c1416cb9b7155c">bind</a>();</div>
+<div class="line">    UBO_block.<a name="a26"></a><a class="code" href="classstaplegl_1_1uniform__buffer.html#a52b4788b3c8cd94862c1416cb9b7155c">bind</a>();</div>
 <div class="line"> </div>
 <div class="line">    std::array&lt;float, 4&gt; color {};</div>
-<div class="line"> </div>
-<div class="line">    VAO.<a name="a24"></a><a class="code" href="classstaplegl_1_1vertex__array.html#a85323f4caf4b1c6738922b47e1b957ee">add_vertex_buffer</a>(std::move(VBO));</div>
-<div class="line">    VAO.<a name="a25"></a><a class="code" href="classstaplegl_1_1vertex__array.html#aa66cbe1a2974f87313df52d72f45aa0f">set_instance_buffer</a>(std::move(VBO_inst));</div>
-<div class="line">    VAO.<a name="a26"></a><a class="code" href="classstaplegl_1_1vertex__array.html#a4cdd47f4f78f155dbf03b88933bcd455">set_index_buffer</a>(std::move(EBO));</div>
 <div class="line"> </div>
 <div class="line">    VAO.<a name="a27"></a><a class="code" href="classstaplegl_1_1vertex__array.html#a4491c6a6f1dc174c2caa320c21042c2a">bind</a>();</div>
 <div class="line"> </div>
