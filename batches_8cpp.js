@@ -6,6 +6,6 @@ var batches_8cpp =
     [ "main", "batches_8cpp.html#a8216c1645620cdb2f629cde3ac02ffef", null ],
     [ "MessageCallback", "batches_8cpp.html#a5804d645f4ed9ff8069c7a182d5a3f16", null ],
     [ "processInput", "batches_8cpp.html#a2d03c6f2666863543429a06ef642fe6a", null ],
-    [ "SCR_HEIGHT", "batches_8cpp.html#a964e6247f357aa2e611edcde70321371", null ],
-    [ "SCR_WIDTH", "batches_8cpp.html#adba7c708ebba50bc9e4ac9aeb8135956", null ]
+    [ "SCR_HEIGHT", "batches_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743", null ],
+    [ "SCR_WIDTH", "batches_8cpp.html#a059fb670617db97dde9d0247f91bb4f4", null ]
 ];

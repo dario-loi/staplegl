@@ -117,7 +117,7 @@ $(document).ready(function(){initNavTree('shader__data__type_8hpp_source.html','
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063abe14b41eb96410ea28b32bc138d885ae">mat4</a>,</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;};</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;constexpr <span class="keyword">static</span> std::size_t size(<a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a> type)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;constexpr <span class="keyword">static</span> <span class="keyword">auto</span> size(<a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a> type) -&gt; std::size_t</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;{</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">switch</span> (type) {</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063ad33ec2b0bbea6d471a4706cea030e1e3">u_type::float32</a>:</div>
@@ -137,7 +137,7 @@ $(document).ready(function(){initNavTree('shader__data__type_8hpp_source.html','
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    }</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;constexpr <span class="keyword">static</span> std::uint32_t to_opengl_type(<a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a> type)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;constexpr <span class="keyword">static</span> <span class="keyword">auto</span> to_opengl_type(<a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a> type) -&gt; std::uint32_t</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;{</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">switch</span> (type) {</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a87c214e1e77f5e0644a224f3df50fae7">u_type::vec2</a>:</div>
@@ -157,7 +157,7 @@ $(document).ready(function(){initNavTree('shader__data__type_8hpp_source.html','
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;constexpr <span class="keyword">static</span> std::uint32_t to_opengl_underlying_type(<a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a> type)</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;constexpr <span class="keyword">static</span> <span class="keyword">auto</span> to_opengl_underlying_type(<a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a> type) -&gt; std::uint32_t</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;{</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">switch</span> (type) {</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a87c214e1e77f5e0644a224f3df50fae7">u_type::vec2</a>:</div>
@@ -172,7 +172,7 @@ $(document).ready(function(){initNavTree('shader__data__type_8hpp_source.html','
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    }</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;}</div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;constexpr <span class="keyword">static</span> std::uint16_t component_count(<a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a> type)</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;constexpr <span class="keyword">static</span> <span class="keyword">auto</span> component_count(<a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a> type) -&gt; std::uint16_t</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;{</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordflow">switch</span> (type) {</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a87c214e1e77f5e0644a224f3df50fae7">u_type::vec2</a>:</div>

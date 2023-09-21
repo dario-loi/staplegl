@@ -8,6 +8,6 @@ var teapot_8cpp =
     [ "processInput", "teapot_8cpp.html#a2d03c6f2666863543429a06ef642fe6a", null ],
     [ "aspect_ratio", "teapot_8cpp.html#a5584bdb427edfe29e0c0c3753b619161", null ],
     [ "luminosity", "teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42", null ],
-    [ "SCR_HEIGHT", "teapot_8cpp.html#a964e6247f357aa2e611edcde70321371", null ],
-    [ "SCR_WIDTH", "teapot_8cpp.html#adba7c708ebba50bc9e4ac9aeb8135956", null ]
+    [ "SCR_HEIGHT", "teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743", null ],
+    [ "SCR_WIDTH", "teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4", null ]
 ];

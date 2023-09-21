@@ -1,5 +1,5 @@
 var structstaplegl_1_1resolution =
 [
-    [ "height", "structstaplegl_1_1resolution.html#a11717d4a0c49d09cd65476be524adea3", null ],
-    [ "width", "structstaplegl_1_1resolution.html#a72d7adb7cde1f9881a0398a3de902eed", null ]
+    [ "height", "structstaplegl_1_1resolution.html#ac0dce2d34f73285b4c02dab87e626da8", null ],
+    [ "width", "structstaplegl_1_1resolution.html#add9b47042cda3bbca0e1052553eb878f", null ]
 ];

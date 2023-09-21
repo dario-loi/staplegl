@@ -10,11 +10,11 @@ var classstaplegl_1_1renderbuffer =
     [ "renderbuffer", "classstaplegl_1_1renderbuffer.html#a02f1033a508fdf14b040e33c65e9d34d", null ],
     [ "renderbuffer", "classstaplegl_1_1renderbuffer.html#aff0b1996bdca795915d446e2d7ed8b32", null ],
     [ "bind", "classstaplegl_1_1renderbuffer.html#aee93d641eac0fccd763b7e9db3f59317", null ],
-    [ "id", "classstaplegl_1_1renderbuffer.html#a001b0e7936f1641762b07b5d5f5da373", null ],
-    [ "operator=", "classstaplegl_1_1renderbuffer.html#aecbaa94fe82a0d271495a482117c8520", null ],
-    [ "operator=", "classstaplegl_1_1renderbuffer.html#a4d17c6fca15d3bcddacdcf5d6b5d2c2f", null ],
-    [ "res", "classstaplegl_1_1renderbuffer.html#a4ac33fea3d2438b80706c793390da65e", null ],
-    [ "samples", "classstaplegl_1_1renderbuffer.html#ab886dbcc982c333d1a094d1f66945eec", null ],
-    [ "type", "classstaplegl_1_1renderbuffer.html#a629ff45e2763acc6e4cba9ac64cbed5a", null ],
+    [ "id", "classstaplegl_1_1renderbuffer.html#a3e48e7216a53199e7fd6b2f5c2d64e8f", null ],
+    [ "operator=", "classstaplegl_1_1renderbuffer.html#ae466704121af82d70d01382c00429eea", null ],
+    [ "operator=", "classstaplegl_1_1renderbuffer.html#a8cd03087e1974843af31ca45001bb9ff", null ],
+    [ "res", "classstaplegl_1_1renderbuffer.html#a480ca558d182afe688233428feccf91d", null ],
+    [ "samples", "classstaplegl_1_1renderbuffer.html#a0a83147ad45db2022a1cc89a9f10c979", null ],
+    [ "type", "classstaplegl_1_1renderbuffer.html#a9377dc2561b06d5d769c159cdedf3f93", null ],
     [ "unbind", "classstaplegl_1_1renderbuffer.html#aa328e79c6f02eb2ceb677c4f2dd15c96", null ]
 ];

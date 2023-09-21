@@ -10,5 +10,5 @@ var searchData=
   ['texture_5fcolor_129',['texture_color',['../structstaplegl_1_1texture__color.html',1,'staplegl']]],
   ['texture_5ffilter_130',['texture_filter',['../structstaplegl_1_1texture__filter.html',1,'staplegl']]],
   ['transfer_5fdata_131',['transfer_data',['../classstaplegl_1_1framebuffer.html#ab4f23d19202163757171b1c932f91bec',1,'staplegl::framebuffer']]],
-  ['type_132',['type',['../structstaplegl_1_1shader.html#a85747334ae716fc50c78814d4c584c30',1,'staplegl::shader::type()'],['../structstaplegl_1_1texture__antialias.html#a8e3d810703c77e07cebdc940ba123116',1,'staplegl::texture_antialias::type()'],['../structstaplegl_1_1vertex__attribute.html#acd3bd1dfe83e03bb12088b68c49d1001',1,'staplegl::vertex_attribute::type()'],['../classstaplegl_1_1renderbuffer.html#a629ff45e2763acc6e4cba9ac64cbed5a',1,'staplegl::renderbuffer::type()']]]
+  ['type_132',['type',['../structstaplegl_1_1shader.html#a85747334ae716fc50c78814d4c584c30',1,'staplegl::shader::type()'],['../structstaplegl_1_1texture__antialias.html#a8e3d810703c77e07cebdc940ba123116',1,'staplegl::texture_antialias::type()'],['../structstaplegl_1_1vertex__attribute.html#acd3bd1dfe83e03bb12088b68c49d1001',1,'staplegl::vertex_attribute::type()'],['../classstaplegl_1_1renderbuffer.html#a9377dc2561b06d5d769c159cdedf3f93',1,'staplegl::renderbuffer::type()']]]
 ];

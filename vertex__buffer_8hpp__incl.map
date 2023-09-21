@@ -1,10 +1,11 @@
 <map id="include/modules/vertex_buffer.hpp" name="include/modules/vertex_buffer.hpp">
-<area shape="rect" id="node1" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="91,5,266,47"/>
+<area shape="rect" id="node1" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="170,5,344,47"/>
 <area shape="rect" id="node2" href="$gl__functions_8hpp.html" title="Loads OpenGL functions." alt="" coords="55,244,184,271"/>
 <area shape="rect" id="node4" href="$vertex__buffer__layout_8hpp.html" title="Vertex Buffer Layout abstraction." alt="" coords="86,95,271,121"/>
 <area shape="rect" id="node5" title=" " alt="" coords="21,169,74,196"/>
 <area shape="rect" id="node13" title=" " alt="" coords="296,95,376,121"/>
 <area shape="rect" id="node14" title=" " alt="" coords="400,95,487,121"/>
+<area shape="rect" id="node15" title=" " alt="" coords="511,95,571,121"/>
 <area shape="rect" id="node3" title=" " alt="" coords="88,319,151,345"/>
 <area shape="rect" id="node6" title=" " alt="" coords="98,169,157,196"/>
 <area shape="rect" id="node7" title=" " alt="" coords="182,169,279,196"/>

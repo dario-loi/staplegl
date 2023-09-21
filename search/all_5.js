@@ -1,7 +1,7 @@
 var searchData=
 [
   ['fbo_5fattachment_32',['fbo_attachment',['../namespacestaplegl.html#a4bde1690fcce67d4e6c23aa812bd497e',1,'staplegl']]],
-  ['filter_33',['filter',['../classstaplegl_1_1texture__2d.html#a358b63733a90cc2ace7c841c72885ac9',1,'staplegl::texture_2d']]],
+  ['filter_33',['filter',['../classstaplegl_1_1texture__2d.html#a23b924b03af460c1f906e309e28e2cdc',1,'staplegl::texture_2d']]],
   ['float32_34',['float32',['../namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063ad33ec2b0bbea6d471a4706cea030e1e3',1,'staplegl::shader_data_type']]],
   ['float32_5farr_35',['float32_arr',['../namespacestaplegl_1_1shader__data__type.html#af865d106895e557e4d60fc5da1b01eb6a9342d1f2c5cbc704e681a6bbf880a013',1,'staplegl::shader_data_type']]],
   ['format_36',['format',['../structstaplegl_1_1texture__color.html#ab7add19e40560eae2a5c5396592cb4c2',1,'staplegl::texture_color']]],
