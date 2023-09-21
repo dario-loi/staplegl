@@ -1,10 +1,11 @@
 /**
- * @file sandbox.cpp
+ * @file teapot.cpp
  * @author Dario Loi
  * @brief More complex example of staplegl usage with the Utah Teapot model.
  *
  * @copyright MIT License
  *
+ * @example teapot.cpp
  */
 
 #include "glad.h"

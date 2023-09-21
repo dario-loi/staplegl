@@ -6,6 +6,7 @@
  *
  * @copyright MIT License
  *
+ * @example batches.cpp
  */
 
 #include "glad.h"
@@ -103,10 +104,6 @@ auto main() -> int
 
     // antialiasing and other nice things
     glEnable(GL_MULTISAMPLE);
-    glEnable(GL_LINE_SMOOTH);
-    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-    glEnable(GL_POLYGON_SMOOTH);
-    glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 
     staplegl::shader_program basic { "batched_shader", "./shaders/batched_shader.glsl" };
 

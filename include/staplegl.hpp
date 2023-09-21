@@ -27,6 +27,7 @@
 #include "modules/vertex_buffer.hpp"
 #include "modules/vertex_buffer_inst.hpp"
 #include "modules/vertex_buffer_layout.hpp"
+#include "modules/renderbuffer.hpp"
 
 /*
 

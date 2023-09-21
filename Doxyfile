@@ -4,7 +4,7 @@ PROJECT_NAME           = StapleGL
 PROJECT_BRIEF          = "Header-only C++20 OpenGL wrapper"
 OUTPUT_DIRECTORY       = ./docs
 EXTRACT_ALL            = YES
-INPUT                  = ./include
+INPUT                  = ./include ./examples
 RECURSIVE              = YES
 SOURCE_BROWSER         = YES
 GENERATE_TREEVIEW      = YES
@@ -14,4 +14,6 @@ FULL_SIDEBAR           = NO
 HTML_EXTRA_STYLESHEET  = doxygen-awesome-css/doxygen-awesome.css \
                         doxygen-awesome-css/doxygen-awesome-sidebar-only.css
 HTML_COLORSTYLE        = DARK # required with Doxygen >= 1.9.5
-
+EXAMPLE_PATH           = ./examples
+EXAMPLE_PATTERNS       = *.cpp
+EXAMPLE_RECURSIVE      = YES

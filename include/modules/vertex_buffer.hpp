@@ -186,7 +186,7 @@ vertex_buffer::vertex_buffer(std::span<const float> vertices, driver_draw_hint h
 }
 
 vertex_buffer::vertex_buffer(std::span<const float> vertices) noexcept
-    : vertex_buffer { vertices, driver_draw_hint::DYNAMIC_DRAW } // give the user the largest flexibility
+    : vertex_buffer { vertices, driver_draw_hint::DYNAMIC_DRAW } // give the user the greatest amount of flexibility
 {
 }
 
@@ -198,7 +198,7 @@ vertex_buffer::vertex_buffer(std::span<const float> vertices, const vertex_buffe
 }
 
 vertex_buffer::vertex_buffer(std::span<const float> vertices, const vertex_buffer_layout& layout)
-    : vertex_buffer { vertices, layout, driver_draw_hint::DYNAMIC_DRAW } // give the user the largest flexibility
+    : vertex_buffer { vertices, layout, driver_draw_hint::DYNAMIC_DRAW } // give the user the greatest amount of flexibility
 {
 }
 

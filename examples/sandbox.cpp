@@ -5,6 +5,8 @@
  *
  * @copyright MIT License
  *
+ * @example sandbox.cpp
+ *
  */
 
 #include "glad.h"
@@ -14,14 +16,6 @@
 #include <iostream>
 #include <span>
 #include <utility>
-
-/*
-
-        IMPORTANT: in order for the program to correctly compile, go to
-        include/staplegl/modules/gl_functions.hpp and replace the placeholder
-        with the provided OpenGL loader ("glad.h").
-
-*/
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
