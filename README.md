@@ -1,3 +1,5 @@
+# StapleGL
+
 No-dependency OpenGL support library, which abstracts the processes of creating buffers and shaders
 
 [![Doxygen GitHub Pages Deploy Action](https://github.com/dario-loi/staplegl/actions/workflows/doxy_deploy.yml/badge.svg)](https://github.com/dario-loi/staplegl/actions/workflows/doxy_deploy.yml)
