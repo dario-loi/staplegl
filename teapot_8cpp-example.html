@@ -130,7 +130,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line"><span class="keyword">const</span> int32_t <a name="a3"></a><a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a> = 900;</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// global luminosity to be updated by keypresses</span></div>
-<div class="line"><span class="keywordtype">float</span> <a name="a4"></a><a class="code" href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a> = 10.0F;</div>
+<div class="line"><span class="keywordtype">float</span> <a name="a4"></a><a class="code" href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a> = 10.0F; <span class="comment">// NOLINT</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// OpenGL debug callback</span></div>
 <div class="line"><span class="keywordtype">void</span> GLAPIENTRY</div>
@@ -146,12 +146,12 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">        <span class="keywordflow">return</span>;</div>
 <div class="line">    }</div>
 <div class="line"> </div>
-<div class="line">    fprintf(stderr, <span class="stringliteral">&quot;GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n&quot;</span>,</div>
+<div class="line">    fprintf(stderr, <span class="stringliteral">&quot;GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n&quot;</span>, <span class="comment">// NOLINT</span></div>
 <div class="line">        (type == GL_DEBUG_TYPE_ERROR ? <span class="stringliteral">&quot;** GL ERROR **&quot;</span> : <span class="stringliteral">&quot;&quot;</span>),</div>
 <div class="line">        type, severity, message);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// print location of error</span></div>
-<div class="line">    fprintf(stderr, <span class="stringliteral">&quot;source = 0x%x, id = %d\n&quot;</span>, source, <span class="keywordtype">id</span>);</div>
+<div class="line">    fprintf(stderr, <span class="stringliteral">&quot;source = 0x%x, id = %d\n&quot;</span>, source, <span class="keywordtype">id</span>); <span class="comment">// NOLINT</span></div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line">constexpr <span class="keyword">auto</span> <a name="a6"></a><a class="code" href="teapot_8cpp.html#ad226385a3534a996102879d543fe3ed7">calc_pyramid_levels</a>(uint32_t width, uint32_t height) -&gt; uint32_t</div>
@@ -167,7 +167,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line"> </div>
 <div class="line"><span class="comment">// global aspect ratio, used for the projection matrix, please don&#39;t do this in</span></div>
 <div class="line"><span class="comment">// a real program.</span></div>
-<div class="line"><span class="keywordtype">float</span> <a name="a7"></a><a class="code" href="teapot_8cpp.html#a5584bdb427edfe29e0c0c3753b619161">aspect_ratio</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(<a class="code" href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a>) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(<a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a>);</div>
+<div class="line"><span class="keywordtype">float</span> <a name="a7"></a><a class="code" href="teapot_8cpp.html#a5584bdb427edfe29e0c0c3753b619161">aspect_ratio</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(<a class="code" href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a>) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(<a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a>); <span class="comment">// NOLINT</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">auto</span> <a name="a8"></a><a class="code" href="teapot_8cpp.html#a8216c1645620cdb2f629cde3ac02ffef">main</a>() -&gt; <span class="keywordtype">int</span></div>
 <div class="line">{</div>
@@ -209,7 +209,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line"> </div>
 <div class="line">    <span class="comment">// glad: load all OpenGL function pointers</span></div>
 <div class="line">    <span class="comment">// ---------------------------------------</span></div>
-<div class="line">    <span class="keywordflow">if</span> (gladLoadGLLoader(<span class="keyword">reinterpret_cast&lt;</span>GLADloadproc<span class="keyword">&gt;</span>(glfwGetProcAddress)) == 0) {</div>
+<div class="line">    <span class="keywordflow">if</span> (gladLoadGLLoader(<span class="keyword">reinterpret_cast&lt;</span>GLADloadproc<span class="keyword">&gt;</span>(glfwGetProcAddress)) == 0) { <span class="comment">// NOLINT</span></div>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Failed to initialize GLAD&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">        <span class="keywordflow">return</span> -1;</div>
 <div class="line">    }</div>
@@ -296,12 +296,12 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">    <span class="comment">// Teapot model</span></div>
 <div class="line">    <a name="_a19"></a><a class="code" href="classstaplegl_1_1vertex__buffer__layout.html">staplegl::vertex_buffer_layout</a> <span class="keyword">const</span> layout_3P_3N { { <a name="a20"></a><a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a97ade28e93c0de60adc075bdbe07ca36">u_type::vec3</a>, <span class="stringliteral">&quot;aPos&quot;</span> }, { <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a97ade28e93c0de60adc075bdbe07ca36">u_type::vec3</a>, <span class="stringliteral">&quot;aNormal&quot;</span> } };</div>
 <div class="line"> </div>
-<div class="line">    <a name="_a21"></a><a class="code" href="classstaplegl_1_1vertex__buffer.html">staplegl::vertex_buffer</a> VBO { { teapot_vertices, <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(TEAPOT_VERTEX_COMPONENTS * TEAPOT_VERTICES) },</div>
+<div class="line">    <a name="_a21"></a><a class="code" href="classstaplegl_1_1vertex__buffer.html">staplegl::vertex_buffer</a> VBO { { teapot_vertices }, <span class="comment">// std::span extracts the size from the C array, preventing decay.</span></div>
 <div class="line">        <a name="a22"></a><a class="code" href="namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4abc84187eddb93b6cbc1a8cb47f0eb841">staplegl::driver_draw_hint::STATIC_DRAW</a> };</div>
 <div class="line">    VBO.set_layout(layout_3P_3N);</div>
 <div class="line"> </div>
 <div class="line">    <a name="_a23"></a><a class="code" href="classstaplegl_1_1index__buffer.html">staplegl::index_buffer</a> EBO {</div>
-<div class="line">        { teapot_indices, TEAPOT_INDICES }</div>
+<div class="line">        { teapot_indices } <span class="comment">// capture the array again.</span></div>
 <div class="line">    };</div>
 <div class="line"> </div>
 <div class="line">    <a name="_a24"></a><a class="code" href="classstaplegl_1_1vertex__array.html">staplegl::vertex_array</a> VAO;</div>
@@ -314,7 +314,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line"> </div>
 <div class="line">    <a class="code" href="classstaplegl_1_1vertex__buffer__layout.html">staplegl::vertex_buffer_layout</a> <span class="keyword">const</span> layout_3P { { <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a97ade28e93c0de60adc075bdbe07ca36">u_type::vec3</a>, <span class="stringliteral">&quot;aPos&quot;</span> } };</div>
 <div class="line"> </div>
-<div class="line">    <a class="code" href="classstaplegl_1_1vertex__buffer.html">staplegl::vertex_buffer</a> skybox_VBO { { skybox_vertices, SKYBOX_VERTS },</div>
+<div class="line">    <a class="code" href="classstaplegl_1_1vertex__buffer.html">staplegl::vertex_buffer</a> skybox_VBO { { skybox_vertices }, <span class="comment">// std::span extracts the size from the C array, preventing decay.</span></div>
 <div class="line">        <a class="code" href="namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4abc84187eddb93b6cbc1a8cb47f0eb841">staplegl::driver_draw_hint::STATIC_DRAW</a> };</div>
 <div class="line">    skybox_VBO.set_layout(layout_3P); <span class="comment">// we reuse the same layout as the teapot.</span></div>
 <div class="line"> </div>
@@ -337,7 +337,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line"> </div>
 <div class="line">    <a class="code" href="classstaplegl_1_1vertex__buffer__layout.html">staplegl::vertex_buffer_layout</a> <span class="keyword">const</span> layout_3P_2UV { { <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a97ade28e93c0de60adc075bdbe07ca36">u_type::vec3</a>, <span class="stringliteral">&quot;aPos&quot;</span> }, { <a name="a28"></a><a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a87c214e1e77f5e0644a224f3df50fae7">u_type::vec2</a>, <span class="stringliteral">&quot;aTexCoord&quot;</span> } };</div>
 <div class="line"> </div>
-<div class="line">    <a class="code" href="classstaplegl_1_1vertex__buffer.html">staplegl::vertex_buffer</a> quad_VBO { { quadVertices, STAPLEGL_QUAD_VERTICES },</div>
+<div class="line">    <a class="code" href="classstaplegl_1_1vertex__buffer.html">staplegl::vertex_buffer</a> quad_VBO { { quadVertices }, <span class="comment">// std::span extracts the size from the C array, preventing decay.</span></div>
 <div class="line">        <a class="code" href="namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4abc84187eddb93b6cbc1a8cb47f0eb841">staplegl::driver_draw_hint::STATIC_DRAW</a> };</div>
 <div class="line"> </div>
 <div class="line">    quad_VBO.set_layout(layout_3P_2UV);</div>
@@ -415,7 +415,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">    std::int32_t width = 0, height = 0, nrChannels = 0;</div>
 <div class="line">    <span class="keywordtype">int</span> i = 0;</div>
 <div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; face : faces) {</div>
-<div class="line">        <span class="keyword">auto</span>* data = <span class="keyword">reinterpret_cast&lt;</span>std::byte*<span class="keyword">&gt;</span>(</div>
+<div class="line">        <span class="keyword">auto</span>* data = <span class="keyword">reinterpret_cast&lt;</span>std::byte*<span class="keyword">&gt;</span>( <span class="comment">// NOLINT</span></div>
 <div class="line">            stbi_load(face.c_str(), &amp;width, &amp;height, &amp;nrChannels, 0));</div>
 <div class="line">        <span class="keywordflow">if</span> (data == <span class="keyword">nullptr</span>) {</div>
 <div class="line">            std::cout &lt;&lt; <span class="stringliteral">&quot;Failed to load texture&quot;</span> &lt;&lt; std::endl;</div>

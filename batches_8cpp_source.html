@@ -137,7 +137,7 @@ $(document).ready(function(){initNavTree('batches_8cpp_source.html',''); initRes
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">if</span> (type == GL_DEBUG_TYPE_OTHER || type == GL_DEBUG_TYPE_PERFORMANCE)</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="comment">//NOLINTNEXTLINE </span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    fprintf(stderr, <span class="stringliteral">&quot;GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n&quot;</span>,</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    fprintf(stderr, <span class="stringliteral">&quot;GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n&quot;</span>, <span class="comment">// NOLINT</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        (type == GL_DEBUG_TYPE_ERROR ? <span class="stringliteral">&quot;** GL ERROR **&quot;</span> : <span class="stringliteral">&quot;&quot;</span>),</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        type, severity, message);</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>

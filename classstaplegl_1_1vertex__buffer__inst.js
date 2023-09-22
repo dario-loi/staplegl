@@ -10,7 +10,6 @@ var classstaplegl_1_1vertex__buffer__inst =
     [ "delete_instance", "classstaplegl_1_1vertex__buffer__inst.html#a22de3e0c79b4ca36a1932db670373ea3", null ],
     [ "instance_count", "classstaplegl_1_1vertex__buffer__inst.html#a1a986ef6789037f4779a745d3a533ac9", null ],
     [ "instance_size", "classstaplegl_1_1vertex__buffer__inst.html#a4debc535733140ca22dba7dd7a085819", null ],
-    [ "layout", "classstaplegl_1_1vertex__buffer__inst.html#a085dd4a8a5cd248afac5af1039dc971b", null ],
     [ "operator=", "classstaplegl_1_1vertex__buffer__inst.html#aa7933e21d4d55347ba1dc461ae1eb891", null ],
     [ "operator=", "classstaplegl_1_1vertex__buffer__inst.html#a3ea7fe40ca96134ffa2936c1ea84e624", null ],
     [ "update_instance", "classstaplegl_1_1vertex__buffer__inst.html#ad3e538809a5523f905ba92b98a6af37a", null ]

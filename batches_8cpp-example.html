@@ -137,7 +137,7 @@ $(document).ready(function(){initNavTree('batches_8cpp-example.html',''); initRe
 <div class="line">    <span class="keywordflow">if</span> (type == GL_DEBUG_TYPE_OTHER || type == GL_DEBUG_TYPE_PERFORMANCE)</div>
 <div class="line">        <span class="keywordflow">return</span>;</div>
 <div class="line">    <span class="comment">//NOLINTNEXTLINE </span></div>
-<div class="line">    fprintf(stderr, <span class="stringliteral">&quot;GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n&quot;</span>,</div>
+<div class="line">    fprintf(stderr, <span class="stringliteral">&quot;GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n&quot;</span>, <span class="comment">// NOLINT</span></div>
 <div class="line">        (type == GL_DEBUG_TYPE_ERROR ? <span class="stringliteral">&quot;** GL ERROR **&quot;</span> : <span class="stringliteral">&quot;&quot;</span>),</div>
 <div class="line">        type, severity, message);</div>
 <div class="line">}</div>

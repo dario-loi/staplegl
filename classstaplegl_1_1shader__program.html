@@ -156,7 +156,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Shader program class. </p>
 <p>The shader program class is used to load and compile shaders, after compilation, it can also be used as an interface to each contained shader, for actions such as uploading uniforms.</p>
-<p>It is important that uniform names are unique across all shaders in the program, otherwise we risk ambiguity.</p>
+<p>Each shader program has it's own internal cache of uniform locations. this avoids expensive API calls on each uniform upload.</p>
 <dl class="section note"><dt>Note</dt><dd>if utilizing paths to load the shaders, it is important to note that they will be relative to the current working directory when running the program, as an advice, it is best to design your build system so that your shaders are packaged with the executable. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="batches_8cpp-example.html#_a11">batches.cpp</a>, <a class="el" href="sandbox_8cpp-example.html#_a5">sandbox.cpp</a>, and <a class="el" href="teapot_8cpp-example.html#_a9">teapot.cpp</a>.</dd>
 </dl>

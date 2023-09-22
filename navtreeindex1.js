@@ -1,6 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063abe14b41eb96410ea28b32bc138d885ae":[3,0,0,0,1,5],
 "namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063ad33ec2b0bbea6d471a4706cea030e1e3":[3,0,0,0,1,0],
 "namespacestaplegl_1_1shader__data__type.html#af865d106895e557e4d60fc5da1b01eb6":[3,0,0,0,0],
 "namespacestaplegl_1_1shader__data__type.html#af865d106895e557e4d60fc5da1b01eb6a12833e484b02d068d75d7a4264c493a6":[3,0,0,0,0,1],
