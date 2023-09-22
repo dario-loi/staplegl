@@ -4,7 +4,8 @@ No-dependency OpenGL support library, which abstracts the processes of creating 
 only provides simple buffer abstractions and is based on C++17.
 
 [![Doxygen GitHub Pages Deploy Action](https://github.com/dario-loi/staplegl/actions/workflows/doxy_deploy.yml/badge.svg)](https://github.com/dario-loi/staplegl/actions/workflows/doxy_deploy.yml) 
-![AUR version](https://img.shields.io/aur/version/staplegl-git?logo=archlinux)
+![AUR version](https://img.shields.io/aur/version/staplegl-git?logo=archlinux&link=https%3A%2F%2Faur.archlinux.org%2Fpackages%2Fstaplegl-git)
+
 
 Table of Contents
 =================
