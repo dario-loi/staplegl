@@ -94,7 +94,7 @@ private:
 
 inline uniform_buffer::uniform_buffer(std::span<const float> contents, vertex_buffer_layout  layout, int32_t binding_point) noexcept
     : m_binding_point { binding_point }
-    , m_layout {std::move( layout )}
+    , m_layout {std::move(layout )}
 {
     glGenBuffers(1, &m_id);
     glBindBuffer(GL_UNIFORM_BUFFER, m_id);

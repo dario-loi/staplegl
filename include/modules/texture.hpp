@@ -150,6 +150,7 @@ public:
      */
     texture_2d(texture_2d&& other) noexcept
         : m_id(other.m_id)
+        , m_unit(other.m_unit)
         , m_color(other.m_color)
         , m_resolution(other.m_resolution)
         , m_antialias(other.m_antialias)
@@ -167,6 +168,7 @@ public:
     {
         if (this != &other) {
             m_id = other.m_id;
+            m_unit = other.m_unit;
             m_color = other.m_color;
             m_resolution = other.m_resolution;
             m_antialias = other.m_antialias;

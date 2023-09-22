@@ -63,9 +63,9 @@ struct shader {
  * it can also be used as an interface to each contained shader, for actions such as uploading
  * uniforms.
  *
- * It is important that uniform names are unique across all shaders in the program, otherwise
- * we risk ambiguity.
- *
+ * Each shader program has it's own internal cache of uniform locations. this avoids
+ * expensive API calls on each uniform upload.
+ * 
  * @note if utilizing paths to load the shaders, it is important to note that they
  * will be relative to the current working directory when running the program, as an advice,
  * it is best to design your build system so that your shaders are packaged with the executable.
@@ -453,7 +453,7 @@ inline auto shader_program::compile(shader_type shader_type, std::string_view so
         return 0;
     }
 
-    return is_compiled ? id : 0;
+    return id;
 }
 
 inline auto shader_program::parse_shaders(const std::string& source) const -> std::vector<shader>

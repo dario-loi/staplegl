@@ -272,3 +272,11 @@ add_custom_target(
     COMMENT "Running clang-tidy on teapot"
     VERBATIM
 )
+
+add_custom_target(
+    cppcheck-staple
+    COMMAND cppcheck --enable=all --std=c++20 --suppress=missingIncludeSystem -I${STAPLEGL_DIR} -I${STAPLEGL_MODULES_DIR} -I${GLAD_INCLUDE_DIR} -I${GLFW3_INCLUDE_DIR} -I${OPENGL_INCLUDE_DIR} -I${GLM_DIR} -I${STB_DIR}
+    ${STAPLEGL_DIR}/staplegl.hpp
+    COMMENT "Running cppcheck on staple"
+    VERBATIM
+)

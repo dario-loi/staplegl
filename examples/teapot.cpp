@@ -49,7 +49,7 @@ const int32_t SCR_WIDTH = 1600;
 const int32_t SCR_HEIGHT = 900;
 
 // global luminosity to be updated by keypresses
-float luminosity = 10.0F;
+float luminosity = 10.0F; // NOLINT
 
 // OpenGL debug callback
 void GLAPIENTRY
@@ -65,12 +65,12 @@ MessageCallback(GLenum source [[maybe_unused]],
         return;
     }
 
-    fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n",
+    fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n", // NOLINT
         (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
         type, severity, message);
 
     // print location of error
-    fprintf(stderr, "source = 0x%x, id = %d\n", source, id);
+    fprintf(stderr, "source = 0x%x, id = %d\n", source, id); // NOLINT
 }
 
 constexpr auto calc_pyramid_levels(uint32_t width, uint32_t height) -> uint32_t
@@ -86,7 +86,7 @@ constexpr auto calc_pyramid_levels(uint32_t width, uint32_t height) -> uint32_t
 
 // global aspect ratio, used for the projection matrix, please don't do this in
 // a real program.
-float aspect_ratio = static_cast<double>(SCR_WIDTH) / static_cast<double>(SCR_HEIGHT);
+float aspect_ratio = static_cast<double>(SCR_WIDTH) / static_cast<double>(SCR_HEIGHT); // NOLINT
 
 auto main() -> int
 {
@@ -128,7 +128,7 @@ auto main() -> int
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
-    if (gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)) == 0) {
+    if (gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)) == 0) { // NOLINT
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
@@ -215,12 +215,12 @@ auto main() -> int
     // Teapot model
     staplegl::vertex_buffer_layout const layout_3P_3N { { u_type::vec3, "aPos" }, { u_type::vec3, "aNormal" } };
 
-    staplegl::vertex_buffer VBO { { teapot_vertices, static_cast<size_t>(TEAPOT_VERTEX_COMPONENTS * TEAPOT_VERTICES) },
+    staplegl::vertex_buffer VBO { { teapot_vertices }, // std::span extracts the size from the C array, preventing decay.
         staplegl::driver_draw_hint::STATIC_DRAW };
     VBO.set_layout(layout_3P_3N);
 
     staplegl::index_buffer EBO {
-        { teapot_indices, TEAPOT_INDICES }
+        { teapot_indices } // capture the array again.
     };
 
     staplegl::vertex_array VAO;
@@ -233,7 +233,7 @@ auto main() -> int
 
     staplegl::vertex_buffer_layout const layout_3P { { u_type::vec3, "aPos" } };
 
-    staplegl::vertex_buffer skybox_VBO { { skybox_vertices, SKYBOX_VERTS },
+    staplegl::vertex_buffer skybox_VBO { { skybox_vertices }, // std::span extracts the size from the C array, preventing decay.
         staplegl::driver_draw_hint::STATIC_DRAW };
     skybox_VBO.set_layout(layout_3P); // we reuse the same layout as the teapot.
 
@@ -256,7 +256,7 @@ auto main() -> int
 
     staplegl::vertex_buffer_layout const layout_3P_2UV { { u_type::vec3, "aPos" }, { u_type::vec2, "aTexCoord" } };
 
-    staplegl::vertex_buffer quad_VBO { { quadVertices, STAPLEGL_QUAD_VERTICES },
+    staplegl::vertex_buffer quad_VBO { { quadVertices }, // std::span extracts the size from the C array, preventing decay.
         staplegl::driver_draw_hint::STATIC_DRAW };
 
     quad_VBO.set_layout(layout_3P_2UV);
@@ -334,7 +334,7 @@ auto main() -> int
     std::int32_t width = 0, height = 0, nrChannels = 0;
     int i = 0;
     for (auto& face : faces) {
-        auto* data = reinterpret_cast<std::byte*>(
+        auto* data = reinterpret_cast<std::byte*>( // NOLINT
             stbi_load(face.c_str(), &width, &height, &nrChannels, 0));
         if (data == nullptr) {
             std::cout << "Failed to load texture" << std::endl;
