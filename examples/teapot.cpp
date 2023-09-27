@@ -91,25 +91,25 @@ float aspect_ratio = static_cast<double>(SCR_WIDTH) / static_cast<double>(SCR_HE
 auto main() -> int
 {
 
-  std::string_view const hello_message{
-      "Hello! This is a more complex example of staplegl usage, featuring the Utah Teapot model.\n"
-      "Press the U and D keys to increase (U) and decrease (D) the luminosity of the light source.\n"
-      "Play around with them to observe how the bloom effect changes."
-  };
+    std::string_view const hello_message {
+        "Hello! This is a more complex example of staplegl usage, featuring the Utah Teapot model.\n"
+        "Press the U and D keys to increase (U) and decrease (D) the luminosity of the light source.\n"
+        "Play around with them to observe how the bloom effect changes."
+    };
 
-  std::cout << hello_message << std::endl;
+    std::cout << hello_message << std::endl;
 
-  // shorten layout declarations a bit.
-  using namespace staplegl::shader_data_type;
+    // shorten layout declarations a bit.
+    using namespace staplegl::shader_data_type;
 
-  // glfw: initialize and configure
-  // ------------------------------
-  glfwInit();
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    // glfw: initialize and configure
+    // ------------------------------
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 
-  glfwWindowHint(GLFW_SAMPLES, 16); // MSAA
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_SAMPLES, 16); // MSAA
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -207,7 +207,6 @@ auto main() -> int
 
     staplegl::framebuffer msaa_fbo {};
     staplegl::framebuffer post_fbo {};
-
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -389,7 +388,7 @@ auto main() -> int
         // send the data to the GPU through the uniform block.
         camera_block.bind();
         camera_block.set_attribute_data(
-            std::span{glm::value_ptr(camera_pos), 4}, "camera_pos");
+            std::span { glm::value_ptr(camera_pos), 4 }, "camera_pos");
         camera_block.set_attribute_data(std::span { glm::value_ptr(view), 16 }, "view");
         camera_block.set_attribute_data(std::span { glm::value_ptr(projection), 16 }, "projection");
 
@@ -397,8 +396,8 @@ auto main() -> int
         msaa_fbo.bind();
         msaa_fbo.set_texture(msaa_color);
         msaa_fbo.set_renderbuffer(
-            {SCR_WIDTH,
-             SCR_HEIGHT}, // get a renderbuffer of the same size as the screen.
+            { SCR_WIDTH,
+                SCR_HEIGHT }, // get a renderbuffer of the same size as the screen.
             staplegl::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER,
             staplegl::tex_samples::MSAA_X16); // set the same samples as the color texture.
 
@@ -410,9 +409,9 @@ auto main() -> int
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
         /*
-        
+
             Rendering with MSAA
-        
+
         */
 
         // prep to render the skybox
@@ -455,7 +454,7 @@ auto main() -> int
         glDrawElements(GL_TRIANGLES, VAO.index_data().count(), GL_UNSIGNED_INT, nullptr);
 
         /*
-        
+
             Resolve MSAA to HDR framebuffer
 
         */
@@ -463,7 +462,7 @@ auto main() -> int
         post_fbo.bind();
         post_fbo.set_texture(hdr_color);
 
-        staplegl::framebuffer::transfer_data(msaa_fbo, post_fbo, {SCR_WIDTH, SCR_HEIGHT});
+        staplegl::framebuffer::transfer_data(msaa_fbo, post_fbo, { SCR_WIDTH, SCR_HEIGHT });
 
         post_fbo.bind();
         post_fbo.set_renderbuffer({ 0, 0 }, staplegl::fbo_attachment::NONE);
@@ -568,20 +567,19 @@ void processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, 1);
-    } 
+    }
     if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS) {
         luminosity += 0.1F;
-    } 
+    }
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
         luminosity = std::max(0.0F, luminosity - 0.1F);
-    } 
+    }
     if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
         // toggle mesh wireframe
         static bool wireframe = false;
         wireframe = !wireframe;
         glPolygonMode(GL_FRONT_AND_BACK, wireframe ? GL_LINE : GL_FILL);
-    } 
-
+    }
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback
