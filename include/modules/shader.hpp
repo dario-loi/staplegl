@@ -65,7 +65,7 @@ struct shader {
  *
  * Each shader program has it's own internal cache of uniform locations. this avoids
  * expensive API calls on each uniform upload.
- * 
+ *
  * @note if utilizing paths to load the shaders, it is important to note that they
  * will be relative to the current working directory when running the program, as an advice,
  * it is best to design your build system so that your shaders are packaged with the executable.
@@ -132,10 +132,9 @@ public:
         return *this;
     }
 
-
     /**
      * @brief Destroy the shader program object
-     * 
+     *
      */
     ~shader_program();
 
@@ -196,10 +195,16 @@ public:
     /**
      * @brief Obtain the shader program id.
      *
-     * @return std::uint32_t, the shader program id in the OpenGL context.
+     * @return std::uint32_t the shader program id in the OpenGL context.
      */
-    [[nodiscard]] auto program_id() const -> std::uint32_t;
-    [[nodiscard]] auto name() const -> std::string_view;
+    [[nodiscard]] auto constexpr program_id() const -> std::uint32_t;
+
+    /**
+     * @brief Obtain the shader program name.
+     *
+     * @return std::string the shader program name.
+     */
+    [[nodiscard]] auto constexpr name() const -> std::string;
 
 public:
     /**
@@ -248,7 +253,7 @@ private:
      *
      * @return std::vector<shader>. A vector of shaders.
      */
-    [[nodiscard]] auto parse_shaders(const std::string& source) const -> std::vector<shader>;
+    [[nodiscard]] auto parse_shaders(std::string_view source) const -> std::vector<shader>;
 
 private:
     /**
@@ -300,19 +305,19 @@ private:
 */
 
 inline shader_program::shader_program(std::string_view name, std::string_view path) noexcept
-    : m_shaders { parse_shaders(util::read_file(path)) } 
-    , m_id(create_program()), m_name { name }
+    : m_shaders { parse_shaders(util::read_file(path)) }
+    , m_id(create_program())
+    , m_name { name }
 {
-    
 }
 
 inline shader_program::shader_program(std::string_view name,
     std::initializer_list<std::pair<shader_type, std::string_view>> shaders) noexcept
-    : m_id(create_program()), m_name { name }
+    : m_id(create_program())
+    , m_name { name }
 {
     for (const auto& [type, path] : shaders)
         m_shaders.push_back({ type, util::read_file(path) });
-
 }
 
 inline shader_program::shader_program(std::string_view path) noexcept
@@ -360,12 +365,12 @@ inline void shader_program::upload_uniform4f(std::string_view name, float val0, 
     glUniform4f(uniform_location(name), val0, val1, val2, val3);
 }
 
-inline auto shader_program::program_id() const -> std::uint32_t
+inline constexpr auto shader_program::program_id() const -> std::uint32_t
 {
     return m_id;
 }
 
-inline auto shader_program::name() const -> std::string_view
+inline constexpr auto shader_program::name() const -> std::string
 {
     return m_name;
 }
@@ -385,9 +390,8 @@ inline auto shader_program::create_program() const -> std::uint32_t
     const std::uint32_t program { glCreateProgram() };
     std::vector<std::uint32_t> shader_ids;
 
-
     shader_ids.reserve(m_shaders.size());
-for (const auto& [type, src] : m_shaders) {
+    for (const auto& [type, src] : m_shaders) {
         shader_ids.push_back(compile(type, src));
     }
 
@@ -456,7 +460,7 @@ inline auto shader_program::compile(shader_type shader_type, std::string_view so
     return id;
 }
 
-inline auto shader_program::parse_shaders(const std::string& source) const -> std::vector<shader>
+inline auto shader_program::parse_shaders(std::string_view source) const -> std::vector<shader>
 {
     std::vector<shader> shaders;
     std::string_view const type_token { "#type" };
@@ -466,9 +470,9 @@ inline auto shader_program::parse_shaders(const std::string& source) const -> st
         const std::size_t eol { source.find_first_of("\r\n", pos) };
         const std::size_t begin { pos + type_token.size() + 1 };
         const std::size_t next_line_pos { source.find_first_not_of("\r\n", eol) };
-        std::string_view const type { source.substr(begin, eol - begin) };
+        std::string const type { source.substr(begin, eol - begin) };
 
-        auto shader_type { string_to_shader_type(type) };
+        auto const shader_type { string_to_shader_type(type) };
 
         // With C++23 we could drastically simplify this thanks to std::optional's monadic operations.
         if (!shader_type.has_value()) [[unlikely]] {
@@ -479,7 +483,10 @@ inline auto shader_program::parse_shaders(const std::string& source) const -> st
         }
 
         pos = source.find(type_token, next_line_pos);
-        shaders.push_back({ shader_type.value(), pos == std::string::npos ? source.substr(next_line_pos) : source.substr(next_line_pos, pos - next_line_pos) });
+        shaders.push_back({ shader_type.value(),
+            (pos == std::string::npos)
+                ? std::string(source.substr(next_line_pos))
+                : std::string(source.substr(next_line_pos, pos - next_line_pos)) });
     }
 
     return shaders;
