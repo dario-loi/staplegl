@@ -108,7 +108,7 @@ auto main() -> int
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 
-    glfwWindowHint(GLFW_SAMPLES, 16); // MSAA
+    glfwWindowHint(GLFW_SAMPLES, 2); // MSAA
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
@@ -178,7 +178,7 @@ auto main() -> int
             .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT },
         staplegl::texture_filter {
             .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },
-        staplegl::tex_samples::MSAA_X16
+        staplegl::tex_samples::MSAA_X2
     };
 
     staplegl::texture_2d hdr_color {
@@ -399,7 +399,7 @@ auto main() -> int
             { SCR_WIDTH,
                 SCR_HEIGHT }, // get a renderbuffer of the same size as the screen.
             staplegl::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER,
-            staplegl::tex_samples::MSAA_X16); // set the same samples as the color texture.
+            staplegl::tex_samples::MSAA_X2); // set the same samples as the color texture.
 
         if (!msaa_fbo.assert_completeness()) [[unlikely]] {
             std::cerr << "Framebuffer not complete, line: " << __LINE__ << std::endl;

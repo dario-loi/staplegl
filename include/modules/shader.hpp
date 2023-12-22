@@ -21,6 +21,7 @@
 #include <cstdint>
 #include <exception>
 #include <optional>
+#include <span>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -189,8 +190,23 @@ public:
      * @param val2 Uniform value.
      * @param val3 Uniform value.
      */
-
     void upload_uniform4f(std::string_view name, float val0, float val1, float val2, float val3) const;
+
+    /**
+     * @brief Upload a 4x4 float matrix uniform to the shader program.
+     *
+     * @param name Uniform name.
+     * @param mat Contiguous span of 16 floats representing the matrix.
+     */
+    void upload_uniform_mat4f(std::string_view name, std::span<float, 16> mat) const;
+
+    /**
+     * @brief Upload a 3x3 float matrix uniform to the shader program.
+     *
+     * @param name Uniform name.
+     * @param mat Contiguous span of 16 floats representing the matrix.
+     */
+    void upload_uniform_mat3f(std::string_view name, std::span<float, 9> mat) const;
 
     /**
      * @brief Obtain the shader program id.
@@ -363,6 +379,16 @@ inline void shader_program::upload_uniform3f(std::string_view name, float val0, 
 inline void shader_program::upload_uniform4f(std::string_view name, float val0, float val1, float val2, float val3) const
 {
     glUniform4f(uniform_location(name), val0, val1, val2, val3);
+}
+
+inline void shader_program::upload_uniform_mat4f(std::string_view name, std::span<float, 16> mat) const
+{
+    glUniformMatrix4fv(uniform_location(name), 1, GL_FALSE, mat.data());
+}
+
+inline void shader_program::upload_uniform_mat3f(std::string_view name, std::span<float, 9> mat) const
+{
+    glUniformMatrix3fv(uniform_location(name), 1, GL_FALSE, mat.data());
 }
 
 inline constexpr auto shader_program::program_id() const -> std::uint32_t
@@ -545,7 +571,6 @@ inline constexpr auto shader_program::to_gl_type(shader_type shader_type) -> std
 
 inline auto shader_program::string_to_shader_type(std::string_view str) -> std::optional<shader_type>
 {
-
     static std::unordered_map<std::string_view, shader_type> map {
         { "vertex", shader_type::vertex },
         { "fragment", shader_type::fragment },
