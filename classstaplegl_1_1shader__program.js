@@ -19,5 +19,7 @@ var classstaplegl_1_1shader__program =
     [ "upload_uniform1i", "classstaplegl_1_1shader__program.html#a7ce38a405c86264e65a1e64335b35503", null ],
     [ "upload_uniform2f", "classstaplegl_1_1shader__program.html#a25c2489bba5f623a630ae63c4192837a", null ],
     [ "upload_uniform3f", "classstaplegl_1_1shader__program.html#aa1daac5e94b5359f5ffa6e9d16cbd86b", null ],
-    [ "upload_uniform4f", "classstaplegl_1_1shader__program.html#ab9bdea88bb657b8300a74ab66af8a4a9", null ]
+    [ "upload_uniform4f", "classstaplegl_1_1shader__program.html#ab9bdea88bb657b8300a74ab66af8a4a9", null ],
+    [ "upload_uniform_mat3f", "classstaplegl_1_1shader__program.html#a9d7bd551eac6e4dbbf6560d18b4b218d", null ],
+    [ "upload_uniform_mat4f", "classstaplegl_1_1shader__program.html#a6a1bfbedc9e2dc5de53d130c34bb77c7", null ]
 ];
