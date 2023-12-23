@@ -67,5 +67,6 @@ var namespacestaplegl =
       [ "MSAA_X16", "namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229dea5c631d4905d4c23b940c2828a0e23842", null ],
       [ "MSAA_X32", "namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229dea0053eb175e98711ec5aa696b2c29bf35", null ]
     ] ],
+    [ "shader_type_to_string", "namespacestaplegl.html#a03ef09c0954a687733a0d96b17ffd5b3", null ],
     [ "plain_old_data", "namespacestaplegl.html#ac8e0062d2fd9c47b259fbf77c20c6fff", null ]
 ];

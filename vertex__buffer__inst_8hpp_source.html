@@ -110,10 +110,10 @@ $(document).ready(function(){initNavTree('vertex__buffer__inst_8hpp_source.html'
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    [[nodiscard]] constexpr <span class="keyword">auto</span> calc_capacity(std::size_t <a class="code" href="classstaplegl_1_1vertex__buffer__inst.html#abbacba4dfe636fa0edfed5f5f9fbcc57">capacity</a>) <span class="keyword">const</span> noexcept -&gt; std::size_t</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      std::size_t new_cap{0};</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        std::size_t new_cap { 0 };</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      <span class="keywordflow">if</span> (<a class="code" href="classstaplegl_1_1vertex__buffer__inst.html#abbacba4dfe636fa0edfed5f5f9fbcc57">capacity</a> == 0) [[unlikely]] {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        new_cap = <a class="code" href="classstaplegl_1_1vertex__buffer__inst.html#a4debc535733140ca22dba7dd7a085819">instance_size</a>();</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classstaplegl_1_1vertex__buffer__inst.html#abbacba4dfe636fa0edfed5f5f9fbcc57">capacity</a> == 0) [[unlikely]] {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            new_cap = <a class="code" href="classstaplegl_1_1vertex__buffer__inst.html#a4debc535733140ca22dba7dd7a085819">instance_size</a>();</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classstaplegl_1_1vertex__buffer__inst.html#abbacba4dfe636fa0edfed5f5f9fbcc57">capacity</a> == <a class="code" href="classstaplegl_1_1vertex__buffer__inst.html#a4debc535733140ca22dba7dd7a085819">instance_size</a>()) [[unlikely]] {</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            new_cap = <a class="code" href="classstaplegl_1_1vertex__buffer__inst.html#a4debc535733140ca22dba7dd7a085819">instance_size</a>() * 32;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        } <span class="keywordflow">else</span> [[likely]] {</div>
@@ -205,48 +205,51 @@ $(document).ready(function(){initNavTree('vertex__buffer__inst_8hpp_source.html'
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
 <div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="classstaplegl_1_1vertex__buffer__inst.html#ad3e538809a5523f905ba92b98a6af37a">  182</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classstaplegl_1_1vertex__buffer__inst.html#ad3e538809a5523f905ba92b98a6af37a">vertex_buffer_inst::update_instance</a>(std::int32_t index, std::span&lt;const float&gt; instance_data) noexcept</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;{</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    assert(index &lt; m_count || instance_data.size_bytes() == m_layout.stride());</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    glBindBuffer(GL_ARRAY_BUFFER, m_id);</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    glBufferSubData(GL_ARRAY_BUFFER, </div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keyword">static_cast&lt;</span>ptrdiff_t<span class="keyword">&gt;</span>(index * instance_data.size_bytes()), </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keyword">static_cast&lt;</span>ptrdiff_t<span class="keyword">&gt;</span>(instance_data.size_bytes()), </div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    instance_data.data());</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="classstaplegl_1_1vertex__buffer__inst.html#a22de3e0c79b4ca36a1932db670373ea3">  193</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code" href="classstaplegl_1_1vertex__buffer__inst.html#a22de3e0c79b4ca36a1932db670373ea3">vertex_buffer_inst::delete_instance</a>(std::int32_t index) noexcept -&gt; std::int32_t</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;{</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordflow">if</span> (index &gt;= m_count || index &lt; 0) [[unlikely]] {</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keywordflow">return</span> m_count;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    } <span class="comment">// pretend we did something</span></div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="comment">// move the last instance to the position of the deleted instance</span></div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keyword">auto</span>* last_instance_ptr = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(glMapBufferRange(</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        GL_ARRAY_BUFFER, </div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        <span class="keyword">static_cast&lt;</span>ptrdiff_t<span class="keyword">&gt;</span>((m_count - 1) * m_layout.stride()), </div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(m_layout.stride()),</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        GL_MAP_WRITE_BIT | GL_MAP_READ_BIT)); <span class="comment">// read the last instance</span></div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="comment">// write the last instance to the position of the deleted instance (overwriting it)</span></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keyword">auto</span> last_instance = std::span&lt;const float&gt; { last_instance_ptr, m_layout.stride_elements() };</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    update_instance(index, last_instance);</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="comment">// we are done with the last instance, so we can unmap it</span></div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    glUnmapBuffer(GL_ARRAY_BUFFER);</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="preprocessor">#ifdef STAPLEGL_DEBUG</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="comment">// too costly for release builds</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    assert(index &lt; m_count || instance_data.size_bytes() == m_layout.stride());</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// STAPLEGL_DEBUG</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    glBindBuffer(GL_ARRAY_BUFFER, m_id);</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    glBufferSubData(GL_ARRAY_BUFFER,</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keyword">static_cast&lt;</span>ptrdiff_t<span class="keyword">&gt;</span>(index * instance_data.size_bytes()),</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="keyword">static_cast&lt;</span>ptrdiff_t<span class="keyword">&gt;</span>(instance_data.size_bytes()),</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        instance_data.data());</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;}</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
+<div class="line"><a name="l00196"></a><span class="lineno"><a class="line" href="classstaplegl_1_1vertex__buffer__inst.html#a22de3e0c79b4ca36a1932db670373ea3">  196</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code" href="classstaplegl_1_1vertex__buffer__inst.html#a22de3e0c79b4ca36a1932db670373ea3">vertex_buffer_inst::delete_instance</a>(std::int32_t index) noexcept -&gt; std::int32_t</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;{</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">if</span> (index &gt;= m_count || index &lt; 0) [[unlikely]] {</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="keywordflow">return</span> m_count;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    } <span class="comment">// pretend we did something</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="comment">// move the last instance to the position of the deleted instance</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keyword">auto</span>* last_instance_ptr = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(glMapBufferRange(</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        GL_ARRAY_BUFFER,</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <span class="keyword">static_cast&lt;</span>ptrdiff_t<span class="keyword">&gt;</span>((m_count - 1) * m_layout.stride()),</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(m_layout.stride()),</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        GL_MAP_WRITE_BIT | GL_MAP_READ_BIT)); <span class="comment">// read the last instance</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="comment">// write the last instance to the position of the deleted instance (overwriting it)</span></div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keyword">auto</span> last_instance = std::span&lt;const float&gt; { last_instance_ptr, m_layout.stride_elements() };</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    update_instance(index, last_instance);</div>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="comment">// by reducing the count, we effectively delete the last instance (preventing duplicates)</span></div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    m_count--;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="comment">// we are done with the last instance, so we can unmap it</span></div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    glUnmapBuffer(GL_ARRAY_BUFFER);</div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keywordflow">return</span> index;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;}</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="comment">// by reducing the count, we effectively delete the last instance (preventing duplicates)</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    m_count--;</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;} <span class="comment">// namespace staplegl</span></div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keywordflow">return</span> index;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;}</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;} <span class="comment">// namespace staplegl</span></div>
 <div class="ttc" id="aclassstaplegl_1_1vertex__buffer__inst_html"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer__inst.html">staplegl::vertex_buffer_inst</a></div><div class="ttdoc">A vertex buffer object for instanced rendering.</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer__inst_8hpp_source.html#l00056">vertex_buffer_inst.hpp:56</a></div></div>
 <div class="ttc" id="aclassstaplegl_1_1vertex__buffer__inst_html_a1a986ef6789037f4779a745d3a533ac9"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer__inst.html#a1a986ef6789037f4779a745d3a533ac9">staplegl::vertex_buffer_inst::instance_count</a></div><div class="ttdeci">constexpr auto instance_count() const noexcept -&gt; std::int32_t</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer__inst_8hpp_source.html#l00158">vertex_buffer_inst.hpp:158</a></div></div>
-<div class="ttc" id="aclassstaplegl_1_1vertex__buffer__inst_html_a22de3e0c79b4ca36a1932db670373ea3"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer__inst.html#a22de3e0c79b4ca36a1932db670373ea3">staplegl::vertex_buffer_inst::delete_instance</a></div><div class="ttdeci">auto delete_instance(std::int32_t index) noexcept -&gt; int32_t</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer__inst_8hpp_source.html#l00193">vertex_buffer_inst.hpp:193</a></div></div>
+<div class="ttc" id="aclassstaplegl_1_1vertex__buffer__inst_html_a22de3e0c79b4ca36a1932db670373ea3"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer__inst.html#a22de3e0c79b4ca36a1932db670373ea3">staplegl::vertex_buffer_inst::delete_instance</a></div><div class="ttdeci">auto delete_instance(std::int32_t index) noexcept -&gt; int32_t</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer__inst_8hpp_source.html#l00196">vertex_buffer_inst.hpp:196</a></div></div>
 <div class="ttc" id="aclassstaplegl_1_1vertex__buffer__inst_html_a4debc535733140ca22dba7dd7a085819"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer__inst.html#a4debc535733140ca22dba7dd7a085819">staplegl::vertex_buffer_inst::instance_size</a></div><div class="ttdeci">constexpr auto instance_size() const noexcept -&gt; std::size_t</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer__inst_8hpp_source.html#l00159">vertex_buffer_inst.hpp:159</a></div></div>
 <div class="ttc" id="aclassstaplegl_1_1vertex__buffer__inst_html_a68599f10620e6170e02b7bf8d55a5731"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer__inst.html#a68599f10620e6170e02b7bf8d55a5731">staplegl::vertex_buffer_inst::~vertex_buffer_inst</a></div><div class="ttdeci">~vertex_buffer_inst() noexcept=default</div></div>
 <div class="ttc" id="aclassstaplegl_1_1vertex__buffer__inst_html_a829563a40c7d09530b49b714b7700f3e"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer__inst.html#a829563a40c7d09530b49b714b7700f3e">staplegl::vertex_buffer_inst::add_instance</a></div><div class="ttdeci">void add_instance(std::span&lt; const float &gt; instance_data) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer__inst_8hpp_source.html#l00170">vertex_buffer_inst.hpp:170</a></div></div>
@@ -257,9 +260,9 @@ $(document).ready(function(){initNavTree('vertex__buffer__inst_8hpp_source.html'
 <div class="ttc" id="aclassstaplegl_1_1vertex__buffer__layout_html"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer__layout.html">staplegl::vertex_buffer_layout</a></div><div class="ttdoc">Vertex buffer layout.</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer__layout_8hpp_source.html#l00079">vertex_buffer_layout.hpp:79</a></div></div>
 <div class="ttc" id="aclassstaplegl_1_1vertex__buffer__layout_html_a096150dbb64c17672f6ae996db8ad2ae"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer__layout.html#a096150dbb64c17672f6ae996db8ad2ae">staplegl::vertex_buffer_layout::stride</a></div><div class="ttdeci">constexpr auto stride() const noexcept -&gt; std::size_t</div><div class="ttdoc">Get the stride of the vertex buffer layout.</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer__layout_8hpp_source.html#l00107">vertex_buffer_layout.hpp:107</a></div></div>
 <div class="ttc" id="aclassstaplegl_1_1vertex__buffer_html"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer.html">staplegl::vertex_buffer</a></div><div class="ttdoc">Vertex Buffer Object (VBO) wrapper.</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer_8hpp_source.html#l00079">vertex_buffer.hpp:79</a></div></div>
-<div class="ttc" id="aclassstaplegl_1_1vertex__buffer_html_a19ad1dfeb04558009aba054956e1a9ec"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer.html#a19ad1dfeb04558009aba054956e1a9ec">staplegl::vertex_buffer::layout</a></div><div class="ttdeci">constexpr auto layout() const -&gt; const vertex_buffer_layout &amp;</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer_8hpp_source.html#l00249">vertex_buffer.hpp:249</a></div></div>
-<div class="ttc" id="aclassstaplegl_1_1vertex__buffer_html_a2b72ae1521a29169857b7d042ce84ff5"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer.html#a2b72ae1521a29169857b7d042ce84ff5">staplegl::vertex_buffer::m_layout</a></div><div class="ttdeci">vertex_buffer_layout m_layout</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer_8hpp_source.html#l00173">vertex_buffer.hpp:173</a></div></div>
-<div class="ttc" id="aclassstaplegl_1_1vertex__buffer_html_ae1a657d1a7703ec211a142df2a203b8f"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer.html#ae1a657d1a7703ec211a142df2a203b8f">staplegl::vertex_buffer::m_id</a></div><div class="ttdeci">std::uint32_t m_id</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer_8hpp_source.html#l00172">vertex_buffer.hpp:172</a></div></div>
+<div class="ttc" id="aclassstaplegl_1_1vertex__buffer_html_a19ad1dfeb04558009aba054956e1a9ec"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer.html#a19ad1dfeb04558009aba054956e1a9ec">staplegl::vertex_buffer::layout</a></div><div class="ttdeci">constexpr auto layout() const -&gt; const vertex_buffer_layout &amp;</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer_8hpp_source.html#l00246">vertex_buffer.hpp:246</a></div></div>
+<div class="ttc" id="aclassstaplegl_1_1vertex__buffer_html_a2b72ae1521a29169857b7d042ce84ff5"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer.html#a2b72ae1521a29169857b7d042ce84ff5">staplegl::vertex_buffer::m_layout</a></div><div class="ttdeci">vertex_buffer_layout m_layout</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer_8hpp_source.html#l00171">vertex_buffer.hpp:171</a></div></div>
+<div class="ttc" id="aclassstaplegl_1_1vertex__buffer_html_ae1a657d1a7703ec211a142df2a203b8f"><div class="ttname"><a href="classstaplegl_1_1vertex__buffer.html#ae1a657d1a7703ec211a142df2a203b8f">staplegl::vertex_buffer::m_id</a></div><div class="ttdeci">std::uint32_t m_id</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer_8hpp_source.html#l00170">vertex_buffer.hpp:170</a></div></div>
 <div class="ttc" id="agl__functions_8hpp_html"><div class="ttname"><a href="gl__functions_8hpp.html">gl_functions.hpp</a></div><div class="ttdoc">Loads OpenGL functions.</div></div>
 <div class="ttc" id="anamespacestaplegl_html"><div class="ttname"><a href="namespacestaplegl.html">staplegl</a></div><div class="ttdef"><b>Definition:</b> <a href="cubemap_8hpp_source.html#l00027">cubemap.hpp:27</a></div></div>
 <div class="ttc" id="anamespacestaplegl_html_a30e6b644d9532677174c91cc822b2ea4a93e0c2679415db1e0db23d17d0b6acac"><div class="ttname"><a href="namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4a93e0c2679415db1e0db23d17d0b6acac">staplegl::DYNAMIC_DRAW</a></div><div class="ttdeci">@ DYNAMIC_DRAW</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer_8hpp_source.html#l00053">vertex_buffer.hpp:53</a></div></div>

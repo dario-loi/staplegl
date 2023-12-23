@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a1a9028fd802c481a99491a418ca2fe86":[3,0,0,0,1,3],
+"namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a87c214e1e77f5e0644a224f3df50fae7":[3,0,0,0,1,1],
 "namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a97ade28e93c0de60adc075bdbe07ca36":[3,0,0,0,1,2],
 "namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063abe14b41eb96410ea28b32bc138d885ae":[3,0,0,0,1,5],
 "namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063ad33ec2b0bbea6d471a4706cea030e1e3":[3,0,0,0,1,0],
@@ -23,6 +25,7 @@ var NAVTREEINDEX1 =
 "sandbox_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743":[5,0,0,1,3],
 "sandbox_8cpp_source.html":[5,0,0,1],
 "shader_8hpp.html":[5,0,1,0,5],
+"shader_8hpp.html#a03ef09c0954a687733a0d96b17ffd5b3":[5,0,1,0,5,3],
 "shader_8hpp.html#a66841971b93edd37f3e313c52bed59a5":[5,0,1,0,5,2],
 "shader_8hpp.html#a66841971b93edd37f3e313c52bed59a5a02e918fc72837d7c2689be88684dceb1":[5,0,1,0,5,2,1],
 "shader_8hpp.html#a66841971b93edd37f3e313c52bed59a5a2b5bc093b09bd81f51de433bde9d202a":[5,0,1,0,5,2,0],

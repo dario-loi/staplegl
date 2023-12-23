@@ -8,5 +8,6 @@ var shader_8hpp =
       [ "tess_control", "shader_8hpp.html#a66841971b93edd37f3e313c52bed59a5a863be9337e42ea131bac02406749376f", null ],
       [ "tess_eval", "shader_8hpp.html#a66841971b93edd37f3e313c52bed59a5a820a0098539aabff403495d0fc4c111d", null ],
       [ "geometry", "shader_8hpp.html#a66841971b93edd37f3e313c52bed59a5aed7daeb157cd9b31e53896ad3c771a26", null ]
-    ] ]
+    ] ],
+    [ "shader_type_to_string", "shader_8hpp.html#a03ef09c0954a687733a0d96b17ffd5b3", null ]
 ];
