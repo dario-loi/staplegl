@@ -50,6 +50,8 @@ namespace staplegl::util {
 /**
  * @brief Read a file into a string.
  *
+ * @warning If the file is not found, the function returns an empty string.
+ *
  * @param path the file path, relative to the current working directory.
  * @return std::string the contents of the file.
  */

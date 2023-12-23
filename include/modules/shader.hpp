@@ -269,6 +269,9 @@ private:
      * @param source The shader program source.
      * @see staplegl::shader_type
      *
+     * @warning In the case of a failure in parsing, such as an invalid shader type, this method will
+     * return an empty vector.
+     *
      * @return std::vector<shader>. A vector of shaders.
      */
     [[nodiscard]] auto parse_shaders(std::string_view source) const -> std::vector<shader>;
