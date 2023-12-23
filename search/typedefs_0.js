@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['iterator_5ft_327',['iterator_t',['../classstaplegl_1_1vertex__array.html#af84e6842a067c4f083b24ba0511c4365',1,'staplegl::vertex_array']]]
+  ['attr_5fref_402',['attr_ref',['../classstaplegl_1_1uniform__buffer.html#ad092be2339662e04ce6282ae8b5ce7bc',1,'staplegl::uniform_buffer']]]
 ];

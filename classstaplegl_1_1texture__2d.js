@@ -16,5 +16,11 @@ var classstaplegl_1_1texture__2d =
     [ "operator=", "classstaplegl_1_1texture__2d.html#ab80d54c456001c7c8fd9c9b18c50eef0", null ],
     [ "set_data", "classstaplegl_1_1texture__2d.html#af1076ce4db4af31a3274cd33216b113a", null ],
     [ "set_unit", "classstaplegl_1_1texture__2d.html#a3837fa359df136de5fbe70bc30eab1a4", null ],
-    [ "unbind", "classstaplegl_1_1texture__2d.html#a61d0dd14b8309c5c34a9145fabb610bb", null ]
+    [ "unbind", "classstaplegl_1_1texture__2d.html#a61d0dd14b8309c5c34a9145fabb610bb", null ],
+    [ "m_antialias", "classstaplegl_1_1texture__2d.html#ac5c60c96032cea6d7dabe35094491cf7", null ],
+    [ "m_color", "classstaplegl_1_1texture__2d.html#a1276b673d5be15bf896856928fa8d091", null ],
+    [ "m_filter", "classstaplegl_1_1texture__2d.html#a6d2dcf7b7f28f3f88d35a94c8ef15d51", null ],
+    [ "m_id", "classstaplegl_1_1texture__2d.html#a152624d30d71e353143da77bf673cccd", null ],
+    [ "m_resolution", "classstaplegl_1_1texture__2d.html#aa727cfaf1c999828c0be4c41287e5c96", null ],
+    [ "m_unit", "classstaplegl_1_1texture__2d.html#a11a78788a726dbdb0b2f6f81659ded83", null ]
 ];

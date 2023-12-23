@@ -16,6 +16,7 @@ var classstaplegl_1_1vertex__buffer =
     [ "set_data", "classstaplegl_1_1vertex__buffer.html#aec27e5526d57edb5821463c8fe803943", null ],
     [ "set_layout", "classstaplegl_1_1vertex__buffer.html#a73929d0dd5750dc8704edd0bc46c2738", null ],
     [ "size", "classstaplegl_1_1vertex__buffer.html#ae276be56e53aa7d703cee478c24fa704", null ],
+    [ "unbind", "classstaplegl_1_1vertex__buffer.html#aa3a13a22fc0912acfebc5d8acade0396", null ],
     [ "m_id", "classstaplegl_1_1vertex__buffer.html#ae1a657d1a7703ec211a142df2a203b8f", null ],
     [ "m_layout", "classstaplegl_1_1vertex__buffer.html#a2b72ae1521a29169857b7d042ce84ff5", null ]
 ];

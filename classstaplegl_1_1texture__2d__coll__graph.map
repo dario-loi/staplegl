@@ -1,0 +1,7 @@
+<map id="staplegl::texture_2d" name="staplegl::texture_2d">
+<area shape="rect" id="node1" title="2D texture wrapper." alt="" coords="335,81,487,108"/>
+<area shape="rect" id="node2" href="$structstaplegl_1_1texture__filter.html" title="OpenGL texture details relating to filtering and clamping of the image." alt="" coords="18,5,185,32"/>
+<area shape="rect" id="node3" href="$structstaplegl_1_1texture__color.html" title="OpenGL texture details relating to the color format and data type." alt="" coords="17,56,185,83"/>
+<area shape="rect" id="node4" href="$structstaplegl_1_1resolution.html" title="A struct that represents an image&#39;s dimensions." alt="" coords="28,107,175,133"/>
+<area shape="rect" id="node5" href="$structstaplegl_1_1texture__antialias.html" title="OpenGL texture details relating to the number of samples to use for the texture." alt="" coords="5,157,197,184"/>
+</map>

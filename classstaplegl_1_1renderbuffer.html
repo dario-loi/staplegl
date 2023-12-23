@@ -87,6 +87,7 @@ $(document).ready(function(){initNavTree('classstaplegl_1_1renderbuffer.html',''
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classstaplegl_1_1renderbuffer-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">staplegl::renderbuffer Class Reference</div>  </div>
@@ -97,6 +98,15 @@ $(document).ready(function(){initNavTree('classstaplegl_1_1renderbuffer.html',''
  <a href="classstaplegl_1_1renderbuffer.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="renderbuffer_8hpp_source.html">renderbuffer.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for staplegl::renderbuffer:</div>
+<div class="dyncontent">
+<div class="center"><img src="classstaplegl_1_1renderbuffer__coll__graph.png" border="0" usemap="#astaplegl_1_1renderbuffer_coll__map" alt="Collaboration graph"/></div>
+<map name="astaplegl_1_1renderbuffer_coll__map" id="astaplegl_1_1renderbuffer_coll__map">
+<area shape="rect" title="Render Buffer Object (RBO) wrapper." alt="" coords="5,95,168,121"/>
+<area shape="rect" href="structstaplegl_1_1resolution.html" title="A struct that represents an image&#39;s dimensions." alt="" coords="13,5,160,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -143,6 +153,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0a83147ad45db2022a1cc89a9f10c979"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1renderbuffer.html#a0a83147ad45db2022a1cc89a9f10c979">samples</a> () const noexcept -&gt; <a class="el" href="namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229de">tex_samples</a></td></tr>
 <tr class="memdesc:a0a83147ad45db2022a1cc89a9f10c979"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the sample count of the renderbuffer object.  <a href="classstaplegl_1_1renderbuffer.html#a0a83147ad45db2022a1cc89a9f10c979">More...</a><br /></td></tr>
 <tr class="separator:a0a83147ad45db2022a1cc89a9f10c979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a327418f45806862486a0bbddfc27908d"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1renderbuffer.html#a327418f45806862486a0bbddfc27908d">m_id</a> {}</td></tr>
+<tr class="separator:a327418f45806862486a0bbddfc27908d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc0ea932cc2031c74d993cf937cccf50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstaplegl_1_1resolution.html">resolution</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1renderbuffer.html#acc0ea932cc2031c74d993cf937cccf50">m_res</a> {}</td></tr>
+<tr class="separator:acc0ea932cc2031c74d993cf937cccf50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacc50423dd04e2f1bc6170317580a75b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaplegl_1_1renderbuffer.html#a09943a91da5775824efa82ba18e13576">attachment_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1renderbuffer.html#aacc50423dd04e2f1bc6170317580a75b">m_type</a> {}</td></tr>
+<tr class="separator:aacc50423dd04e2f1bc6170317580a75b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a122ee35c4829bfe07ab6e69335c5a529"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229de">tex_samples</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1renderbuffer.html#a122ee35c4829bfe07ab6e69335c5a529">m_samples</a> {}</td></tr>
+<tr class="separator:a122ee35c4829bfe07ab6e69335c5a529"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Render Buffer Object (RBO) wrapper. </p>
@@ -568,6 +589,103 @@ Public Member Functions</h2></td></tr>
 <p>Unbind the renderbuffer object. </p>
 
 <p class="definition">Definition at line <a class="el" href="renderbuffer_8hpp_source.html#l00198">198</a> of file <a class="el" href="renderbuffer_8hpp_source.html">renderbuffer.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a327418f45806862486a0bbddfc27908d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a327418f45806862486a0bbddfc27908d">&#9670;&nbsp;</a></span>m_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t staplegl::renderbuffer::m_id {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="renderbuffer_8hpp_source.html#l00127">127</a> of file <a class="el" href="renderbuffer_8hpp_source.html">renderbuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="acc0ea932cc2031c74d993cf937cccf50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc0ea932cc2031c74d993cf937cccf50">&#9670;&nbsp;</a></span>m_res</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structstaplegl_1_1resolution.html">resolution</a> staplegl::renderbuffer::m_res {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="renderbuffer_8hpp_source.html#l00128">128</a> of file <a class="el" href="renderbuffer_8hpp_source.html">renderbuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a122ee35c4829bfe07ab6e69335c5a529"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a122ee35c4829bfe07ab6e69335c5a529">&#9670;&nbsp;</a></span>m_samples</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229de">tex_samples</a> staplegl::renderbuffer::m_samples {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="renderbuffer_8hpp_source.html#l00130">130</a> of file <a class="el" href="renderbuffer_8hpp_source.html">renderbuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aacc50423dd04e2f1bc6170317580a75b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacc50423dd04e2f1bc6170317580a75b">&#9670;&nbsp;</a></span>m_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classstaplegl_1_1renderbuffer.html#a09943a91da5775824efa82ba18e13576">attachment_type</a> staplegl::renderbuffer::m_type {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="renderbuffer_8hpp_source.html#l00129">129</a> of file <a class="el" href="renderbuffer_8hpp_source.html">renderbuffer.hpp</a>.</p>
 
 </div>
 </div>

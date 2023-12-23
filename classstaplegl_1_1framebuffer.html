@@ -87,6 +87,7 @@ $(document).ready(function(){initNavTree('classstaplegl_1_1framebuffer.html','')
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classstaplegl_1_1framebuffer-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">staplegl::framebuffer Class Reference</div>  </div>
@@ -147,6 +148,15 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ab4f23d19202163757171b1c932f91bec"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1framebuffer.html#ab4f23d19202163757171b1c932f91bec">transfer_data</a> (<a class="el" href="classstaplegl_1_1framebuffer.html">framebuffer</a> const &amp;src, <a class="el" href="classstaplegl_1_1framebuffer.html">framebuffer</a> const &amp;dst, <a class="el" href="structstaplegl_1_1resolution.html">resolution</a> res)</td></tr>
 <tr class="memdesc:ab4f23d19202163757171b1c932f91bec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transfer the contents of a framebuffer to another.  <a href="classstaplegl_1_1framebuffer.html#ab4f23d19202163757171b1c932f91bec">More...</a><br /></td></tr>
 <tr class="separator:ab4f23d19202163757171b1c932f91bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a6cffd68eb45c61d54521c7e8039b9bc1"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1framebuffer.html#a6cffd68eb45c61d54521c7e8039b9bc1">m_id</a> {}</td></tr>
+<tr class="separator:a6cffd68eb45c61d54521c7e8039b9bc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5ac8e90fef8402edd01b13ae6b96817"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacestaplegl.html#a4bde1690fcce67d4e6c23aa812bd497e">fbo_attachment</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1framebuffer.html#ab5ac8e90fef8402edd01b13ae6b96817">m_attachment</a> {}</td></tr>
+<tr class="separator:ab5ac8e90fef8402edd01b13ae6b96817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeab366335d4ad47b1d5ad546a20a5283"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classstaplegl_1_1renderbuffer.html">renderbuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1framebuffer.html#aeab366335d4ad47b1d5ad546a20a5283">m_renderbuffer</a> {}</td></tr>
+<tr class="separator:aeab366335d4ad47b1d5ad546a20a5283"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Framebuffer Object (FBO) wrapper. </p>
@@ -752,6 +762,79 @@ this function destroys any previously held renderbuffer.</dd></dl>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="framebuffer_8hpp_source.html#l00311">311</a> of file <a class="el" href="framebuffer_8hpp_source.html">framebuffer.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ab5ac8e90fef8402edd01b13ae6b96817"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5ac8e90fef8402edd01b13ae6b96817">&#9670;&nbsp;</a></span>m_attachment</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacestaplegl.html#a4bde1690fcce67d4e6c23aa812bd497e">fbo_attachment</a> staplegl::framebuffer::m_attachment {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="framebuffer_8hpp_source.html#l00172">172</a> of file <a class="el" href="framebuffer_8hpp_source.html">framebuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6cffd68eb45c61d54521c7e8039b9bc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cffd68eb45c61d54521c7e8039b9bc1">&#9670;&nbsp;</a></span>m_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t staplegl::framebuffer::m_id {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="framebuffer_8hpp_source.html#l00171">171</a> of file <a class="el" href="framebuffer_8hpp_source.html">framebuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aeab366335d4ad47b1d5ad546a20a5283"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeab366335d4ad47b1d5ad546a20a5283">&#9670;&nbsp;</a></span>m_renderbuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="classstaplegl_1_1renderbuffer.html">renderbuffer</a>&gt; staplegl::framebuffer::m_renderbuffer {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="framebuffer_8hpp_source.html#l00173">173</a> of file <a class="el" href="framebuffer_8hpp_source.html">framebuffer.hpp</a>.</p>
 
 </div>
 </div>

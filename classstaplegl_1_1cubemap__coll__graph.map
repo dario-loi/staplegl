@@ -1,0 +1,6 @@
+<map id="staplegl::cubemap" name="staplegl::cubemap">
+<area shape="rect" id="node1" title="Cube map texture wrapper." alt="" coords="209,95,352,121"/>
+<area shape="rect" id="node2" href="$structstaplegl_1_1texture__filter.html" title="OpenGL texture details relating to filtering and clamping of the image." alt="" coords="5,5,172,32"/>
+<area shape="rect" id="node3" href="$structstaplegl_1_1texture__color.html" title="OpenGL texture details relating to the color format and data type." alt="" coords="197,5,365,32"/>
+<area shape="rect" id="node4" href="$structstaplegl_1_1resolution.html" title="A struct that represents an image&#39;s dimensions." alt="" coords="389,5,535,32"/>
+</map>

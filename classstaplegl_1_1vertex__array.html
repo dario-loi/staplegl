@@ -88,6 +88,7 @@ $(document).ready(function(){initNavTree('classstaplegl_1_1vertex__array.html','
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classstaplegl_1_1vertex__array-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">staplegl::vertex_array Class Reference</div>  </div>
@@ -98,6 +99,15 @@ $(document).ready(function(){initNavTree('classstaplegl_1_1vertex__array.html','
  <a href="classstaplegl_1_1vertex__array.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="vertex__array_8hpp_source.html">vertex_array.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for staplegl::vertex_array:</div>
+<div class="dyncontent">
+<div class="center"><img src="classstaplegl_1_1vertex__array__coll__graph.png" border="0" usemap="#astaplegl_1_1vertex__array_coll__map" alt="Collaboration graph"/></div>
+<map name="astaplegl_1_1vertex__array_coll__map" id="astaplegl_1_1vertex__array_coll__map">
+<area shape="rect" title="Vertex Array Object (VAO) wrapper." alt="" coords="5,95,171,121"/>
+<area shape="rect" href="classstaplegl_1_1index__buffer.html" title="Element Buffer Object (EBO) wrapper." alt="" coords="7,5,169,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -155,6 +165,19 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a598420dc13c3932aa641e9d784fe4899"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__array.html#a598420dc13c3932aa641e9d784fe4899">unbind</a> ()</td></tr>
 <tr class="memdesc:a598420dc13c3932aa641e9d784fe4899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unbind the vertex array object.  <a href="classstaplegl_1_1vertex__array.html#a598420dc13c3932aa641e9d784fe4899">More...</a><br /></td></tr>
 <tr class="separator:a598420dc13c3932aa641e9d784fe4899"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ac0e321ad3ca47d81a742112179439a99"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__array.html#ac0e321ad3ca47d81a742112179439a99">m_id</a> {}</td></tr>
+<tr class="separator:ac0e321ad3ca47d81a742112179439a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8631b144445a44a48cd9a86cee81632"><td class="memItemLeft" align="right" valign="top">std::list&lt; <a class="el" href="classstaplegl_1_1vertex__buffer.html">vertex_buffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__array.html#aa8631b144445a44a48cd9a86cee81632">m_vertex_buffers</a></td></tr>
+<tr class="separator:aa8631b144445a44a48cd9a86cee81632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b38650abbc2d54435565150fcf31369"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classstaplegl_1_1vertex__buffer__inst.html">vertex_buffer_inst</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__array.html#a9b38650abbc2d54435565150fcf31369">m_instanced_vbo</a></td></tr>
+<tr class="separator:a9b38650abbc2d54435565150fcf31369"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43f999fab7eff9c77bbd3a686114954c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaplegl_1_1index__buffer.html">index_buffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__array.html#a43f999fab7eff9c77bbd3a686114954c">m_index_buffer</a></td></tr>
+<tr class="separator:a43f999fab7eff9c77bbd3a686114954c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3305c03d74c4866ec3a18e8e4a04a96a"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__array.html#a3305c03d74c4866ec3a18e8e4a04a96a">attrib_index</a> {}</td></tr>
+<tr class="separator:a3305c03d74c4866ec3a18e8e4a04a96a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Vertex Array Object (VAO) wrapper. </p>
@@ -709,6 +732,127 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="vertex__array_8hpp_source.html#l00218">218</a> of file <a class="el" href="vertex__array_8hpp_source.html">vertex_array.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3305c03d74c4866ec3a18e8e4a04a96a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3305c03d74c4866ec3a18e8e4a04a96a">&#9670;&nbsp;</a></span>attrib_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t staplegl::vertex_array::attrib_index {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vertex__array_8hpp_source.html#l00194">194</a> of file <a class="el" href="vertex__array_8hpp_source.html">vertex_array.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac0e321ad3ca47d81a742112179439a99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0e321ad3ca47d81a742112179439a99">&#9670;&nbsp;</a></span>m_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t staplegl::vertex_array::m_id {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vertex__array_8hpp_source.html#l00189">189</a> of file <a class="el" href="vertex__array_8hpp_source.html">vertex_array.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a43f999fab7eff9c77bbd3a686114954c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43f999fab7eff9c77bbd3a686114954c">&#9670;&nbsp;</a></span>m_index_buffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classstaplegl_1_1index__buffer.html">index_buffer</a> staplegl::vertex_array::m_index_buffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vertex__array_8hpp_source.html#l00192">192</a> of file <a class="el" href="vertex__array_8hpp_source.html">vertex_array.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9b38650abbc2d54435565150fcf31369"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b38650abbc2d54435565150fcf31369">&#9670;&nbsp;</a></span>m_instanced_vbo</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="classstaplegl_1_1vertex__buffer__inst.html">vertex_buffer_inst</a>&gt; staplegl::vertex_array::m_instanced_vbo</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vertex__array_8hpp_source.html#l00191">191</a> of file <a class="el" href="vertex__array_8hpp_source.html">vertex_array.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa8631b144445a44a48cd9a86cee81632"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8631b144445a44a48cd9a86cee81632">&#9670;&nbsp;</a></span>m_vertex_buffers</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::list&lt;<a class="el" href="classstaplegl_1_1vertex__buffer.html">vertex_buffer</a>&gt; staplegl::vertex_array::m_vertex_buffers</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vertex__array_8hpp_source.html#l00190">190</a> of file <a class="el" href="vertex__array_8hpp_source.html">vertex_array.hpp</a>.</p>
 
 </div>
 </div>

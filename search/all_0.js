@@ -10,5 +10,7 @@ var searchData=
   ['attach_5fdepth_5fstencil_5fbuffer_7',['ATTACH_DEPTH_STENCIL_BUFFER',['../namespacestaplegl.html#a4bde1690fcce67d4e6c23aa812bd497eac8b6d545f4265e678a88ab4119a12ee1',1,'staplegl']]],
   ['attach_5fstencil_5fbuffer_8',['ATTACH_STENCIL_BUFFER',['../namespacestaplegl.html#a4bde1690fcce67d4e6c23aa812bd497ea29e5050ee314b0bcf7ac49e80219bb44',1,'staplegl']]],
   ['attachment_9',['attachment',['../classstaplegl_1_1framebuffer.html#ac34cb48e695d803ba8cb0f137c5bda49',1,'staplegl::framebuffer']]],
-  ['attachment_5ftype_10',['attachment_type',['../classstaplegl_1_1renderbuffer.html#a09943a91da5775824efa82ba18e13576',1,'staplegl::renderbuffer']]]
+  ['attachment_5ftype_10',['attachment_type',['../classstaplegl_1_1renderbuffer.html#a09943a91da5775824efa82ba18e13576',1,'staplegl::renderbuffer']]],
+  ['attr_5fref_11',['attr_ref',['../classstaplegl_1_1uniform__buffer.html#ad092be2339662e04ce6282ae8b5ce7bc',1,'staplegl::uniform_buffer']]],
+  ['attrib_5findex_12',['attrib_index',['../classstaplegl_1_1vertex__array.html#a3305c03d74c4866ec3a18e8e4a04a96a',1,'staplegl::vertex_array']]]
 ];

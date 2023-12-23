@@ -86,6 +86,7 @@ $(document).ready(function(){initNavTree('classstaplegl_1_1texture__2d.html','')
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classstaplegl_1_1texture__2d-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">staplegl::texture_2d Class Reference</div>  </div>
@@ -96,6 +97,18 @@ $(document).ready(function(){initNavTree('classstaplegl_1_1texture__2d.html','')
  <a href="classstaplegl_1_1texture__2d.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="texture_8hpp_source.html">texture.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for staplegl::texture_2d:</div>
+<div class="dyncontent">
+<div class="center"><img src="classstaplegl_1_1texture__2d__coll__graph.png" border="0" usemap="#astaplegl_1_1texture__2d_coll__map" alt="Collaboration graph"/></div>
+<map name="astaplegl_1_1texture__2d_coll__map" id="astaplegl_1_1texture__2d_coll__map">
+<area shape="rect" title="2D texture wrapper." alt="" coords="335,81,487,108"/>
+<area shape="rect" href="structstaplegl_1_1texture__filter.html" title="OpenGL texture details relating to filtering and clamping of the image." alt="" coords="18,5,185,32"/>
+<area shape="rect" href="structstaplegl_1_1texture__color.html" title="OpenGL texture details relating to the color format and data type." alt="" coords="17,56,185,83"/>
+<area shape="rect" href="structstaplegl_1_1resolution.html" title="A struct that represents an image&#39;s dimensions." alt="" coords="28,107,175,133"/>
+<area shape="rect" href="structstaplegl_1_1texture__antialias.html" title="OpenGL texture details relating to the number of samples to use for the texture." alt="" coords="5,157,197,184"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -148,6 +161,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a46de1a957fed257baf6c590d938a2e09"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1texture__2d.html#a46de1a957fed257baf6c590d938a2e09">antialias</a> () const -&gt; <a class="el" href="structstaplegl_1_1texture__antialias.html">texture_antialias</a></td></tr>
 <tr class="memdesc:a46de1a957fed257baf6c590d938a2e09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the texture antialias struct.  <a href="classstaplegl_1_1texture__2d.html#a46de1a957fed257baf6c590d938a2e09">More...</a><br /></td></tr>
 <tr class="separator:a46de1a957fed257baf6c590d938a2e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a152624d30d71e353143da77bf673cccd"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1texture__2d.html#a152624d30d71e353143da77bf673cccd">m_id</a> {}</td></tr>
+<tr class="separator:a152624d30d71e353143da77bf673cccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11a78788a726dbdb0b2f6f81659ded83"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1texture__2d.html#a11a78788a726dbdb0b2f6f81659ded83">m_unit</a> {}</td></tr>
+<tr class="separator:a11a78788a726dbdb0b2f6f81659ded83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1276b673d5be15bf896856928fa8d091"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstaplegl_1_1texture__color.html">texture_color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1texture__2d.html#a1276b673d5be15bf896856928fa8d091">m_color</a> {}</td></tr>
+<tr class="separator:a1276b673d5be15bf896856928fa8d091"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d2dcf7b7f28f3f88d35a94c8ef15d51"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstaplegl_1_1texture__filter.html">texture_filter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1texture__2d.html#a6d2dcf7b7f28f3f88d35a94c8ef15d51">m_filter</a> {}</td></tr>
+<tr class="separator:a6d2dcf7b7f28f3f88d35a94c8ef15d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa727cfaf1c999828c0be4c41287e5c96"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstaplegl_1_1resolution.html">resolution</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1texture__2d.html#aa727cfaf1c999828c0be4c41287e5c96">m_resolution</a> {}</td></tr>
+<tr class="separator:aa727cfaf1c999828c0be4c41287e5c96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5c60c96032cea6d7dabe35094491cf7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstaplegl_1_1texture__antialias.html">texture_antialias</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1texture__2d.html#ac5c60c96032cea6d7dabe35094491cf7">m_antialias</a> {}</td></tr>
+<tr class="separator:ac5c60c96032cea6d7dabe35094491cf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>2D texture wrapper. </p>
@@ -755,6 +783,151 @@ Public Member Functions</h2></td></tr>
 <p>Unbind the texture object. </p>
 
 <p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00216">216</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac5c60c96032cea6d7dabe35094491cf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5c60c96032cea6d7dabe35094491cf7">&#9670;&nbsp;</a></span>m_antialias</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structstaplegl_1_1texture__antialias.html">texture_antialias</a> staplegl::texture_2d::m_antialias {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00288">288</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1276b673d5be15bf896856928fa8d091"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1276b673d5be15bf896856928fa8d091">&#9670;&nbsp;</a></span>m_color</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structstaplegl_1_1texture__color.html">texture_color</a> staplegl::texture_2d::m_color {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00285">285</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6d2dcf7b7f28f3f88d35a94c8ef15d51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d2dcf7b7f28f3f88d35a94c8ef15d51">&#9670;&nbsp;</a></span>m_filter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structstaplegl_1_1texture__filter.html">texture_filter</a> staplegl::texture_2d::m_filter {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00286">286</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a152624d30d71e353143da77bf673cccd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a152624d30d71e353143da77bf673cccd">&#9670;&nbsp;</a></span>m_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t staplegl::texture_2d::m_id {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00283">283</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa727cfaf1c999828c0be4c41287e5c96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa727cfaf1c999828c0be4c41287e5c96">&#9670;&nbsp;</a></span>m_resolution</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structstaplegl_1_1resolution.html">resolution</a> staplegl::texture_2d::m_resolution {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00287">287</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a11a78788a726dbdb0b2f6f81659ded83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11a78788a726dbdb0b2f6f81659ded83">&#9670;&nbsp;</a></span>m_unit</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t staplegl::texture_2d::m_unit {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00284">284</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>

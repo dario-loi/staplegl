@@ -16,5 +16,9 @@ var classstaplegl_1_1renderbuffer =
     [ "res", "classstaplegl_1_1renderbuffer.html#a480ca558d182afe688233428feccf91d", null ],
     [ "samples", "classstaplegl_1_1renderbuffer.html#a0a83147ad45db2022a1cc89a9f10c979", null ],
     [ "type", "classstaplegl_1_1renderbuffer.html#a9377dc2561b06d5d769c159cdedf3f93", null ],
-    [ "unbind", "classstaplegl_1_1renderbuffer.html#aa328e79c6f02eb2ceb677c4f2dd15c96", null ]
+    [ "unbind", "classstaplegl_1_1renderbuffer.html#aa328e79c6f02eb2ceb677c4f2dd15c96", null ],
+    [ "m_id", "classstaplegl_1_1renderbuffer.html#a327418f45806862486a0bbddfc27908d", null ],
+    [ "m_res", "classstaplegl_1_1renderbuffer.html#acc0ea932cc2031c74d993cf937cccf50", null ],
+    [ "m_samples", "classstaplegl_1_1renderbuffer.html#a122ee35c4829bfe07ab6e69335c5a529", null ],
+    [ "m_type", "classstaplegl_1_1renderbuffer.html#aacc50423dd04e2f1bc6170317580a75b", null ]
 ];

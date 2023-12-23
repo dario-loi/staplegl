@@ -10,5 +10,7 @@ var classstaplegl_1_1index__buffer =
     [ "id", "classstaplegl_1_1index__buffer.html#a7e79d6d51ca44f48537dae224113d13d", null ],
     [ "operator=", "classstaplegl_1_1index__buffer.html#a9b3da59701dd25511ed7af79846d6259", null ],
     [ "operator=", "classstaplegl_1_1index__buffer.html#abd55bddcfbff146085d3ce43c94d39f1", null ],
-    [ "unbind", "classstaplegl_1_1index__buffer.html#a82e8d41c10ab9919f320f2844f87ab1e", null ]
+    [ "unbind", "classstaplegl_1_1index__buffer.html#a82e8d41c10ab9919f320f2844f87ab1e", null ],
+    [ "m_count", "classstaplegl_1_1index__buffer.html#a01ea212e96cc19de7e996b57876516cb", null ],
+    [ "m_id", "classstaplegl_1_1index__buffer.html#ae81c463372ecb12ea1f938abea330235", null ]
 ];

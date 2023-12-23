@@ -87,6 +87,8 @@ $(document).ready(function(){initNavTree('classstaplegl_1_1uniform__buffer.html'
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-types">Private Types</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classstaplegl_1_1uniform__buffer-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">staplegl::uniform_buffer Class Reference</div>  </div>
@@ -97,6 +99,15 @@ $(document).ready(function(){initNavTree('classstaplegl_1_1uniform__buffer.html'
  <a href="classstaplegl_1_1uniform__buffer.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="uniform__buffer_8hpp_source.html">uniform_buffer.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for staplegl::uniform_buffer:</div>
+<div class="dyncontent">
+<div class="center"><img src="classstaplegl_1_1uniform__buffer__coll__graph.png" border="0" usemap="#astaplegl_1_1uniform__buffer_coll__map" alt="Collaboration graph"/></div>
+<map name="astaplegl_1_1uniform__buffer_coll__map" id="astaplegl_1_1uniform__buffer_coll__map">
+<area shape="rect" title="Uniform Buffer Object (UBO) wrapper." alt="" coords="5,109,184,136"/>
+<area shape="rect" href="classstaplegl_1_1vertex__buffer__layout.html" title="Vertex buffer layout." alt="" coords="10,5,179,47"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -146,6 +157,22 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a118cb381cebfa0be0ff2cb6bdc54a0e6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1uniform__buffer.html#a118cb381cebfa0be0ff2cb6bdc54a0e6">unbind</a> ()</td></tr>
 <tr class="memdesc:a118cb381cebfa0be0ff2cb6bdc54a0e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unbind any uniform from the OpenGL context.  <a href="classstaplegl_1_1uniform__buffer.html#a118cb381cebfa0be0ff2cb6bdc54a0e6">More...</a><br /></td></tr>
 <tr class="separator:a118cb381cebfa0be0ff2cb6bdc54a0e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:ad092be2339662e04ce6282ae8b5ce7bc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1uniform__buffer.html#ad092be2339662e04ce6282ae8b5ce7bc">attr_ref</a> = std::reference_wrapper&lt; const <a class="el" href="structstaplegl_1_1vertex__attribute.html">vertex_attribute</a> &gt;</td></tr>
+<tr class="separator:ad092be2339662e04ce6282ae8b5ce7bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a7bd8c8299c32db4fa18ca3cfdf882ae8"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1uniform__buffer.html#a7bd8c8299c32db4fa18ca3cfdf882ae8">m_id</a> {}</td></tr>
+<tr class="separator:a7bd8c8299c32db4fa18ca3cfdf882ae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a076e3e08fddd43398d7cbafbdfd9350d"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1uniform__buffer.html#a076e3e08fddd43398d7cbafbdfd9350d">m_binding_point</a> {}</td></tr>
+<tr class="separator:a076e3e08fddd43398d7cbafbdfd9350d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af54bac3479432261d7526c51f7412562"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string_view, <a class="el" href="classstaplegl_1_1uniform__buffer.html#ad092be2339662e04ce6282ae8b5ce7bc">attr_ref</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1uniform__buffer.html#af54bac3479432261d7526c51f7412562">m_attr_cache</a></td></tr>
+<tr class="separator:af54bac3479432261d7526c51f7412562"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb3b181471fd2cd5ab613850bc82bdfb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaplegl_1_1vertex__buffer__layout.html">vertex_buffer_layout</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1uniform__buffer.html#adb3b181471fd2cd5ab613850bc82bdfb">m_layout</a></td></tr>
+<tr class="separator:adb3b181471fd2cd5ab613850bc82bdfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Uniform Buffer Object (UBO) wrapper. </p>
@@ -153,7 +180,32 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="uniform__buffer_8hpp_source.html#l00033">33</a> of file <a class="el" href="uniform__buffer_8hpp_source.html">uniform_buffer.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ad092be2339662e04ce6282ae8b5ce7bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad092be2339662e04ce6282ae8b5ce7bc">&#9670;&nbsp;</a></span>attr_ref</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classstaplegl_1_1uniform__buffer.html#ad092be2339662e04ce6282ae8b5ce7bc">staplegl::uniform_buffer::attr_ref</a> =  std::reference_wrapper&lt;const <a class="el" href="structstaplegl_1_1vertex__attribute.html">vertex_attribute</a>&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="uniform__buffer_8hpp_source.html#l00149">149</a> of file <a class="el" href="uniform__buffer_8hpp_source.html">uniform_buffer.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a702b5b07bc2c6360124043cdc2b3572a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a702b5b07bc2c6360124043cdc2b3572a">&#9670;&nbsp;</a></span>uniform_buffer() <span class="overload">[1/4]</span></h2>
 
@@ -743,6 +795,103 @@ Static Public Member Functions</h2></td></tr>
 <p>Unbind any uniform from the OpenGL context. </p>
 
 <p class="definition">Definition at line <a class="el" href="uniform__buffer_8hpp_source.html#l00200">200</a> of file <a class="el" href="uniform__buffer_8hpp_source.html">uniform_buffer.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="af54bac3479432261d7526c51f7412562"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af54bac3479432261d7526c51f7412562">&#9670;&nbsp;</a></span>m_attr_cache</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;std::string_view, <a class="el" href="classstaplegl_1_1uniform__buffer.html#ad092be2339662e04ce6282ae8b5ce7bc">attr_ref</a>&gt; staplegl::uniform_buffer::m_attr_cache</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="uniform__buffer_8hpp_source.html#l00153">153</a> of file <a class="el" href="uniform__buffer_8hpp_source.html">uniform_buffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a076e3e08fddd43398d7cbafbdfd9350d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a076e3e08fddd43398d7cbafbdfd9350d">&#9670;&nbsp;</a></span>m_binding_point</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t staplegl::uniform_buffer::m_binding_point {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="uniform__buffer_8hpp_source.html#l00152">152</a> of file <a class="el" href="uniform__buffer_8hpp_source.html">uniform_buffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7bd8c8299c32db4fa18ca3cfdf882ae8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bd8c8299c32db4fa18ca3cfdf882ae8">&#9670;&nbsp;</a></span>m_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t staplegl::uniform_buffer::m_id {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="uniform__buffer_8hpp_source.html#l00151">151</a> of file <a class="el" href="uniform__buffer_8hpp_source.html">uniform_buffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adb3b181471fd2cd5ab613850bc82bdfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb3b181471fd2cd5ab613850bc82bdfb">&#9670;&nbsp;</a></span>m_layout</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classstaplegl_1_1vertex__buffer__layout.html">vertex_buffer_layout</a> staplegl::uniform_buffer::m_layout</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="uniform__buffer_8hpp_source.html#l00154">154</a> of file <a class="el" href="uniform__buffer_8hpp_source.html">uniform_buffer.hpp</a>.</p>
 
 </div>
 </div>

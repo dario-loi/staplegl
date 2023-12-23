@@ -84,10 +84,100 @@ $(document).ready(function(){initNavTree('namespacestaplegl_1_1util.html',''); i
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">staplegl::util Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a4883aa698fd51879e2363fbf456625f8"><td class="memItemLeft" align="right" valign="top">static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaplegl_1_1util.html#a4883aa698fd51879e2363fbf456625f8">read_file</a> (std::string_view path) -&gt; std::string</td></tr>
+<tr class="memdesc:a4883aa698fd51879e2363fbf456625f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a file into a string.  <a href="namespacestaplegl_1_1util.html#a4883aa698fd51879e2363fbf456625f8">More...</a><br /></td></tr>
+<tr class="separator:a4883aa698fd51879e2363fbf456625f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3600adde160d0a660f3138108d7e86dc"><td class="memItemLeft" align="right" valign="top">static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaplegl_1_1util.html#a3600adde160d0a660f3138108d7e86dc">get_file_name</a> (std::string_view path) -&gt; std::string</td></tr>
+<tr class="memdesc:a3600adde160d0a660f3138108d7e86dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the filename without the extension.  <a href="namespacestaplegl_1_1util.html#a3600adde160d0a660f3138108d7e86dc">More...</a><br /></td></tr>
+<tr class="separator:a3600adde160d0a660f3138108d7e86dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a3600adde160d0a660f3138108d7e86dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3600adde160d0a660f3138108d7e86dc">&#9670;&nbsp;</a></span>get_file_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static auto staplegl::util::get_file_name </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td> -&gt; std::string
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the filename without the extension. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Path to the file, relative to the current working directory. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::string, the name of the file. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="utility_8hpp_source.html#l00081">81</a> of file <a class="el" href="utility_8hpp_source.html">utility.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4883aa698fd51879e2363fbf456625f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4883aa698fd51879e2363fbf456625f8">&#9670;&nbsp;</a></span>read_file()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static auto staplegl::util::read_file </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td> -&gt; std::string
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read a file into a string. </p>
+<dl class="section warning"><dt>Warning</dt><dd>If the file is not found, the function returns an empty string.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>the file path, relative to the current working directory. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::string the contents of the file. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="utility_8hpp_source.html#l00058">58</a> of file <a class="el" href="utility_8hpp_source.html">utility.hpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

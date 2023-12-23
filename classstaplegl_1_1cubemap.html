@@ -87,6 +87,7 @@ $(document).ready(function(){initNavTree('classstaplegl_1_1cubemap.html',''); in
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classstaplegl_1_1cubemap-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">staplegl::cubemap Class Reference</div>  </div>
@@ -97,6 +98,17 @@ $(document).ready(function(){initNavTree('classstaplegl_1_1cubemap.html',''); in
  <a href="classstaplegl_1_1cubemap.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="cubemap_8hpp_source.html">cubemap.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for staplegl::cubemap:</div>
+<div class="dyncontent">
+<div class="center"><img src="classstaplegl_1_1cubemap__coll__graph.png" border="0" usemap="#astaplegl_1_1cubemap_coll__map" alt="Collaboration graph"/></div>
+<map name="astaplegl_1_1cubemap_coll__map" id="astaplegl_1_1cubemap_coll__map">
+<area shape="rect" title="Cube map texture wrapper." alt="" coords="209,95,352,121"/>
+<area shape="rect" href="structstaplegl_1_1texture__filter.html" title="OpenGL texture details relating to filtering and clamping of the image." alt="" coords="5,5,172,32"/>
+<area shape="rect" href="structstaplegl_1_1texture__color.html" title="OpenGL texture details relating to the color format and data type." alt="" coords="197,5,365,32"/>
+<area shape="rect" href="structstaplegl_1_1resolution.html" title="A struct that represents an image&#39;s dimensions." alt="" coords="389,5,535,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -137,6 +149,17 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aaeb82e72a1c606a19a08d03375b5a6e4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1cubemap.html#aaeb82e72a1c606a19a08d03375b5a6e4">unbind</a> ()</td></tr>
 <tr class="memdesc:aaeb82e72a1c606a19a08d03375b5a6e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unbind the cubemap texture.  <a href="classstaplegl_1_1cubemap.html#aaeb82e72a1c606a19a08d03375b5a6e4">More...</a><br /></td></tr>
 <tr class="separator:aaeb82e72a1c606a19a08d03375b5a6e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ad25dbc459e4e6f4adc62c1e53044cdaa"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1cubemap.html#ad25dbc459e4e6f4adc62c1e53044cdaa">m_id</a> {}</td></tr>
+<tr class="separator:ad25dbc459e4e6f4adc62c1e53044cdaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a651016424382040954d369854e16591b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstaplegl_1_1resolution.html">resolution</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1cubemap.html#a651016424382040954d369854e16591b">m_res</a> {}</td></tr>
+<tr class="separator:a651016424382040954d369854e16591b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eaee0ea7493cc5363b8d547c57817b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstaplegl_1_1texture__color.html">texture_color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1cubemap.html#a3eaee0ea7493cc5363b8d547c57817b1">m_color</a> {}</td></tr>
+<tr class="separator:a3eaee0ea7493cc5363b8d547c57817b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01c9e565b511869d109a94b7a45be88f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstaplegl_1_1texture__filter.html">texture_filter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1cubemap.html#a01c9e565b511869d109a94b7a45be88f">m_filter</a> {}</td></tr>
+<tr class="separator:a01c9e565b511869d109a94b7a45be88f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Cube map texture wrapper. </p>
@@ -552,6 +575,103 @@ Static Public Member Functions</h2></td></tr>
 <p>Unbind the cubemap texture. </p>
 
 <p class="definition">Definition at line <a class="el" href="cubemap_8hpp_source.html#l00176">176</a> of file <a class="el" href="cubemap_8hpp_source.html">cubemap.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3eaee0ea7493cc5363b8d547c57817b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3eaee0ea7493cc5363b8d547c57817b1">&#9670;&nbsp;</a></span>m_color</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structstaplegl_1_1texture__color.html">texture_color</a> staplegl::cubemap::m_color {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cubemap_8hpp_source.html#l00142">142</a> of file <a class="el" href="cubemap_8hpp_source.html">cubemap.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a01c9e565b511869d109a94b7a45be88f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01c9e565b511869d109a94b7a45be88f">&#9670;&nbsp;</a></span>m_filter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structstaplegl_1_1texture__filter.html">texture_filter</a> staplegl::cubemap::m_filter {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cubemap_8hpp_source.html#l00143">143</a> of file <a class="el" href="cubemap_8hpp_source.html">cubemap.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad25dbc459e4e6f4adc62c1e53044cdaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad25dbc459e4e6f4adc62c1e53044cdaa">&#9670;&nbsp;</a></span>m_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t staplegl::cubemap::m_id {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cubemap_8hpp_source.html#l00140">140</a> of file <a class="el" href="cubemap_8hpp_source.html">cubemap.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a651016424382040954d369854e16591b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a651016424382040954d369854e16591b">&#9670;&nbsp;</a></span>m_res</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structstaplegl_1_1resolution.html">resolution</a> staplegl::cubemap::m_res {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cubemap_8hpp_source.html#l00141">141</a> of file <a class="el" href="cubemap_8hpp_source.html">cubemap.hpp</a>.</p>
 
 </div>
 </div>

@@ -15,5 +15,9 @@ var shader__data__type_8hpp =
       [ "vec4", "shader__data__type_8hpp.html#a648892e19289265a11b3b26743c02063a1a9028fd802c481a99491a418ca2fe86", null ],
       [ "mat3", "shader__data__type_8hpp.html#a648892e19289265a11b3b26743c02063a0dd87e9dfdea657e8be233b5836821d0", null ],
       [ "mat4", "shader__data__type_8hpp.html#a648892e19289265a11b3b26743c02063abe14b41eb96410ea28b32bc138d885ae", null ]
-    ] ]
+    ] ],
+    [ "component_count", "shader__data__type_8hpp.html#a4ac83ec47a5262df693b2d766a5f8933", null ],
+    [ "size", "shader__data__type_8hpp.html#a020bfd87583615f65a7af2d893390368", null ],
+    [ "to_opengl_type", "shader__data__type_8hpp.html#ae2cc58d9cdf8ffc9c9883ce9ee362a25", null ],
+    [ "to_opengl_underlying_type", "shader__data__type_8hpp.html#a476883a4b5507a3bd02bdf4a4996e293", null ]
 ];

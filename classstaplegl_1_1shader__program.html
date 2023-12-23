@@ -86,6 +86,9 @@ $(document).ready(function(){initNavTree('classstaplegl_1_1shader__program.html'
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classstaplegl_1_1shader__program-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">staplegl::shader_program Class Reference</div>  </div>
@@ -159,6 +162,42 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a568d88a85763d9f53a78d5d9ced99c23"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1shader__program.html#a568d88a85763d9f53a78d5d9ced99c23">operator[]</a> (std::size_t index) const -&gt; const <a class="el" href="structstaplegl_1_1shader.html">shader</a> &amp;</td></tr>
 <tr class="memdesc:a568d88a85763d9f53a78d5d9ced99c23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain a const reference to a shader in the shader program.  <a href="classstaplegl_1_1shader__program.html#a568d88a85763d9f53a78d5d9ced99c23">More...</a><br /></td></tr>
 <tr class="separator:a568d88a85763d9f53a78d5d9ced99c23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a29d71a4d7c21dfbfccc6e3200645bf5f"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1shader__program.html#a29d71a4d7c21dfbfccc6e3200645bf5f">create_program</a> () const -&gt; std::uint32_t</td></tr>
+<tr class="memdesc:a29d71a4d7c21dfbfccc6e3200645bf5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a program object.  <a href="classstaplegl_1_1shader__program.html#a29d71a4d7c21dfbfccc6e3200645bf5f">More...</a><br /></td></tr>
+<tr class="separator:a29d71a4d7c21dfbfccc6e3200645bf5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d93243d16def9a6d745d3d7d8210568"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1shader__program.html#a8d93243d16def9a6d745d3d7d8210568">compile</a> (<a class="el" href="namespacestaplegl.html#a66841971b93edd37f3e313c52bed59a5">shader_type</a> <a class="el" href="namespacestaplegl.html#a66841971b93edd37f3e313c52bed59a5">shader_type</a>, std::string_view source) const -&gt; std::uint32_t</td></tr>
+<tr class="memdesc:a8d93243d16def9a6d745d3d7d8210568"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a shader object.  <a href="classstaplegl_1_1shader__program.html#a8d93243d16def9a6d745d3d7d8210568">More...</a><br /></td></tr>
+<tr class="separator:a8d93243d16def9a6d745d3d7d8210568"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fd524ed9e8ec5068c4c2c52389c7680"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1shader__program.html#a8fd524ed9e8ec5068c4c2c52389c7680">parse_shaders</a> (std::string_view source) const -&gt; std::vector&lt; <a class="el" href="structstaplegl_1_1shader.html">shader</a> &gt;</td></tr>
+<tr class="memdesc:a8fd524ed9e8ec5068c4c2c52389c7680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link the shader program.  <a href="classstaplegl_1_1shader__program.html#a8fd524ed9e8ec5068c4c2c52389c7680">More...</a><br /></td></tr>
+<tr class="separator:a8fd524ed9e8ec5068c4c2c52389c7680"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ef4d2c729199832cba1edc102aeac0f"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1shader__program.html#a5ef4d2c729199832cba1edc102aeac0f">uniform_location</a> (std::string_view <a class="el" href="classstaplegl_1_1shader__program.html#a07f90a6c28d42b53ffa00e3eced00095">name</a>) const -&gt; int</td></tr>
+<tr class="memdesc:a5ef4d2c729199832cba1edc102aeac0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain the location of a uniform in the shader program.  <a href="classstaplegl_1_1shader__program.html#a5ef4d2c729199832cba1edc102aeac0f">More...</a><br /></td></tr>
+<tr class="separator:a5ef4d2c729199832cba1edc102aeac0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:ad78b8041e8897937b047482bbfa059f9"><td class="memItemLeft" align="right" valign="top">static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1shader__program.html#ad78b8041e8897937b047482bbfa059f9">is_valid</a> (std::uint32_t id) -&gt; bool</td></tr>
+<tr class="memdesc:ad78b8041e8897937b047482bbfa059f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a shader program is valid.  <a href="classstaplegl_1_1shader__program.html#ad78b8041e8897937b047482bbfa059f9">More...</a><br /></td></tr>
+<tr class="separator:ad78b8041e8897937b047482bbfa059f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f5f36ebe1dfc80f9949fd04a424281f"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1shader__program.html#a1f5f36ebe1dfc80f9949fd04a424281f">to_gl_type</a> (<a class="el" href="namespacestaplegl.html#a66841971b93edd37f3e313c52bed59a5">shader_type</a> <a class="el" href="namespacestaplegl.html#a66841971b93edd37f3e313c52bed59a5">shader_type</a>) -&gt; std::uint32_t</td></tr>
+<tr class="memdesc:a1f5f36ebe1dfc80f9949fd04a424281f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a shader type to its OpenGL equivalent.  <a href="classstaplegl_1_1shader__program.html#a1f5f36ebe1dfc80f9949fd04a424281f">More...</a><br /></td></tr>
+<tr class="separator:a1f5f36ebe1dfc80f9949fd04a424281f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64176b95d7b1dddad5ef270a24d471e8"><td class="memItemLeft" align="right" valign="top">static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1shader__program.html#a64176b95d7b1dddad5ef270a24d471e8">string_to_shader_type</a> (std::string_view str) -&gt; std::optional&lt; <a class="el" href="namespacestaplegl.html#a66841971b93edd37f3e313c52bed59a5">shader_type</a> &gt;</td></tr>
+<tr class="memdesc:a64176b95d7b1dddad5ef270a24d471e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a string to a shader type.  <a href="classstaplegl_1_1shader__program.html#a64176b95d7b1dddad5ef270a24d471e8">More...</a><br /></td></tr>
+<tr class="separator:a64176b95d7b1dddad5ef270a24d471e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a5ca6e19cbd787e902b2af208b933d4ce"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structstaplegl_1_1shader.html">shader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1shader__program.html#a5ca6e19cbd787e902b2af208b933d4ce">m_shaders</a></td></tr>
+<tr class="separator:a5ca6e19cbd787e902b2af208b933d4ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a058b959f4c3c013cc482f9717a4a5aaf"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1shader__program.html#a058b959f4c3c013cc482f9717a4a5aaf">m_id</a> {}</td></tr>
+<tr class="separator:a058b959f4c3c013cc482f9717a4a5aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1f72683554f2ed71135ef04b512cdbc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1shader__program.html#ab1f72683554f2ed71135ef04b512cdbc">m_name</a></td></tr>
+<tr class="separator:ab1f72683554f2ed71135ef04b512cdbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Shader program class. </p>
@@ -444,6 +483,129 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a8d93243d16def9a6d745d3d7d8210568"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d93243d16def9a6d745d3d7d8210568">&#9670;&nbsp;</a></span>compile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto staplegl::shader_program::compile </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacestaplegl.html#a66841971b93edd37f3e313c52bed59a5">shader_type</a>&#160;</td>
+          <td class="paramname"><em>shader_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>source</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const -&gt; std::uint32_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a shader object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shader_type</td><td>The shader type. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacestaplegl.html#a66841971b93edd37f3e313c52bed59a5" title="The type of the shader.">staplegl::shader_type</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The shader source. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::uint32_t, the shader object id. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="shader_8hpp_source.html#l00476">476</a> of file <a class="el" href="shader_8hpp_source.html">shader.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a29d71a4d7c21dfbfccc6e3200645bf5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29d71a4d7c21dfbfccc6e3200645bf5f">&#9670;&nbsp;</a></span>create_program()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto staplegl::shader_program::create_program </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const -&gt; std::uint32_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a program object. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::uint32_t, the program object id. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="shader_8hpp_source.html#l00419">419</a> of file <a class="el" href="shader_8hpp_source.html">shader.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad78b8041e8897937b047482bbfa059f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad78b8041e8897937b047482bbfa059f9">&#9670;&nbsp;</a></span>is_valid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto staplegl::shader_program::is_valid </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td> -&gt; bool</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if a shader program is valid. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Shader program id. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true, if the shader program is valid. </dd>
+<dd>
+false, if the shader program is not valid. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="shader_8hpp_source.html#l00549">549</a> of file <a class="el" href="shader_8hpp_source.html">shader.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a07f90a6c28d42b53ffa00e3eced00095"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a07f90a6c28d42b53ffa00e3eced00095">&#9670;&nbsp;</a></span>name()</h2>
 
@@ -605,6 +767,46 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a8fd524ed9e8ec5068c4c2c52389c7680"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fd524ed9e8ec5068c4c2c52389c7680">&#9670;&nbsp;</a></span>parse_shaders()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto staplegl::shader_program::parse_shaders </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>source</em></td><td>)</td>
+          <td> const -&gt; std::vector&lt;<a class="el" href="structstaplegl_1_1shader.html">shader</a>&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Link the shader program. </p>
+<p>This method acts on the provided source of shaders, it will pre-process the source, splitting the monolithic source into individual shader sources by scanning for the #type tag.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The shader program source. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacestaplegl.html#a66841971b93edd37f3e313c52bed59a5" title="The type of the shader.">staplegl::shader_type</a></dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>In the case of a failure in parsing, such as an invalid shader type, this method will return an empty vector.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;shader&gt;. A vector of shaders. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="shader_8hpp_source.html#l00503">503</a> of file <a class="el" href="shader_8hpp_source.html">shader.hpp</a>.</p>
+
+</div>
+</div>
 <a id="af54768cb903f3bdb35c32744b86233bf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af54768cb903f3bdb35c32744b86233bf">&#9670;&nbsp;</a></span>program_id()</h2>
 
@@ -635,6 +837,81 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a64176b95d7b1dddad5ef270a24d471e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64176b95d7b1dddad5ef270a24d471e8">&#9670;&nbsp;</a></span>string_to_shader_type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto staplegl::shader_program::string_to_shader_type </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td> -&gt; std::optional&lt;<a class="el" href="namespacestaplegl.html#a66841971b93edd37f3e313c52bed59a5">shader_type</a>&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert a string to a shader type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to convert.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>shader_type, the shader type. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="shader_8hpp_source.html#l00595">595</a> of file <a class="el" href="shader_8hpp_source.html">shader.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1f5f36ebe1dfc80f9949fd04a424281f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f5f36ebe1dfc80f9949fd04a424281f">&#9670;&nbsp;</a></span>to_gl_type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto staplegl::shader_program::to_gl_type </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacestaplegl.html#a66841971b93edd37f3e313c52bed59a5">shader_type</a>&#160;</td>
+          <td class="paramname"><em>shader_type</em></td><td>)</td>
+          <td> -&gt; std::uint32_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">constexpr</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert a shader type to its OpenGL equivalent. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacestaplegl.html#a66841971b93edd37f3e313c52bed59a5" title="The type of the shader.">staplegl::shader_type</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shader_type</td><td>the shader type. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::uint32_t, the OpenGL equivalent of the shader type, as an OpenGL enum. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="shader_8hpp_source.html#l00573">573</a> of file <a class="el" href="shader_8hpp_source.html">shader.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a01b9d7205c999afa0ef311b90b508f95"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a01b9d7205c999afa0ef311b90b508f95">&#9670;&nbsp;</a></span>unbind()</h2>
 
@@ -661,6 +938,43 @@ Public Member Functions</h2></td></tr>
 <p>Unbind the shader program. </p>
 
 <p class="definition">Definition at line <a class="el" href="shader_8hpp_source.html#l00359">359</a> of file <a class="el" href="shader_8hpp_source.html">shader.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5ef4d2c729199832cba1edc102aeac0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ef4d2c729199832cba1edc102aeac0f">&#9670;&nbsp;</a></span>uniform_location()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto staplegl::shader_program::uniform_location </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> const -&gt; int</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtain the location of a uniform in the shader program. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Uniform name. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int, the uniform location. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="shader_8hpp_source.html#l00536">536</a> of file <a class="el" href="shader_8hpp_source.html">shader.hpp</a>.</p>
 
 </div>
 </div>
@@ -1023,6 +1337,79 @@ Public Member Functions</h2></td></tr>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="shader_8hpp_source.html#l00389">389</a> of file <a class="el" href="shader_8hpp_source.html">shader.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a058b959f4c3c013cc482f9717a4a5aaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a058b959f4c3c013cc482f9717a4a5aaf">&#9670;&nbsp;</a></span>m_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t staplegl::shader_program::m_id {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="shader_8hpp_source.html#l00318">318</a> of file <a class="el" href="shader_8hpp_source.html">shader.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab1f72683554f2ed71135ef04b512cdbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1f72683554f2ed71135ef04b512cdbc">&#9670;&nbsp;</a></span>m_name</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string staplegl::shader_program::m_name</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="shader_8hpp_source.html#l00319">319</a> of file <a class="el" href="shader_8hpp_source.html">shader.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5ca6e19cbd787e902b2af208b933d4ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ca6e19cbd787e902b2af208b933d4ce">&#9670;&nbsp;</a></span>m_shaders</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structstaplegl_1_1shader.html">shader</a>&gt; staplegl::shader_program::m_shaders</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="shader_8hpp_source.html#l00317">317</a> of file <a class="el" href="shader_8hpp_source.html">shader.hpp</a>.</p>
 
 </div>
 </div>

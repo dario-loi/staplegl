@@ -86,6 +86,7 @@ $(document).ready(function(){initNavTree('classstaplegl_1_1vertex__buffer__layou
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classstaplegl_1_1vertex__buffer__layout-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">staplegl::vertex_buffer_layout Class Reference</div>  </div>
@@ -116,6 +117,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acf9589eaeeec20a4b8c13f11a8a72dc0"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__layout.html#acf9589eaeeec20a4b8c13f11a8a72dc0">operator[]</a> (std::size_t index) const -&gt; const <a class="el" href="structstaplegl_1_1vertex__attribute.html">vertex_attribute</a> &amp;</td></tr>
 <tr class="memdesc:acf9589eaeeec20a4b8c13f11a8a72dc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a single attribute from the vertex buffer layout.  <a href="classstaplegl_1_1vertex__buffer__layout.html#acf9589eaeeec20a4b8c13f11a8a72dc0">More...</a><br /></td></tr>
 <tr class="separator:acf9589eaeeec20a4b8c13f11a8a72dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a53c47122b453272a4a94cca1811138e1"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__layout.html#a53c47122b453272a4a94cca1811138e1">m_stride</a> {}</td></tr>
+<tr class="separator:a53c47122b453272a4a94cca1811138e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bbe2356456bf0a8eb8516acf4204be4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structstaplegl_1_1vertex__attribute.html">vertex_attribute</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__layout.html#a7bbe2356456bf0a8eb8516acf4204be4">m_attributes</a></td></tr>
+<tr class="separator:a7bbe2356456bf0a8eb8516acf4204be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Vertex buffer layout. </p>
@@ -318,6 +326,55 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>std::size_t, the number of elements in a vertex. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="vertex__buffer__layout_8hpp_source.html#l00114">114</a> of file <a class="el" href="vertex__buffer__layout_8hpp_source.html">vertex_buffer_layout.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a7bbe2356456bf0a8eb8516acf4204be4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bbe2356456bf0a8eb8516acf4204be4">&#9670;&nbsp;</a></span>m_attributes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structstaplegl_1_1vertex__attribute.html">vertex_attribute</a>&gt; staplegl::vertex_buffer_layout::m_attributes</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__layout_8hpp_source.html#l00083">83</a> of file <a class="el" href="vertex__buffer__layout_8hpp_source.html">vertex_buffer_layout.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a53c47122b453272a4a94cca1811138e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53c47122b453272a4a94cca1811138e1">&#9670;&nbsp;</a></span>m_stride</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t staplegl::vertex_buffer_layout::m_stride {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__layout_8hpp_source.html#l00082">82</a> of file <a class="el" href="vertex__buffer__layout_8hpp_source.html">vertex_buffer_layout.hpp</a>.</p>
 
 </div>
 </div>

@@ -85,7 +85,8 @@ $(document).ready(function(){initNavTree('namespacestaplegl_1_1shader__data__typ
 
 <div class="header">
   <div class="summary">
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">staplegl::shader_data_type Namespace Reference</div>  </div>
 </div><!--header-->
@@ -117,6 +118,21 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a648892e19289265a11b3b26743c02063"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumerator that represents a data type.  <a href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">More...</a><br /></td></tr>
 <tr class="separator:a648892e19289265a11b3b26743c02063"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a020bfd87583615f65a7af2d893390368"><td class="memItemLeft" align="right" valign="top">constexpr static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaplegl_1_1shader__data__type.html#a020bfd87583615f65a7af2d893390368">size</a> (<a class="el" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a> type) -&gt; std::size_t</td></tr>
+<tr class="memdesc:a020bfd87583615f65a7af2d893390368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the shader data type.  <a href="namespacestaplegl_1_1shader__data__type.html#a020bfd87583615f65a7af2d893390368">More...</a><br /></td></tr>
+<tr class="separator:a020bfd87583615f65a7af2d893390368"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2cc58d9cdf8ffc9c9883ce9ee362a25"><td class="memItemLeft" align="right" valign="top">constexpr static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaplegl_1_1shader__data__type.html#ae2cc58d9cdf8ffc9c9883ce9ee362a25">to_opengl_type</a> (<a class="el" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a> type) -&gt; std::uint32_t</td></tr>
+<tr class="memdesc:ae2cc58d9cdf8ffc9c9883ce9ee362a25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert the shader data type to an OpenGL type.  <a href="namespacestaplegl_1_1shader__data__type.html#ae2cc58d9cdf8ffc9c9883ce9ee362a25">More...</a><br /></td></tr>
+<tr class="separator:ae2cc58d9cdf8ffc9c9883ce9ee362a25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a476883a4b5507a3bd02bdf4a4996e293"><td class="memItemLeft" align="right" valign="top">constexpr static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaplegl_1_1shader__data__type.html#a476883a4b5507a3bd02bdf4a4996e293">to_opengl_underlying_type</a> (<a class="el" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a> type) -&gt; std::uint32_t</td></tr>
+<tr class="memdesc:a476883a4b5507a3bd02bdf4a4996e293"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the OpenGL type of the underlying type of the shader data type.  <a href="namespacestaplegl_1_1shader__data__type.html#a476883a4b5507a3bd02bdf4a4996e293">More...</a><br /></td></tr>
+<tr class="separator:a476883a4b5507a3bd02bdf4a4996e293"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ac83ec47a5262df693b2d766a5f8933"><td class="memItemLeft" align="right" valign="top">constexpr static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaplegl_1_1shader__data__type.html#a4ac83ec47a5262df693b2d766a5f8933">component_count</a> (<a class="el" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a> type) -&gt; std::uint16_t</td></tr>
+<tr class="memdesc:a4ac83ec47a5262df693b2d766a5f8933"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of components in the shader data type, useful for vector types.  <a href="namespacestaplegl_1_1shader__data__type.html#a4ac83ec47a5262df693b2d766a5f8933">More...</a><br /></td></tr>
+<tr class="separator:a4ac83ec47a5262df693b2d766a5f8933"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="af865d106895e557e4d60fc5da1b01eb6"></a>
@@ -176,11 +192,11 @@ Enumerations</h2></td></tr>
 
 <p>Enumerator that represents a data type. </p>
 <p>Enumerator that represents a data type. This is used to define the type of the data that is passed as a uniform to the shader, as well as a runtime type to feed as a parameter to other functions in this module.</p>
-<dl class="section see"><dt>See also</dt><dd>staplegl::shader_data_type::size </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacestaplegl_1_1shader__data__type.html#a020bfd87583615f65a7af2d893390368" title="Get the size of the shader data type.">staplegl::shader_data_type::size</a> </dd>
 <dd>
-staplegl::shader_data_type::to_opengl_type </dd>
+<a class="el" href="namespacestaplegl_1_1shader__data__type.html#ae2cc58d9cdf8ffc9c9883ce9ee362a25" title="Convert the shader data type to an OpenGL type.">staplegl::shader_data_type::to_opengl_type</a> </dd>
 <dd>
-staplegl::shader_data_type::component_count </dd></dl>
+<a class="el" href="namespacestaplegl_1_1shader__data__type.html#a4ac83ec47a5262df693b2d766a5f8933" title="Get the number of components in the shader data type, useful for vector types.">staplegl::shader_data_type::component_count</a> </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a648892e19289265a11b3b26743c02063ad33ec2b0bbea6d471a4706cea030e1e3"></a>float32&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a648892e19289265a11b3b26743c02063a87c214e1e77f5e0644a224f3df50fae7"></a>vec2&#160;</td><td class="fielddoc"></td></tr>
@@ -191,6 +207,163 @@ staplegl::shader_data_type::component_count </dd></dl>
 </table>
 
 <p class="definition">Definition at line <a class="el" href="shader__data__type_8hpp_source.html#l00059">59</a> of file <a class="el" href="shader__data__type_8hpp_source.html">shader_data_type.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a4ac83ec47a5262df693b2d766a5f8933"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ac83ec47a5262df693b2d766a5f8933">&#9670;&nbsp;</a></span>component_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr static auto staplegl::shader_data_type::component_count </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td> -&gt; std::uint16_t
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the number of components in the shader data type, useful for vector types. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>the type of the shader data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063" title="Enumerator that represents a data type.">staplegl::shader_data_type::u_type</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>std::uint16_t the number of components in the shader data type. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="shader__data__type_8hpp_source.html#l00168">168</a> of file <a class="el" href="shader__data__type_8hpp_source.html">shader_data_type.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a020bfd87583615f65a7af2d893390368"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a020bfd87583615f65a7af2d893390368">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr static auto staplegl::shader_data_type::size </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td> -&gt; std::size_t
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the size of the shader data type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>the type of the shader data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063" title="Enumerator that represents a data type.">staplegl::shader_data_type::u_type</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>std::size_t the size of the shader data type in bytes. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="shader__data__type_8hpp_source.html#l00075">75</a> of file <a class="el" href="shader__data__type_8hpp_source.html">shader_data_type.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae2cc58d9cdf8ffc9c9883ce9ee362a25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2cc58d9cdf8ffc9c9883ce9ee362a25">&#9670;&nbsp;</a></span>to_opengl_type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr static auto staplegl::shader_data_type::to_opengl_type </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td> -&gt; std::uint32_t
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert the shader data type to an OpenGL type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>the type of the shader data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063" title="Enumerator that represents a data type.">staplegl::shader_data_type::u_type</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>std::uint32_t the equivalent OpenGL type, as an enum. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="shader__data__type_8hpp_source.html#l00106">106</a> of file <a class="el" href="shader__data__type_8hpp_source.html">shader_data_type.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a476883a4b5507a3bd02bdf4a4996e293"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a476883a4b5507a3bd02bdf4a4996e293">&#9670;&nbsp;</a></span>to_opengl_underlying_type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr static auto staplegl::shader_data_type::to_opengl_underlying_type </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">u_type</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td> -&gt; std::uint32_t
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtains the OpenGL type of the underlying type of the shader data type. </p>
+<p>This function retrieves the OpenGL type of the underlying type of the shader data type. For scalar types, this is the same as to_opengl_type, but for vector types, this is the type of the vector's components.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>constexpr std::uint32_t </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="shader__data__type_8hpp_source.html#l00141">141</a> of file <a class="el" href="shader__data__type_8hpp_source.html">shader_data_type.hpp</a>.</p>
 
 </div>
 </div>

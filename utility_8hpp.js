@@ -8,5 +8,7 @@ var utility_8hpp =
       [ "MSAA_X8", "utility_8hpp.html#a2d27f6fa7483d510588e9a271a4229dea79306d33e026d8bea20528d1cd94e157", null ],
       [ "MSAA_X16", "utility_8hpp.html#a2d27f6fa7483d510588e9a271a4229dea5c631d4905d4c23b940c2828a0e23842", null ],
       [ "MSAA_X32", "utility_8hpp.html#a2d27f6fa7483d510588e9a271a4229dea0053eb175e98711ec5aa696b2c29bf35", null ]
-    ] ]
+    ] ],
+    [ "get_file_name", "utility_8hpp.html#a3600adde160d0a660f3138108d7e86dc", null ],
+    [ "read_file", "utility_8hpp.html#a4883aa698fd51879e2363fbf456625f8", null ]
 ];

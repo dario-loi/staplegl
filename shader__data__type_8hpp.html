@@ -86,7 +86,8 @@ $(document).ready(function(){initNavTree('shader__data__type_8hpp.html',''); ini
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">shader_data_type.hpp File Reference</div>  </div>
 </div><!--header-->
@@ -164,6 +165,21 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a648892e19289265a11b3b26743c02063"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumerator that represents a data type.  <a href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063">More...</a><br /></td></tr>
 <tr class="separator:a648892e19289265a11b3b26743c02063"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a020bfd87583615f65a7af2d893390368"><td class="memItemLeft" align="right" valign="top">constexpr static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaplegl_1_1shader__data__type.html#a020bfd87583615f65a7af2d893390368">staplegl::shader_data_type::size</a> (u_type type) -&gt; std::size_t</td></tr>
+<tr class="memdesc:a020bfd87583615f65a7af2d893390368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the shader data type.  <a href="namespacestaplegl_1_1shader__data__type.html#a020bfd87583615f65a7af2d893390368">More...</a><br /></td></tr>
+<tr class="separator:a020bfd87583615f65a7af2d893390368"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2cc58d9cdf8ffc9c9883ce9ee362a25"><td class="memItemLeft" align="right" valign="top">constexpr static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaplegl_1_1shader__data__type.html#ae2cc58d9cdf8ffc9c9883ce9ee362a25">staplegl::shader_data_type::to_opengl_type</a> (u_type type) -&gt; std::uint32_t</td></tr>
+<tr class="memdesc:ae2cc58d9cdf8ffc9c9883ce9ee362a25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert the shader data type to an OpenGL type.  <a href="namespacestaplegl_1_1shader__data__type.html#ae2cc58d9cdf8ffc9c9883ce9ee362a25">More...</a><br /></td></tr>
+<tr class="separator:ae2cc58d9cdf8ffc9c9883ce9ee362a25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a476883a4b5507a3bd02bdf4a4996e293"><td class="memItemLeft" align="right" valign="top">constexpr static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaplegl_1_1shader__data__type.html#a476883a4b5507a3bd02bdf4a4996e293">staplegl::shader_data_type::to_opengl_underlying_type</a> (u_type type) -&gt; std::uint32_t</td></tr>
+<tr class="memdesc:a476883a4b5507a3bd02bdf4a4996e293"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the OpenGL type of the underlying type of the shader data type.  <a href="namespacestaplegl_1_1shader__data__type.html#a476883a4b5507a3bd02bdf4a4996e293">More...</a><br /></td></tr>
+<tr class="separator:a476883a4b5507a3bd02bdf4a4996e293"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ac83ec47a5262df693b2d766a5f8933"><td class="memItemLeft" align="right" valign="top">constexpr static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaplegl_1_1shader__data__type.html#a4ac83ec47a5262df693b2d766a5f8933">staplegl::shader_data_type::component_count</a> (u_type type) -&gt; std::uint16_t</td></tr>
+<tr class="memdesc:a4ac83ec47a5262df693b2d766a5f8933"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of components in the shader data type, useful for vector types.  <a href="namespacestaplegl_1_1shader__data__type.html#a4ac83ec47a5262df693b2d766a5f8933">More...</a><br /></td></tr>
+<tr class="separator:a4ac83ec47a5262df693b2d766a5f8933"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Shader data type definitions. </p>

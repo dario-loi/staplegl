@@ -86,6 +86,8 @@ $(document).ready(function(){initNavTree('classstaplegl_1_1vertex__buffer__inst.
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classstaplegl_1_1vertex__buffer__inst-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">staplegl::vertex_buffer_inst Class Reference</div>  </div>
@@ -185,6 +187,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a90ddc1d052080e1dc16d640d457053b0 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#a90ddc1d052080e1dc16d640d457053b0">apply</a> (const std::function&lt; void(std::span&lt; T &gt; vertices)&gt; &amp;func, <a class="el" href="namespacestaplegl.html#a36fe2820e5ba7d6bb37aecf456947854">driver_access_specifier</a> access_specifier=<a class="el" href="namespacestaplegl.html#a36fe2820e5ba7d6bb37aecf456947854abbdb0a296199d1f45d2a22049531e95d">staplegl::READ_WRITE</a>) noexcept</td></tr>
 <tr class="memdesc:a90ddc1d052080e1dc16d640d457053b0 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a function to the vertices of the vertex buffer object.  <a href="classstaplegl_1_1vertex__buffer.html#a90ddc1d052080e1dc16d640d457053b0">More...</a><br /></td></tr>
 <tr class="separator:a90ddc1d052080e1dc16d640d457053b0 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ab40f31d80b444e0f9b238cce47ab0ddd"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#ab40f31d80b444e0f9b238cce47ab0ddd">calc_capacity</a> (std::size_t <a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#abbacba4dfe636fa0edfed5f5f9fbcc57">capacity</a>) const noexcept -&gt; std::size_t</td></tr>
+<tr class="memdesc:ab40f31d80b444e0f9b238cce47ab0ddd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the new capacity of the buffer, given the current capacity.  <a href="classstaplegl_1_1vertex__buffer__inst.html#ab40f31d80b444e0f9b238cce47ab0ddd">More...</a><br /></td></tr>
+<tr class="separator:ab40f31d80b444e0f9b238cce47ab0ddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20e70197198a0859b5aabc5925ca1230"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#a20e70197198a0859b5aabc5925ca1230">resize_buffer</a> (std::size_t old_capacity, std::size_t new_capacity) noexcept</td></tr>
+<tr class="memdesc:a20e70197198a0859b5aabc5925ca1230"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resize the buffer to the given capacity.  <a href="classstaplegl_1_1vertex__buffer__inst.html#a20e70197198a0859b5aabc5925ca1230">More...</a><br /></td></tr>
+<tr class="separator:a20e70197198a0859b5aabc5925ca1230"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a23ac9a2a035a82a33646dd001091f919"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#a23ac9a2a035a82a33646dd001091f919">m_capacity</a> {}</td></tr>
+<tr class="memdesc:a23ac9a2a035a82a33646dd001091f919"><td class="mdescLeft">&#160;</td><td class="mdescRight">The capacity of the buffer, in bytes.  <a href="classstaplegl_1_1vertex__buffer__inst.html#a23ac9a2a035a82a33646dd001091f919">More...</a><br /></td></tr>
+<tr class="separator:a23ac9a2a035a82a33646dd001091f919"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5af8d6d8a5f33fa4e4651e0841913f0f"><td class="memItemLeft" align="right" valign="top">std::int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#a5af8d6d8a5f33fa4e4651e0841913f0f">m_count</a> {}</td></tr>
+<tr class="memdesc:a5af8d6d8a5f33fa4e4651e0841913f0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of instances in the buffer.  <a href="classstaplegl_1_1vertex__buffer__inst.html#a5af8d6d8a5f33fa4e4651e0841913f0f">More...</a><br /></td></tr>
+<tr class="separator:a5af8d6d8a5f33fa4e4651e0841913f0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -384,6 +404,44 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="ab40f31d80b444e0f9b238cce47ab0ddd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab40f31d80b444e0f9b238cce47ab0ddd">&#9670;&nbsp;</a></span>calc_capacity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto staplegl::vertex_buffer_inst::calc_capacity </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>capacity</em></td><td>)</td>
+          <td> const -&gt; std::size_t
+    </td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the new capacity of the buffer, given the current capacity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">capacity</td><td>the current capacity of the buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::size_t the new capacity of the buffer. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00078">78</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+
+</div>
+</div>
 <a id="abbacba4dfe636fa0edfed5f5f9fbcc57"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abbacba4dfe636fa0edfed5f5f9fbcc57">&#9670;&nbsp;</a></span>capacity()</h2>
 
@@ -545,6 +603,59 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a20e70197198a0859b5aabc5925ca1230"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20e70197198a0859b5aabc5925ca1230">&#9670;&nbsp;</a></span>resize_buffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void staplegl::vertex_buffer_inst::resize_buffer </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>old_capacity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>new_capacity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Resize the buffer to the given capacity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>the id of the buffer to be resized.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>Side effects: the old buffer will be deleted and the new buffer will be bound to GL_ARRAY_BUFFER.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">capacity</td><td>the new capacity of the buffer, in bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00102">102</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+
+</div>
+</div>
 <a id="ad3e538809a5523f905ba92b98a6af37a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad3e538809a5523f905ba92b98a6af37a">&#9670;&nbsp;</a></span>update_instance()</h2>
 
@@ -580,6 +691,59 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00182">182</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a23ac9a2a035a82a33646dd001091f919"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23ac9a2a035a82a33646dd001091f919">&#9670;&nbsp;</a></span>m_capacity</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t staplegl::vertex_buffer_inst::m_capacity {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The capacity of the buffer, in bytes. </p>
+
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00063">63</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5af8d6d8a5f33fa4e4651e0841913f0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5af8d6d8a5f33fa4e4651e0841913f0f">&#9670;&nbsp;</a></span>m_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::int32_t staplegl::vertex_buffer_inst::m_count {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The number of instances in the buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00069">69</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>

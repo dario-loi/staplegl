@@ -15,5 +15,11 @@ var classstaplegl_1_1vertex__array =
     [ "operator=", "classstaplegl_1_1vertex__array.html#ab2e93da2ec972e84c3c68e097a0258f6", null ],
     [ "operator=", "classstaplegl_1_1vertex__array.html#a8a1827e468418c36b656cba1ad13d23d", null ],
     [ "set_index_buffer", "classstaplegl_1_1vertex__array.html#a4cdd47f4f78f155dbf03b88933bcd455", null ],
-    [ "set_instance_buffer", "classstaplegl_1_1vertex__array.html#aa66cbe1a2974f87313df52d72f45aa0f", null ]
+    [ "set_instance_buffer", "classstaplegl_1_1vertex__array.html#aa66cbe1a2974f87313df52d72f45aa0f", null ],
+    [ "unbind", "classstaplegl_1_1vertex__array.html#a598420dc13c3932aa641e9d784fe4899", null ],
+    [ "attrib_index", "classstaplegl_1_1vertex__array.html#a3305c03d74c4866ec3a18e8e4a04a96a", null ],
+    [ "m_id", "classstaplegl_1_1vertex__array.html#ac0e321ad3ca47d81a742112179439a99", null ],
+    [ "m_index_buffer", "classstaplegl_1_1vertex__array.html#a43f999fab7eff9c77bbd3a686114954c", null ],
+    [ "m_instanced_vbo", "classstaplegl_1_1vertex__array.html#a9b38650abbc2d54435565150fcf31369", null ],
+    [ "m_vertex_buffers", "classstaplegl_1_1vertex__array.html#aa8631b144445a44a48cd9a86cee81632", null ]
 ];
