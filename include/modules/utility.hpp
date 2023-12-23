@@ -6,8 +6,8 @@
  * @date 2023-04-28
  *
  * @copyright MIT License
- * 
- * @details This file acts as a container for utility functions and structs that 
+ *
+ * @details This file acts as a container for utility functions and structs that
  * are shared across the project.
  *
  */
@@ -33,15 +33,15 @@ struct resolution {
 
 /**
  * @brief An enum that represents the number of samples for a texture.
- * 
+ *
  */
 enum tex_samples : int32_t {
-  MSAA_X1 = 1,
-  MSAA_X2 = 2,
-  MSAA_X4 = 4,
-  MSAA_X8 = 8,
-  MSAA_X16 = 16,
-  MSAA_X32 = 32,
+    MSAA_X1 = 1,
+    MSAA_X2 = 2,
+    MSAA_X4 = 4,
+    MSAA_X8 = 8,
+    MSAA_X16 = 16,
+    MSAA_X32 = 32,
 };
 } // namespace staplegl
 
@@ -49,7 +49,7 @@ namespace staplegl::util {
 
 /**
  * @brief Read a file into a string.
- * 
+ *
  * @param path the file path, relative to the current working directory.
  * @return std::string the contents of the file.
  */
@@ -71,19 +71,16 @@ static auto read_file(std::string_view path) -> std::string
 }
 
 /**
- * @brief Get the file name object
+ * @brief Get the filename without the extension.
  *
  * @param path Path to the file, relative to the current working directory.
  * @return std::string, the name of the file.
  */
 static auto get_file_name(std::string_view path) -> std::string
 {
-    size_t last_slash = path.find_last_of("/\\");
-    last_slash = (last_slash == std::string::npos) ? 0 : last_slash + 1;
+    std::string_view basename = path.substr(path.find_last_of("/\\") + 1);
 
-    size_t const last_dot = path.rfind('.');
-    size_t const count = (last_dot == std::string::npos) ? path.size() - last_slash : last_dot - last_slash;
-
-    return std::string(path.substr(last_slash, count));
+    size_t const last_dot = basename.find_last_of(".");
+    return std::string(basename.substr(0, last_dot));
 }
 }

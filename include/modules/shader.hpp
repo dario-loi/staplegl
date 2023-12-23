@@ -43,6 +43,8 @@ enum class shader_type {
     geometry
 };
 
+std::string shader_type_to_string(shader_type type) noexcept;
+
 /**
  * @brief Individual shader struct.
  *
@@ -204,7 +206,7 @@ public:
      * @brief Upload a 3x3 float matrix uniform to the shader program.
      *
      * @param name Uniform name.
-     * @param mat Contiguous span of 16 floats representing the matrix.
+     * @param mat Contiguous span of 9 9 9 9 9 9 9 9 9 floats representing the matrix.
      */
     void upload_uniform_mat3f(std::string_view name, std::span<float, 9> mat) const;
 
@@ -271,6 +273,15 @@ private:
      */
     [[nodiscard]] auto parse_shaders(std::string_view source) const -> std::vector<shader>;
 
+    /**
+     * @brief Check if a shader program is valid.
+     *
+     * @param id Shader program id.
+     * @return true, if the shader program is valid.
+     * @return false, if the shader program is not valid.
+     */
+    [[nodiscard]] static auto is_valid(std::uint32_t id) -> bool;
+
 private:
     /**
      * @brief Obtain the location of a uniform in the shader program.
@@ -279,15 +290,6 @@ private:
      * @return int, the uniform location.
      */
     [[nodiscard]] auto uniform_location(std::string_view name) const -> int;
-
-    /**
-     * @brief Check if a shader program is valid.
-     *
-     * @param id Shader program id.
-     * @return true, if the shader program is valid.
-     * @return false, if the shader program is not valid.
-     */
-    [[nodiscard]] auto is_valid(std::uint32_t id) const -> bool;
 
 private:
     /**
@@ -430,13 +432,14 @@ inline auto shader_program::create_program() const -> std::uint32_t
     glGetProgramiv(program, GL_LINK_STATUS, &link_success);
 
     if (!link_success) [[unlikely]] {
+#ifdef STAPLEGL_DEBUG
         int max_length {};
         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &max_length);
         std::vector<char> error_log(max_length);
         glGetProgramInfoLog(program, max_length, &max_length, &error_log[0]);
-        std::fwrite("Failed to link shader program: ", 1, 32, stdout);
-        std::fwrite(error_log.data(), error_log.size(), 1, stdout);
-        std::fwrite("\n", 1, 1, stdout);
+        std::fprintf(stderr, STAPLEGL_LINEINFO ", failed to link shader program: %s\n",
+            error_log.data());
+#endif // STAPLEGL_DEBUG
         glDeleteProgram(program);
         return 0;
     }
@@ -446,22 +449,23 @@ inline auto shader_program::create_program() const -> std::uint32_t
     int success = 0;
     glGetProgramiv(program, GL_VALIDATE_STATUS, &success);
     if (!success) [[unlikely]] {
+#ifdef STAPLEGL_DEBUG
         int max_length {};
         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &max_length);
-        std::vector<char> error_log(max_length);
+        std::string error_log(max_length, '\0');
         glGetProgramInfoLog(program, max_length, &max_length, &error_log[0]);
-        std::fwrite("failed to validate shader program: ", 1, 36, stdout);
-        std::fwrite(error_log.data(), error_log.size(), 1, stdout);
-        std::fwrite("\n", 1, 1, stdout);
+        std::fprintf(stderr, STAPLEGL_LINEINFO ", failed to validate shader program: %s\n",
+            error_log.data());
+#endif // STAPLEGL_DEBUG
         glDeleteProgram(program);
         return 0;
     }
 
     // Detach and delete shaders after linking the program.
-    for (const auto& id : shader_ids)
+    for (const auto& id : shader_ids) {
         glDetachShader(program, id);
-    for (const auto& id : shader_ids)
         glDeleteShader(id);
+    }
 
     return program;
 }
@@ -469,6 +473,10 @@ inline auto shader_program::create_program() const -> std::uint32_t
 inline auto shader_program::compile(shader_type shader_type, std::string_view source) const -> std::uint32_t
 {
     const std::uint32_t id { glCreateShader(to_gl_type(shader_type)) };
+
+    // taking a pointer to this temporary allows us to get its address, without this intermediate
+    // variable we are forced to use the address of the temporary, which is not allowed.
+    // if anyone knows a better way to do this, please let me know.
     const char* src { source.data() };
 
     glShaderSource(id, 1, &src, nullptr);
@@ -476,10 +484,13 @@ inline auto shader_program::compile(shader_type shader_type, std::string_view so
     bool const is_compiled { is_valid(id) };
 
     if (!is_compiled) [[unlikely]] {
-        std::fwrite("Failed to compile shader: ", 1, 26, stdout);
-        std::fwrite(source.data(), source.size(), 1, stdout);
-        std::fwrite("\n", 1, 1, stdout);
+#ifdef STAPLEGL_DEBUG
+        std::string shader_type_str { shader_type_to_string(shader_type) };
+        std::fprintf(stderr, STAPLEGL_LINEINFO ", failed to compile %s shader: \n%s\n",
+            shader_type_str.data(), source.data());
+#endif // STAPLEGL_DEBUG
         glDeleteShader(id);
+
         return 0;
     }
 
@@ -502,10 +513,11 @@ inline auto shader_program::parse_shaders(std::string_view source) const -> std:
 
         // With C++23 we could drastically simplify this thanks to std::optional's monadic operations.
         if (!shader_type.has_value()) [[unlikely]] {
-            std::fwrite("Invalid shader type: ", 1, 21, stderr);
-            std::fwrite(type.data(), type.size(), 1, stderr);
-            std::fwrite("\n", 1, 1, stderr);
-            std::terminate();
+#ifdef STAPLEGL_DEBUG
+            std::fprintf(stderr, STAPLEGL_LINEINFO ", invalid shader type \"%s\"\n",
+                type.data());
+#endif // STAPLEGL_DEBUG
+            return {};
         }
 
         pos = source.find(type_token, next_line_pos);
@@ -531,19 +543,23 @@ inline auto shader_program::uniform_location(std::string_view name) const -> int
     }
 }
 
-inline auto shader_program::is_valid(std::uint32_t id) const -> bool
+inline auto shader_program::is_valid(std::uint32_t id) -> bool
 {
     int is_compiled {};
     glGetShaderiv(id, GL_COMPILE_STATUS, &is_compiled);
 
     if (is_compiled == GL_FALSE) [[unlikely]] {
+#ifdef STAPLEGL_DEBUG
         int max_length {};
         glGetShaderiv(id, GL_INFO_LOG_LENGTH, &max_length);
-        std::vector<char> error_log(max_length);
+        std::string error_log(max_length, '\0');
         glGetShaderInfoLog(id, max_length, &max_length, &error_log[0]);
-        std::fwrite("Failed to compile shader: ", 1, 26, stdout);
-        std::fwrite(error_log.data(), error_log.size(), 1, stdout);
-        std::fwrite("\n", 1, 1, stdout);
+        int32_t type_id {};
+        glGetShaderiv(id, GL_SHADER_TYPE, &type_id);
+        std::string shader_type_str = shader_type_to_string(static_cast<shader_type>(type_id));
+        std::fprintf(stderr, STAPLEGL_LINEINFO ", failed to compile %s shader: \n%s\n",
+            shader_type_str.data(), error_log.data());
+#endif // STAPLEGL_DEBUG
         glDeleteShader(id);
         return false;
     }
@@ -565,6 +581,10 @@ inline constexpr auto shader_program::to_gl_type(shader_type shader_type) -> std
     case shader_type::geometry:
         return GL_GEOMETRY_SHADER;
     default:
+#ifdef STAPLEGL_DEBUG
+        std::fprintf(stderr, STAPLEGL_LINEINFO ", invalid shader type enum %d, \n",
+            static_cast<int>(shader_type));
+#endif // STAPLEGL_DEBUG
         std::terminate();
     }
 }
@@ -585,4 +605,22 @@ inline auto shader_program::string_to_shader_type(std::string_view str) -> std::
 
     return std::nullopt;
 }
+}
+
+std::string staplegl::shader_type_to_string(shader_type type) noexcept
+{
+    switch (type) {
+    case shader_type::vertex:
+        return "vertex";
+    case shader_type::fragment:
+        return "fragment";
+    case shader_type::tess_control:
+        return "tess_control";
+    case shader_type::tess_eval:
+        return "tess_eval";
+    case shader_type::geometry:
+        return "geometry";
+    default:
+        return "unknown";
+    }
 }

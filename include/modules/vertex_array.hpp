@@ -6,15 +6,15 @@
  * @date 2023-04-28
  *
  * @copyright MIT License
- * 
+ *
  * @details Vertex Array Object Wrapper. <br>
- * 
+ *
  * Vertex Array Objects (VAOs) are OpenGL objects that store all of the state needed to supply vertex data
  * to the GPU for a draw call. <br>
- * 
- * This includes the format of the vertex data as well as the buffers containing the vertices and 
+ *
+ * This includes the format of the vertex data as well as the buffers containing the vertices and
  * the indices specifying the order in which to render them. <br>
- * 
+ *
  * @see vertex_buffer
  * @see index_buffer
  * @see vertex_buffer_layout
@@ -28,7 +28,6 @@
 #include "vertex_buffer.hpp"
 #include "vertex_buffer_inst.hpp"
 
-#include <cassert>
 #include <cstdint>
 #include <list>
 #include <optional>
@@ -51,15 +50,14 @@ namespace staplegl {
  */
 class vertex_array {
 public:
-
     /**
      * @brief Construct a new vertex array object
-     * 
+     *
      * @details Constructs a VAO and generates an id for it, VBOs and EBOs can be added later.
-     * 
+     *
      * @see add_vertex_buffer
      * @see set_instance_buffer
-     * 
+     *
      */
     vertex_array() noexcept;
     ~vertex_array();
@@ -69,9 +67,9 @@ public:
 
     /**
      * @brief Construct a new vertex array object from another one.
-     * 
+     *
      * @details constructs a VAO by stealing the ID and the attached VBOs and EBOs from another VAO.
-     * 
+     *
      * @param other the vertex array object to copy from.
      *
      */
@@ -87,8 +85,8 @@ public:
 
     /**
      * @brief Move assignment operator.
-     * 
-     * 
+     *
+     *
      * @param other the vertex array object to move from.
      * @return vertex_array& a reference to the moved vertex array object.
      */
@@ -108,7 +106,7 @@ public:
 
     /**
      * @brief Iterator type returned from add_vertex_buffer.
-     * 
+     *
      */
     using iterator_t = std::list<vertex_buffer>::iterator;
 

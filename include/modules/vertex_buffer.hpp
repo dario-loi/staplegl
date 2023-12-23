@@ -6,15 +6,15 @@
  * @date 2023-04-28
  *
  * @copyright MIT License
- * 
+ *
  * @details Wraps VBOs allowing for easy creation and usage. Vertex buffer objects
  * are GPU buffers that store an array of data that OpenGL uses to render primitives. <br>
- * 
+ *
  * This data is stored in the GPU's memory and can be accessed by the GPU without
  * the need to send it from the CPU every time it is needed. It is stored contiguously
  * as one array of floats, hence the layout of the data must be specified to OpenGL
  * by the user through a vertex buffer layout.
- * 
+ *
  * @see vertex_buffer_layout.hpp
  * @see https://www.khronos.org/opengl/wiki/Vertex_Specification#Vertex_Buffer_Object
  *
@@ -32,7 +32,7 @@ namespace staplegl {
 
 /**
  * @brief Concept that specifies that a type is a Plain Old Data (POD) type.
- * 
+ *
  * @tparam T the type to be checked.
  */
 template <typename T>
@@ -40,13 +40,13 @@ concept plain_old_data = std::is_standard_layout_v<T> && std::is_trivial_v<T>;
 
 /**
  * @brief Enum that specifies the usage hint of a buffer.
- * 
+ *
  * @details The usage hint is a hint to the driver on how the buffer will be used, it is not a guarantee
- * but setting this accordingly is likely to have positive performance implications on your 
+ * but setting this accordingly is likely to have positive performance implications on your
  * application.
- * 
+ *
  * @see https://www.khronos.org/opengl/wiki/Buffer_Object#Usage
- * 
+ *
  */
 enum driver_draw_hint {
     STATIC_DRAW = GL_STATIC_DRAW,
@@ -90,7 +90,7 @@ public:
     vertex_buffer(std::span<const float> vertices) noexcept;
     vertex_buffer(std::span<const float> vertices, driver_draw_hint hint) noexcept;
     vertex_buffer(std::span<const float> vertices, const vertex_buffer_layout& layout) noexcept;
-    vertex_buffer(std::span<const float> vertices, vertex_buffer_layout  layout,
+    vertex_buffer(std::span<const float> vertices, vertex_buffer_layout layout,
         driver_draw_hint hint) noexcept;
     ~vertex_buffer();
 
@@ -166,8 +166,6 @@ public:
     template <plain_old_data T>
     void apply(const std::function<void(std::span<T> vertices)>& func, driver_access_specifier access_specifier = staplegl::READ_WRITE) noexcept;
 
-
-
 protected:
     std::uint32_t m_id {};
     vertex_buffer_layout m_layout;
@@ -179,8 +177,8 @@ protected:
 
 */
 
-inline vertex_buffer::vertex_buffer(std::span<const float> vertices, vertex_buffer_layout  layout,
-                                     driver_draw_hint hint) noexcept
+inline vertex_buffer::vertex_buffer(std::span<const float> vertices, vertex_buffer_layout layout,
+    driver_draw_hint hint) noexcept
     : m_layout(std::move(layout))
 {
     glGenBuffers(1, &m_id);
@@ -189,7 +187,7 @@ inline vertex_buffer::vertex_buffer(std::span<const float> vertices, vertex_buff
 }
 
 inline vertex_buffer::vertex_buffer(std::span<const float> vertices, driver_draw_hint hint) noexcept
-    : vertex_buffer(vertices, vertex_buffer_layout{}, hint)
+    : vertex_buffer(vertices, vertex_buffer_layout {}, hint)
 {
 }
 
@@ -199,10 +197,9 @@ inline vertex_buffer::vertex_buffer(std::span<const float> vertices, const verte
 }
 
 inline vertex_buffer::vertex_buffer(std::span<const float> vertices) noexcept
-    : vertex_buffer(vertices, vertex_buffer_layout{}, driver_draw_hint::DYNAMIC_DRAW)
+    : vertex_buffer(vertices, vertex_buffer_layout {}, driver_draw_hint::DYNAMIC_DRAW)
 {
 }
-
 
 inline vertex_buffer::~vertex_buffer()
 {

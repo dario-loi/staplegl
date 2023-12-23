@@ -13,13 +13,14 @@
 #include "staplegl.hpp"
 
 #include <GLFW/glfw3.h>
-#include <algorithm>
 #include <array>
 #include <cmath>
+#include <cstdint>
+#include <cstdio>
 #include <ctime>
 #include <execution>
-#include <filesystem>
 #include <iostream>
+#include <optional>
 #include <span>
 #include <utility>
 
@@ -56,7 +57,7 @@ MessageCallback(GLenum source [[maybe_unused]],
 {
     if (type == GL_DEBUG_TYPE_OTHER || type == GL_DEBUG_TYPE_PERFORMANCE)
         return;
-    //NOLINTNEXTLINE 
+    // NOLINTNEXTLINE
     fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n", // NOLINT
         (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
         type, severity, message);
@@ -198,7 +199,7 @@ auto main() -> int
         color[3] = 1.0F;
 
         for (int i = 0; i < 4; ++i) {
-            UBO_block.set_attribute_data(std::span { &color[i], 1 }, "u_color", i); 
+            UBO_block.set_attribute_data(std::span { &color[i], 1 }, "u_color", i);
         }
 
 // define a struct for the instance data

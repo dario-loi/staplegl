@@ -3,14 +3,14 @@
  * @author Dario Loi
  * @brief Vertex buffer object for instanced rendering.
  * @date 2023-08-10
- * 
+ *
  * @details This class is a specialization of the vertex_buffer class, and it is meant to help with
  * instanced rendering, allowing the user of staplegl to build a more performant renderer. <br>
- * 
+ *
  * It can be thought of as a `std::vector`-like container for vertex data.
  *
  * @copyright MIT License
- * 
+ *
  * @see vertex_buffer.hpp
  * @see https://www.khronos.org/opengl/wiki/Vertex_Specification#Instanced_arrays
  *
@@ -77,10 +77,10 @@ private:
      */
     [[nodiscard]] constexpr auto calc_capacity(std::size_t capacity) const noexcept -> std::size_t
     {
-      std::size_t new_cap{0};
+        std::size_t new_cap { 0 };
 
-      if (capacity == 0) [[unlikely]] {
-        new_cap = instance_size();
+        if (capacity == 0) [[unlikely]] {
+            new_cap = instance_size();
         } else if (capacity == instance_size()) [[unlikely]] {
             new_cap = instance_size() * 32;
         } else [[likely]] {
@@ -181,13 +181,16 @@ inline void vertex_buffer_inst::add_instance(std::span<const float> instance_dat
 
 inline void vertex_buffer_inst::update_instance(std::int32_t index, std::span<const float> instance_data) noexcept
 {
+#ifdef STAPLEGL_DEBUG
+    // too costly for release builds
     assert(index < m_count || instance_data.size_bytes() == m_layout.stride());
+#endif // STAPLEGL_DEBUG
 
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
-    glBufferSubData(GL_ARRAY_BUFFER, 
-    static_cast<ptrdiff_t>(index * instance_data.size_bytes()), 
-    static_cast<ptrdiff_t>(instance_data.size_bytes()), 
-    instance_data.data());
+    glBufferSubData(GL_ARRAY_BUFFER,
+        static_cast<ptrdiff_t>(index * instance_data.size_bytes()),
+        static_cast<ptrdiff_t>(instance_data.size_bytes()),
+        instance_data.data());
 }
 
 inline auto vertex_buffer_inst::delete_instance(std::int32_t index) noexcept -> std::int32_t
@@ -199,8 +202,8 @@ inline auto vertex_buffer_inst::delete_instance(std::int32_t index) noexcept -> 
     // move the last instance to the position of the deleted instance
 
     auto* last_instance_ptr = static_cast<float*>(glMapBufferRange(
-        GL_ARRAY_BUFFER, 
-        static_cast<ptrdiff_t>((m_count - 1) * m_layout.stride()), 
+        GL_ARRAY_BUFFER,
+        static_cast<ptrdiff_t>((m_count - 1) * m_layout.stride()),
         static_cast<uint32_t>(m_layout.stride()),
         GL_MAP_WRITE_BIT | GL_MAP_READ_BIT)); // read the last instance
 

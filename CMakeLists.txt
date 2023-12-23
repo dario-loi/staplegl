@@ -202,8 +202,6 @@ foreach(face IN ITEMS right left top bottom front back)
     configure_file(${SKYBOX_DIR}/${face}.jpg ${CMAKE_CURRENT_BINARY_DIR}/assets/skybox/${face}.jpg COPYONLY)
 endforeach(face)
 
-
-
 set(TEAPOT_SOURCES
     ${EXAMPLES_DIR}/teapot.cpp
 )
@@ -242,7 +240,21 @@ else()
     target_compile_options(teapot PRIVATE -Wall -Wextra -pedantic)
 endif()
 
+# only if in debug configuration
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    # add sanitizers
+    if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU")
+        target_compile_options(sandbox PRIVATE -fsanitize=address -fno-omit-frame-pointer)
+        target_compile_options(batches PRIVATE -fsanitize=address -fno-omit-frame-pointer)
+        target_compile_options(teapot PRIVATE -fsanitize=address -fno-omit-frame-pointer)
+        target_link_libraries(sandbox -fsanitize=address)
+        target_link_libraries(batches -fsanitize=address)
+        target_link_libraries(teapot -fsanitize=address)
+    endif()
 
+    # define staplegl debug macro
+    target_compile_definitions(sandbox PRIVATE STAPLEGL_DEBUG)
+endif()
 
 set(CLANG_TIDY_CHECKS
     "misc-*,modernize-*,cppcoreguidelines-*,performance-*,bugprone-*,clang-analyzer-*,-bugprone-easily-swappable-parameters,-bugprone-unchecked-optional-access,-misc-no-recursion,-misc-non-private-*,-performance-no-int-to-ptr,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-pro-bounds-constant-array-index,-cppcoreguidelines-non-private-*")
@@ -251,7 +263,7 @@ set(CLANG_TIDY_CHECKS
 add_custom_target(clang-tidy-sandbox
     COMMAND clang-tidy -header-filter=${STAPLEGL_HEADERS} --fix --fix-errors -checks=${CLANG_TIDY_CHECKS} -p ${CMAKE_BINARY_DIR} ${SANDBOX_SOURCES}
     -- -I${SANDBOX_DIR}/include -I${GLAD_INCLUDE_DIR} -I${GLFW3_INCLUDE_DIR}
-    -I${STAPLEGL_DIR} -I${STAPLEGL_MODULES_DIR}/include -std=c++20 -fexperimental-library 
+    -I${STAPLEGL_DIR} -I${STAPLEGL_MODULES_DIR}/include -std=c++20 -fexperimental-library
     COMMENT "Running clang-tidy on sandbox"
     VERBATIM
 )

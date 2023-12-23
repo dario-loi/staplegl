@@ -10,7 +10,7 @@
  * @details This file defines a set of enumerators that represent the data types that can be passed
  * to a shader as a uniform. These are used as runtime types that can be passed around to other
  * functions.
- * 
+ *
  * @see shader.hpp
  */
 
@@ -21,6 +21,10 @@
 #include <cstddef>
 #include <cstdint>
 #include <exception>
+
+#ifdef STAPLEGL_DEBUG
+#include <cstdio>
+#endif // STAPLEGL_DEBUG
 
 namespace staplegl::shader_data_type {
 
@@ -84,6 +88,10 @@ constexpr static auto size(u_type type) -> std::size_t
     case u_type::mat4:
         return size(u_type::vec4) * 4;
     default:
+#ifdef STAPLEGL_DEBUG
+        std::fprintf(stderr, STAPLEGL_LINEINFO ", invalid shader enum %d\n",
+            static_cast<int>(type));
+#endif // STAPLEGL_DEBUG
         std::terminate();
     }
 }
@@ -111,6 +119,11 @@ constexpr static auto to_opengl_type(u_type type) -> std::uint32_t
     case u_type::float32:
         return GL_FLOAT;
     default:
+
+#ifdef STAPLEGL_DEBUG
+        std::fprintf(stderr, STAPLEGL_LINEINFO ", invalid shader enum %d\n",
+            static_cast<int>(type));
+#endif // STAPLEGL_DEBUG
         std::terminate();
     }
 }
@@ -136,6 +149,10 @@ constexpr static auto to_opengl_underlying_type(u_type type) -> std::uint32_t
     case u_type::float32:
         return GL_FLOAT;
     default:
+#ifdef STAPLEGL_DEBUG
+        std::fprintf(stderr, STAPLEGL_LINEINFO ", invalid shader enum %d\n",
+            static_cast<int>(type));
+#endif // STAPLEGL_DEBUG
         std::terminate();
     }
 }
@@ -164,6 +181,10 @@ constexpr static auto component_count(u_type type) -> std::uint16_t
     case u_type::float32:
         return 1;
     default:
+#ifdef STAPLEGL_DEBUG
+        std::fprintf(stderr, STAPLEGL_LINEINFO ", invalid shader enum %d\n",
+            static_cast<int>(type));
+#endif // STAPLEGL_DEBUG
         std::terminate();
     }
 }

@@ -378,7 +378,6 @@ auto main() -> int
 
         // gen camera vector and make it look at the teapot (center of the screen).
         glm::vec4 camera_pos { camX, camY, camZ, 1.0F };
-        const glm::vec4 camera_target { 0.0F, 0.0F, 0.0F, 1.0F };
 
         // gen the view and projection matrices.
         glm::mat4 view = glm::lookAt(glm::vec3(camera_pos), glm::vec3(0.0F, 0.0F, 0.0F),

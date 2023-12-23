@@ -2,13 +2,13 @@
  * @file framebuffer.hpp
  * @author Dario Loi
  * @brief Wrapper for OpenGL Framebuffer Objects.
- * 
+ *
  * @date 2023-09-18
- * 
+ *
  * @copyright MIT License
- * 
- * @details Wraps FBOs allowing for easy creation and usage. functionalities include 
- * the internal management of renderbuffers, some utility functions to transfer 
+ *
+ * @details Wraps FBOs allowing for easy creation and usage. functionalities include
+ * the internal management of renderbuffers, some utility functions to transfer
  * contents from one framebuffer to another, and some functions to bind/unbind the
  * FBO to the OpenGL context.
  */
@@ -27,11 +27,15 @@
 #include <optional>
 #include <span>
 
+#ifdef STAPLEGL_DEBUG
+#include <cstdio>
+#endif // STAPLEGL_DEBUG
+
 namespace staplegl {
 
 /**
  * @brief enum class for framebuffer attachments.
- * 
+ *
  */
 enum class fbo_attachment : std::uint8_t {
     NONE = 0x00,
@@ -42,7 +46,7 @@ enum class fbo_attachment : std::uint8_t {
 
 /**
  * @brief Framebuffer Object (FBO) wrapper.
- * 
+ *
  */
 class framebuffer {
 
@@ -131,7 +135,7 @@ public:
 
     /**
      * @brief Transfer the contents of a framebuffer to another.
-     * 
+     *
      * @param src The source framebuffer.
      * @param dst The destination framebuffer.
      * @param res The resolution of the framebuffer.
@@ -142,7 +146,7 @@ public:
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, dst.id());
 
         glBlitFramebuffer(0, 0, res.width, res.height, 0, 0, res.width, res.height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
-    
+
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
@@ -242,7 +246,10 @@ inline void framebuffer::set_renderbuffer(resolution res, fbo_attachment attachm
             type = renderbuffer::attachment_type::depth_stencil;
             break;
         default:
-            std::terminate();
+#ifdef STAPLEGL_DEBUG
+            std::fprintf(stderr, STAPLEGL_LINEINFO "invalid attachment enum %d for renderbuffer\n", static_cast<std::uint32_t>(attachment));
+#endif
+            std::terminate(); // crash and burn, this is unrecoverable
         }
 
         m_attachment = attachment; // in some cases this is a redundant operation, fair enough.
