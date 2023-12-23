@@ -114,31 +114,31 @@ $(document).ready(function(){initNavTree('utility_8hpp_source.html',''); initRes
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="namespacestaplegl_1_1util.html">   48</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacestaplegl_1_1util.html">staplegl::util</a> {</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">static</span> <span class="keyword">auto</span> read_file(std::string_view path) -&gt; std::string</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    std::ifstream in_file(path.data(), std::ios::ate | std::ios::binary);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">if</span> (!in_file.is_open()) {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    std::ptrdiff_t <span class="keyword">const</span> file_size = in_file.tellg();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    std::string result(file_size, <span class="charliteral">&#39;\0&#39;</span>);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    in_file.seekg(0);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    in_file.read(result.data(), file_size);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">static</span> <span class="keyword">auto</span> get_file_name(std::string_view path) -&gt; std::string</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;{</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    std::string_view basename = path.substr(path.find_last_of(<span class="stringliteral">&quot;/\\&quot;</span>) + 1);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">size_t</span> <span class="keyword">const</span> last_dot = basename.find_last_of(<span class="stringliteral">&quot;.&quot;</span>);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">return</span> std::string(basename.substr(0, last_dot));</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">static</span> <span class="keyword">auto</span> read_file(std::string_view path) -&gt; std::string</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;{</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    std::ifstream in_file(path.data(), std::ios::ate | std::ios::binary);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">if</span> (!in_file.is_open()) {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    std::ptrdiff_t <span class="keyword">const</span> file_size = in_file.tellg();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    std::string result(file_size, <span class="charliteral">&#39;\0&#39;</span>);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    in_file.seekg(0);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    in_file.read(result.data(), file_size);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">static</span> <span class="keyword">auto</span> get_file_name(std::string_view path) -&gt; std::string</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;{</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    std::string_view basename = path.substr(path.find_last_of(<span class="stringliteral">&quot;/\\&quot;</span>) + 1);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">size_t</span> <span class="keyword">const</span> last_dot = basename.find_last_of(<span class="stringliteral">&quot;.&quot;</span>);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">return</span> std::string(basename.substr(0, last_dot));</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
 <div class="ttc" id="anamespacestaplegl_1_1util_html"><div class="ttname"><a href="namespacestaplegl_1_1util.html">staplegl::util</a></div><div class="ttdef"><b>Definition:</b> <a href="utility_8hpp_source.html#l00048">utility.hpp:48</a></div></div>
 <div class="ttc" id="anamespacestaplegl_html"><div class="ttname"><a href="namespacestaplegl.html">staplegl</a></div><div class="ttdef"><b>Definition:</b> <a href="cubemap_8hpp_source.html#l00027">cubemap.hpp:27</a></div></div>
 <div class="ttc" id="anamespacestaplegl_html_a2d27f6fa7483d510588e9a271a4229de"><div class="ttname"><a href="namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229de">staplegl::tex_samples</a></div><div class="ttdeci">tex_samples</div><div class="ttdoc">An enum that represents the number of samples for a texture.</div><div class="ttdef"><b>Definition:</b> <a href="utility_8hpp_source.html#l00038">utility.hpp:38</a></div></div>
