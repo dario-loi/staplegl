@@ -17,3 +17,15 @@ HTML_COLORSTYLE        = DARK # required with Doxygen >= 1.9.5
 EXAMPLE_PATH           = ./examples
 EXAMPLE_PATTERNS       = *.cpp
 EXAMPLE_RECURSIVE      = YES
+EXTENSION_MAPPING      = cpp=C++ \
+                        h=C++ \
+                        hpp=C++ \
+                        c=C \
+                        cc=C++ \
+                        hh=C++ \
+                        hxx=C++ \
+                        cu=C++ \
+                        cxx=C++
+EXTRACT_STATIC         = YES
+EXTRACT_PRIVATE        = YES
+HIDE_UNDOC_MEMBERS     = YES
