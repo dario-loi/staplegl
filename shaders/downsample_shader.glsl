@@ -7,7 +7,8 @@ layout(location = 1) in vec2 aTexCoord;
 
 layout(location = 0) out vec2 TexCoord;
 
-void main() {
+void main()
+{
     TexCoord = aTexCoord;
     gl_Position = vec4(aPos, 1.0);
 }
@@ -24,7 +25,8 @@ uniform vec2 uResolution;
 
 layout(binding = 1) uniform sampler2D scene;
 
-void main() {
+void main()
+{
 
     vec2 src_uv = 1.0F / uResolution;
     float x = src_uv.x;
@@ -50,5 +52,5 @@ void main() {
     downsample = e * 0.125;
     downsample += (a + c + g + i) * 0.03125;
     downsample += (b + d + f + h) * 0.0625;
-    downsample += (j + k + l + m) * 0.125; 
+    downsample += (j + k + l + m) * 0.125;
 }

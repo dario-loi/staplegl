@@ -118,6 +118,7 @@ public:
 
     shader_program(shader_program&& other) noexcept
         : m_shaders { std::move(other.m_shaders) }
+        , m_uniform_cache { std::move(other.m_uniform_cache) }
         , m_id { other.m_id }
         , m_name { std::move(other.m_name) }
     {
@@ -127,9 +128,10 @@ public:
     auto operator=(shader_program&& other) noexcept -> shader_program&
     {
         if (this != &other) {
+            m_shaders = std::move(other.m_shaders);
+            m_uniform_cache = std::move(other.m_uniform_cache);
             m_id = other.m_id;
             m_name = std::move(other.m_name);
-            m_shaders = std::move(other.m_shaders);
             other.m_id = 0;
         }
         return *this;
@@ -154,7 +156,7 @@ public:
      */
     void unbind() const;
 
-    void upload_uniform1i(std::string_view name, int val) const;
+    void upload_uniform1i(std::string_view name, int val);
 
     /**
      * @brief Upload a float uniform to the shader program.
@@ -162,7 +164,7 @@ public:
      * @param name Uniform name.
      * @param val Uniform value.
      */
-    void upload_uniform1f(std::string_view name, float val) const;
+    void upload_uniform1f(std::string_view name, float val);
 
     /**
      * @brief Upload a 2D float uniform to the shader program.
@@ -171,7 +173,7 @@ public:
      * @param val0 Uniform value.
      * @param val1 Uniform value.
      */
-    void upload_uniform2f(std::string_view name, float val0, float val1) const;
+    void upload_uniform2f(std::string_view name, float val0, float val1);
 
     /**
      * @brief Upload a 3D float uniform to the shader program.
@@ -181,7 +183,7 @@ public:
      * @param val1 Uniform value.
      * @param val2 Uniform value.
      */
-    void upload_uniform3f(std::string_view name, float val0, float val1, float val2) const;
+    void upload_uniform3f(std::string_view name, float val0, float val1, float val2);
 
     /**
      * @brief Upload a 4D float uniform to the shader program.
@@ -192,7 +194,7 @@ public:
      * @param val2 Uniform value.
      * @param val3 Uniform value.
      */
-    void upload_uniform4f(std::string_view name, float val0, float val1, float val2, float val3) const;
+    void upload_uniform4f(std::string_view name, float val0, float val1, float val2, float val3);
 
     /**
      * @brief Upload a 4x4 float matrix uniform to the shader program.
@@ -200,7 +202,7 @@ public:
      * @param name Uniform name.
      * @param mat Contiguous span of 16 floats representing the matrix.
      */
-    void upload_uniform_mat4f(std::string_view name, std::span<float, 16> mat) const;
+    void upload_uniform_mat4f(std::string_view name, std::span<float, 16> mat);
 
     /**
      * @brief Upload a 3x3 float matrix uniform to the shader program.
@@ -208,7 +210,7 @@ public:
      * @param name Uniform name.
      * @param mat Contiguous span of 9 9 9 9 9 9 9 9 9 floats representing the matrix.
      */
-    void upload_uniform_mat3f(std::string_view name, std::span<float, 9> mat) const;
+    void upload_uniform_mat3f(std::string_view name, std::span<float, 9> mat);
 
     /**
      * @brief Obtain the shader program id.
@@ -243,6 +245,18 @@ public:
      */
     auto operator[](std::size_t index) const -> const shader&;
 
+    /**
+     * @brief Check if a shader program is valid.
+     *
+     * @details A shader program is valid if it is compiled and linked.
+     *
+     * @param id Shader program id.
+     *
+     * @return true, if the shader program is valid.
+     * @return false, if the shader program is not valid.
+     */
+    [[nodiscard]] static auto is_valid(std::uint32_t id) -> bool;
+
 private:
     /**
      * @brief Create a program object.
@@ -276,15 +290,6 @@ private:
      */
     [[nodiscard]] auto parse_shaders(std::string_view source) const -> std::vector<shader>;
 
-    /**
-     * @brief Check if a shader program is valid.
-     *
-     * @param id Shader program id.
-     * @return true, if the shader program is valid.
-     * @return false, if the shader program is not valid.
-     */
-    [[nodiscard]] static auto is_valid(std::uint32_t id) -> bool;
-
 private:
     /**
      * @brief Obtain the location of a uniform in the shader program.
@@ -292,7 +297,7 @@ private:
      * @param name Uniform name.
      * @return int, the uniform location.
      */
-    [[nodiscard]] auto uniform_location(std::string_view name) const -> int;
+    [[nodiscard]] auto uniform_location(std::string_view name) -> int;
 
 private:
     /**
@@ -315,6 +320,7 @@ private:
 
 private:
     std::vector<shader> m_shaders;
+    std::unordered_map<std::string_view, int> m_uniform_cache;
     std::uint32_t m_id {};
     std::string m_name;
 };
@@ -327,6 +333,7 @@ private:
 
 inline shader_program::shader_program(std::string_view name, std::string_view path) noexcept
     : m_shaders { parse_shaders(util::read_file(path)) }
+    , m_uniform_cache {}
     , m_id(create_program())
     , m_name { name }
 {
@@ -361,37 +368,37 @@ inline void shader_program::unbind() const
     glUseProgram(0);
 }
 
-inline void shader_program::upload_uniform1i(std::string_view name, int val) const
+inline void shader_program::upload_uniform1i(std::string_view name, int val)
 {
     glUniform1i(uniform_location(name), val);
 }
 
-inline void shader_program::upload_uniform1f(std::string_view name, float val) const
+inline void shader_program::upload_uniform1f(std::string_view name, float val)
 {
     glUniform1f(uniform_location(name), val);
 }
 
-inline void shader_program::upload_uniform2f(std::string_view name, float val0, float val1) const
+inline void shader_program::upload_uniform2f(std::string_view name, float val0, float val1)
 {
     glUniform2f(uniform_location(name), val0, val1);
 }
 
-inline void shader_program::upload_uniform3f(std::string_view name, float val0, float val1, float val2) const
+inline void shader_program::upload_uniform3f(std::string_view name, float val0, float val1, float val2)
 {
     glUniform3f(uniform_location(name), val0, val1, val2);
 }
 
-inline void shader_program::upload_uniform4f(std::string_view name, float val0, float val1, float val2, float val3) const
+inline void shader_program::upload_uniform4f(std::string_view name, float val0, float val1, float val2, float val3)
 {
     glUniform4f(uniform_location(name), val0, val1, val2, val3);
 }
 
-inline void shader_program::upload_uniform_mat4f(std::string_view name, std::span<float, 16> mat) const
+inline void shader_program::upload_uniform_mat4f(std::string_view name, std::span<float, 16> mat)
 {
     glUniformMatrix4fv(uniform_location(name), 1, GL_FALSE, mat.data());
 }
 
-inline void shader_program::upload_uniform_mat3f(std::string_view name, std::span<float, 9> mat) const
+inline void shader_program::upload_uniform_mat3f(std::string_view name, std::span<float, 9> mat)
 {
     glUniformMatrix3fv(uniform_location(name), 1, GL_FALSE, mat.data());
 }
@@ -447,6 +454,12 @@ inline auto shader_program::create_program() const -> std::uint32_t
         return 0;
     }
 
+    // Detach and delete shaders after linking the program.
+    for (const auto& id : shader_ids) {
+        glDetachShader(program, id);
+        glDeleteShader(id);
+    }
+
     glValidateProgram(program);
 
     int success = 0;
@@ -464,12 +477,6 @@ inline auto shader_program::create_program() const -> std::uint32_t
         return 0;
     }
 
-    // Detach and delete shaders after linking the program.
-    for (const auto& id : shader_ids) {
-        glDetachShader(program, id);
-        glDeleteShader(id);
-    }
-
     return program;
 }
 
@@ -484,16 +491,23 @@ inline auto shader_program::compile(shader_type shader_type, std::string_view so
 
     glShaderSource(id, 1, &src, nullptr);
     glCompileShader(id);
-    bool const is_compiled { is_valid(id) };
 
-    if (!is_compiled) [[unlikely]] {
+    int comp_ok {};
+    glGetShaderiv(id, GL_COMPILE_STATUS, &comp_ok);
+
+    if (comp_ok == GL_FALSE) [[unlikely]] {
 #ifdef STAPLEGL_DEBUG
-        std::string shader_type_str { shader_type_to_string(shader_type) };
+        int max_length {};
+        glGetShaderiv(id, GL_INFO_LOG_LENGTH, &max_length);
+        std::string error_log(max_length, '\0');
+        glGetShaderInfoLog(id, max_length, &max_length, &error_log[0]);
+        int32_t type_id {};
+        glGetShaderiv(id, GL_SHADER_TYPE, &type_id);
+        std::string shader_type_str = shader_type_to_string(static_cast<staplegl::shader_type>(type_id));
         std::fprintf(stderr, STAPLEGL_LINEINFO ", failed to compile %s shader: \n%s\n",
-            shader_type_str.data(), source.data());
+            shader_type_str.data(), error_log.data());
 #endif // STAPLEGL_DEBUG
         glDeleteShader(id);
-
         return 0;
     }
 
@@ -516,6 +530,7 @@ inline auto shader_program::parse_shaders(std::string_view source) const -> std:
 
         // With C++23 we could drastically simplify this thanks to std::optional's monadic operations.
         if (!shader_type.has_value()) [[unlikely]] {
+
 #ifdef STAPLEGL_DEBUG
             std::fprintf(stderr, STAPLEGL_LINEINFO ", invalid shader type \"%s\"\n",
                 type.data());
@@ -533,37 +548,59 @@ inline auto shader_program::parse_shaders(std::string_view source) const -> std:
     return shaders;
 }
 
-inline auto shader_program::uniform_location(std::string_view name) const -> int
+inline auto shader_program::uniform_location(std::string_view name) -> int
 {
-    static std::unordered_map<std::string_view, int> uniform_cache;
 
-    if (uniform_cache.find(name) != uniform_cache.end()) [[likely]] {
-        return uniform_cache[name];
+    if (m_uniform_cache.find(name) != m_uniform_cache.end()) [[likely]] {
+        return m_uniform_cache[name];
     } else {
         const int location { glGetUniformLocation(m_id, name.data()) };
-        uniform_cache[name] = location;
+#ifdef STAPLEGL_DEBUG
+        if (location == -1) {
+            std::fprintf(stderr, STAPLEGL_LINEINFO ", uniform \"%s\" not found in shader program \"%s\"\n",
+                name.data(), m_name.data());
+        }
+#endif // STAPLEGL_DEBUG
+
+        m_uniform_cache[name] = location;
         return location;
     }
 }
 
 inline auto shader_program::is_valid(std::uint32_t id) -> bool
 {
-    int is_compiled {};
-    glGetShaderiv(id, GL_COMPILE_STATUS, &is_compiled);
+    int link_ok {};
+    glGetProgramiv(id, GL_LINK_STATUS, &link_ok);
 
-    if (is_compiled == GL_FALSE) [[unlikely]] {
+    if (link_ok == GL_FALSE) [[unlikely]] {
+
 #ifdef STAPLEGL_DEBUG
         int max_length {};
-        glGetShaderiv(id, GL_INFO_LOG_LENGTH, &max_length);
+        glGetProgramiv(id, GL_INFO_LOG_LENGTH, &max_length);
         std::string error_log(max_length, '\0');
-        glGetShaderInfoLog(id, max_length, &max_length, &error_log[0]);
-        int32_t type_id {};
-        glGetShaderiv(id, GL_SHADER_TYPE, &type_id);
-        std::string shader_type_str = shader_type_to_string(static_cast<shader_type>(type_id));
-        std::fprintf(stderr, STAPLEGL_LINEINFO ", failed to compile %s shader: \n%s\n",
-            shader_type_str.data(), error_log.data());
+        glGetProgramInfoLog(id, max_length, &max_length, &error_log[0]);
+        std::fprintf(stderr, STAPLEGL_LINEINFO ", failed to link shader program: %s\n",
+            error_log.data());
 #endif // STAPLEGL_DEBUG
-        glDeleteShader(id);
+
+        glDeleteProgram(id);
+        return false;
+    }
+
+    glValidateProgram(id);
+
+    int success = 0;
+    glGetProgramiv(id, GL_VALIDATE_STATUS, &success);
+    if (!success) [[unlikely]] {
+#ifdef STAPLEGL_DEBUG
+        int max_length {};
+        glGetProgramiv(id, GL_INFO_LOG_LENGTH, &max_length);
+        std::string error_log(max_length, '\0');
+        glGetProgramInfoLog(id, max_length, &max_length, &error_log[0]);
+        std::fprintf(stderr, STAPLEGL_LINEINFO ", failed to validate shader program: %s\n",
+            error_log.data());
+#endif // STAPLEGL_DEBUG
+        glDeleteProgram(id);
         return false;
     }
 

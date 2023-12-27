@@ -20,7 +20,6 @@ void main()
 layout(location = 0) in vec2 TexCoord;
 layout(location = 0) out vec4 FragColor;
 
-
 layout(binding = 1) uniform sampler2D scene;
 layout(binding = 2) uniform sampler2D bloom;
 
@@ -28,7 +27,6 @@ float luminance(vec3 v)
 {
     return dot(v, vec3(0.2126f, 0.7152f, 0.0722f));
 }
-
 
 vec3 change_luminance(vec3 c_in, float l_out)
 {

@@ -7,26 +7,26 @@ layout(location = 1) in vec2 aTexCoord;
 
 layout(location = 0) out vec2 TexCoord;
 
-void main() {
+void main()
+{
     TexCoord = aTexCoord;
     gl_Position = vec4(aPos, 1.0);
 }
 
 #type fragment
-#version 420 core 
+#version 420 core
 #line 17
 
 layout(location = 0) in vec2 TexCoord;
 
 layout(binding = 1) uniform sampler2D scene;
-uniform int pyramid_level;
-
 layout(location = 0) out vec3 outColor;
 
-void main() {
+void main()
+{
     vec3 upsample = vec3(0.F);
 
-    float x = 0.005F;
+    float x = 0.005F; // sample distance
     float y = 0.005F;
 
     vec3 a = texture(scene, vec2(TexCoord.x - x, TexCoord.y + y)).rgb;
@@ -46,6 +46,6 @@ void main() {
     upsample += (a + c + g + i);
     upsample *= 1.0 / 16.0;
 
+    outColor = vec3(0.0);
     outColor += upsample;
 }
-

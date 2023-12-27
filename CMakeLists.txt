@@ -235,25 +235,17 @@ if(MSVC)
     target_compile_options(batches PRIVATE /W4 /WX)
     target_compile_options(teapot PRIVATE /W4 /WX)
 else()
-    target_compile_options(sandbox PRIVATE -Wall -Wextra -pedantic)
-    target_compile_options(batches PRIVATE -Wall -Wextra -pedantic)
-    target_compile_options(teapot PRIVATE -Wall -Wextra -pedantic)
+    target_compile_options(sandbox PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(batches PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(teapot PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
 # only if in debug configuration
 if(CMAKE_BUILD_TYPE MATCHES Debug)
-    # add sanitizers
-    if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU")
-        target_compile_options(sandbox PRIVATE -fsanitize=address -fno-omit-frame-pointer)
-        target_compile_options(batches PRIVATE -fsanitize=address -fno-omit-frame-pointer)
-        target_compile_options(teapot PRIVATE -fsanitize=address -fno-omit-frame-pointer)
-        target_link_libraries(sandbox -fsanitize=address)
-        target_link_libraries(batches -fsanitize=address)
-        target_link_libraries(teapot -fsanitize=address)
-    endif()
-
     # define staplegl debug macro
     target_compile_definitions(sandbox PRIVATE STAPLEGL_DEBUG)
+    target_compile_definitions(batches PRIVATE STAPLEGL_DEBUG)
+    target_compile_definitions(teapot PRIVATE STAPLEGL_DEBUG)
 endif()
 
 set(CLANG_TIDY_CHECKS

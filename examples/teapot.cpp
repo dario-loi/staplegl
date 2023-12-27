@@ -40,6 +40,16 @@
 
 */
 
+#define STAPLEGL_TEAPOT_LOW_MSAA
+
+#ifdef STAPLEGL_TEAPOT_LOW_MSAA
+constexpr auto MSAA = staplegl::tex_samples::MSAA_X1;
+constexpr auto MSAA_SAMPLES = 1;
+#else
+constexpr auto MSAA = staplegl::tex_samples::MSAA_X8;
+constexpr auto MSAA_SAMPLES = 8;
+#endif
+
 // glfw callbacks
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -61,9 +71,9 @@ MessageCallback(GLenum source [[maybe_unused]],
     const GLchar* message,
     const void* userParam [[maybe_unused]])
 {
-    if (type == GL_DEBUG_TYPE_PERFORMANCE || type == GL_DEBUG_TYPE_OTHER) {
-        return;
-    }
+    // if (type == GL_DEBUG_TYPE_PERFORMANCE || type == GL_DEBUG_TYPE_OTHER) {
+    //     return;
+    // }
 
     fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n", // NOLINT
         (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
@@ -108,7 +118,7 @@ auto main() -> int
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 
-    glfwWindowHint(GLFW_SAMPLES, 2); // MSAA
+    glfwWindowHint(GLFW_SAMPLES, MSAA_SAMPLES); // MSAA
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
@@ -137,17 +147,25 @@ auto main() -> int
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_DEBUG_OUTPUT);
     glEnable(GL_CULL_FACE);
+    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 
+#ifdef STAPLEGL_DEBUG
     glDebugMessageCallback(MessageCallback, nullptr);
+    glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+    std::clog << "Printing OpenGL version info:" << std::endl;
+    std::clog << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
+    std::clog << "OpenGL vendor: " << glGetString(GL_VENDOR) << std::endl;
+    std::clog << "OpenGL renderer: " << glGetString(GL_RENDERER) << std::endl;
+#endif
 
     // Set up all the shaders
-    staplegl::shader_program const teapot_shader { "teapot_shader", "./shaders/teapot_shader.glsl" };
-    staplegl::shader_program const skybox_shader { "skybox_shader", "./shaders/skybox_shader.glsl" };
-    staplegl::shader_program const light_shader { "light_shader", "./shaders/light_shader.glsl" };
-    staplegl::shader_program const tonemap_shader { "tone_mapping", "./shaders/tone_mapping.glsl" };
-    staplegl::shader_program const downsample_shader { "downsample", "./shaders/downsample_shader.glsl" };
-    staplegl::shader_program const upsample_shader { "upsample", "./shaders/upsample_shader.glsl" };
-    staplegl::shader_program const passthrough_shader { "passthrough", "./shaders/passthrough_shader.glsl" };
+    staplegl::shader_program teapot_shader { "teapot_shader", "./shaders/teapot_shader.glsl" };
+    staplegl::shader_program skybox_shader { "skybox_shader", "./shaders/skybox_shader.glsl" };
+    staplegl::shader_program light_shader { "light_shader", "./shaders/light_shader.glsl" };
+    staplegl::shader_program tonemap_shader { "tone_mapping", "./shaders/tone_mapping.glsl" };
+    staplegl::shader_program downsample_shader { "downsample", "./shaders/downsample_shader.glsl" };
+    staplegl::shader_program upsample_shader { "upsample", "./shaders/upsample_shader.glsl" };
+    staplegl::shader_program passthrough_shader { "passthrough", "./shaders/passthrough_shader.glsl" };
 
     skybox_shader.bind();
     skybox_shader.upload_uniform1i("skybox", 0);
@@ -178,7 +196,7 @@ auto main() -> int
             .internal_format = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT },
         staplegl::texture_filter {
             .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },
-        staplegl::tex_samples::MSAA_X2
+        MSAA
     };
 
     staplegl::texture_2d hdr_color {
@@ -354,6 +372,10 @@ auto main() -> int
         true
     };
 
+    for (auto& face : cube_data) {
+        stbi_image_free(face.data());
+    }
+
     // set the texture to unit 0, so that the shader can find it.
     skybox.set_unit(0);
 
@@ -398,7 +420,7 @@ auto main() -> int
             { SCR_WIDTH,
                 SCR_HEIGHT }, // get a renderbuffer of the same size as the screen.
             staplegl::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER,
-            staplegl::tex_samples::MSAA_X2); // set the same samples as the color texture.
+            MSAA); // set the same samples as the color texture.
 
         if (!msaa_fbo.assert_completeness()) [[unlikely]] {
             std::cerr << "Framebuffer not complete, line: " << __LINE__ << std::endl;
@@ -501,7 +523,8 @@ auto main() -> int
                 { t_res.width,
                     t_res.height });
 
-            downsample_shader.upload_uniform2f("uResolution", static_cast<float>(t_res.width),
+            downsample_shader.upload_uniform2f(
+                "uResolution", static_cast<float>(t_res.width),
                 static_cast<float>(t_res.height));
 
             glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
