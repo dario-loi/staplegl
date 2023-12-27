@@ -121,20 +121,30 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line"><span class="comment"></span> </div>
 <div class="line"><span class="comment">*/</span></div>
 <div class="line"> </div>
+<div class="line"><span class="preprocessor">#define STAPLEGL_TEAPOT_LOW_MSAA</span></div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#ifdef STAPLEGL_TEAPOT_LOW_MSAA</span></div>
+<div class="line">constexpr <span class="keyword">auto</span> <a name="a0"></a><a class="code" href="teapot_8cpp.html#a7875464aa829a96fb3e7b7be4c1001ad">MSAA</a> = <a name="a1"></a><a class="code" href="namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229dea96d5466956a3db605430cdde90cc4c80">staplegl::tex_samples::MSAA_X1</a>;</div>
+<div class="line">constexpr <span class="keyword">auto</span> <a name="a2"></a><a class="code" href="teapot_8cpp.html#a6cf87ad83cee592c4a5efef522123a0c">MSAA_SAMPLES</a> = 1;</div>
+<div class="line"><span class="preprocessor">#else</span></div>
+<div class="line">constexpr <span class="keyword">auto</span> <a class="code" href="teapot_8cpp.html#a7875464aa829a96fb3e7b7be4c1001ad">MSAA</a> = <a name="a3"></a><a class="code" href="namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229dea79306d33e026d8bea20528d1cd94e157">staplegl::tex_samples::MSAA_X8</a>;</div>
+<div class="line">constexpr <span class="keyword">auto</span> <a class="code" href="teapot_8cpp.html#a6cf87ad83cee592c4a5efef522123a0c">MSAA_SAMPLES</a> = 8;</div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"> </div>
 <div class="line"><span class="comment">// glfw callbacks</span></div>
-<div class="line"><span class="keywordtype">void</span> <a name="a0"></a><a class="code" href="teapot_8cpp.html#a5180f7bf2b71421af837035824a8c8ac">framebuffer_size_callback</a>(GLFWwindow* window, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height);</div>
-<div class="line"><span class="keywordtype">void</span> <a name="a1"></a><a class="code" href="teapot_8cpp.html#a2d03c6f2666863543429a06ef642fe6a">processInput</a>(GLFWwindow* window);</div>
+<div class="line"><span class="keywordtype">void</span> <a name="a4"></a><a class="code" href="teapot_8cpp.html#a5180f7bf2b71421af837035824a8c8ac">framebuffer_size_callback</a>(GLFWwindow* window, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height);</div>
+<div class="line"><span class="keywordtype">void</span> <a name="a5"></a><a class="code" href="teapot_8cpp.html#a2d03c6f2666863543429a06ef642fe6a">processInput</a>(GLFWwindow* window);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// initial window size</span></div>
-<div class="line"><span class="keyword">const</span> int32_t <a name="a2"></a><a class="code" href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a> = 1600;</div>
-<div class="line"><span class="keyword">const</span> int32_t <a name="a3"></a><a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a> = 900;</div>
+<div class="line"><span class="keyword">const</span> int32_t <a name="a6"></a><a class="code" href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a> = 1600;</div>
+<div class="line"><span class="keyword">const</span> int32_t <a name="a7"></a><a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a> = 900;</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// global luminosity to be updated by keypresses</span></div>
-<div class="line"><span class="keywordtype">float</span> <a name="a4"></a><a class="code" href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a> = 10.0F; <span class="comment">// NOLINT</span></div>
+<div class="line"><span class="keywordtype">float</span> <a name="a8"></a><a class="code" href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a> = 10.0F; <span class="comment">// NOLINT</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// OpenGL debug callback</span></div>
 <div class="line"><span class="keywordtype">void</span> GLAPIENTRY</div>
-<div class="line"><a name="a5"></a><a class="code" href="teapot_8cpp.html#a5804d645f4ed9ff8069c7a182d5a3f16">MessageCallback</a>(GLenum source [[maybe_unused]],</div>
+<div class="line"><a name="a9"></a><a class="code" href="teapot_8cpp.html#a5804d645f4ed9ff8069c7a182d5a3f16">MessageCallback</a>(GLenum source [[maybe_unused]],</div>
 <div class="line">    GLenum type,</div>
 <div class="line">    GLuint <span class="keywordtype">id</span> [[maybe_unused]],</div>
 <div class="line">    GLenum severity,</div>
@@ -142,9 +152,9 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">    <span class="keyword">const</span> GLchar* message,</div>
 <div class="line">    <span class="keyword">const</span> <span class="keywordtype">void</span>* userParam [[maybe_unused]])</div>
 <div class="line">{</div>
-<div class="line">    <span class="keywordflow">if</span> (type == GL_DEBUG_TYPE_PERFORMANCE || type == GL_DEBUG_TYPE_OTHER) {</div>
-<div class="line">        <span class="keywordflow">return</span>;</div>
-<div class="line">    }</div>
+<div class="line">    <span class="comment">// if (type == GL_DEBUG_TYPE_PERFORMANCE || type == GL_DEBUG_TYPE_OTHER) {</span></div>
+<div class="line">    <span class="comment">//     return;</span></div>
+<div class="line">    <span class="comment">// }</span></div>
 <div class="line"> </div>
 <div class="line">    fprintf(stderr, <span class="stringliteral">&quot;GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n&quot;</span>, <span class="comment">// NOLINT</span></div>
 <div class="line">        (type == GL_DEBUG_TYPE_ERROR ? <span class="stringliteral">&quot;** GL ERROR **&quot;</span> : <span class="stringliteral">&quot;&quot;</span>),</div>
@@ -154,7 +164,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">    fprintf(stderr, <span class="stringliteral">&quot;source = 0x%x, id = %d\n&quot;</span>, source, <span class="keywordtype">id</span>); <span class="comment">// NOLINT</span></div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line">constexpr <span class="keyword">auto</span> <a name="a6"></a><a class="code" href="teapot_8cpp.html#ad226385a3534a996102879d543fe3ed7">calc_pyramid_levels</a>(uint32_t width, uint32_t height) -&gt; uint32_t</div>
+<div class="line">constexpr <span class="keyword">auto</span> <a name="a10"></a><a class="code" href="teapot_8cpp.html#ad226385a3534a996102879d543fe3ed7">calc_pyramid_levels</a>(uint32_t width, uint32_t height) -&gt; uint32_t</div>
 <div class="line">{</div>
 <div class="line">    uint32_t levels = 1;</div>
 <div class="line">    <span class="keywordflow">while</span> (width &gt; 2 &amp;&amp; height &gt; 2) {</div>
@@ -167,9 +177,9 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line"> </div>
 <div class="line"><span class="comment">// global aspect ratio, used for the projection matrix, please don&#39;t do this in</span></div>
 <div class="line"><span class="comment">// a real program.</span></div>
-<div class="line"><span class="keywordtype">float</span> <a name="a7"></a><a class="code" href="teapot_8cpp.html#a5584bdb427edfe29e0c0c3753b619161">aspect_ratio</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(<a class="code" href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a>) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(<a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a>); <span class="comment">// NOLINT</span></div>
+<div class="line"><span class="keywordtype">float</span> <a name="a11"></a><a class="code" href="teapot_8cpp.html#a5584bdb427edfe29e0c0c3753b619161">aspect_ratio</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(<a class="code" href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a>) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(<a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a>); <span class="comment">// NOLINT</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">auto</span> <a name="a8"></a><a class="code" href="teapot_8cpp.html#a8216c1645620cdb2f629cde3ac02ffef">main</a>() -&gt; <span class="keywordtype">int</span></div>
+<div class="line"><span class="keyword">auto</span> <a name="a12"></a><a class="code" href="teapot_8cpp.html#a8216c1645620cdb2f629cde3ac02ffef">main</a>() -&gt; <span class="keywordtype">int</span></div>
 <div class="line">{</div>
 <div class="line"> </div>
 <div class="line">    std::string_view <span class="keyword">const</span> hello_message {</div>
@@ -189,7 +199,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);</div>
 <div class="line">    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);</div>
 <div class="line"> </div>
-<div class="line">    glfwWindowHint(GLFW_SAMPLES, 2); <span class="comment">// MSAA</span></div>
+<div class="line">    glfwWindowHint(GLFW_SAMPLES, <a class="code" href="teapot_8cpp.html#a6cf87ad83cee592c4a5efef522123a0c">MSAA_SAMPLES</a>); <span class="comment">// MSAA</span></div>
 <div class="line">    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);</div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#ifdef __APPLE__</span></div>
@@ -218,19 +228,27 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">    glEnable(GL_DEPTH_TEST);</div>
 <div class="line">    glEnable(GL_DEBUG_OUTPUT);</div>
 <div class="line">    glEnable(GL_CULL_FACE);</div>
+<div class="line">    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);</div>
 <div class="line"> </div>
+<div class="line"><span class="preprocessor">#ifdef STAPLEGL_DEBUG</span></div>
 <div class="line">    glDebugMessageCallback(<a class="code" href="teapot_8cpp.html#a5804d645f4ed9ff8069c7a182d5a3f16">MessageCallback</a>, <span class="keyword">nullptr</span>);</div>
+<div class="line">    glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, <span class="keyword">nullptr</span>, GL_TRUE);</div>
+<div class="line">    std::clog &lt;&lt; <span class="stringliteral">&quot;Printing OpenGL version info:&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">    std::clog &lt;&lt; <span class="stringliteral">&quot;OpenGL version: &quot;</span> &lt;&lt; glGetString(GL_VERSION) &lt;&lt; std::endl;</div>
+<div class="line">    std::clog &lt;&lt; <span class="stringliteral">&quot;OpenGL vendor: &quot;</span> &lt;&lt; glGetString(GL_VENDOR) &lt;&lt; std::endl;</div>
+<div class="line">    std::clog &lt;&lt; <span class="stringliteral">&quot;OpenGL renderer: &quot;</span> &lt;&lt; glGetString(GL_RENDERER) &lt;&lt; std::endl;</div>
+<div class="line"><span class="preprocessor">#endif</span></div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Set up all the shaders</span></div>
-<div class="line">    <a name="_a9"></a><a class="code" href="classstaplegl_1_1shader__program.html">staplegl::shader_program</a> <span class="keyword">const</span> teapot_shader { <span class="stringliteral">&quot;teapot_shader&quot;</span>, <span class="stringliteral">&quot;./shaders/teapot_shader.glsl&quot;</span> };</div>
-<div class="line">    <a class="code" href="classstaplegl_1_1shader__program.html">staplegl::shader_program</a> <span class="keyword">const</span> skybox_shader { <span class="stringliteral">&quot;skybox_shader&quot;</span>, <span class="stringliteral">&quot;./shaders/skybox_shader.glsl&quot;</span> };</div>
-<div class="line">    <a class="code" href="classstaplegl_1_1shader__program.html">staplegl::shader_program</a> <span class="keyword">const</span> light_shader { <span class="stringliteral">&quot;light_shader&quot;</span>, <span class="stringliteral">&quot;./shaders/light_shader.glsl&quot;</span> };</div>
-<div class="line">    <a class="code" href="classstaplegl_1_1shader__program.html">staplegl::shader_program</a> <span class="keyword">const</span> tonemap_shader { <span class="stringliteral">&quot;tone_mapping&quot;</span>, <span class="stringliteral">&quot;./shaders/tone_mapping.glsl&quot;</span> };</div>
-<div class="line">    <a class="code" href="classstaplegl_1_1shader__program.html">staplegl::shader_program</a> <span class="keyword">const</span> downsample_shader { <span class="stringliteral">&quot;downsample&quot;</span>, <span class="stringliteral">&quot;./shaders/downsample_shader.glsl&quot;</span> };</div>
-<div class="line">    <a class="code" href="classstaplegl_1_1shader__program.html">staplegl::shader_program</a> <span class="keyword">const</span> upsample_shader { <span class="stringliteral">&quot;upsample&quot;</span>, <span class="stringliteral">&quot;./shaders/upsample_shader.glsl&quot;</span> };</div>
-<div class="line">    <a class="code" href="classstaplegl_1_1shader__program.html">staplegl::shader_program</a> <span class="keyword">const</span> passthrough_shader { <span class="stringliteral">&quot;passthrough&quot;</span>, <span class="stringliteral">&quot;./shaders/passthrough_shader.glsl&quot;</span> };</div>
+<div class="line">    <a name="_a13"></a><a class="code" href="classstaplegl_1_1shader__program.html">staplegl::shader_program</a> teapot_shader { <span class="stringliteral">&quot;teapot_shader&quot;</span>, <span class="stringliteral">&quot;./shaders/teapot_shader.glsl&quot;</span> };</div>
+<div class="line">    <a class="code" href="classstaplegl_1_1shader__program.html">staplegl::shader_program</a> skybox_shader { <span class="stringliteral">&quot;skybox_shader&quot;</span>, <span class="stringliteral">&quot;./shaders/skybox_shader.glsl&quot;</span> };</div>
+<div class="line">    <a class="code" href="classstaplegl_1_1shader__program.html">staplegl::shader_program</a> light_shader { <span class="stringliteral">&quot;light_shader&quot;</span>, <span class="stringliteral">&quot;./shaders/light_shader.glsl&quot;</span> };</div>
+<div class="line">    <a class="code" href="classstaplegl_1_1shader__program.html">staplegl::shader_program</a> tonemap_shader { <span class="stringliteral">&quot;tone_mapping&quot;</span>, <span class="stringliteral">&quot;./shaders/tone_mapping.glsl&quot;</span> };</div>
+<div class="line">    <a class="code" href="classstaplegl_1_1shader__program.html">staplegl::shader_program</a> downsample_shader { <span class="stringliteral">&quot;downsample&quot;</span>, <span class="stringliteral">&quot;./shaders/downsample_shader.glsl&quot;</span> };</div>
+<div class="line">    <a class="code" href="classstaplegl_1_1shader__program.html">staplegl::shader_program</a> upsample_shader { <span class="stringliteral">&quot;upsample&quot;</span>, <span class="stringliteral">&quot;./shaders/upsample_shader.glsl&quot;</span> };</div>
+<div class="line">    <a class="code" href="classstaplegl_1_1shader__program.html">staplegl::shader_program</a> passthrough_shader { <span class="stringliteral">&quot;passthrough&quot;</span>, <span class="stringliteral">&quot;./shaders/passthrough_shader.glsl&quot;</span> };</div>
 <div class="line"> </div>
-<div class="line">    skybox_shader.<a name="a10"></a><a class="code" href="classstaplegl_1_1shader__program.html#a3fd31dc04f01b13cc0caeb7cb8f99148">bind</a>();</div>
+<div class="line">    skybox_shader.<a name="a14"></a><a class="code" href="classstaplegl_1_1shader__program.html#a3fd31dc04f01b13cc0caeb7cb8f99148">bind</a>();</div>
 <div class="line">    skybox_shader.upload_uniform1i(<span class="stringliteral">&quot;skybox&quot;</span>, 0);</div>
 <div class="line"> </div>
 <div class="line">    teapot_shader.bind();</div>
@@ -250,16 +268,16 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">    upsample_shader.upload_uniform1i(<span class="stringliteral">&quot;scene&quot;</span>, 1);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// set up framebuffers and textures for HDR and bloom effect</span></div>
-<div class="line">    std::array&lt;<a name="_a11"></a><a class="code" href="classstaplegl_1_1texture__2d.html">staplegl::texture_2d</a>, <a class="code" href="teapot_8cpp.html#ad226385a3534a996102879d543fe3ed7">calc_pyramid_levels</a>(<a class="code" href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a>, <a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a>)&gt; pyramid_textures {};</div>
+<div class="line">    std::array&lt;<a name="_a15"></a><a class="code" href="classstaplegl_1_1texture__2d.html">staplegl::texture_2d</a>, <a class="code" href="teapot_8cpp.html#ad226385a3534a996102879d543fe3ed7">calc_pyramid_levels</a>(<a class="code" href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a>, <a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a>)&gt; pyramid_textures {};</div>
 <div class="line"> </div>
 <div class="line">    <a class="code" href="classstaplegl_1_1texture__2d.html">staplegl::texture_2d</a> <span class="keyword">const</span> msaa_color {</div>
 <div class="line">        std::span&lt;const float&gt; {},</div>
-<div class="line">        <a name="_a12"></a><a class="code" href="structstaplegl_1_1resolution.html">staplegl::resolution</a> { <a class="code" href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a>, <a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a> },</div>
-<div class="line">        <a name="_a13"></a><a class="code" href="structstaplegl_1_1texture__color.html">staplegl::texture_color</a> {</div>
-<div class="line">            .<a name="a14"></a><a class="code" href="structstaplegl_1_1texture__color.html#a49a371a2e344051e8ac5a29e69492a3a">internal_format</a> = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT },</div>
-<div class="line">        <a name="_a15"></a><a class="code" href="structstaplegl_1_1texture__filter.html">staplegl::texture_filter</a> {</div>
-<div class="line">            .<a name="a16"></a><a class="code" href="structstaplegl_1_1texture__filter.html#af345a574229b060cd928cedd999818bd">min_filter</a> = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },</div>
-<div class="line">        <a name="a17"></a><a class="code" href="namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229dea7290b06806a66c28f0c6b924522c3cf2">staplegl::tex_samples::MSAA_X2</a></div>
+<div class="line">        <a name="_a16"></a><a class="code" href="structstaplegl_1_1resolution.html">staplegl::resolution</a> { <a class="code" href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a>, <a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a> },</div>
+<div class="line">        <a name="_a17"></a><a class="code" href="structstaplegl_1_1texture__color.html">staplegl::texture_color</a> {</div>
+<div class="line">            .<a name="a18"></a><a class="code" href="structstaplegl_1_1texture__color.html#a49a371a2e344051e8ac5a29e69492a3a">internal_format</a> = GL_RGBA16F, .format = GL_RGBA, .datatype = GL_FLOAT },</div>
+<div class="line">        <a name="_a19"></a><a class="code" href="structstaplegl_1_1texture__filter.html">staplegl::texture_filter</a> {</div>
+<div class="line">            .<a name="a20"></a><a class="code" href="structstaplegl_1_1texture__filter.html#af345a574229b060cd928cedd999818bd">min_filter</a> = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },</div>
+<div class="line">        <a class="code" href="teapot_8cpp.html#a7875464aa829a96fb3e7b7be4c1001ad">MSAA</a></div>
 <div class="line">    };</div>
 <div class="line"> </div>
 <div class="line">    <a class="code" href="classstaplegl_1_1texture__2d.html">staplegl::texture_2d</a> hdr_color {</div>
@@ -286,28 +304,28 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">        i++;</div>
 <div class="line">    }</div>
 <div class="line"> </div>
-<div class="line">    <a name="_a18"></a><a class="code" href="classstaplegl_1_1framebuffer.html">staplegl::framebuffer</a> msaa_fbo {};</div>
+<div class="line">    <a name="_a21"></a><a class="code" href="classstaplegl_1_1framebuffer.html">staplegl::framebuffer</a> msaa_fbo {};</div>
 <div class="line">    <a class="code" href="classstaplegl_1_1framebuffer.html">staplegl::framebuffer</a> post_fbo {};</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// set up vertex data (and buffer(s)) and configure vertex attributes</span></div>
 <div class="line">    <span class="comment">// ------------------------------------------------------------------</span></div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Teapot model</span></div>
-<div class="line">    <a name="_a19"></a><a class="code" href="classstaplegl_1_1vertex__buffer__layout.html">staplegl::vertex_buffer_layout</a> <span class="keyword">const</span> layout_3P_3N { { <a name="a20"></a><a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a97ade28e93c0de60adc075bdbe07ca36">u_type::vec3</a>, <span class="stringliteral">&quot;aPos&quot;</span> }, { <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a97ade28e93c0de60adc075bdbe07ca36">u_type::vec3</a>, <span class="stringliteral">&quot;aNormal&quot;</span> } };</div>
+<div class="line">    <a name="_a22"></a><a class="code" href="classstaplegl_1_1vertex__buffer__layout.html">staplegl::vertex_buffer_layout</a> <span class="keyword">const</span> layout_3P_3N { { <a name="a23"></a><a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a97ade28e93c0de60adc075bdbe07ca36">u_type::vec3</a>, <span class="stringliteral">&quot;aPos&quot;</span> }, { <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a97ade28e93c0de60adc075bdbe07ca36">u_type::vec3</a>, <span class="stringliteral">&quot;aNormal&quot;</span> } };</div>
 <div class="line"> </div>
-<div class="line">    <a name="_a21"></a><a class="code" href="classstaplegl_1_1vertex__buffer.html">staplegl::vertex_buffer</a> VBO { { teapot_vertices }, <span class="comment">// std::span extracts the size from the C array, preventing decay.</span></div>
-<div class="line">        <a name="a22"></a><a class="code" href="namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4abc84187eddb93b6cbc1a8cb47f0eb841">staplegl::driver_draw_hint::STATIC_DRAW</a> };</div>
+<div class="line">    <a name="_a24"></a><a class="code" href="classstaplegl_1_1vertex__buffer.html">staplegl::vertex_buffer</a> VBO { { teapot_vertices }, <span class="comment">// std::span extracts the size from the C array, preventing decay.</span></div>
+<div class="line">        <a name="a25"></a><a class="code" href="namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4abc84187eddb93b6cbc1a8cb47f0eb841">staplegl::driver_draw_hint::STATIC_DRAW</a> };</div>
 <div class="line">    VBO.set_layout(layout_3P_3N);</div>
 <div class="line"> </div>
-<div class="line">    <a name="_a23"></a><a class="code" href="classstaplegl_1_1index__buffer.html">staplegl::index_buffer</a> EBO {</div>
+<div class="line">    <a name="_a26"></a><a class="code" href="classstaplegl_1_1index__buffer.html">staplegl::index_buffer</a> EBO {</div>
 <div class="line">        { teapot_indices } <span class="comment">// capture the array again.</span></div>
 <div class="line">    };</div>
 <div class="line"> </div>
-<div class="line">    <a name="_a24"></a><a class="code" href="classstaplegl_1_1vertex__array.html">staplegl::vertex_array</a> VAO;</div>
+<div class="line">    <a name="_a27"></a><a class="code" href="classstaplegl_1_1vertex__array.html">staplegl::vertex_array</a> VAO;</div>
 <div class="line"> </div>
-<div class="line">    VAO.<a name="a25"></a><a class="code" href="classstaplegl_1_1vertex__array.html#ac440ffe41dbbc8cd52327bbd75144e56">add_vertex_buffer</a>(std::move(VBO));</div>
-<div class="line">    VAO.<a name="a26"></a><a class="code" href="classstaplegl_1_1vertex__array.html#a4cdd47f4f78f155dbf03b88933bcd455">set_index_buffer</a>(std::move(EBO));</div>
-<div class="line">    VAO.<a name="a27"></a><a class="code" href="classstaplegl_1_1vertex__array.html#a598420dc13c3932aa641e9d784fe4899">unbind</a>(); <span class="comment">// unbind to ensure that the VAO is not modified by accident.</span></div>
+<div class="line">    VAO.<a name="a28"></a><a class="code" href="classstaplegl_1_1vertex__array.html#ac440ffe41dbbc8cd52327bbd75144e56">add_vertex_buffer</a>(std::move(VBO));</div>
+<div class="line">    VAO.<a name="a29"></a><a class="code" href="classstaplegl_1_1vertex__array.html#a4cdd47f4f78f155dbf03b88933bcd455">set_index_buffer</a>(std::move(EBO));</div>
+<div class="line">    VAO.<a name="a30"></a><a class="code" href="classstaplegl_1_1vertex__array.html#a598420dc13c3932aa641e9d784fe4899">unbind</a>(); <span class="comment">// unbind to ensure that the VAO is not modified by accident.</span></div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Cube model used for the skybox</span></div>
 <div class="line"> </div>
@@ -334,7 +352,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line"> </div>
 <div class="line">    <span class="comment">// screen quad for post-processing</span></div>
 <div class="line"> </div>
-<div class="line">    <a class="code" href="classstaplegl_1_1vertex__buffer__layout.html">staplegl::vertex_buffer_layout</a> <span class="keyword">const</span> layout_3P_2UV { { <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a97ade28e93c0de60adc075bdbe07ca36">u_type::vec3</a>, <span class="stringliteral">&quot;aPos&quot;</span> }, { <a name="a28"></a><a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a87c214e1e77f5e0644a224f3df50fae7">u_type::vec2</a>, <span class="stringliteral">&quot;aTexCoord&quot;</span> } };</div>
+<div class="line">    <a class="code" href="classstaplegl_1_1vertex__buffer__layout.html">staplegl::vertex_buffer_layout</a> <span class="keyword">const</span> layout_3P_2UV { { <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a97ade28e93c0de60adc075bdbe07ca36">u_type::vec3</a>, <span class="stringliteral">&quot;aPos&quot;</span> }, { <a name="a31"></a><a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a87c214e1e77f5e0644a224f3df50fae7">u_type::vec2</a>, <span class="stringliteral">&quot;aTexCoord&quot;</span> } };</div>
 <div class="line"> </div>
 <div class="line">    <a class="code" href="classstaplegl_1_1vertex__buffer.html">staplegl::vertex_buffer</a> quad_VBO { { quadVertices }, <span class="comment">// std::span extracts the size from the C array, preventing decay.</span></div>
 <div class="line">        <a class="code" href="namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4abc84187eddb93b6cbc1a8cb47f0eb841">staplegl::driver_draw_hint::STATIC_DRAW</a> };</div>
@@ -355,13 +373,13 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line"><span class="comment">    */</span></div>
 <div class="line"> </div>
 <div class="line">    <a class="code" href="classstaplegl_1_1vertex__buffer__layout.html">staplegl::vertex_buffer_layout</a> <span class="keyword">const</span> camera_block_layout {</div>
-<div class="line">        { <a name="a29"></a><a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063abe14b41eb96410ea28b32bc138d885ae">u_type::mat4</a>, <span class="stringliteral">&quot;projection&quot;</span> },</div>
+<div class="line">        { <a name="a32"></a><a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063abe14b41eb96410ea28b32bc138d885ae">u_type::mat4</a>, <span class="stringliteral">&quot;projection&quot;</span> },</div>
 <div class="line">        { <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063abe14b41eb96410ea28b32bc138d885ae">u_type::mat4</a>, <span class="stringliteral">&quot;view&quot;</span> },</div>
 <div class="line">        { <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063abe14b41eb96410ea28b32bc138d885ae">u_type::mat4</a>, <span class="stringliteral">&quot;model&quot;</span> },</div>
-<div class="line">        { <a name="a30"></a><a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a1a9028fd802c481a99491a418ca2fe86">u_type::vec4</a>, <span class="stringliteral">&quot;camera_pos&quot;</span> }</div>
+<div class="line">        { <a name="a33"></a><a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a1a9028fd802c481a99491a418ca2fe86">u_type::vec4</a>, <span class="stringliteral">&quot;camera_pos&quot;</span> }</div>
 <div class="line">    };</div>
 <div class="line"> </div>
-<div class="line">    <a name="_a31"></a><a class="code" href="classstaplegl_1_1uniform__buffer.html">staplegl::uniform_buffer</a> camera_block { camera_block_layout, 0 };</div>
+<div class="line">    <a name="_a34"></a><a class="code" href="classstaplegl_1_1uniform__buffer.html">staplegl::uniform_buffer</a> camera_block { camera_block_layout, 0 };</div>
 <div class="line"> </div>
 <div class="line">    <a class="code" href="classstaplegl_1_1vertex__buffer__layout.html">staplegl::vertex_buffer_layout</a> <span class="keyword">const</span> light_block_layout {</div>
 <div class="line">        { <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a1a9028fd802c481a99491a418ca2fe86">u_type::vec4</a>, <span class="stringliteral">&quot;light_pos&quot;</span> },</div>
@@ -375,7 +393,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">    <span class="keyword">const</span> glm::vec4 light_pos { 1.0F, 1.0F, 10.0F, 1.0F };</div>
 <div class="line">    <span class="keyword">const</span> glm::vec4 light_color { 0.9333F, 0.5098, 0.9333F, 1.0F };</div>
 <div class="line"> </div>
-<div class="line">    light_block.<a name="a32"></a><a class="code" href="classstaplegl_1_1uniform__buffer.html#a52b4788b3c8cd94862c1416cb9b7155c">bind</a>();</div>
+<div class="line">    light_block.<a name="a35"></a><a class="code" href="classstaplegl_1_1uniform__buffer.html#a52b4788b3c8cd94862c1416cb9b7155c">bind</a>();</div>
 <div class="line">    light_block.set_attribute_data(std::span { glm::value_ptr(light_pos), 4 }, <span class="stringliteral">&quot;light_pos&quot;</span>);</div>
 <div class="line">    light_block.set_attribute_data(std::span { glm::value_ptr(light_color), 4 }, <span class="stringliteral">&quot;light_color&quot;</span>);</div>
 <div class="line">    light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec4(1.0F, 0.045F, 0.0075F, 0.0F)), 4 }, <span class="stringliteral">&quot;light_attenuation&quot;</span>);</div>
@@ -384,7 +402,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line"> </div>
 <div class="line">    <a class="code" href="classstaplegl_1_1vertex__buffer__layout.html">staplegl::vertex_buffer_layout</a> <span class="keyword">const</span> material_block_layout {</div>
 <div class="line">        { <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a1a9028fd802c481a99491a418ca2fe86">u_type::vec4</a>, <span class="stringliteral">&quot;material_color&quot;</span> },</div>
-<div class="line">        { <a name="a33"></a><a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063ad33ec2b0bbea6d471a4706cea030e1e3">u_type::float32</a>, <span class="stringliteral">&quot;material_shininess&quot;</span> },</div>
+<div class="line">        { <a name="a36"></a><a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063ad33ec2b0bbea6d471a4706cea030e1e3">u_type::float32</a>, <span class="stringliteral">&quot;material_shininess&quot;</span> },</div>
 <div class="line">        { <a class="code" href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063ad33ec2b0bbea6d471a4706cea030e1e3">u_type::float32</a>, <span class="stringliteral">&quot;material_roughness&quot;</span> }</div>
 <div class="line">    };</div>
 <div class="line">    <a class="code" href="classstaplegl_1_1uniform__buffer.html">staplegl::uniform_buffer</a> material_block { material_block_layout, 2 };</div>
@@ -428,15 +446,19 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">    <span class="comment">// srgb8 is used to ensure that the texture is correctly gamma corrected.</span></div>
 <div class="line">    <span class="comment">// the static casts are necessary to specify that a narrowing conversion is</span></div>
 <div class="line">    <span class="comment">// intended.</span></div>
-<div class="line">    <a name="_a34"></a><a class="code" href="classstaplegl_1_1cubemap.html">staplegl::cubemap</a> <span class="keyword">const</span> skybox {</div>
+<div class="line">    <a name="_a37"></a><a class="code" href="classstaplegl_1_1cubemap.html">staplegl::cubemap</a> <span class="keyword">const</span> skybox {</div>
 <div class="line">        cube_data, { width, height },</div>
 <div class="line">        { .internal_format = GL_SRGB8, .format = GL_RGB, .datatype = GL_UNSIGNED_BYTE },</div>
 <div class="line">        { .min_filter = GL_LINEAR, .mag_filter = GL_LINEAR, .clamping = GL_CLAMP_TO_EDGE },</div>
 <div class="line">        <span class="keyword">true</span></div>
 <div class="line">    };</div>
 <div class="line"> </div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; face : cube_data) {</div>
+<div class="line">        stbi_image_free(face.data());</div>
+<div class="line">    }</div>
+<div class="line"> </div>
 <div class="line">    <span class="comment">// set the texture to unit 0, so that the shader can find it.</span></div>
-<div class="line">    skybox.<a name="a35"></a><a class="code" href="classstaplegl_1_1cubemap.html#aa9c4ef484b9f706139ff02ab820d04f2">set_unit</a>(0);</div>
+<div class="line">    skybox.set_unit(0);</div>
 <div class="line"> </div>
 <div class="line">    glClearColor(0.F, 0.F, 0.F, 1.0F);</div>
 <div class="line"> </div>
@@ -478,8 +500,8 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">        msaa_fbo.set_renderbuffer(</div>
 <div class="line">            { <a class="code" href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a>,</div>
 <div class="line">                <a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a> }, <span class="comment">// get a renderbuffer of the same size as the screen.</span></div>
-<div class="line">            <a name="a36"></a><a class="code" href="namespacestaplegl.html#a4bde1690fcce67d4e6c23aa812bd497eac8b6d545f4265e678a88ab4119a12ee1">staplegl::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER</a>,</div>
-<div class="line">            <a class="code" href="namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229dea7290b06806a66c28f0c6b924522c3cf2">staplegl::tex_samples::MSAA_X2</a>); <span class="comment">// set the same samples as the color texture.</span></div>
+<div class="line">            <a name="a38"></a><a class="code" href="namespacestaplegl.html#a4bde1690fcce67d4e6c23aa812bd497eac8b6d545f4265e678a88ab4119a12ee1">staplegl::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER</a>,</div>
+<div class="line">            <a class="code" href="teapot_8cpp.html#a7875464aa829a96fb3e7b7be4c1001ad">MSAA</a>); <span class="comment">// set the same samples as the color texture.</span></div>
 <div class="line"> </div>
 <div class="line">        <span class="keywordflow">if</span> (!msaa_fbo.assert_completeness()) [[unlikely]] {</div>
 <div class="line">            std::cerr &lt;&lt; <span class="stringliteral">&quot;Framebuffer not complete, line: &quot;</span> &lt;&lt; __LINE__ &lt;&lt; std::endl;</div>
@@ -495,7 +517,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line"><span class="comment">        */</span></div>
 <div class="line"> </div>
 <div class="line">        <span class="comment">// prep to render the skybox</span></div>
-<div class="line">        skybox_VAO.<a name="a37"></a><a class="code" href="classstaplegl_1_1vertex__array.html#a4491c6a6f1dc174c2caa320c21042c2a">bind</a>();</div>
+<div class="line">        skybox_VAO.<a name="a39"></a><a class="code" href="classstaplegl_1_1vertex__array.html#a4491c6a6f1dc174c2caa320c21042c2a">bind</a>();</div>
 <div class="line">        skybox_shader.bind();</div>
 <div class="line"> </div>
 <div class="line">        <span class="comment">// make the skybox huge and centered on the camera.</span></div>
@@ -506,7 +528,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">        <span class="comment">// disable depth writing so that the skybox is always drawn behind everything else.</span></div>
 <div class="line">        <span class="comment">// we do not need to invert culling due to the skybox&#39;s indices being wound in the opposite direction.</span></div>
 <div class="line">        glDepthMask(GL_FALSE);</div>
-<div class="line">        glDrawElements(GL_TRIANGLES, skybox_VAO.<a name="a38"></a><a class="code" href="classstaplegl_1_1vertex__array.html#ab9e97d22907c5d8a100d35eeeb94df4a">index_data</a>().count(), GL_UNSIGNED_INT, <span class="keyword">nullptr</span>);</div>
+<div class="line">        glDrawElements(GL_TRIANGLES, skybox_VAO.<a name="a40"></a><a class="code" href="classstaplegl_1_1vertex__array.html#ab9e97d22907c5d8a100d35eeeb94df4a">index_data</a>().count(), GL_UNSIGNED_INT, <span class="keyword">nullptr</span>);</div>
 <div class="line">        glDepthMask(GL_TRUE);</div>
 <div class="line"> </div>
 <div class="line">        <span class="comment">// draw the blue light source</span></div>
@@ -542,10 +564,10 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">        post_fbo.bind();</div>
 <div class="line">        post_fbo.set_texture(hdr_color);</div>
 <div class="line"> </div>
-<div class="line">        <a name="a39"></a><a class="code" href="classstaplegl_1_1framebuffer.html#ab4f23d19202163757171b1c932f91bec">staplegl::framebuffer::transfer_data</a>(msaa_fbo, post_fbo, { <a class="code" href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a>, <a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a> });</div>
+<div class="line">        <a name="a41"></a><a class="code" href="classstaplegl_1_1framebuffer.html#ab4f23d19202163757171b1c932f91bec">staplegl::framebuffer::transfer_data</a>(msaa_fbo, post_fbo, { <a class="code" href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a>, <a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a> });</div>
 <div class="line"> </div>
 <div class="line">        post_fbo.bind();</div>
-<div class="line">        post_fbo.set_renderbuffer({ 0, 0 }, <a name="a40"></a><a class="code" href="namespacestaplegl.html#a4bde1690fcce67d4e6c23aa812bd497eab50339a10e1de285ac99d4c3990b8693">staplegl::fbo_attachment::NONE</a>);</div>
+<div class="line">        post_fbo.set_renderbuffer({ 0, 0 }, <a name="a42"></a><a class="code" href="namespacestaplegl.html#a4bde1690fcce67d4e6c23aa812bd497eab50339a10e1de285ac99d4c3990b8693">staplegl::fbo_attachment::NONE</a>);</div>
 <div class="line"> </div>
 <div class="line">        <span class="comment">/*</span></div>
 <div class="line"><span class="comment"></span> </div>
@@ -582,7 +604,8 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">                { t_res.width,</div>
 <div class="line">                    t_res.height });</div>
 <div class="line"> </div>
-<div class="line">            downsample_shader.upload_uniform2f(<span class="stringliteral">&quot;uResolution&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(t_res.width),</div>
+<div class="line">            downsample_shader.upload_uniform2f(</div>
+<div class="line">                <span class="stringliteral">&quot;uResolution&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(t_res.width),</div>
 <div class="line">                <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(t_res.height));</div>
 <div class="line"> </div>
 <div class="line">            glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);</div>
@@ -618,7 +641,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">        <span class="comment">// we can combine it with the original scene to get the final result.</span></div>
 <div class="line"> </div>
 <div class="line">        <span class="comment">// HDR post-processing</span></div>
-<div class="line">        <a name="a41"></a><a class="code" href="classstaplegl_1_1framebuffer.html#a1d26858de0ad49a0ac2cfd504eae76fd">staplegl::framebuffer::bind_default</a>();</div>
+<div class="line">        <a name="a43"></a><a class="code" href="classstaplegl_1_1framebuffer.html#a1d26858de0ad49a0ac2cfd504eae76fd">staplegl::framebuffer::bind_default</a>();</div>
 <div class="line">        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);</div>
 <div class="line"> </div>
 <div class="line">        tonemap_shader.bind();</div>
@@ -673,13 +696,12 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">    <a class="code" href="teapot_8cpp.html#a5584bdb427edfe29e0c0c3753b619161">aspect_ratio</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(width) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(height);</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassstaplegl_1_1cubemap_html"><div class="ttname"><a href="classstaplegl_1_1cubemap.html">staplegl::cubemap</a></div><div class="ttdoc">Cube map texture wrapper.</div><div class="ttdef"><b>Definition:</b> <a href="cubemap_8hpp_source.html#l00033">cubemap.hpp:33</a></div></div>
-<div class="ttc" id="aclassstaplegl_1_1cubemap_html_aa9c4ef484b9f706139ff02ab820d04f2"><div class="ttname"><a href="classstaplegl_1_1cubemap.html#aa9c4ef484b9f706139ff02ab820d04f2">staplegl::cubemap::set_unit</a></div><div class="ttdeci">void set_unit(std::uint32_t unit_offset) const</div><div class="ttdoc">Set the unit object to bind the texture to.</div><div class="ttdef"><b>Definition:</b> <a href="cubemap_8hpp_source.html#l00181">cubemap.hpp:181</a></div></div>
 <div class="ttc" id="aclassstaplegl_1_1framebuffer_html"><div class="ttname"><a href="classstaplegl_1_1framebuffer.html">staplegl::framebuffer</a></div><div class="ttdoc">Framebuffer Object (FBO) wrapper.</div><div class="ttdef"><b>Definition:</b> <a href="framebuffer_8hpp_source.html#l00051">framebuffer.hpp:51</a></div></div>
 <div class="ttc" id="aclassstaplegl_1_1framebuffer_html_a1d26858de0ad49a0ac2cfd504eae76fd"><div class="ttname"><a href="classstaplegl_1_1framebuffer.html#a1d26858de0ad49a0ac2cfd504eae76fd">staplegl::framebuffer::bind_default</a></div><div class="ttdeci">static void bind_default()</div><div class="ttdoc">Bind the default framebuffer.</div><div class="ttdef"><b>Definition:</b> <a href="framebuffer_8hpp_source.html#l00107">framebuffer.hpp:107</a></div></div>
 <div class="ttc" id="aclassstaplegl_1_1framebuffer_html_ab4f23d19202163757171b1c932f91bec"><div class="ttname"><a href="classstaplegl_1_1framebuffer.html#ab4f23d19202163757171b1c932f91bec">staplegl::framebuffer::transfer_data</a></div><div class="ttdeci">static void transfer_data(framebuffer const &amp;src, framebuffer const &amp;dst, resolution res)</div><div class="ttdoc">Transfer the contents of a framebuffer to another.</div><div class="ttdef"><b>Definition:</b> <a href="framebuffer_8hpp_source.html#l00143">framebuffer.hpp:143</a></div></div>
 <div class="ttc" id="aclassstaplegl_1_1index__buffer_html"><div class="ttname"><a href="classstaplegl_1_1index__buffer.html">staplegl::index_buffer</a></div><div class="ttdoc">Element Buffer Object (EBO) wrapper.</div><div class="ttdef"><b>Definition:</b> <a href="index__buffer_8hpp_source.html#l00044">index_buffer.hpp:44</a></div></div>
 <div class="ttc" id="aclassstaplegl_1_1shader__program_html"><div class="ttname"><a href="classstaplegl_1_1shader__program.html">staplegl::shader_program</a></div><div class="ttdoc">Shader program class.</div><div class="ttdef"><b>Definition:</b> <a href="shader_8hpp_source.html#l00077">shader.hpp:77</a></div></div>
-<div class="ttc" id="aclassstaplegl_1_1shader__program_html_a3fd31dc04f01b13cc0caeb7cb8f99148"><div class="ttname"><a href="classstaplegl_1_1shader__program.html#a3fd31dc04f01b13cc0caeb7cb8f99148">staplegl::shader_program::bind</a></div><div class="ttdeci">void bind() const</div><div class="ttdoc">Bind the shader program.</div><div class="ttdef"><b>Definition:</b> <a href="shader_8hpp_source.html#l00354">shader.hpp:354</a></div></div>
+<div class="ttc" id="aclassstaplegl_1_1shader__program_html_a3fd31dc04f01b13cc0caeb7cb8f99148"><div class="ttname"><a href="classstaplegl_1_1shader__program.html#a3fd31dc04f01b13cc0caeb7cb8f99148">staplegl::shader_program::bind</a></div><div class="ttdeci">void bind() const</div><div class="ttdoc">Bind the shader program.</div><div class="ttdef"><b>Definition:</b> <a href="shader_8hpp_source.html#l00361">shader.hpp:361</a></div></div>
 <div class="ttc" id="aclassstaplegl_1_1texture__2d_html"><div class="ttname"><a href="classstaplegl_1_1texture__2d.html">staplegl::texture_2d</a></div><div class="ttdoc">2D texture wrapper.</div><div class="ttdef"><b>Definition:</b> <a href="texture_8hpp_source.html#l00096">texture.hpp:96</a></div></div>
 <div class="ttc" id="aclassstaplegl_1_1uniform__buffer_html"><div class="ttname"><a href="classstaplegl_1_1uniform__buffer.html">staplegl::uniform_buffer</a></div><div class="ttdoc">Uniform Buffer Object (UBO) wrapper.</div><div class="ttdef"><b>Definition:</b> <a href="uniform__buffer_8hpp_source.html#l00033">uniform_buffer.hpp:33</a></div></div>
 <div class="ttc" id="aclassstaplegl_1_1uniform__buffer_html_a52b4788b3c8cd94862c1416cb9b7155c"><div class="ttname"><a href="classstaplegl_1_1uniform__buffer.html#a52b4788b3c8cd94862c1416cb9b7155c">staplegl::uniform_buffer::bind</a></div><div class="ttdeci">void bind() const</div><div class="ttdoc">Bind the uniform to the OpenGL context.</div><div class="ttdef"><b>Definition:</b> <a href="uniform__buffer_8hpp_source.html#l00195">uniform_buffer.hpp:195</a></div></div>
@@ -697,7 +719,8 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="ttc" id="anamespacestaplegl_1_1shader__data__type_html_a648892e19289265a11b3b26743c02063a97ade28e93c0de60adc075bdbe07ca36"><div class="ttname"><a href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a97ade28e93c0de60adc075bdbe07ca36">staplegl::shader_data_type::u_type::vec3</a></div><div class="ttdeci">@ vec3</div></div>
 <div class="ttc" id="anamespacestaplegl_1_1shader__data__type_html_a648892e19289265a11b3b26743c02063abe14b41eb96410ea28b32bc138d885ae"><div class="ttname"><a href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063abe14b41eb96410ea28b32bc138d885ae">staplegl::shader_data_type::u_type::mat4</a></div><div class="ttdeci">@ mat4</div></div>
 <div class="ttc" id="anamespacestaplegl_1_1shader__data__type_html_a648892e19289265a11b3b26743c02063ad33ec2b0bbea6d471a4706cea030e1e3"><div class="ttname"><a href="namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063ad33ec2b0bbea6d471a4706cea030e1e3">staplegl::shader_data_type::u_type::float32</a></div><div class="ttdeci">@ float32</div></div>
-<div class="ttc" id="anamespacestaplegl_html_a2d27f6fa7483d510588e9a271a4229dea7290b06806a66c28f0c6b924522c3cf2"><div class="ttname"><a href="namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229dea7290b06806a66c28f0c6b924522c3cf2">staplegl::MSAA_X2</a></div><div class="ttdeci">@ MSAA_X2</div><div class="ttdef"><b>Definition:</b> <a href="utility_8hpp_source.html#l00040">utility.hpp:40</a></div></div>
+<div class="ttc" id="anamespacestaplegl_html_a2d27f6fa7483d510588e9a271a4229dea79306d33e026d8bea20528d1cd94e157"><div class="ttname"><a href="namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229dea79306d33e026d8bea20528d1cd94e157">staplegl::MSAA_X8</a></div><div class="ttdeci">@ MSAA_X8</div><div class="ttdef"><b>Definition:</b> <a href="utility_8hpp_source.html#l00042">utility.hpp:42</a></div></div>
+<div class="ttc" id="anamespacestaplegl_html_a2d27f6fa7483d510588e9a271a4229dea96d5466956a3db605430cdde90cc4c80"><div class="ttname"><a href="namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229dea96d5466956a3db605430cdde90cc4c80">staplegl::MSAA_X1</a></div><div class="ttdeci">@ MSAA_X1</div><div class="ttdef"><b>Definition:</b> <a href="utility_8hpp_source.html#l00039">utility.hpp:39</a></div></div>
 <div class="ttc" id="anamespacestaplegl_html_a30e6b644d9532677174c91cc822b2ea4abc84187eddb93b6cbc1a8cb47f0eb841"><div class="ttname"><a href="namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4abc84187eddb93b6cbc1a8cb47f0eb841">staplegl::STATIC_DRAW</a></div><div class="ttdeci">@ STATIC_DRAW</div><div class="ttdef"><b>Definition:</b> <a href="vertex__buffer_8hpp_source.html#l00052">vertex_buffer.hpp:52</a></div></div>
 <div class="ttc" id="anamespacestaplegl_html_a4bde1690fcce67d4e6c23aa812bd497eab50339a10e1de285ac99d4c3990b8693"><div class="ttname"><a href="namespacestaplegl.html#a4bde1690fcce67d4e6c23aa812bd497eab50339a10e1de285ac99d4c3990b8693">staplegl::fbo_attachment::NONE</a></div><div class="ttdeci">@ NONE</div></div>
 <div class="ttc" id="anamespacestaplegl_html_a4bde1690fcce67d4e6c23aa812bd497eac8b6d545f4265e678a88ab4119a12ee1"><div class="ttname"><a href="namespacestaplegl.html#a4bde1690fcce67d4e6c23aa812bd497eac8b6d545f4265e678a88ab4119a12ee1">staplegl::fbo_attachment::ATTACH_DEPTH_STENCIL_BUFFER</a></div><div class="ttdeci">@ ATTACH_DEPTH_STENCIL_BUFFER</div></div>
@@ -707,15 +730,17 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="ttc" id="astructstaplegl_1_1texture__color_html_a49a371a2e344051e8ac5a29e69492a3a"><div class="ttname"><a href="structstaplegl_1_1texture__color.html#a49a371a2e344051e8ac5a29e69492a3a">staplegl::texture_color::internal_format</a></div><div class="ttdeci">std::int32_t internal_format</div><div class="ttdef"><b>Definition:</b> <a href="texture_8hpp_source.html#l00039">texture.hpp:39</a></div></div>
 <div class="ttc" id="astructstaplegl_1_1texture__filter_html"><div class="ttname"><a href="structstaplegl_1_1texture__filter.html">staplegl::texture_filter</a></div><div class="ttdoc">OpenGL texture details relating to filtering and clamping of the image.</div><div class="ttdef"><b>Definition:</b> <a href="texture_8hpp_source.html#l00048">texture.hpp:48</a></div></div>
 <div class="ttc" id="astructstaplegl_1_1texture__filter_html_af345a574229b060cd928cedd999818bd"><div class="ttname"><a href="structstaplegl_1_1texture__filter.html#af345a574229b060cd928cedd999818bd">staplegl::texture_filter::min_filter</a></div><div class="ttdeci">std::int32_t min_filter</div><div class="ttdef"><b>Definition:</b> <a href="texture_8hpp_source.html#l00049">texture.hpp:49</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a059fb670617db97dde9d0247f91bb4f4"><div class="ttname"><a href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a></div><div class="ttdeci">const int32_t SCR_WIDTH</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00048">teapot.cpp:48</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a2d03c6f2666863543429a06ef642fe6a"><div class="ttname"><a href="teapot_8cpp.html#a2d03c6f2666863543429a06ef642fe6a">processInput</a></div><div class="ttdeci">void processInput(GLFWwindow *window)</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00565">teapot.cpp:565</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a488c00483fc02be1c9b617a0ff729c42"><div class="ttname"><a href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a></div><div class="ttdeci">float luminosity</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00052">teapot.cpp:52</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a5180f7bf2b71421af837035824a8c8ac"><div class="ttname"><a href="teapot_8cpp.html#a5180f7bf2b71421af837035824a8c8ac">framebuffer_size_callback</a></div><div class="ttdeci">void framebuffer_size_callback(GLFWwindow *window, int width, int height)</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00587">teapot.cpp:587</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a5584bdb427edfe29e0c0c3753b619161"><div class="ttname"><a href="teapot_8cpp.html#a5584bdb427edfe29e0c0c3753b619161">aspect_ratio</a></div><div class="ttdeci">float aspect_ratio</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00089">teapot.cpp:89</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a5804d645f4ed9ff8069c7a182d5a3f16"><div class="ttname"><a href="teapot_8cpp.html#a5804d645f4ed9ff8069c7a182d5a3f16">MessageCallback</a></div><div class="ttdeci">void GLAPIENTRY MessageCallback(GLenum source[[maybe_unused]], GLenum type, GLuint id[[maybe_unused]], GLenum severity, GLsizei length[[maybe_unused]], const GLchar *message, const void *userParam[[maybe_unused]])</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00056">teapot.cpp:56</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a8216c1645620cdb2f629cde3ac02ffef"><div class="ttname"><a href="teapot_8cpp.html#a8216c1645620cdb2f629cde3ac02ffef">main</a></div><div class="ttdeci">auto main() -&gt; int</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00091">teapot.cpp:91</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a852ed62ba9b4f83fc921ffcabcbcb743"><div class="ttname"><a href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a></div><div class="ttdeci">const int32_t SCR_HEIGHT</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00049">teapot.cpp:49</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_ad226385a3534a996102879d543fe3ed7"><div class="ttname"><a href="teapot_8cpp.html#ad226385a3534a996102879d543fe3ed7">calc_pyramid_levels</a></div><div class="ttdeci">constexpr auto calc_pyramid_levels(uint32_t width, uint32_t height) -&gt; uint32_t</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00076">teapot.cpp:76</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a059fb670617db97dde9d0247f91bb4f4"><div class="ttname"><a href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a></div><div class="ttdeci">const int32_t SCR_WIDTH</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00058">teapot.cpp:58</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a2d03c6f2666863543429a06ef642fe6a"><div class="ttname"><a href="teapot_8cpp.html#a2d03c6f2666863543429a06ef642fe6a">processInput</a></div><div class="ttdeci">void processInput(GLFWwindow *window)</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00588">teapot.cpp:588</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a488c00483fc02be1c9b617a0ff729c42"><div class="ttname"><a href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a></div><div class="ttdeci">float luminosity</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00062">teapot.cpp:62</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a5180f7bf2b71421af837035824a8c8ac"><div class="ttname"><a href="teapot_8cpp.html#a5180f7bf2b71421af837035824a8c8ac">framebuffer_size_callback</a></div><div class="ttdeci">void framebuffer_size_callback(GLFWwindow *window, int width, int height)</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00610">teapot.cpp:610</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a5584bdb427edfe29e0c0c3753b619161"><div class="ttname"><a href="teapot_8cpp.html#a5584bdb427edfe29e0c0c3753b619161">aspect_ratio</a></div><div class="ttdeci">float aspect_ratio</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00099">teapot.cpp:99</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a5804d645f4ed9ff8069c7a182d5a3f16"><div class="ttname"><a href="teapot_8cpp.html#a5804d645f4ed9ff8069c7a182d5a3f16">MessageCallback</a></div><div class="ttdeci">void GLAPIENTRY MessageCallback(GLenum source[[maybe_unused]], GLenum type, GLuint id[[maybe_unused]], GLenum severity, GLsizei length[[maybe_unused]], const GLchar *message, const void *userParam[[maybe_unused]])</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00066">teapot.cpp:66</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a6cf87ad83cee592c4a5efef522123a0c"><div class="ttname"><a href="teapot_8cpp.html#a6cf87ad83cee592c4a5efef522123a0c">MSAA_SAMPLES</a></div><div class="ttdeci">constexpr auto MSAA_SAMPLES</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00047">teapot.cpp:47</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a7875464aa829a96fb3e7b7be4c1001ad"><div class="ttname"><a href="teapot_8cpp.html#a7875464aa829a96fb3e7b7be4c1001ad">MSAA</a></div><div class="ttdeci">constexpr auto MSAA</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00046">teapot.cpp:46</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a8216c1645620cdb2f629cde3ac02ffef"><div class="ttname"><a href="teapot_8cpp.html#a8216c1645620cdb2f629cde3ac02ffef">main</a></div><div class="ttdeci">auto main() -&gt; int</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00101">teapot.cpp:101</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a852ed62ba9b4f83fc921ffcabcbcb743"><div class="ttname"><a href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a></div><div class="ttdeci">const int32_t SCR_HEIGHT</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00059">teapot.cpp:59</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_ad226385a3534a996102879d543fe3ed7"><div class="ttname"><a href="teapot_8cpp.html#ad226385a3534a996102879d543fe3ed7">calc_pyramid_levels</a></div><div class="ttdeci">constexpr auto calc_pyramid_levels(uint32_t width, uint32_t height) -&gt; uint32_t</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00086">teapot.cpp:86</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
