@@ -43,7 +43,7 @@ enum class shader_type {
     geometry
 };
 
-std::string shader_type_to_string(shader_type type) noexcept;
+inline std::string shader_type_to_string(shader_type type) noexcept;
 
 /**
  * @brief Individual shader struct.
