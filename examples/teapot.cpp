@@ -59,7 +59,7 @@ const int32_t SCR_WIDTH = 1600;
 const int32_t SCR_HEIGHT = 900;
 
 // global luminosity to be updated by keypresses
-float luminosity = 10.0F; // NOLINT
+float luminosity = 2.0F; // NOLINT
 
 // OpenGL debug callback
 void GLAPIENTRY
@@ -315,7 +315,7 @@ auto main() -> int
     light_block.bind();
     light_block.set_attribute_data(std::span { glm::value_ptr(light_pos), 4 }, "light_pos");
     light_block.set_attribute_data(std::span { glm::value_ptr(light_color), 4 }, "light_color");
-    light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec4(1.0F, 0.045F, 0.0075F, 0.0F)), 4 }, "light_attenuation");
+    light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec4(1.0F, 0.22F, 0.20F, 0.0F)), 4 }, "light_attenuation");
     light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec2(luminosity, 1.2F)), 2 }, "light_intensities");
     light_block.unbind();
 

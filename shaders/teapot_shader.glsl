@@ -62,29 +62,33 @@ layout(binding = 0) uniform samplerCube environment;
 const float refraction_ratio = 0.20F;
 const float ambient_light = 0.10F; // brightness of the environment
 
+const vec4 teapot_porcelain_color = vec4(0.51F, 0.55F, 0.66F, 1.0F);
+const vec3 F0 = vec3(0.04F);
+
 void main()
 {
 
     vec3 N = normalize(normal);
-    vec3 V = normalize(camera_pos.xyz);
+    vec3 V = normalize(camera_pos.xyz - frag_pos_view);
     vec3 R = reflect(V, N);
 
-    vec4 env_color = texture(environment, R);
-    vec4 teapot_porcelain_color = vec4(0.51F, 0.55F, 0.66F, 1.0F);
+    float cosTheta = max(dot(N, V), 0.0F);
+    vec3 fresnel = F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
 
-    vec4 ambient = ambient_light * teapot_porcelain_color + refraction_ratio * env_color;
+    vec4 env_color = texture(environment, R);
+
+    float ao_approx = max(dot(N, light_pos.xyz), 0.9); // slightly reduce ambient light when away from the light source
+    vec4 ambient = ambient_light * mix(teapot_porcelain_color, env_color, vec4(fresnel, 1.0)) * ao_approx;
 
     float dist_to_light = length((view * light_pos).xyz - frag_pos_view);
     float lum = 1.0F / (light_attenuation.x + light_attenuation.y * dist_to_light + light_attenuation.z * dist_to_light * dist_to_light);
 
     vec4 diffuse = max(dot(N, light_pos.xyz), 0.0F) * light_color;
-    diffuse /= dist_to_light;
 
     vec3 H = normalize(V + light_pos.xyz);
     float spec = pow(max(dot(N, H), 0.0F), material_shininess);
-    spec /= dist_to_light;
 
-    vec4 specular = spec * (1.0F - material_roughness) * light_color;
+    vec4 specular = spec * (1.0F - material_roughness) * light_color * mix(teapot_porcelain_color, env_color, material_roughness);
 
     if (dot(N, V) < 0.0F) {
         specular = vec4(0.0F);
