@@ -140,7 +140,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line"><span class="keyword">const</span> int32_t <a name="a7"></a><a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a> = 900;</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// global luminosity to be updated by keypresses</span></div>
-<div class="line"><span class="keywordtype">float</span> <a name="a8"></a><a class="code" href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a> = 10.0F; <span class="comment">// NOLINT</span></div>
+<div class="line"><span class="keywordtype">float</span> <a name="a8"></a><a class="code" href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a> = 2.0F; <span class="comment">// NOLINT</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// OpenGL debug callback</span></div>
 <div class="line"><span class="keywordtype">void</span> GLAPIENTRY</div>
@@ -396,7 +396,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">    light_block.<a name="a35"></a><a class="code" href="classstaplegl_1_1uniform__buffer.html#a52b4788b3c8cd94862c1416cb9b7155c">bind</a>();</div>
 <div class="line">    light_block.set_attribute_data(std::span { glm::value_ptr(light_pos), 4 }, <span class="stringliteral">&quot;light_pos&quot;</span>);</div>
 <div class="line">    light_block.set_attribute_data(std::span { glm::value_ptr(light_color), 4 }, <span class="stringliteral">&quot;light_color&quot;</span>);</div>
-<div class="line">    light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec4(1.0F, 0.045F, 0.0075F, 0.0F)), 4 }, <span class="stringliteral">&quot;light_attenuation&quot;</span>);</div>
+<div class="line">    light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec4(1.0F, 0.22F, 0.20F, 0.0F)), 4 }, <span class="stringliteral">&quot;light_attenuation&quot;</span>);</div>
 <div class="line">    light_block.set_attribute_data(std::span { glm::value_ptr(glm::vec2(<a class="code" href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a>, 1.2F)), 2 }, <span class="stringliteral">&quot;light_intensities&quot;</span>);</div>
 <div class="line">    light_block.unbind();</div>
 <div class="line"> </div>
