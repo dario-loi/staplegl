@@ -26,13 +26,14 @@ var searchData=
   ['staplegl_148',['StapleGL',['../index.html',1,'']]],
   ['staplegl_149',['staplegl',['../namespacestaplegl.html',1,'']]],
   ['staplegl_2ehpp_150',['staplegl.hpp',['../staplegl_8hpp.html',1,'']]],
-  ['staplegl_5fteapot_5flow_5fmsaa_151',['STAPLEGL_TEAPOT_LOW_MSAA',['../teapot_8cpp.html#a80835832869591e33313ebc549f0157c',1,'teapot.cpp']]],
-  ['static_5fdraw_152',['STATIC_DRAW',['../namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4abc84187eddb93b6cbc1a8cb47f0eb841',1,'staplegl']]],
-  ['stb_5fimage_5fimplementation_153',['STB_IMAGE_IMPLEMENTATION',['../teapot_8cpp.html#a18372412ad2fc3ce1e3240b3cf0efe78',1,'teapot.cpp']]],
-  ['stencil_154',['stencil',['../classstaplegl_1_1renderbuffer.html#a09943a91da5775824efa82ba18e13576a667f218c5ed2c9cf25734500472e7c4a',1,'staplegl::renderbuffer']]],
-  ['stream_5fdraw_155',['STREAM_DRAW',['../namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4a583bf5dd8a3afaca8f0784e05ff2d7c8',1,'staplegl']]],
-  ['stride_156',['stride',['../classstaplegl_1_1vertex__buffer__layout.html#a096150dbb64c17672f6ae996db8ad2ae',1,'staplegl::vertex_buffer_layout']]],
-  ['stride_5felements_157',['stride_elements',['../classstaplegl_1_1vertex__buffer__layout.html#a91c6972121429d7dd78659f5bb0b15e2',1,'staplegl::vertex_buffer_layout']]],
-  ['string_5fto_5fshader_5ftype_158',['string_to_shader_type',['../classstaplegl_1_1shader__program.html#a64176b95d7b1dddad5ef270a24d471e8',1,'staplegl::shader_program']]],
-  ['util_159',['util',['../namespacestaplegl_1_1util.html',1,'staplegl']]]
+  ['staplegl_5fdebug_151',['STAPLEGL_DEBUG',['../teapot_8cpp.html#a69d6cb56b82c8bfaf895ba989f94b362',1,'teapot.cpp']]],
+  ['staplegl_5fteapot_5flow_5fmsaa_152',['STAPLEGL_TEAPOT_LOW_MSAA',['../teapot_8cpp.html#a80835832869591e33313ebc549f0157c',1,'teapot.cpp']]],
+  ['static_5fdraw_153',['STATIC_DRAW',['../namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4abc84187eddb93b6cbc1a8cb47f0eb841',1,'staplegl']]],
+  ['stb_5fimage_5fimplementation_154',['STB_IMAGE_IMPLEMENTATION',['../teapot_8cpp.html#a18372412ad2fc3ce1e3240b3cf0efe78',1,'teapot.cpp']]],
+  ['stencil_155',['stencil',['../classstaplegl_1_1renderbuffer.html#a09943a91da5775824efa82ba18e13576a667f218c5ed2c9cf25734500472e7c4a',1,'staplegl::renderbuffer']]],
+  ['stream_5fdraw_156',['STREAM_DRAW',['../namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4a583bf5dd8a3afaca8f0784e05ff2d7c8',1,'staplegl']]],
+  ['stride_157',['stride',['../classstaplegl_1_1vertex__buffer__layout.html#a096150dbb64c17672f6ae996db8ad2ae',1,'staplegl::vertex_buffer_layout']]],
+  ['stride_5felements_158',['stride_elements',['../classstaplegl_1_1vertex__buffer__layout.html#a91c6972121429d7dd78659f5bb0b15e2',1,'staplegl::vertex_buffer_layout']]],
+  ['string_5fto_5fshader_5ftype_159',['string_to_shader_type',['../classstaplegl_1_1shader__program.html#a64176b95d7b1dddad5ef270a24d471e8',1,'staplegl::shader_program']]],
+  ['util_160',['util',['../namespacestaplegl_1_1util.html',1,'staplegl']]]
 ];

@@ -89,12 +89,14 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"> </div>
+<div class="line"><span class="preprocessor">#define STAPLEGL_DEBUG</span></div>
 <div class="line"><span class="preprocessor">#include &quot;glad.h&quot;</span></div>
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="staplegl_8hpp.html">staplegl.hpp</a>&quot;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;GLFW/glfw3.h&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;span&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;utility&gt;</span></div>
@@ -140,7 +142,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line"><span class="keyword">const</span> int32_t <a name="a7"></a><a class="code" href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a> = 900;</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// global luminosity to be updated by keypresses</span></div>
-<div class="line"><span class="keywordtype">float</span> <a name="a8"></a><a class="code" href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a> = 2.0F; <span class="comment">// NOLINT</span></div>
+<div class="line"><span class="keywordtype">float</span> <a name="a8"></a><a class="code" href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a> = 50.0F; <span class="comment">// NOLINT</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// OpenGL debug callback</span></div>
 <div class="line"><span class="keywordtype">void</span> GLAPIENTRY</div>
@@ -155,6 +157,11 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">    <span class="comment">// if (type == GL_DEBUG_TYPE_PERFORMANCE || type == GL_DEBUG_TYPE_OTHER) {</span></div>
 <div class="line">    <span class="comment">//     return;</span></div>
 <div class="line">    <span class="comment">// }</span></div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// skip non-errors</span></div>
+<div class="line">    <span class="keywordflow">if</span> (severity == GL_DEBUG_SEVERITY_NOTIFICATION || type == GL_DEBUG_TYPE_PERFORMANCE || type == GL_DEBUG_TYPE_OTHER) {</div>
+<div class="line">        <span class="keywordflow">return</span>;</div>
+<div class="line">    }</div>
 <div class="line"> </div>
 <div class="line">    fprintf(stderr, <span class="stringliteral">&quot;GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n&quot;</span>, <span class="comment">// NOLINT</span></div>
 <div class="line">        (type == GL_DEBUG_TYPE_ERROR ? <span class="stringliteral">&quot;** GL ERROR **&quot;</span> : <span class="stringliteral">&quot;&quot;</span>),</div>
@@ -444,8 +451,6 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line"> </div>
 <div class="line">    <span class="comment">// create the cubemap texture</span></div>
 <div class="line">    <span class="comment">// srgb8 is used to ensure that the texture is correctly gamma corrected.</span></div>
-<div class="line">    <span class="comment">// the static casts are necessary to specify that a narrowing conversion is</span></div>
-<div class="line">    <span class="comment">// intended.</span></div>
 <div class="line">    <a name="_a37"></a><a class="code" href="classstaplegl_1_1cubemap.html">staplegl::cubemap</a> <span class="keyword">const</span> skybox {</div>
 <div class="line">        cube_data, { width, height },</div>
 <div class="line">        { .internal_format = GL_SRGB8, .format = GL_RGB, .datatype = GL_UNSIGNED_BYTE },</div>
@@ -485,7 +490,7 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">        <span class="comment">// gen the view and projection matrices.</span></div>
 <div class="line">        glm::mat4 view = glm::lookAt(glm::vec3(camera_pos), glm::vec3(0.0F, 0.0F, 0.0F),</div>
 <div class="line">            glm::vec3(0.0F, 1.0F, 0.0F));</div>
-<div class="line">        glm::mat4 projection = glm::perspective(glm::radians(75.0F), <a class="code" href="teapot_8cpp.html#a5584bdb427edfe29e0c0c3753b619161">aspect_ratio</a>, 0.01F, 100.0F);</div>
+<div class="line">        glm::mat4 projection = glm::perspective(glm::radians(90.0F), <a class="code" href="teapot_8cpp.html#a5584bdb427edfe29e0c0c3753b619161">aspect_ratio</a>, 0.01F, 100.0F);</div>
 <div class="line"> </div>
 <div class="line">        <span class="comment">// send the data to the GPU through the uniform block.</span></div>
 <div class="line">        camera_block.bind();</div>
@@ -672,10 +677,10 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="line">        glfwSetWindowShouldClose(window, 1);</div>
 <div class="line">    }</div>
 <div class="line">    <span class="keywordflow">if</span> (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS) {</div>
-<div class="line">        <a class="code" href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a> += 0.1F;</div>
+<div class="line">        <a class="code" href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a> += 0.5F;</div>
 <div class="line">    }</div>
 <div class="line">    <span class="keywordflow">if</span> (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {</div>
-<div class="line">        <a class="code" href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a> = std::max(0.0F, <a class="code" href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a> - 0.1F);</div>
+<div class="line">        <a class="code" href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a> = std::max(0.0F, <a class="code" href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a> - 0.5F);</div>
 <div class="line">    }</div>
 <div class="line">    <span class="keywordflow">if</span> (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {</div>
 <div class="line">        <span class="comment">// toggle mesh wireframe</span></div>
@@ -730,17 +735,17 @@ $(document).ready(function(){initNavTree('teapot_8cpp-example.html',''); initRes
 <div class="ttc" id="astructstaplegl_1_1texture__color_html_a49a371a2e344051e8ac5a29e69492a3a"><div class="ttname"><a href="structstaplegl_1_1texture__color.html#a49a371a2e344051e8ac5a29e69492a3a">staplegl::texture_color::internal_format</a></div><div class="ttdeci">std::int32_t internal_format</div><div class="ttdef"><b>Definition:</b> <a href="texture_8hpp_source.html#l00039">texture.hpp:39</a></div></div>
 <div class="ttc" id="astructstaplegl_1_1texture__filter_html"><div class="ttname"><a href="structstaplegl_1_1texture__filter.html">staplegl::texture_filter</a></div><div class="ttdoc">OpenGL texture details relating to filtering and clamping of the image.</div><div class="ttdef"><b>Definition:</b> <a href="texture_8hpp_source.html#l00048">texture.hpp:48</a></div></div>
 <div class="ttc" id="astructstaplegl_1_1texture__filter_html_af345a574229b060cd928cedd999818bd"><div class="ttname"><a href="structstaplegl_1_1texture__filter.html#af345a574229b060cd928cedd999818bd">staplegl::texture_filter::min_filter</a></div><div class="ttdeci">std::int32_t min_filter</div><div class="ttdef"><b>Definition:</b> <a href="texture_8hpp_source.html#l00049">texture.hpp:49</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a059fb670617db97dde9d0247f91bb4f4"><div class="ttname"><a href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a></div><div class="ttdeci">const int32_t SCR_WIDTH</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00058">teapot.cpp:58</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a2d03c6f2666863543429a06ef642fe6a"><div class="ttname"><a href="teapot_8cpp.html#a2d03c6f2666863543429a06ef642fe6a">processInput</a></div><div class="ttdeci">void processInput(GLFWwindow *window)</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00588">teapot.cpp:588</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a488c00483fc02be1c9b617a0ff729c42"><div class="ttname"><a href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a></div><div class="ttdeci">float luminosity</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00062">teapot.cpp:62</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a5180f7bf2b71421af837035824a8c8ac"><div class="ttname"><a href="teapot_8cpp.html#a5180f7bf2b71421af837035824a8c8ac">framebuffer_size_callback</a></div><div class="ttdeci">void framebuffer_size_callback(GLFWwindow *window, int width, int height)</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00610">teapot.cpp:610</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a5584bdb427edfe29e0c0c3753b619161"><div class="ttname"><a href="teapot_8cpp.html#a5584bdb427edfe29e0c0c3753b619161">aspect_ratio</a></div><div class="ttdeci">float aspect_ratio</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00099">teapot.cpp:99</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a5804d645f4ed9ff8069c7a182d5a3f16"><div class="ttname"><a href="teapot_8cpp.html#a5804d645f4ed9ff8069c7a182d5a3f16">MessageCallback</a></div><div class="ttdeci">void GLAPIENTRY MessageCallback(GLenum source[[maybe_unused]], GLenum type, GLuint id[[maybe_unused]], GLenum severity, GLsizei length[[maybe_unused]], const GLchar *message, const void *userParam[[maybe_unused]])</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00066">teapot.cpp:66</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a6cf87ad83cee592c4a5efef522123a0c"><div class="ttname"><a href="teapot_8cpp.html#a6cf87ad83cee592c4a5efef522123a0c">MSAA_SAMPLES</a></div><div class="ttdeci">constexpr auto MSAA_SAMPLES</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00047">teapot.cpp:47</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a7875464aa829a96fb3e7b7be4c1001ad"><div class="ttname"><a href="teapot_8cpp.html#a7875464aa829a96fb3e7b7be4c1001ad">MSAA</a></div><div class="ttdeci">constexpr auto MSAA</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00046">teapot.cpp:46</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a8216c1645620cdb2f629cde3ac02ffef"><div class="ttname"><a href="teapot_8cpp.html#a8216c1645620cdb2f629cde3ac02ffef">main</a></div><div class="ttdeci">auto main() -&gt; int</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00101">teapot.cpp:101</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_a852ed62ba9b4f83fc921ffcabcbcb743"><div class="ttname"><a href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a></div><div class="ttdeci">const int32_t SCR_HEIGHT</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00059">teapot.cpp:59</a></div></div>
-<div class="ttc" id="ateapot_8cpp_html_ad226385a3534a996102879d543fe3ed7"><div class="ttname"><a href="teapot_8cpp.html#ad226385a3534a996102879d543fe3ed7">calc_pyramid_levels</a></div><div class="ttdeci">constexpr auto calc_pyramid_levels(uint32_t width, uint32_t height) -&gt; uint32_t</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00086">teapot.cpp:86</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a059fb670617db97dde9d0247f91bb4f4"><div class="ttname"><a href="teapot_8cpp.html#a059fb670617db97dde9d0247f91bb4f4">SCR_WIDTH</a></div><div class="ttdeci">const int32_t SCR_WIDTH</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00059">teapot.cpp:59</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a2d03c6f2666863543429a06ef642fe6a"><div class="ttname"><a href="teapot_8cpp.html#a2d03c6f2666863543429a06ef642fe6a">processInput</a></div><div class="ttdeci">void processInput(GLFWwindow *window)</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00592">teapot.cpp:592</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a488c00483fc02be1c9b617a0ff729c42"><div class="ttname"><a href="teapot_8cpp.html#a488c00483fc02be1c9b617a0ff729c42">luminosity</a></div><div class="ttdeci">float luminosity</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00063">teapot.cpp:63</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a5180f7bf2b71421af837035824a8c8ac"><div class="ttname"><a href="teapot_8cpp.html#a5180f7bf2b71421af837035824a8c8ac">framebuffer_size_callback</a></div><div class="ttdeci">void framebuffer_size_callback(GLFWwindow *window, int width, int height)</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00614">teapot.cpp:614</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a5584bdb427edfe29e0c0c3753b619161"><div class="ttname"><a href="teapot_8cpp.html#a5584bdb427edfe29e0c0c3753b619161">aspect_ratio</a></div><div class="ttdeci">float aspect_ratio</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00105">teapot.cpp:105</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a5804d645f4ed9ff8069c7a182d5a3f16"><div class="ttname"><a href="teapot_8cpp.html#a5804d645f4ed9ff8069c7a182d5a3f16">MessageCallback</a></div><div class="ttdeci">void GLAPIENTRY MessageCallback(GLenum source[[maybe_unused]], GLenum type, GLuint id[[maybe_unused]], GLenum severity, GLsizei length[[maybe_unused]], const GLchar *message, const void *userParam[[maybe_unused]])</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00067">teapot.cpp:67</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a6cf87ad83cee592c4a5efef522123a0c"><div class="ttname"><a href="teapot_8cpp.html#a6cf87ad83cee592c4a5efef522123a0c">MSAA_SAMPLES</a></div><div class="ttdeci">constexpr auto MSAA_SAMPLES</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00048">teapot.cpp:48</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a7875464aa829a96fb3e7b7be4c1001ad"><div class="ttname"><a href="teapot_8cpp.html#a7875464aa829a96fb3e7b7be4c1001ad">MSAA</a></div><div class="ttdeci">constexpr auto MSAA</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00047">teapot.cpp:47</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a8216c1645620cdb2f629cde3ac02ffef"><div class="ttname"><a href="teapot_8cpp.html#a8216c1645620cdb2f629cde3ac02ffef">main</a></div><div class="ttdeci">auto main() -&gt; int</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00107">teapot.cpp:107</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_a852ed62ba9b4f83fc921ffcabcbcb743"><div class="ttname"><a href="teapot_8cpp.html#a852ed62ba9b4f83fc921ffcabcbcb743">SCR_HEIGHT</a></div><div class="ttdeci">const int32_t SCR_HEIGHT</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00060">teapot.cpp:60</a></div></div>
+<div class="ttc" id="ateapot_8cpp_html_ad226385a3534a996102879d543fe3ed7"><div class="ttname"><a href="teapot_8cpp.html#ad226385a3534a996102879d543fe3ed7">calc_pyramid_levels</a></div><div class="ttdeci">constexpr auto calc_pyramid_levels(uint32_t width, uint32_t height) -&gt; uint32_t</div><div class="ttdef"><b>Definition:</b> <a href="teapot_8cpp_source.html#l00092">teapot.cpp:92</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

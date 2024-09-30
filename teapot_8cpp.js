@@ -1,5 +1,6 @@
 var teapot_8cpp =
 [
+    [ "STAPLEGL_DEBUG", "teapot_8cpp.html#a69d6cb56b82c8bfaf895ba989f94b362", null ],
     [ "STAPLEGL_TEAPOT_LOW_MSAA", "teapot_8cpp.html#a80835832869591e33313ebc549f0157c", null ],
     [ "STB_IMAGE_IMPLEMENTATION", "teapot_8cpp.html#a18372412ad2fc3ce1e3240b3cf0efe78", null ],
     [ "calc_pyramid_levels", "teapot_8cpp.html#ad226385a3534a996102879d543fe3ed7", null ],
