@@ -26,8 +26,8 @@ void main()
 {
     vec3 upsample = vec3(0.F);
 
-    float x = 0.005F; // sample distance
-    float y = 0.005F;
+    float x = 0.003F; // sample distance
+    float y = 0.003F;
 
     vec3 a = texture(scene, vec2(TexCoord.x - x, TexCoord.y + y)).rgb;
     vec3 b = texture(scene, vec2(TexCoord.x, TexCoord.y + y)).rgb;

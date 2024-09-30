@@ -72,7 +72,7 @@ It also offers more functionality, such as:
 <br>
 
 ![A non-trivial scene rendered with StapleGL](./teapot_bloom.png)
-*A non trivial scene rendered with the help of **StapleGL** in under 350 lines of code, featuring HDR, Tone mapping, MSAA x16, PBR Bloom[^1], cube maps and environment mapping.*
+*A non trivial scene rendered with the help of **StapleGL** in under 350 lines of code, featuring HDR, Tone mapping, MSAA x16, PBR Bloom[^1], cube maps, fresnel reflection, vignette, and environment mapping.*
 
 [^1]: Next generation post processing in Call of Duty: Advanced Warfare, https://advances.realtimerendering.com/s2014/index.html
 
@@ -172,8 +172,8 @@ staplegl::shader_program shaders("Basic", {
 		});
 ```
 ### Supported types of shaders
-| Shader Type             | Enum Value                              | GLSL Command             |
-| ----------------------- | --------------------------------------- | ------------------------ |
+| Shader Type             | Enum Value                                | GLSL Command             |
+| ----------------------- | ----------------------------------------- | ------------------------ |
 | Vertex                  | ```staplegl::shader_type::vertex```       | ```#type vertex```       |
 | Fragment                | ```staplegl::shader_type::fragment```     | ```#type fragment```     |
 | Tessellation Control    | ```staplegl::shader_type::tess_control``` | ```#type tess_control``` |

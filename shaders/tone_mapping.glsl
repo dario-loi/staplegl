@@ -28,20 +28,27 @@ float luminance(vec3 v)
     return dot(v, vec3(0.2126f, 0.7152f, 0.0722f));
 }
 
-vec3 change_luminance(vec3 c_in, float l_out)
+const mat3 aces_input = transpose(mat3(
+    vec3(0.59719f, 0.35458f, 0.04823f),
+    vec3(0.07600f, 0.90834f, 0.01566f),
+    vec3(0.02840f, 0.13383f, 0.83777f)));
+
+const mat3 aces_output = transpose(mat3(
+    vec3(1.60475f, -0.53108f, -0.07367f),
+    vec3(-0.10208f, 1.10813f, -0.00605f),
+    vec3(-0.00327f, -0.07276f, 1.07602f)));
+
+vec3 rtt_and_odt_fit(vec3 v)
 {
-    float l_in = luminance(c_in);
-    return c_in * (l_out / l_in);
+    vec3 a = v * (v + 0.0245786f) - 0.000090537f;
+    vec3 b = v * (0.983729f * v + 0.4329510f) + 0.238081f;
+    return a / b;
 }
 
-vec3 reinhard(vec3 v, float max_white_l)
+vec3 aces(vec3 v)
 {
-    float l_old = luminance(v);
-    float numerator = l_old * (1.0f + (l_old / (max_white_l * max_white_l)));
-    float l_new = numerator / (1.0f + l_old);
-    return change_luminance(v, l_new);
+    return aces_output * rtt_and_odt_fit(aces_input * v);
 }
-
 void main()
 {
     const float gamma = 2.2F;
@@ -50,9 +57,16 @@ void main()
 
     // exposure tone mapping and gamma correction
 
-    vec3 result = mix(hdrColor, bloomColor, 0.04F);
+    vec3 result = mix(hdrColor, bloomColor, 0.05F);
 
-    result = reinhard(result, 1.0F);
+    // Vignette effect
+    vec2 center = vec2(0.5F, 0.5F);
+    float radius = 0.95F;
+
+    float vignette = 1.0F - smoothstep(0.0F, radius, length(TexCoord - center));
+    result *= vignette;
+
+    result = aces(result);
     result = pow(result, vec3(1.0F / gamma));
 
     FragColor = vec4(result, 1.0F);

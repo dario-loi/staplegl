@@ -7,13 +7,14 @@
  *
  * @example teapot.cpp
  */
-
+#define STAPLEGL_DEBUG
 #include "glad.h"
 #include "staplegl.hpp"
 #include <GLFW/glfw3.h>
 
 #include <algorithm>
 #include <array>
+#include <cstddef>
 #include <iostream>
 #include <span>
 #include <utility>
@@ -59,7 +60,7 @@ const int32_t SCR_WIDTH = 1600;
 const int32_t SCR_HEIGHT = 900;
 
 // global luminosity to be updated by keypresses
-float luminosity = 2.0F; // NOLINT
+float luminosity = 50.0F; // NOLINT
 
 // OpenGL debug callback
 void GLAPIENTRY
@@ -74,6 +75,11 @@ MessageCallback(GLenum source [[maybe_unused]],
     // if (type == GL_DEBUG_TYPE_PERFORMANCE || type == GL_DEBUG_TYPE_OTHER) {
     //     return;
     // }
+
+    // skip non-errors
+    if (severity == GL_DEBUG_SEVERITY_NOTIFICATION || type == GL_DEBUG_TYPE_PERFORMANCE || type == GL_DEBUG_TYPE_OTHER) {
+        return;
+    }
 
     fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x,\nmessage = %s\n", // NOLINT
         (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
@@ -363,8 +369,6 @@ auto main() -> int
 
     // create the cubemap texture
     // srgb8 is used to ensure that the texture is correctly gamma corrected.
-    // the static casts are necessary to specify that a narrowing conversion is
-    // intended.
     staplegl::cubemap const skybox {
         cube_data, { width, height },
         { .internal_format = GL_SRGB8, .format = GL_RGB, .datatype = GL_UNSIGNED_BYTE },
@@ -404,7 +408,7 @@ auto main() -> int
         // gen the view and projection matrices.
         glm::mat4 view = glm::lookAt(glm::vec3(camera_pos), glm::vec3(0.0F, 0.0F, 0.0F),
             glm::vec3(0.0F, 1.0F, 0.0F));
-        glm::mat4 projection = glm::perspective(glm::radians(75.0F), aspect_ratio, 0.01F, 100.0F);
+        glm::mat4 projection = glm::perspective(glm::radians(90.0F), aspect_ratio, 0.01F, 100.0F);
 
         // send the data to the GPU through the uniform block.
         camera_block.bind();
@@ -591,10 +595,10 @@ void processInput(GLFWwindow* window)
         glfwSetWindowShouldClose(window, 1);
     }
     if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS) {
-        luminosity += 0.1F;
+        luminosity += 0.5F;
     }
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        luminosity = std::max(0.0F, luminosity - 0.1F);
+        luminosity = std::max(0.0F, luminosity - 0.5F);
     }
     if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
         // toggle mesh wireframe
