@@ -1,6 +1,6 @@
 # StapleGL
 
-No-dependency OpenGL support library, which abstracts the processes of creating buffers, shaders and other objects. Fork of [GLCore](https://github.com/ChristianPanov/glcore), by Christian Panov, which
+No-dependency OpenGL wrapper library written in C++20, which abstracts the processes of creating buffers, shaders and other objects. Fork of [GLCore](https://github.com/ChristianPanov/glcore), by Christian Panov, which
 only provides simple buffer abstractions and is based on C++17.
 
 [![Doxygen GitHub Pages Deploy Action](https://github.com/dario-loi/staplegl/actions/workflows/doxy_deploy.yml/badge.svg)](https://github.com/dario-loi/staplegl/actions/workflows/doxy_deploy.yml) 
