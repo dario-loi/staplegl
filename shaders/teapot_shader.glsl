@@ -77,8 +77,7 @@ void main()
 
     vec4 env_color = texture(environment, R);
 
-    float ao_approx = max(dot(N, light_pos.xyz), 0.9); // slightly reduce ambient light when away from the light source
-    vec4 ambient = ambient_light * mix(teapot_porcelain_color, env_color, vec4(fresnel, 1.0)) * ao_approx;
+    vec4 ambient = ambient_light * mix(teapot_porcelain_color, env_color, vec4(fresnel, 1.0));
 
     float dist_to_light = length((view * light_pos).xyz - frag_pos_view);
     float lum = 1.0F / (light_attenuation.x + light_attenuation.y * dist_to_light + light_attenuation.z * dist_to_light * dist_to_light);
