@@ -44,8 +44,8 @@
 #define STAPLEGL_TEAPOT_LOW_MSAA
 
 #ifdef STAPLEGL_TEAPOT_LOW_MSAA
-constexpr auto MSAA = staplegl::tex_samples::MSAA_X1;
-constexpr auto MSAA_SAMPLES = 1;
+constexpr auto MSAA = staplegl::tex_samples::MSAA_X2;
+constexpr auto MSAA_SAMPLES = 2;
 #else
 constexpr auto MSAA = staplegl::tex_samples::MSAA_X8;
 constexpr auto MSAA_SAMPLES = 8;
