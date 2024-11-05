@@ -120,8 +120,8 @@ Collaboration diagram for staplegl::vertex_buffer_inst:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:addd581975216d71c74797743d2e0a641"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#addd581975216d71c74797743d2e0a641">vertex_buffer_inst</a> (std::span&lt; const float &gt; instance_data, const <a class="el" href="classstaplegl_1_1vertex__buffer__layout.html">vertex_buffer_layout</a> &amp;<a class="el" href="classstaplegl_1_1vertex__buffer.html#a19ad1dfeb04558009aba054956e1a9ec">layout</a>) noexcept</td></tr>
-<tr class="separator:addd581975216d71c74797743d2e0a641"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69e6bbe540ded99850e71a494aa804f6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#a69e6bbe540ded99850e71a494aa804f6">vertex_buffer_inst</a> (std::span&lt; const float &gt; instance_data, <a class="el" href="classstaplegl_1_1vertex__buffer__layout.html">vertex_buffer_layout</a> &amp;&amp;<a class="el" href="classstaplegl_1_1vertex__buffer.html#a19ad1dfeb04558009aba054956e1a9ec">layout</a>) noexcept</td></tr>
+<tr class="separator:a69e6bbe540ded99850e71a494aa804f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0bd6d364f82adaffa886cf18bb86db8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#aa0bd6d364f82adaffa886cf18bb86db8">vertex_buffer_inst</a> (std::span&lt; const float &gt; instance_data) noexcept</td></tr>
 <tr class="separator:aa0bd6d364f82adaffa886cf18bb86db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68599f10620e6170e02b7bf8d55a5731"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#a68599f10620e6170e02b7bf8d55a5731">~vertex_buffer_inst</a> () noexcept=default</td></tr>
@@ -135,10 +135,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3ea7fe40ca96134ffa2936c1ea84e624"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#a3ea7fe40ca96134ffa2936c1ea84e624">operator=</a> (<a class="el" href="classstaplegl_1_1vertex__buffer__inst.html">vertex_buffer_inst</a> &amp;&amp;) noexcept -&gt; <a class="el" href="classstaplegl_1_1vertex__buffer__inst.html">vertex_buffer_inst</a> &amp;=default</td></tr>
 <tr class="separator:a3ea7fe40ca96134ffa2936c1ea84e624"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a829563a40c7d09530b49b714b7700f3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#a829563a40c7d09530b49b714b7700f3e">add_instance</a> (std::span&lt; const float &gt; instance_data) noexcept</td></tr>
+<tr class="memdesc:a829563a40c7d09530b49b714b7700f3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an instance to the buffer.  <a href="classstaplegl_1_1vertex__buffer__inst.html#a829563a40c7d09530b49b714b7700f3e">More...</a><br /></td></tr>
 <tr class="separator:a829563a40c7d09530b49b714b7700f3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22de3e0c79b4ca36a1932db670373ea3"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#a22de3e0c79b4ca36a1932db670373ea3">delete_instance</a> (std::int32_t index) noexcept -&gt; int32_t</td></tr>
+<tr class="memdesc:a22de3e0c79b4ca36a1932db670373ea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete an instance from the buffer, does not preserve the order of the instances.  <a href="classstaplegl_1_1vertex__buffer__inst.html#a22de3e0c79b4ca36a1932db670373ea3">More...</a><br /></td></tr>
 <tr class="separator:a22de3e0c79b4ca36a1932db670373ea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3e538809a5523f905ba92b98a6af37a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#ad3e538809a5523f905ba92b98a6af37a">update_instance</a> (std::int32_t index, std::span&lt; const float &gt; instance_data) noexcept</td></tr>
+<tr class="memdesc:ad3e538809a5523f905ba92b98a6af37a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the data of an instance in the buffer.  <a href="classstaplegl_1_1vertex__buffer__inst.html#ad3e538809a5523f905ba92b98a6af37a">More...</a><br /></td></tr>
 <tr class="separator:ad3e538809a5523f905ba92b98a6af37a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a986ef6789037f4779a745d3a533ac9"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#a1a986ef6789037f4779a745d3a533ac9">instance_count</a> () const noexcept -&gt; std::int32_t</td></tr>
 <tr class="separator:a1a986ef6789037f4779a745d3a533ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,10 +155,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab06d70a9013a91269a69cb3a8448fbcc inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad01520f0f3e6e62f432635a844f6e425 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#ad01520f0f3e6e62f432635a844f6e425">vertex_buffer</a> (std::span&lt; const float &gt; vertices, <a class="el" href="namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4">driver_draw_hint</a> hint) noexcept</td></tr>
 <tr class="separator:ad01520f0f3e6e62f432635a844f6e425 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0305fb72131b4ad9708ea5b172ee79c7 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#a0305fb72131b4ad9708ea5b172ee79c7">vertex_buffer</a> (std::span&lt; const float &gt; vertices, const <a class="el" href="classstaplegl_1_1vertex__buffer__layout.html">vertex_buffer_layout</a> &amp;<a class="el" href="classstaplegl_1_1vertex__buffer.html#a19ad1dfeb04558009aba054956e1a9ec">layout</a>) noexcept</td></tr>
-<tr class="separator:a0305fb72131b4ad9708ea5b172ee79c7 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46f49d342279cc2d9f2c76fdaf256f7c inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#a46f49d342279cc2d9f2c76fdaf256f7c">vertex_buffer</a> (std::span&lt; const float &gt; vertices, <a class="el" href="classstaplegl_1_1vertex__buffer__layout.html">vertex_buffer_layout</a> <a class="el" href="classstaplegl_1_1vertex__buffer.html#a19ad1dfeb04558009aba054956e1a9ec">layout</a>, <a class="el" href="namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4">driver_draw_hint</a> hint) noexcept</td></tr>
-<tr class="separator:a46f49d342279cc2d9f2c76fdaf256f7c inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb5c8d2bc369b8ccf25205d5b2762e7e inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#abb5c8d2bc369b8ccf25205d5b2762e7e">vertex_buffer</a> (std::span&lt; const float &gt; vertices, <a class="el" href="classstaplegl_1_1vertex__buffer__layout.html">vertex_buffer_layout</a> &amp;&amp;<a class="el" href="classstaplegl_1_1vertex__buffer.html#a19ad1dfeb04558009aba054956e1a9ec">layout</a>) noexcept</td></tr>
+<tr class="separator:abb5c8d2bc369b8ccf25205d5b2762e7e inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dc3b4b197377fc95ed509d77539bd43 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#a8dc3b4b197377fc95ed509d77539bd43">vertex_buffer</a> (std::span&lt; const float &gt; vertices, <a class="el" href="classstaplegl_1_1vertex__buffer__layout.html">vertex_buffer_layout</a> &amp;&amp;<a class="el" href="classstaplegl_1_1vertex__buffer.html#a19ad1dfeb04558009aba054956e1a9ec">layout</a>, <a class="el" href="namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4">driver_draw_hint</a> hint) noexcept</td></tr>
+<tr class="separator:a8dc3b4b197377fc95ed509d77539bd43 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e0150985b3c68053716f3e9a55c4ed4 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#a4e0150985b3c68053716f3e9a55c4ed4">~vertex_buffer</a> ()</td></tr>
 <tr class="separator:a4e0150985b3c68053716f3e9a55c4ed4 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a729786ab20b9bbf7d15feec32ce27011 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#a729786ab20b9bbf7d15feec32ce27011">vertex_buffer</a> (const <a class="el" href="classstaplegl_1_1vertex__buffer.html">vertex_buffer</a> &amp;)=delete</td></tr>
@@ -177,12 +180,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aec27e5526d57edb5821463c8fe803943 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#aec27e5526d57edb5821463c8fe803943">set_data</a> (std::span&lt; const float &gt; vertices) const noexcept</td></tr>
 <tr class="memdesc:aec27e5526d57edb5821463c8fe803943 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Give new data to the vertex buffer object, overwriting the old one.  <a href="classstaplegl_1_1vertex__buffer.html#aec27e5526d57edb5821463c8fe803943">More...</a><br /></td></tr>
 <tr class="separator:aec27e5526d57edb5821463c8fe803943 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa74cea0de100c66f3e3a87727ef8506f inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#aa74cea0de100c66f3e3a87727ef8506f">set_data</a> (std::span&lt; const float &gt; vertices, <a class="el" href="namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4">driver_draw_hint</a> hint) const noexcept</td></tr>
+<tr class="memdesc:aa74cea0de100c66f3e3a87727ef8506f inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Give new data to the vertex buffer object, overwriting the old one. Also re-specify the hint.  <a href="classstaplegl_1_1vertex__buffer.html#aa74cea0de100c66f3e3a87727ef8506f">More...</a><br /></td></tr>
+<tr class="separator:aa74cea0de100c66f3e3a87727ef8506f inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9f0d079baa24492d489649de01cbf73 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#ab9f0d079baa24492d489649de01cbf73">id</a> () const noexcept -&gt; std::uint32_t</td></tr>
 <tr class="memdesc:ab9f0d079baa24492d489649de01cbf73 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the id of the vertex buffer object.  <a href="classstaplegl_1_1vertex__buffer.html#ab9f0d079baa24492d489649de01cbf73">More...</a><br /></td></tr>
 <tr class="separator:ab9f0d079baa24492d489649de01cbf73 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae276be56e53aa7d703cee478c24fa704 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#ae276be56e53aa7d703cee478c24fa704">size</a> () const noexcept -&gt; std::size_t</td></tr>
-<tr class="memdesc:ae276be56e53aa7d703cee478c24fa704 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the vertex buffer object in bytes.  <a href="classstaplegl_1_1vertex__buffer.html#ae276be56e53aa7d703cee478c24fa704">More...</a><br /></td></tr>
+<tr class="memdesc:ae276be56e53aa7d703cee478c24fa704 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of vertices in the vertex buffer object.  <a href="classstaplegl_1_1vertex__buffer.html#ae276be56e53aa7d703cee478c24fa704">More...</a><br /></td></tr>
 <tr class="separator:ae276be56e53aa7d703cee478c24fa704 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4574f3ace52d1c8380bf9abb051719b5 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#a4574f3ace52d1c8380bf9abb051719b5">draw_hint</a> () const noexcept -&gt; <a class="el" href="namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4">driver_draw_hint</a></td></tr>
+<tr class="memdesc:a4574f3ace52d1c8380bf9abb051719b5 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the driver draw hint of the vertex buffer object.  <a href="classstaplegl_1_1vertex__buffer.html#a4574f3ace52d1c8380bf9abb051719b5">More...</a><br /></td></tr>
+<tr class="separator:a4574f3ace52d1c8380bf9abb051719b5 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7dea06963a44c04b006ab033c124a8d inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#ab7dea06963a44c04b006ab033c124a8d">size_bytes</a> () const noexcept -&gt; std::size_t</td></tr>
+<tr class="memdesc:ab7dea06963a44c04b006ab033c124a8d inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the vertex buffer object in bytes.  <a href="classstaplegl_1_1vertex__buffer.html#ab7dea06963a44c04b006ab033c124a8d">More...</a><br /></td></tr>
+<tr class="separator:ab7dea06963a44c04b006ab033c124a8d inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90ddc1d052080e1dc16d640d457053b0 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memTemplParams" colspan="2">template&lt;plain_old_data T&gt; </td></tr>
 <tr class="memitem:a90ddc1d052080e1dc16d640d457053b0 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#a90ddc1d052080e1dc16d640d457053b0">apply</a> (const std::function&lt; void(std::span&lt; T &gt; vertices)&gt; &amp;func, <a class="el" href="namespacestaplegl.html#a36fe2820e5ba7d6bb37aecf456947854">driver_access_specifier</a> access_specifier=<a class="el" href="namespacestaplegl.html#a36fe2820e5ba7d6bb37aecf456947854abbdb0a296199d1f45d2a22049531e95d">staplegl::READ_WRITE</a>) noexcept</td></tr>
 <tr class="memdesc:a90ddc1d052080e1dc16d640d457053b0 inherit pub_methods_classstaplegl_1_1vertex__buffer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a function to the vertices of the vertex buffer object.  <a href="classstaplegl_1_1vertex__buffer.html#a90ddc1d052080e1dc16d640d457053b0">More...</a><br /></td></tr>
@@ -215,14 +227,18 @@ Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_classstaplegl_1_1vertex__buffer"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classstaplegl_1_1vertex__buffer')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classstaplegl_1_1vertex__buffer.html">staplegl::vertex_buffer</a></td></tr>
 <tr class="memitem:ae1a657d1a7703ec211a142df2a203b8f inherit pro_attribs_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#ae1a657d1a7703ec211a142df2a203b8f">m_id</a> {}</td></tr>
 <tr class="separator:ae1a657d1a7703ec211a142df2a203b8f inherit pro_attribs_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a9e9f991b6a01f2780b30bde745dca0 inherit pro_attribs_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacestaplegl.html#a30e6b644d9532677174c91cc822b2ea4">staplegl::driver_draw_hint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#a7a9e9f991b6a01f2780b30bde745dca0">m_hint</a> {}</td></tr>
+<tr class="separator:a7a9e9f991b6a01f2780b30bde745dca0 inherit pro_attribs_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b72ae1521a29169857b7d042ce84ff5 inherit pro_attribs_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaplegl_1_1vertex__buffer__layout.html">vertex_buffer_layout</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#a2b72ae1521a29169857b7d042ce84ff5">m_layout</a></td></tr>
 <tr class="separator:a2b72ae1521a29169857b7d042ce84ff5 inherit pro_attribs_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18470dc68130fbe6d2125ffecb0522e4 inherit pro_attribs_classstaplegl_1_1vertex__buffer"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1vertex__buffer.html#a18470dc68130fbe6d2125ffecb0522e4">m_size</a> {}</td></tr>
+<tr class="separator:a18470dc68130fbe6d2125ffecb0522e4 inherit pro_attribs_classstaplegl_1_1vertex__buffer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A vertex buffer object for instanced rendering. </p>
 <p>This class is a specialization of the <a class="el" href="classstaplegl_1_1vertex__buffer.html" title="Vertex Buffer Object (VBO) wrapper.">vertex_buffer</a> class, and it is meant to help with instanced rendering, allowing the user of staplegl to build a more performant renderer.</p>
 <p>When using this class, the user should initialize the buffer with an empty span of data and a layout that describes how a single instance of the object is laid out in memory.</p>
-<p>Alternatively, the user can also supply a span with the initial data, to avoid calling <a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#a829563a40c7d09530b49b714b7700f3e">add_instance()</a> multiple times.</p>
+<p>Alternatively, the user can also supply a span with the initial data, to avoid calling <a class="el" href="classstaplegl_1_1vertex__buffer__inst.html#a829563a40c7d09530b49b714b7700f3e" title="Add an instance to the buffer.">add_instance()</a> multiple times.</p>
 <p>Adding and deleting instances automatically resizes the buffer in a way similar to std::vector, so that the user does not have to worry about the size of the buffer.</p>
 <p>When deleting an instance, the user should be aware that the last instance in the buffer will be moved to the position of the deleted instance, so the order of the instances is not preserved, to help the user keep track of the indices of the instances, we return the index of the deleted instance (which is the index of the last instance in the buffer before the deletion).</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="vertex__buffer_8hpp.html" title="Vertex Buffer Object (VBO) wrapper.">vertex_buffer.hpp</a></dd></dl>
@@ -232,8 +248,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00056">56</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="addd581975216d71c74797743d2e0a641"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#addd581975216d71c74797743d2e0a641">&#9670;&nbsp;</a></span>vertex_buffer_inst() <span class="overload">[1/4]</span></h2>
+<a id="a69e6bbe540ded99850e71a494aa804f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69e6bbe540ded99850e71a494aa804f6">&#9670;&nbsp;</a></span>vertex_buffer_inst() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,7 +266,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classstaplegl_1_1vertex__buffer__layout.html">vertex_buffer_layout</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classstaplegl_1_1vertex__buffer__layout.html">vertex_buffer_layout</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>layout</em>&#160;</td>
         </tr>
         <tr>
@@ -400,7 +416,15 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00170">170</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+<p>Add an instance to the buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance_data</td><td>the data of the instance to be added. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00197">197</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>
@@ -465,7 +489,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00160">160</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00187">187</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>
@@ -493,7 +517,18 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00196">196</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+<p>Delete an instance from the buffer, does not preserve the order of the instances. </p>
+<dl class="section warning"><dt>Warning</dt><dd>The order of the instances is not preserved, by deleting an instance, the last instance will be moved to the position of the deleted instance. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>For out-of-bounds indices, the function will do nothing and return the index of the last instance in the buffer (as it has not been moved).</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>the index of the instance to be deleted. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int32_t the new index of the last instance in the buffer (so that the user can keep track of the indices). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00224">224</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>
@@ -520,7 +555,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00158">158</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00185">185</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>
@@ -547,7 +582,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00159">159</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00186">186</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>
@@ -690,7 +725,18 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00182">182</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+<p>Update the data of an instance in the buffer. </p>
+<dl class="section note"><dt>Note</dt><dd>The entire contents of instance_data will <em>not</em> be written at the index, only the first layout.stride() bytes, preventing buffer overflows. Debug builds will also assert that the size of instance_data is equal to layout.stride().</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="vertex__buffer__layout_8hpp.html" title="Vertex Buffer Layout abstraction.">vertex_buffer_layout.hpp</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>the index of the instance to be updated. </td></tr>
+    <tr><td class="paramname">instance_data</td><td>the new data of the instance. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00210">210</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>
