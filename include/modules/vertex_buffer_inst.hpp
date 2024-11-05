@@ -148,6 +148,11 @@ public:
     vertex_buffer_inst(vertex_buffer_inst&&) noexcept = default;
     [[nodiscard]] auto operator=(vertex_buffer_inst&&) noexcept -> vertex_buffer_inst& = default;
 
+    /**
+     * @brief Add an instance to the buffer.
+     *
+     * @param instance_data the data of the instance to be added.
+     */
     void add_instance(std::span<const float> instance_data) noexcept;
 
     /**
