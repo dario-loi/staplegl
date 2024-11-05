@@ -89,8 +89,8 @@ public:
      */
     vertex_buffer(std::span<const float> vertices) noexcept;
     vertex_buffer(std::span<const float> vertices, driver_draw_hint hint) noexcept;
-    vertex_buffer(std::span<const float> vertices, const vertex_buffer_layout& layout) noexcept;
-    vertex_buffer(std::span<const float> vertices, vertex_buffer_layout layout,
+    vertex_buffer(std::span<const float> vertices, vertex_buffer_layout&& layout) noexcept;
+    vertex_buffer(std::span<const float> vertices, vertex_buffer_layout&& layout,
         driver_draw_hint hint) noexcept;
     ~vertex_buffer();
 
@@ -125,23 +125,52 @@ public:
     /**
      * @brief Give new data to the vertex buffer object, overwriting the old one.
      *
+     * @param vertices std::span<const float> the new data to be given to the vertex buffer object.
      */
-
     void set_data(std::span<const float> vertices) const noexcept;
+
+    /**
+     * @brief Give new data to the vertex buffer object, overwriting the old one. Also re-specify the hint.
+     *
+     * @param vertices std::span<const float> the new data to be given to the vertex buffer object.
+     * @param hint staplegl::driver_draw_hint the new hint to be given to the vertex buffer object.
+     *
+     * @see driver_draw_hint
+     */
+    void set_data(std::span<const float> vertices, driver_draw_hint hint) const noexcept;
 
     // UTILITIES
 
     /**
      * @brief Get the id of the vertex buffer object.
      *
+     * @return std::uint32_t the id of the vertex buffer object.
      */
     [[nodiscard]] constexpr auto id() const noexcept -> std::uint32_t { return m_id; }
 
     /**
-     * @brief Get the size of the vertex buffer object in bytes.
+     * @brief Get the number of vertices in the vertex buffer object.
+     *
+     * @return std::size_t the number of vertices in the vertex buffer object.
      *
      */
-    [[nodiscard]] constexpr auto size() const noexcept -> std::size_t { return m_layout.stride(); }
+    [[nodiscard]] constexpr auto size() const noexcept -> std::size_t { return m_size; }
+
+    /**
+     * @brief Return the driver draw hint of the vertex buffer object.
+     *
+     *@return driver_draw_hint the hint of the vertex buffer object.
+     */
+    [[nodiscard]] constexpr auto draw_hint() const noexcept -> driver_draw_hint { return m_hint; }
+
+    /**
+     * @brief Get the size of the vertex buffer object in bytes.
+     *
+     * @return std::size_t the number of bytes the underlying OpenGL buffer takes up (assuming packed data).
+     */
+    [[nodiscard]] constexpr auto size_bytes() const noexcept -> std::size_t { return m_size * m_layout.stride(); }
+
+    // APPLY FUNCTION
 
     /**
      * @brief Applies a function to the vertices of the vertex buffer object.
@@ -168,7 +197,9 @@ public:
 
 protected:
     std::uint32_t m_id {};
+    staplegl::driver_draw_hint m_hint {};
     vertex_buffer_layout m_layout;
+    std::size_t m_size {};
 };
 
 /*
@@ -177,9 +208,11 @@ protected:
 
 */
 
-inline vertex_buffer::vertex_buffer(std::span<const float> vertices, vertex_buffer_layout layout,
+inline vertex_buffer::vertex_buffer(std::span<const float> vertices, vertex_buffer_layout&& layout,
     driver_draw_hint hint) noexcept
-    : m_layout(std::move(layout))
+    : m_hint(hint)
+    , m_layout(std::move(layout))
+    , m_size((m_layout.stride()) ? vertices.size_bytes() / m_layout.stride() : static_cast<size_t>(0))
 {
     glGenBuffers(1, &m_id);
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
@@ -191,13 +224,13 @@ inline vertex_buffer::vertex_buffer(std::span<const float> vertices, driver_draw
 {
 }
 
-inline vertex_buffer::vertex_buffer(std::span<const float> vertices, const vertex_buffer_layout& layout) noexcept
-    : vertex_buffer(vertices, layout, driver_draw_hint::DYNAMIC_DRAW)
+inline vertex_buffer::vertex_buffer(std::span<const float> vertices, vertex_buffer_layout&& layout) noexcept
+    : vertex_buffer(vertices, std::move(layout), driver_draw_hint::STATIC_DRAW)
 {
 }
 
 inline vertex_buffer::vertex_buffer(std::span<const float> vertices) noexcept
-    : vertex_buffer(vertices, vertex_buffer_layout {}, driver_draw_hint::DYNAMIC_DRAW)
+    : vertex_buffer(vertices, vertex_buffer_layout {}, driver_draw_hint::STATIC_DRAW)
 {
 }
 
@@ -210,7 +243,9 @@ inline vertex_buffer::~vertex_buffer()
 
 inline vertex_buffer::vertex_buffer(vertex_buffer&& other) noexcept
     : m_id { other.m_id }
+    , m_hint { other.m_hint }
     , m_layout { std::move(other.m_layout) }
+    , m_size { other.m_size }
 {
     other.m_id = 0;
 }
@@ -221,6 +256,8 @@ inline auto vertex_buffer::operator=(vertex_buffer&& other) noexcept -> vertex_b
         glDeleteBuffers(1, &m_id);
         m_id = other.m_id;
         m_layout = other.m_layout;
+        m_hint = other.m_hint;
+        m_size = other.m_size;
 
         other.m_id = 0;
     }
@@ -250,8 +287,14 @@ inline void vertex_buffer::set_layout(const vertex_buffer_layout& layout)
 
 inline void vertex_buffer::set_data(std::span<const float> vertices) const noexcept
 {
+
+    this->set_data(vertices, m_hint);
+}
+
+inline void vertex_buffer::set_data(std::span<const float> vertices, driver_draw_hint hint) const noexcept
+{
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
-    glBufferData(GL_ARRAY_BUFFER, static_cast<ptrdiff_t>(vertices.size_bytes()), vertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, static_cast<ptrdiff_t>(vertices.size_bytes()), vertices.data(), hint);
 }
 
 template <plain_old_data T>
@@ -259,11 +302,8 @@ void vertex_buffer::apply(const std::function<void(std::span<T> vertices)>& func
 {
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
 
-    int32_t buffer_size {};
-    glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &buffer_size);
-
     func(std::span { reinterpret_cast<T*>(glMapBuffer(GL_ARRAY_BUFFER, access_specifier)), // NOLINT (reinterpret-cast)
-        buffer_size / sizeof(T) });
+        m_size });
 
     glUnmapBuffer(GL_ARRAY_BUFFER);
 }

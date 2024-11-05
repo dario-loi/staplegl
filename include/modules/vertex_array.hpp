@@ -230,7 +230,7 @@ inline auto vertex_array::add_vertex_buffer(vertex_buffer&& vbo) -> vertex_array
 
     vbo_ref.bind();
 
-    for (const auto& [type, name, offset, element_count] : vbo_ref.layout().get_attributes()) {
+    for (const auto& [name, element_count, offset, type] : vbo_ref.layout().get_attributes()) {
         glEnableVertexAttribArray(attrib_index);
         glVertexAttribPointer(
             attrib_index++,
@@ -251,7 +251,7 @@ inline void vertex_array::set_instance_buffer(vertex_buffer_inst&& vbo)
     glBindVertexArray(m_id);
     m_instanced_vbo->bind();
 
-    for (const auto& [type, name, offset, element_count] : m_instanced_vbo->layout().get_attributes()) {
+    for (const auto& [name, element_count, offset, type] : m_instanced_vbo->layout().get_attributes()) {
         glEnableVertexAttribArray(attrib_index);
         glVertexAttribPointer(
             attrib_index++,

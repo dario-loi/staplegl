@@ -7,7 +7,7 @@
  *
  * @details Provides a simple abstraction for vertex buffer layouts,
  * allowing to specify the layout of the vertex buffer in a simple and easy to use way. <br>
- * 
+ *
  * Vertex buffer layouts are used to specify the layout of the data contained in a vertex buffer,
  * that is, the type of the data, the name of the attribute and the offset of the attribute in the buffer
  * (in bytes).
@@ -35,25 +35,24 @@ namespace staplegl {
  * @see shader_data_type.hpp
  */
 struct vertex_attribute {
-    shader_data_type::u_type type {};
     std::string name;
-    std::uint32_t offset {};
     std::size_t element_count { 1 };
+    std::uint32_t offset {};
+    shader_data_type::u_type type {};
 
     vertex_attribute() = default;
     ~vertex_attribute() = default;
 
     vertex_attribute(shader_data_type::u_type in_type, std::string_view in_name)
-        : type { in_type }
-        , name { in_name }
+        : name { in_name }
+        , type { in_type }
     {
     }
 
     vertex_attribute(shader_data_type::shader_array_type in_type, std::string_view in_name, size_t element_count)
-        : type { static_cast<shader_data_type::u_type>(in_type) }
-        , name { in_name }
-        , 
-         element_count { element_count }
+        : name { in_name }
+        , element_count { element_count }
+        , type { static_cast<shader_data_type::u_type>(in_type) }
     {
     }
 
@@ -79,8 +78,8 @@ struct vertex_attribute {
 class vertex_buffer_layout {
 
 private:
-    std::size_t m_stride {};
     std::vector<vertex_attribute> m_attributes;
+    std::size_t m_stride {};
 
 public:
     vertex_buffer_layout() = default;
@@ -120,7 +119,7 @@ public:
      */
     [[nodiscard]] auto get_attributes() const noexcept -> std::span<const vertex_attribute>
     {
-      return {m_attributes};
+        return { m_attributes };
     }
 
     /**
