@@ -132,8 +132,8 @@ private:
 
 public:
     vertex_buffer_inst(std::span<const float> instance_data,
-        const vertex_buffer_layout& layout) noexcept
-        : vertex_buffer { instance_data, layout, driver_draw_hint::DYNAMIC_DRAW }
+        vertex_buffer_layout&& layout) noexcept
+        : vertex_buffer { instance_data, std::move(layout), driver_draw_hint::DYNAMIC_DRAW }
         , m_capacity { instance_data.size() } {};
 
     vertex_buffer_inst(std::span<const float> instance_data) noexcept
@@ -148,8 +148,35 @@ public:
     vertex_buffer_inst(vertex_buffer_inst&&) noexcept = default;
     [[nodiscard]] auto operator=(vertex_buffer_inst&&) noexcept -> vertex_buffer_inst& = default;
 
+    /**
+     * @brief Add an instance to the buffer.
+     *
+     * @param instance_data the data of the instance to be added.
+     */
     void add_instance(std::span<const float> instance_data) noexcept;
+
+    /**
+     * @brief Delete an instance from the buffer, does not preserve the order of the instances.
+     *
+     * @warning The order of the instances is not preserved, by deleting an instance, the last instance will be moved to the position of the deleted instance.
+     * @note For out-of-bounds indices, the function will do nothing and return the index of the last instance in the buffer (as it has not been moved).
+     *
+     * @param index the index of the instance to be deleted.
+     * @return int32_t the new index of the last instance in the buffer (so that the user can keep track of the indices).
+     */
     auto delete_instance(std::int32_t index) noexcept -> int32_t;
+
+    /**
+     * @brief Update the data of an instance in the buffer.
+     *
+     * @note The entire contents of instance_data will *not* be written at the index, only the first layout.stride() bytes,
+     * preventing buffer overflows. Debug builds will also assert that the size of instance_data is equal to layout.stride().
+     *
+     * @see vertex_buffer_layout.hpp
+     *
+     * @param index the index of the instance to be updated.
+     * @param instance_data the new data of the instance.
+     */
     void update_instance(std::int32_t index,
         std::span<const float> instance_data) noexcept;
 
@@ -176,7 +203,8 @@ inline void vertex_buffer_inst::add_instance(std::span<const float> instance_dat
     }
 
     update_instance(m_count, instance_data);
-    m_count++;
+    ++m_count;
+    ++m_size;
 }
 
 inline void vertex_buffer_inst::update_instance(std::int32_t index, std::span<const float> instance_data) noexcept
@@ -188,15 +216,15 @@ inline void vertex_buffer_inst::update_instance(std::int32_t index, std::span<co
 
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
     glBufferSubData(GL_ARRAY_BUFFER,
-        static_cast<ptrdiff_t>(index * instance_data.size_bytes()),
-        static_cast<ptrdiff_t>(instance_data.size_bytes()),
+        static_cast<ptrdiff_t>(index * m_layout.stride()),
+        static_cast<ptrdiff_t>(m_layout.stride()),
         instance_data.data());
 }
 
 inline auto vertex_buffer_inst::delete_instance(std::int32_t index) noexcept -> std::int32_t
 {
     if (index >= m_count || index < 0) [[unlikely]] {
-        return m_count;
+        return m_count - 1;
     } // pretend we did something
 
     // move the last instance to the position of the deleted instance
@@ -217,7 +245,8 @@ inline auto vertex_buffer_inst::delete_instance(std::int32_t index) noexcept -> 
     glUnmapBuffer(GL_ARRAY_BUFFER);
 
     // by reducing the count, we effectively delete the last instance (preventing duplicates)
-    m_count--;
+    --m_count;
+    --m_size;
 
     return index;
 }
