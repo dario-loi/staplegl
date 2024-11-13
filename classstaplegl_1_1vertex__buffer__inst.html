@@ -282,7 +282,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00134">134</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00136">136</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>
@@ -310,7 +310,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00139">139</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00141">141</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>
@@ -424,7 +424,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00197">197</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00199">199</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>
@@ -489,7 +489,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00187">187</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00189">189</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>
@@ -528,7 +528,7 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int32_t the new index of the last instance in the buffer (so that the user can keep track of the indices). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00224">224</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00225">225</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>
@@ -555,7 +555,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00185">185</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00187">187</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>
@@ -582,7 +582,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00186">186</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00188">188</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>
@@ -673,21 +673,16 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Resize the buffer to the given capacity. </p>
+<dl class="section note"><dt>Note</dt><dd>The old buffer is regrown and a temporary buffer is created to copy the data from the old buffer to the new one. One could argue that this is not the most efficient way, as the data could be copied directly from the old buffer to the new one, however, our main concern is ID stability, so that the buffers do not have to be re-bound after resizing.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>the id of the buffer to be resized.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See also</dt><dd>Side effects: the old buffer will be deleted and the new buffer will be bound to GL_ARRAY_BUFFER.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">capacity</td><td>the new capacity of the buffer, in bytes. </td></tr>
+    <tr><td class="paramname">old_capacity</td><td>the old capacity of the buffer. </td></tr>
+    <tr><td class="paramname">new_capacity</td><td>the new capacity of the buffer. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00102">102</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00103">103</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>
@@ -736,7 +731,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00210">210</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vertex__buffer__inst_8hpp_source.html#l00211">211</a> of file <a class="el" href="vertex__buffer__inst_8hpp_source.html">vertex_buffer_inst.hpp</a>.</p>
 
 </div>
 </div>
