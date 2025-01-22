@@ -1,7 +1,7 @@
 var classstaplegl_1_1texture__2d =
 [
     [ "texture_2d", "classstaplegl_1_1texture__2d.html#a8bccf596889475507b2fcd4a3fb4bd01", null ],
-    [ "texture_2d", "classstaplegl_1_1texture__2d.html#a4d326215bab16ee67416432b13964282", null ],
+    [ "texture_2d", "classstaplegl_1_1texture__2d.html#a551f3ac463e991e9eecb197a678f89b4", null ],
     [ "~texture_2d", "classstaplegl_1_1texture__2d.html#a02bb797db9d997af92e52d2445258834", null ],
     [ "texture_2d", "classstaplegl_1_1texture__2d.html#a6891b79959e131053effc0e4bdf540e2", null ],
     [ "texture_2d", "classstaplegl_1_1texture__2d.html#a61a44cc30dfe9e18fdc69a85dc4a348d", null ],

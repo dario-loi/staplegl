@@ -126,9 +126,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8bccf596889475507b2fcd4a3fb4bd01" id="r_a8bccf596889475507b2fcd4a3fb4bd01"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1texture__2d.html#a8bccf596889475507b2fcd4a3fb4bd01">texture_2d</a> ()=default</td></tr>
 <tr class="memdesc:a8bccf596889475507b2fcd4a3fb4bd01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new texture 2d object.  <br /></td></tr>
 <tr class="separator:a8bccf596889475507b2fcd4a3fb4bd01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d326215bab16ee67416432b13964282" id="r_a4d326215bab16ee67416432b13964282"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1texture__2d.html#a4d326215bab16ee67416432b13964282">texture_2d</a> (std::span&lt; const float &gt; data, <a class="el" href="structstaplegl_1_1resolution.html">resolution</a> res, <a class="el" href="structstaplegl_1_1texture__color.html">texture_color</a> <a class="el" href="classstaplegl_1_1texture__2d.html#ad936a5cd32a930de72835cc4bad0114a">color</a>, <a class="el" href="structstaplegl_1_1texture__filter.html">texture_filter</a> filters, <a class="el" href="namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229de">tex_samples</a> samples=<a class="el" href="namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229dea96d5466956a3db605430cdde90cc4c80">tex_samples::MSAA_X1</a>, bool generate_mipmap=false) noexcept</td></tr>
-<tr class="memdesc:a4d326215bab16ee67416432b13964282"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new texture 2d object.  <br /></td></tr>
-<tr class="separator:a4d326215bab16ee67416432b13964282"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a551f3ac463e991e9eecb197a678f89b4" id="r_a551f3ac463e991e9eecb197a678f89b4"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; <br />
+requires std::integral&lt;T&gt; || std::floating_point&lt;T&gt;</td></tr>
+<tr class="memitem:a551f3ac463e991e9eecb197a678f89b4"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1texture__2d.html#a551f3ac463e991e9eecb197a678f89b4">texture_2d</a> (std::span&lt; const T &gt; data, <a class="el" href="structstaplegl_1_1resolution.html">resolution</a> res, <a class="el" href="structstaplegl_1_1texture__color.html">texture_color</a> <a class="el" href="classstaplegl_1_1texture__2d.html#ad936a5cd32a930de72835cc4bad0114a">color</a>, <a class="el" href="structstaplegl_1_1texture__filter.html">texture_filter</a> filters, <a class="el" href="namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229de">tex_samples</a> samples=<a class="el" href="namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229dea96d5466956a3db605430cdde90cc4c80">tex_samples::MSAA_X1</a>, bool generate_mipmap=false) noexcept</td></tr>
+<tr class="memdesc:a551f3ac463e991e9eecb197a678f89b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new texture 2d object.  <br /></td></tr>
+<tr class="separator:a551f3ac463e991e9eecb197a678f89b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02bb797db9d997af92e52d2445258834" id="r_a02bb797db9d997af92e52d2445258834"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaplegl_1_1texture__2d.html#a02bb797db9d997af92e52d2445258834">~texture_2d</a> ()</td></tr>
 <tr class="memdesc:a02bb797db9d997af92e52d2445258834"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the texture 2d object.  <br /></td></tr>
 <tr class="separator:a02bb797db9d997af92e52d2445258834"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -193,7 +195,7 @@ Private Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="teapot_8cpp-example.html#_a15">teapot.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00096">96</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00097">97</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8bccf596889475507b2fcd4a3fb4bd01" name="a8bccf596889475507b2fcd4a3fb4bd01"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8bccf596889475507b2fcd4a3fb4bd01">&#9670;&#160;</a></span>texture_2d() <span class="overload">[1/4]</span></h2>
@@ -219,17 +221,20 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Construct a new texture 2d object. </p>
-<p>This constructor is only left here to allow users to create containers of <a class="el" href="classstaplegl_1_1texture__2d.html" title="2D texture wrapper.">texture_2d</a> objects without having to initialize them immediately, every one of those instances should be overwritten before use through a call to <code><a class="el" href="classstaplegl_1_1texture__2d.html" title="2D texture wrapper.">texture_2d</a>::(std::span&lt;const float&gt; data, resolution res, <a class="el" href="structstaplegl_1_1texture__color.html" title="OpenGL texture details relating to the color format and data type.">texture_color</a> color, bool generate_mipmap)</code>.</p>
+<p>This constructor is only left here to allow users to create containers of <a class="el" href="classstaplegl_1_1texture__2d.html" title="2D texture wrapper.">texture_2d</a> objects without having to initialize them immediately, every one of those instances should be overwritten before use through a call to <code><a class="el" href="classstaplegl_1_1texture__2d.html" title="2D texture wrapper.">texture_2d</a>::(std::span&lt;T&gt; data, resolution res, <a class="el" href="structstaplegl_1_1texture__color.html" title="OpenGL texture details relating to the color format and data type.">texture_color</a> color, bool generate_mipmap)</code>.</p>
 <p>A default-constructed <a class="el" href="classstaplegl_1_1texture__2d.html" title="2D texture wrapper.">texture_2d</a> object is <em>still</em> valid, having an ID of 0, it is however not backed by any OpenGL texture object, therefore it cannot be used in any OpenGL calls (binding it to a framebuffer, for example, would be practically equivalent to unbinding the color attachment for that particular slot).</p>
 <dl class="section warning"><dt>Warning</dt><dd>this constructor does not initialize the texture object, remember to perform initialization before using it. </dd></dl>
 
 </div>
 </div>
-<a id="a4d326215bab16ee67416432b13964282" name="a4d326215bab16ee67416432b13964282"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d326215bab16ee67416432b13964282">&#9670;&#160;</a></span>texture_2d() <span class="overload">[2/4]</span></h2>
+<a id="a551f3ac463e991e9eecb197a678f89b4" name="a551f3ac463e991e9eecb197a678f89b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a551f3ac463e991e9eecb197a678f89b4">&#9670;&#160;</a></span>texture_2d() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; <br />
+requires std::integral&lt;T&gt; || std::floating_point&lt;T&gt;</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -237,7 +242,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">staplegl::texture_2d::texture_2d </td>
           <td>(</td>
-          <td class="paramtype">std::span&lt; const float &gt;&#160;</td>
+          <td class="paramtype">std::span&lt; const T &gt;&#160;</td>
           <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
@@ -284,6 +289,12 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Construct a new texture 2d object. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>raw type of the data, commonly float or uint8_t (unsigned char)</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>span of floats that contains the texture data. </td></tr>
@@ -296,7 +307,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00291">291</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00298">298</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -325,7 +336,7 @@ Private Attributes</h2></td></tr>
 
 <p>Destroy the texture 2d object. </p>
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00132">132</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00137">137</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -387,7 +398,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00151">151</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00156">156</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -419,7 +430,7 @@ Private Attributes</h2></td></tr>
 <p>Get the texture antialias struct. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="structstaplegl_1_1texture__antialias.html" title="OpenGL texture details relating to the number of samples to use for the texture.">texture_antialias</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00275">275</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00280">280</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -448,7 +459,7 @@ Private Attributes</h2></td></tr>
 
 <p>Bind the texture object. </p>
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00207">207</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00212">212</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -479,7 +490,7 @@ Private Attributes</h2></td></tr>
 <p>Get the texture color struct. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="structstaplegl_1_1texture__color.html" title="OpenGL texture details relating to the color format and data type.">texture_color</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00235">235</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00240">240</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -510,7 +521,7 @@ Private Attributes</h2></td></tr>
 <p>Get the texture filter struct. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="structstaplegl_1_1texture__filter.html" title="OpenGL texture details relating to filtering and clamping of the image.">texture_filter</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00265">265</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00270">270</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -541,7 +552,7 @@ Private Attributes</h2></td></tr>
 <p>Get the resolution of the texture object. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="structstaplegl_1_1resolution.html" title="A struct that represents an image&#39;s dimensions.">staplegl::resolution</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00255">255</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00260">260</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -572,7 +583,7 @@ Private Attributes</h2></td></tr>
 <p>Get the last texture unit this texture was bound to. </p>
 <dl class="section return"><dt>Returns</dt><dd>uint32_t a texture unit offset from <code>GL_TEXTURE0</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00225">225</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00230">230</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -603,7 +614,7 @@ Private Attributes</h2></td></tr>
 <p>Get the id of the texture object. </p>
 <dl class="section return"><dt>Returns</dt><dd>std::uint32_t </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00245">245</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00250">250</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -667,7 +678,7 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classstaplegl_1_1texture__2d.html" title="2D texture wrapper.">texture_2d</a>&amp; the reference to this object. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00167">167</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00172">172</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -728,7 +739,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00320">320</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00327">327</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -764,7 +775,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00185">185</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00190">190</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -793,7 +804,7 @@ Private Attributes</h2></td></tr>
 
 <p>Unbind the texture object. </p>
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00216">216</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00221">221</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -818,7 +829,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00288">288</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00293">293</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -842,7 +853,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00285">285</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00290">290</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -866,7 +877,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00286">286</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00291">291</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -890,7 +901,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00283">283</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00288">288</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -914,7 +925,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00287">287</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00292">292</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -938,7 +949,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00284">284</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="texture_8hpp_source.html#l00289">289</a> of file <a class="el" href="texture_8hpp_source.html">texture.hpp</a>.</p>
 
 </div>
 </div>
