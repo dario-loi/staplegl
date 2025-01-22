@@ -10,7 +10,7 @@ var classstaplegl_1_1texture__2d =
     [ "color", "classstaplegl_1_1texture__2d.html#ad936a5cd32a930de72835cc4bad0114a", null ],
     [ "filter", "classstaplegl_1_1texture__2d.html#a23b924b03af460c1f906e309e28e2cdc", null ],
     [ "get_resolution", "classstaplegl_1_1texture__2d.html#ac820a801d29a284d0e2e29cf14aaf12d", null ],
-    [ "get_unit", "classstaplegl_1_1texture__2d.html#aa380befb47b25abd466132f254c86853", null ],
+    [ "get_unit", "classstaplegl_1_1texture__2d.html#a807eaedde95929b4efde5fc528d4cfe3", null ],
     [ "id", "classstaplegl_1_1texture__2d.html#a1a8bd166186266e7e26b394288e78e48", null ],
     [ "operator=", "classstaplegl_1_1texture__2d.html#a59b25033187558a1fc5238d5ffe7f64b", null ],
     [ "operator=", "classstaplegl_1_1texture__2d.html#ab80d54c456001c7c8fd9c9b18c50eef0", null ],

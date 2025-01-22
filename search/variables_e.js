@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['width_414',['width',['../structstaplegl_1_1resolution.html#add9b47042cda3bbca0e1052553eb878f',1,'staplegl::resolution']]]
+  ['x_0',['x',['../structvec3.html#a4ee2cfd5c2698031a47ab7f898d8d47b',1,'vec3']]]
 ];

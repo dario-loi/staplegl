@@ -1,12 +1,27 @@
 <map id="include/modules/shader_data_type.hpp" name="include/modules/shader_data_type.hpp">
-<area shape="rect" id="node1" title="Shader data type definitions." alt="" coords="207,5,385,47"/>
-<area shape="rect" id="node2" href="$vertex__buffer__layout_8hpp.html" title="Vertex Buffer Layout abstraction." alt="" coords="209,95,383,136"/>
-<area shape="rect" id="node3" href="$uniform__buffer_8hpp.html" title="Uniform Buffer Object (UBO) wrapper." alt="" coords="12,273,196,315"/>
-<area shape="rect" id="node4" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="207,452,361,479"/>
-<area shape="rect" id="node8" href="$vertex__buffer_8hpp.html" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="271,184,446,225"/>
-<area shape="rect" id="node10" href="$vertex__buffer__inst_8hpp.html" title="Vertex buffer object for instanced rendering." alt="" coords="397,273,571,315"/>
-<area shape="rect" id="node5" href="$batches_8cpp.html" title="Batched rendering example." alt="" coords="5,527,173,553"/>
-<area shape="rect" id="node6" href="$sandbox_8cpp.html" title="Minimal example of how to use staplegl." alt="" coords="198,527,370,553"/>
-<area shape="rect" id="node7" href="$teapot_8cpp.html" title="More complex example of staplegl usage with the Utah Teapot model." alt="" coords="394,527,553,553"/>
-<area shape="rect" id="node9" href="$vertex__array_8hpp.html" title="Vertex Array Object (VAO) wrapper." alt="" coords="322,363,497,404"/>
+<area shape="rect" id="Node000001" title="Shader data type definitions." alt="" coords="207,5,385,45"/>
+<area shape="rect" id="Node000002" href="$vertex__buffer__layout_8hpp.html" title="Vertex Buffer Layout abstraction." alt="" coords="209,93,383,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="299,59,299,93,293,93,293,59"/>
+<area shape="rect" id="Node000003" href="$uniform__buffer_8hpp.html" title="Uniform Buffer Object (UBO) wrapper." alt="" coords="12,269,196,309"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="263,144,216,183,125,271,121,267,213,179,260,140"/>
+<area shape="rect" id="Node000004" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="207,445,361,471"/>
+<area shape="poly" id="edge15_Node000002_Node000004" title=" " alt="" coords="278,146,263,182,256,220,254,259,259,336,271,401,283,444,278,446,266,402,254,336,248,259,251,219,257,181,273,144"/>
+<area shape="rect" id="Node000008" href="$vertex__buffer_8hpp.html" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="271,181,446,221"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="320,143,347,180,343,183,316,146"/>
+<area shape="rect" id="Node000010" href="$vertex__buffer__inst_8hpp.html" title="Vertex buffer object for instanced rendering." alt="" coords="397,269,571,309"/>
+<area shape="poly" id="edge14_Node000002_Node000010" title=" " alt="" coords="397,136,431,154,461,180,474,201,482,225,487,269,482,269,477,226,469,203,457,183,428,159,395,141"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="135,318,216,395,272,443,268,447,213,399,131,321"/>
+<area shape="rect" id="Node000005" href="$batches_8cpp.html" title="Batched rendering example." alt="" coords="5,519,173,544"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="241,478,122,521,120,516,239,473"/>
+<area shape="rect" id="Node000006" href="$sandbox_8cpp.html" title="Minimal example of how to use staplegl." alt="" coords="198,519,370,544"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="287,484,287,519,281,519,281,484"/>
+<area shape="rect" id="Node000007" href="$teapot_8cpp.html" title="More complex example of staplegl usage with the Utah Teapot model." alt="" coords="394,519,553,544"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="328,473,443,516,441,521,326,478"/>
+<area shape="poly" id="edge13_Node000008_Node000004" title=" " alt="" coords="351,235,313,358,290,446,284,444,308,357,346,234"/>
+<area shape="rect" id="Node000009" href="$vertex__array_8hpp.html" title="Vertex Array Object (VAO) wrapper." alt="" coords="322,357,497,397"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="368,234,388,309,404,356,399,358,383,310,363,236"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="399,227,458,267,455,271,396,232"/>
+<area shape="poly" id="edge9_Node000009_Node000004" title=" " alt="" coords="369,407,304,447,301,443,366,403"/>
+<area shape="poly" id="edge12_Node000010_Node000004" title=" " alt="" coords="506,321,520,359,520,380,511,399,488,416,451,430,361,449,360,444,449,425,485,411,507,396,515,379,515,360,501,322"/>
+<area shape="poly" id="edge11_Node000010_Node000009" title=" " alt="" coords="460,322,428,359,424,355,456,318"/>
 </map>

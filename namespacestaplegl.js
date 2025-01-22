@@ -17,10 +17,10 @@ var namespacestaplegl =
         [ "mat3", "namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063a0dd87e9dfdea657e8be233b5836821d0", null ],
         [ "mat4", "namespacestaplegl_1_1shader__data__type.html#a648892e19289265a11b3b26743c02063abe14b41eb96410ea28b32bc138d885ae", null ]
       ] ],
-      [ "component_count", "namespacestaplegl_1_1shader__data__type.html#a4ac83ec47a5262df693b2d766a5f8933", null ],
-      [ "size", "namespacestaplegl_1_1shader__data__type.html#a020bfd87583615f65a7af2d893390368", null ],
-      [ "to_opengl_type", "namespacestaplegl_1_1shader__data__type.html#ae2cc58d9cdf8ffc9c9883ce9ee362a25", null ],
-      [ "to_opengl_underlying_type", "namespacestaplegl_1_1shader__data__type.html#a476883a4b5507a3bd02bdf4a4996e293", null ]
+      [ "component_count", "namespacestaplegl_1_1shader__data__type.html#a1af6143f8394e752529ea52e9c9418ee", null ],
+      [ "size", "namespacestaplegl_1_1shader__data__type.html#a95a55f0888e6385f2c9c3564bd932ccb", null ],
+      [ "to_opengl_type", "namespacestaplegl_1_1shader__data__type.html#a262c926229d3730f27391b66ee98d33c", null ],
+      [ "to_opengl_underlying_type", "namespacestaplegl_1_1shader__data__type.html#ab5efe7305635cd0d1906b11d11137efe", null ]
     ] ],
     [ "util", "namespacestaplegl_1_1util.html", [
       [ "get_file_name", "namespacestaplegl_1_1util.html#a3600adde160d0a660f3138108d7e86dc", null ],
@@ -30,19 +30,20 @@ var namespacestaplegl =
     [ "framebuffer", "classstaplegl_1_1framebuffer.html", "classstaplegl_1_1framebuffer" ],
     [ "index_buffer", "classstaplegl_1_1index__buffer.html", "classstaplegl_1_1index__buffer" ],
     [ "renderbuffer", "classstaplegl_1_1renderbuffer.html", "classstaplegl_1_1renderbuffer" ],
+    [ "resolution", "structstaplegl_1_1resolution.html", "structstaplegl_1_1resolution" ],
     [ "shader", "structstaplegl_1_1shader.html", "structstaplegl_1_1shader" ],
     [ "shader_program", "classstaplegl_1_1shader__program.html", "classstaplegl_1_1shader__program" ],
+    [ "texture_2d", "classstaplegl_1_1texture__2d.html", "classstaplegl_1_1texture__2d" ],
+    [ "texture_antialias", "structstaplegl_1_1texture__antialias.html", "structstaplegl_1_1texture__antialias" ],
     [ "texture_color", "structstaplegl_1_1texture__color.html", "structstaplegl_1_1texture__color" ],
     [ "texture_filter", "structstaplegl_1_1texture__filter.html", "structstaplegl_1_1texture__filter" ],
-    [ "texture_antialias", "structstaplegl_1_1texture__antialias.html", "structstaplegl_1_1texture__antialias" ],
-    [ "texture_2d", "classstaplegl_1_1texture__2d.html", "classstaplegl_1_1texture__2d" ],
     [ "uniform_buffer", "classstaplegl_1_1uniform__buffer.html", "classstaplegl_1_1uniform__buffer" ],
-    [ "resolution", "structstaplegl_1_1resolution.html", "structstaplegl_1_1resolution" ],
     [ "vertex_array", "classstaplegl_1_1vertex__array.html", "classstaplegl_1_1vertex__array" ],
+    [ "vertex_attribute", "structstaplegl_1_1vertex__attribute.html", "structstaplegl_1_1vertex__attribute" ],
     [ "vertex_buffer", "classstaplegl_1_1vertex__buffer.html", "classstaplegl_1_1vertex__buffer" ],
     [ "vertex_buffer_inst", "classstaplegl_1_1vertex__buffer__inst.html", "classstaplegl_1_1vertex__buffer__inst" ],
-    [ "vertex_attribute", "structstaplegl_1_1vertex__attribute.html", "structstaplegl_1_1vertex__attribute" ],
     [ "vertex_buffer_layout", "classstaplegl_1_1vertex__buffer__layout.html", "classstaplegl_1_1vertex__buffer__layout" ],
+    [ "plain_old_data", "conceptstaplegl_1_1plain__old__data.html", null ],
     [ "driver_access_specifier", "namespacestaplegl.html#a36fe2820e5ba7d6bb37aecf456947854", [
       [ "READ_ONLY", "namespacestaplegl.html#a36fe2820e5ba7d6bb37aecf456947854ac15381322509cc8c12b23161bb9e3250", null ],
       [ "WRITE_ONLY", "namespacestaplegl.html#a36fe2820e5ba7d6bb37aecf456947854af4c137217ae057e619d62bdfaa966c45", null ],
@@ -75,6 +76,5 @@ var namespacestaplegl =
       [ "MSAA_X32", "namespacestaplegl.html#a2d27f6fa7483d510588e9a271a4229dea0053eb175e98711ec5aa696b2c29bf35", null ]
     ] ],
     [ "shader_type_to_string", "namespacestaplegl.html#a03ef09c0954a687733a0d96b17ffd5b3", null ],
-    [ "to_mipmap", "namespacestaplegl.html#a87cf4dcd750ac7b93b0612b6c3a4d2dc", null ],
-    [ "plain_old_data", "namespacestaplegl.html#ac8e0062d2fd9c47b259fbf77c20c6fff", null ]
+    [ "to_mipmap", "namespacestaplegl.html#a87cf4dcd750ac7b93b0612b6c3a4d2dc", null ]
 ];

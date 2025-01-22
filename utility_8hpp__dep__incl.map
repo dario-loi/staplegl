@@ -1,12 +1,28 @@
 <map id="include/modules/utility.hpp" name="include/modules/utility.hpp">
-<area shape="rect" id="node1" title="Utility functions for parsing files." alt="" coords="305,5,503,32"/>
-<area shape="rect" id="node2" href="$cubemap_8hpp.html" title="Cube map texture wrapper." alt="" coords="5,155,227,181"/>
-<area shape="rect" id="node7" href="$framebuffer_8hpp.html" title="Wrapper for OpenGL Framebuffer Objects." alt="" coords="301,155,539,181"/>
-<area shape="rect" id="node8" href="$renderbuffer_8hpp.html" title="Render Buffer Object (RBO) wrapper." alt="" coords="441,80,681,107"/>
-<area shape="rect" id="node9" href="$shader_8hpp.html" title="Shader program wrapper." alt="" coords="615,155,819,181"/>
-<area shape="rect" id="node10" href="$texture_8hpp.html" title="Texture abstraction." alt="" coords="159,80,367,107"/>
-<area shape="rect" id="node3" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="343,229,497,256"/>
-<area shape="rect" id="node4" href="$batches_8cpp.html" title="Batched rendering example." alt="" coords="141,304,309,331"/>
-<area shape="rect" id="node5" href="$sandbox_8cpp.html" title="Minimal example of how to use staplegl." alt="" coords="334,304,506,331"/>
-<area shape="rect" id="node6" href="$teapot_8cpp.html" title="More complex example of staplegl usage with the Utah Teapot model." alt="" coords="530,304,689,331"/>
+<area shape="rect" id="Node000001" title="Utility functions for parsing files." alt="" coords="305,5,503,31"/>
+<area shape="rect" id="Node000002" href="$cubemap_8hpp.html" title="Cube map texture wrapper." alt="" coords="5,152,227,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="302,35,210,54,173,67,148,81,135,97,127,116,119,152,114,151,122,115,131,94,145,77,171,62,209,49,301,30"/>
+<area shape="rect" id="Node000007" href="$framebuffer_8hpp.html" title="Wrapper for OpenGL Framebuffer Objects." alt="" coords="301,152,539,177"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="409,44,421,151,416,152,404,45"/>
+<area shape="rect" id="Node000008" href="$renderbuffer_8hpp.html" title="Render Buffer Object (RBO) wrapper." alt="" coords="441,79,681,104"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="443,34,537,76,535,81,441,39"/>
+<area shape="rect" id="Node000009" href="$shader_8hpp.html" title="Shader program wrapper." alt="" coords="615,152,819,177"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="517,28,622,46,666,60,695,77,708,94,716,115,720,151,715,152,710,116,703,97,692,81,664,65,621,51,516,33"/>
+<area shape="rect" id="Node000010" href="$texture_8hpp.html" title="Texture abstraction." alt="" coords="159,79,367,104"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="371,39,287,81,285,76,368,34"/>
+<area shape="rect" id="Node000003" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="343,225,497,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="179,178,371,223,370,228,177,183"/>
+<area shape="rect" id="Node000004" href="$batches_8cpp.html" title="Batched rendering example." alt="" coords="141,299,309,324"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="377,258,258,301,256,296,375,253"/>
+<area shape="rect" id="Node000005" href="$sandbox_8cpp.html" title="Minimal example of how to use staplegl." alt="" coords="334,299,506,324"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="423,264,423,299,417,299,417,264"/>
+<area shape="rect" id="Node000006" href="$teapot_8cpp.html" title="More complex example of staplegl usage with the Utah Teapot model." alt="" coords="530,299,689,324"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="464,253,579,296,577,301,462,258"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="423,191,423,225,417,225,417,191"/>
+<area shape="poly" id="edge10_Node000008_Node000003" title=" " alt="" coords="567,118,565,149,553,179,537,196,517,210,475,228,473,223,515,205,533,192,548,176,560,148,562,118"/>
+<area shape="poly" id="edge9_Node000008_Node000007" title=" " alt="" coords="528,112,444,154,442,149,525,108"/>
+<area shape="poly" id="edge12_Node000009_Node000003" title=" " alt="" coords="657,183,469,228,468,223,656,178"/>
+<area shape="poly" id="edge14_Node000010_Node000002" title=" " alt="" coords="228,112,141,154,139,149,226,107"/>
+<area shape="poly" id="edge16_Node000010_Node000003" title=" " alt="" coords="268,118,275,148,291,176,309,192,329,205,373,223,371,228,327,209,306,196,287,179,270,150,263,119"/>
+<area shape="poly" id="edge15_Node000010_Node000007" title=" " alt="" coords="302,107,395,149,393,154,299,112"/>
 </map>

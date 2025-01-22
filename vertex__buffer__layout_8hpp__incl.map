@@ -1,13 +1,23 @@
 <map id="include/modules/vertex_buffer_layout.hpp" name="include/modules/vertex_buffer_layout.hpp">
-<area shape="rect" id="node1" title="Vertex Buffer Layout abstraction." alt="" coords="127,5,302,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,59,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="83,95,141,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="166,95,263,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="287,95,350,121"/>
-<area shape="rect" id="node6" href="$shader__data__type_8hpp.html" title="Shader data type definitions." alt="" coords="374,95,541,121"/>
-<area shape="rect" id="node7" href="$gl__functions_8hpp.html" title="Loads OpenGL functions." alt="" coords="222,169,351,196"/>
-<area shape="rect" id="node9" title=" " alt="" coords="375,169,446,196"/>
-<area shape="rect" id="node10" title=" " alt="" coords="471,169,537,196"/>
-<area shape="rect" id="node11" title=" " alt="" coords="562,169,649,196"/>
-<area shape="rect" id="node8" title=" " alt="" coords="255,244,318,271"/>
+<area shape="rect" id="Node000001" title="Vertex Buffer Layout abstraction." alt="" coords="127,5,302,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,59,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,48,73,90,71,85,170,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="83,93,141,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="191,48,140,87,136,83,188,43"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="166,93,263,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="217,46,217,79,212,79,212,46"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="287,93,350,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="241,43,294,83,291,87,238,48"/>
+<area shape="rect" id="Node000006" href="$shader__data__type_8hpp.html" title="Shader data type definitions." alt="" coords="374,93,541,119"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="274,43,410,86,408,92,272,48"/>
+<area shape="rect" id="Node000007" href="$gl__functions_8hpp.html" title="Loads OpenGL functions." alt="" coords="222,167,351,192"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="431,121,328,164,326,159,429,116"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="375,167,446,192"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="452,120,428,157,424,154,447,118"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="471,167,537,192"/>
+<area shape="poly" id="edge9_Node000006_Node000010" title=" " alt="" coords="467,118,491,154,487,157,463,120"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="562,167,649,192"/>
+<area shape="poly" id="edge10_Node000006_Node000011" title=" " alt="" coords="482,116,570,158,568,163,480,121"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="255,240,318,265"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="289,192,289,226,284,226,284,192"/>
 </map>

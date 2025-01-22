@@ -1,6 +1,9 @@
 <map id="include/staplegl.hpp" name="include/staplegl.hpp">
-<area shape="rect" id="node1" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="207,5,361,32"/>
-<area shape="rect" id="node2" href="$batches_8cpp.html" title="Batched rendering example." alt="" coords="5,80,173,107"/>
-<area shape="rect" id="node3" href="$sandbox_8cpp.html" title="Minimal example of how to use staplegl." alt="" coords="198,80,370,107"/>
-<area shape="rect" id="node4" href="$teapot_8cpp.html" title="More complex example of staplegl usage with the Utah Teapot model." alt="" coords="394,80,553,107"/>
+<area shape="rect" id="Node000001" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="207,5,361,31"/>
+<area shape="rect" id="Node000002" href="$batches_8cpp.html" title="Batched rendering example." alt="" coords="5,79,173,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="241,38,122,81,120,76,239,33"/>
+<area shape="rect" id="Node000003" href="$sandbox_8cpp.html" title="Minimal example of how to use staplegl." alt="" coords="198,79,370,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="287,44,287,79,281,79,281,44"/>
+<area shape="rect" id="Node000004" href="$teapot_8cpp.html" title="More complex example of staplegl usage with the Utah Teapot model." alt="" coords="394,79,553,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="328,33,443,76,441,81,326,38"/>
 </map>

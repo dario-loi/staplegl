@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_415',['x',['../structvec3.html#a4ee2cfd5c2698031a47ab7f898d8d47b',1,'vec3']]]
+  ['y_0',['y',['../structvec3.html#a891379795a14c80936cde4170239a138',1,'vec3']]]
 ];

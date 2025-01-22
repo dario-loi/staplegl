@@ -1,6 +1,6 @@
 var utility_8hpp =
 [
-    [ "resolution", "structstaplegl_1_1resolution.html", "structstaplegl_1_1resolution" ],
+    [ "staplegl::resolution", "structstaplegl_1_1resolution.html", "structstaplegl_1_1resolution" ],
     [ "tex_samples", "utility_8hpp.html#a2d27f6fa7483d510588e9a271a4229de", [
       [ "MSAA_X1", "utility_8hpp.html#a2d27f6fa7483d510588e9a271a4229dea96d5466956a3db605430cdde90cc4c80", null ],
       [ "MSAA_X2", "utility_8hpp.html#a2d27f6fa7483d510588e9a271a4229dea7290b06806a66c28f0c6b924522c3cf2", null ],

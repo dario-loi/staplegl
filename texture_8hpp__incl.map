@@ -1,10 +1,18 @@
 <map id="include/modules/texture.hpp" name="include/modules/texture.hpp">
-<area shape="rect" id="node1" title="Texture abstraction." alt="" coords="109,5,317,32"/>
-<area shape="rect" id="node2" href="$gl__functions_8hpp.html" title="Loads OpenGL functions." alt="" coords="5,80,135,107"/>
-<area shape="rect" id="node4" href="$utility_8hpp.html" title="Utility functions for parsing files." alt="" coords="211,80,297,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="133,155,199,181"/>
-<area shape="rect" id="node8" title=" " alt="" coords="322,80,375,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="39,155,101,181"/>
-<area shape="rect" id="node6" title=" " alt="" coords="224,155,297,181"/>
-<area shape="rect" id="node7" title=" " alt="" coords="322,155,381,181"/>
+<area shape="rect" id="Node000001" title="Texture abstraction." alt="" coords="109,5,317,31"/>
+<area shape="rect" id="Node000002" href="$gl__functions_8hpp.html" title="Loads OpenGL functions." alt="" coords="5,79,135,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,33,107,75,104,70,189,28"/>
+<area shape="rect" id="Node000004" href="$utility_8hpp.html" title="Utility functions for parsing files." alt="" coords="211,79,297,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="222,30,243,65,238,68,217,32"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="133,152,199,177"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="211,32,177,140,171,138,206,30"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="322,79,375,104"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="236,28,316,70,313,75,233,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="39,152,101,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="73,104,73,138,67,138,67,104"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="242,106,193,145,189,141,238,102"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="224,152,297,177"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="258,104,261,138,256,139,252,105"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="322,152,381,177"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="271,102,326,141,323,146,268,106"/>
 </map>

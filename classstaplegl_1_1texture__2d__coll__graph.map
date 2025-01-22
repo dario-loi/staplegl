@@ -1,7 +1,11 @@
 <map id="staplegl::texture_2d" name="staplegl::texture_2d">
-<area shape="rect" id="node1" title="2D texture wrapper." alt="" coords="335,81,487,108"/>
-<area shape="rect" id="node2" href="$structstaplegl_1_1texture__filter.html" title="OpenGL texture details relating to filtering and clamping of the image." alt="" coords="18,5,185,32"/>
-<area shape="rect" id="node3" href="$structstaplegl_1_1texture__color.html" title="OpenGL texture details relating to the color format and data type." alt="" coords="17,56,185,83"/>
-<area shape="rect" id="node4" href="$structstaplegl_1_1resolution.html" title="A struct that represents an image&#39;s dimensions." alt="" coords="28,107,175,133"/>
-<area shape="rect" id="node5" href="$structstaplegl_1_1texture__antialias.html" title="OpenGL texture details relating to the number of samples to use for the texture." alt="" coords="5,157,197,184"/>
+<area shape="rect" id="Node000001" title="2D texture wrapper." alt="" coords="335,80,487,105"/>
+<area shape="rect" id="Node000002" href="$structstaplegl_1_1texture__color.html" title="OpenGL texture details relating to the color format and data type." alt="" coords="17,5,185,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,31,311,55,378,77,376,82,310,61,197,36"/>
+<area shape="rect" id="Node000003" href="$structstaplegl_1_1texture__filter.html" title="OpenGL texture details relating to filtering and clamping of the image." alt="" coords="18,55,185,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="198,73,335,84,334,89,198,78"/>
+<area shape="rect" id="Node000004" href="$structstaplegl_1_1resolution.html" title="A struct that represents an image&#39;s dimensions." alt="" coords="28,104,175,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="188,115,310,109,350,103,351,108,311,114,189,120"/>
+<area shape="rect" id="Node000005" href="$structstaplegl_1_1texture__antialias.html" title="OpenGL texture details relating to the number of samples to use for the texture." alt="" coords="5,153,197,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="210,155,260,147,310,135,350,120,385,103,388,108,353,125,311,141,262,152,211,160"/>
 </map>

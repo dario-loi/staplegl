@@ -1,4 +1,5 @@
 <map id="staplegl::vertex_buffer" name="staplegl::vertex_buffer">
-<area shape="rect" id="node1" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="5,109,175,136"/>
-<area shape="rect" id="node2" href="$classstaplegl_1_1vertex__buffer__layout.html" title="Vertex buffer layout." alt="" coords="5,5,175,47"/>
+<area shape="rect" id="Node000001" title="Vertex Buffer Object (VBO) wrapper." alt="" coords="5,108,175,133"/>
+<area shape="rect" id="Node000002" href="$classstaplegl_1_1vertex__buffer__layout.html" title="Vertex buffer layout." alt="" coords="5,5,175,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,59,93,108,87,108,87,59"/>
 </map>

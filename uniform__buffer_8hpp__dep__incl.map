@@ -1,7 +1,11 @@
 <map id="include/modules/uniform_buffer.hpp" name="include/modules/uniform_buffer.hpp">
-<area shape="rect" id="node1" title="Uniform Buffer Object (UBO) wrapper." alt="" coords="192,5,376,47"/>
-<area shape="rect" id="node2" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="207,95,361,121"/>
-<area shape="rect" id="node3" href="$batches_8cpp.html" title="Batched rendering example." alt="" coords="5,169,173,196"/>
-<area shape="rect" id="node4" href="$sandbox_8cpp.html" title="Minimal example of how to use staplegl." alt="" coords="198,169,370,196"/>
-<area shape="rect" id="node5" href="$teapot_8cpp.html" title="More complex example of staplegl usage with the Utah Teapot model." alt="" coords="394,169,553,196"/>
+<area shape="rect" id="Node000001" title="Uniform Buffer Object (UBO) wrapper." alt="" coords="192,5,376,45"/>
+<area shape="rect" id="Node000002" href="$staplegl_8hpp.html" title="StapleGL, a C++20 wrapper for OpenGL." alt="" coords="207,93,361,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="287,59,287,93,281,93,281,59"/>
+<area shape="rect" id="Node000003" href="$batches_8cpp.html" title="Batched rendering example." alt="" coords="5,167,173,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="241,126,122,169,120,164,239,121"/>
+<area shape="rect" id="Node000004" href="$sandbox_8cpp.html" title="Minimal example of how to use staplegl." alt="" coords="198,167,370,192"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="287,132,287,167,281,167,281,132"/>
+<area shape="rect" id="Node000005" href="$teapot_8cpp.html" title="More complex example of staplegl usage with the Utah Teapot model." alt="" coords="394,167,553,192"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="328,121,443,164,441,169,326,126"/>
 </map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['name_406',['name',['../structstaplegl_1_1vertex__attribute.html#abc8f644f8b3e24d29ad4e380ae2be09c',1,'staplegl::vertex_attribute']]]
+  ['name_0',['name',['../structstaplegl_1_1vertex__attribute.html#abc8f644f8b3e24d29ad4e380ae2be09c',1,'staplegl::vertex_attribute']]]
 ];
