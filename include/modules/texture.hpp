@@ -28,6 +28,7 @@
 
 #include <cstdint>
 #include <span>
+#include <concepts>
 
 namespace staplegl {
 
@@ -100,7 +101,7 @@ public:
      *
      * @details This constructor is only left here to allow users to create containers of texture_2d objects
      * without having to initialize them immediately, every one of those instances should be overwritten before use
-     * through a call to `texture_2d::(std::span<const float> data, resolution res, texture_color color, bool generate_mipmap)`.
+     * through a call to `texture_2d::(std::span<T> data, resolution res, texture_color color, bool generate_mipmap)`.
      *
      * A default-constructed texture_2d object is *still* valid, having an ID of 0, it is however not backed by any OpenGL texture object,
      * therefore it cannot be used in any OpenGL calls (binding it to a framebuffer, for example, would be practically equivalent to
@@ -113,6 +114,8 @@ public:
     /**
      * @brief Construct a new texture 2d object
      *
+     * @tparam T raw type of the data, commonly float or uint8_t (unsigned char)
+     * 
      * @param data span of floats that contains the texture data.
      * @param res resolution of the texture.
      * @param color descriptor of the texture's color format and data type.
@@ -120,7 +123,9 @@ public:
      * @param samples the number of samples to use for the texture, defaults to 1.
      * @param generate_mipmap whether to generate mipmaps for the texture, defaults to false.
      */
-    texture_2d(std::span<const float> data, resolution res,
+    template <typename T>
+        requires std::integral<T> || std::floating_point<T>
+    texture_2d(std::span<const T> data, resolution res,
         texture_color color, texture_filter filters,
         tex_samples samples = tex_samples::MSAA_X1,
         bool generate_mipmap = false) noexcept;
@@ -288,7 +293,9 @@ private:
     texture_antialias m_antialias {};
 };
 
-inline texture_2d::texture_2d(std::span<const float> data, resolution res,
+template <typename T>
+    requires std::integral<T> || std::floating_point<T>
+inline texture_2d::texture_2d(std::span<const T> data, resolution res,
     texture_color color, texture_filter filter, tex_samples samples, bool generate_mipmap) noexcept
     : m_color { color }
     , m_filter { filter }
