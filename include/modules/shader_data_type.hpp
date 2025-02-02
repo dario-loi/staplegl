@@ -57,6 +57,7 @@ enum class shader_array_type : std::uint8_t {
  *
  */
 enum class u_type : std::uint8_t {
+    
     float32,
     vec2,
     vec3,

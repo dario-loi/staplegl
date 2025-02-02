@@ -156,6 +156,12 @@ public:
      */
     void unbind() const;
 
+    /**
+     * @brief Upload an integer uniform to the shader program
+     * 
+     * @param name Uniform name.
+     * @param val Uniform value.
+     */
     void upload_uniform1i(std::string_view name, int val);
 
     /**
@@ -550,7 +556,6 @@ inline auto shader_program::parse_shaders(std::string_view source) const -> std:
 
 inline auto shader_program::uniform_location(std::string_view name) -> int
 {
-
     if (m_uniform_cache.find(name) != m_uniform_cache.end()) [[likely]] {
         return m_uniform_cache[name];
     } else {
@@ -561,7 +566,6 @@ inline auto shader_program::uniform_location(std::string_view name) -> int
                 name.data(), m_name.data());
         }
 #endif // STAPLEGL_DEBUG
-
         m_uniform_cache[name] = location;
         return location;
     }
