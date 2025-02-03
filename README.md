@@ -164,7 +164,7 @@ void main()
 };
 ```
 ### Multiple files
-With this approach, you will need to spefify the type of the shader with an enum value, which resides in the ```staplegl::shader_type``` namespace, and a file path.
+With this approach, you will need to specify the type of the shader with an enum value, which resides in the ```staplegl::shader_type``` namespace, and a file path.
 ```cpp
 staplegl::shader_program shaders("Basic", {
 		{ staplegl::shader_type::vertex, "shader_examples/vert.glsl" },
